@@ -1,0 +1,145 @@
+{
+  "article": [],
+  "blog": [],
+  "collection": [],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [],
+  "product": [
+    {
+      "key": "queries",
+      "namespace": "shopify--discovery--product_search_boost",
+      "name": "Search product boosts",
+      "description": "List of search queries for which a product gets higher rank in search results",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "related_products",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Related products",
+      "description": "List of related products",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "related_products_display",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Related products settings",
+      "description": "Determines how related products are displayed along with algorithmic product recommendations",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "complementary_products",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Complementary products",
+      "description": "List of complementary products",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "color-pattern",
+      "namespace": "shopify",
+      "name": "Color",
+      "description": "Defines the primary color or pattern, such as blue or striped",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "furniture-fixture-material",
+      "namespace": "shopify",
+      "name": "Furniture/Fixture material",
+      "description": "Identifies the main material used in furniture or fixtures, like wood or metal",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "mounting-type",
+      "namespace": "shopify",
+      "name": "Mounting type",
+      "description": "Specifies how a product is installed or attached, such as clip-on or suction cup",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "age-group",
+      "namespace": "shopify",
+      "name": "Age group",
+      "description": "Defines the target age range for a product, such as adults or kids",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "suitable-space",
+      "namespace": "shopify",
+      "name": "Suitable space",
+      "description": "Defines the ideal location for product use, e.g. indoors, above ground",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "upholstery-material",
+      "namespace": "shopify",
+      "name": "Upholstery material",
+      "description": "Identifies the fabric used for upholstery, such as leather or velvet",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "additional_description",
+      "namespace": "custom",
+      "name": "Additional Description",
+      "description": "Additional Product Description",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "style",
+      "namespace": "shopify",
+      "name": "Style",
+      "description": "Describes the style of a product, typically for window treatments; e.g. vertical blind, pleated shades",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "furniture-fixture-features",
+      "namespace": "shopify",
+      "name": "Furniture/Fixture features",
+      "description": "Highlights special characteristics of furniture or fixtures, like adjustable shelves or built-in mirror",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "variant": [],
+  "shop": []
+}

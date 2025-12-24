@@ -1,0 +1,141 @@
+{% if section.settings.enable %}
+  <style data-custom-fonts>
+    {% assign items = section.blocks | reverse %}
+
+    {% for block in items %}
+      {% assign name = block.settings.name %}
+      {% assign url = block.settings.custom_font_url %}
+      {% assign custom_font_weight = block.settings.custom_font_weight %}
+      {% assign custom_font_style = block.settings.custom_font_style %}
+
+      @font-face {
+        font-family: '{{ name }}';
+        src: url('{{ url }}') format('woff2');
+        font-weight: {{ custom_font_weight }};
+        font-style: {{ custom_font_style }};
+      }
+
+      {% assign selectors = "" %}
+      {% if block.settings.apply_h1 %}{% assign selectors = selectors | append: "h1," %}{% endif %}
+      {% if block.settings.apply_h2 %}{% assign selectors = selectors | append: "h2," %}{% endif %}
+      {% if block.settings.apply_h3 %}{% assign selectors = selectors | append: "h3," %}{% endif %}
+      {% if block.settings.apply_h4 %}{% assign selectors = selectors | append: "h4," %}{% endif %}
+      {% if block.settings.apply_h5 %}{% assign selectors = selectors | append: "h5," %}{% endif %}
+      {% if block.settings.apply_h6 %}{% assign selectors = selectors | append: "h6," %}{% endif %}
+      {% if block.settings.apply_p %}{% assign selectors = selectors | append: "p," %}{% endif %}
+      {% if block.settings.apply_a %}{% assign selectors = selectors | append: "a," %}{% endif %}
+      {% if block.settings.apply_li %}{% assign selectors = selectors | append: "li," %}{% endif %}
+      {% if block.settings.apply_ul %}{% assign selectors = selectors | append: "ul," %}{% endif %}
+      {% if block.settings.apply_ol %}{% assign selectors = selectors | append: "ol," %}{% endif %}
+      {% if block.settings.apply_span %}{% assign selectors = selectors | append: "span," %}{% endif %}
+      {% if block.settings.apply_div %}{% assign selectors = selectors | append: "div," %}{% endif %}
+      {% if block.settings.apply_button %}{% assign selectors = selectors | append: "button," %}{% endif %}
+      {% if block.settings.apply_input %}{% assign selectors = selectors | append: "input," %}{% endif %}
+      {% if block.settings.custom_selector != blank %}
+        {% assign selectors = selectors | append: block.settings.custom_selector | append: "," %}
+      {% endif %}
+
+      {% assign selectors = selectors | slice: 0, selectors.size | strip_newlines | strip %}
+      {% assign selectors = selectors | remove_last: "," %}
+
+      {% if selectors != blank %}
+        {{ selectors }} {
+          font-family: '{{ name }}' !important;
+        }
+      {% endif %}
+    {% endfor %}
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Custom Fonts Loader",
+  "tag": "section",
+  "class": "custom-font-loader",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Enable Custom Fonts",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "font",
+      "name": "Font Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Font Name (used in CSS)"
+        },
+        {
+          "type": "url",
+          "id": "custom_font_url",
+          "label": "Font File URL (.woff2 from Files)"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_weight",
+          "label": "Font Weight",
+          "default": "400",
+          "options": [
+            { "value": "100", "label": "Thin (100)" },
+            { "value": "200", "label": "Extra Light (200)" },
+            { "value": "300", "label": "Light (300)" },
+            { "value": "400", "label": "Normal (400)" },
+            { "value": "500", "label": "Medium (500)" },
+            { "value": "600", "label": "Semi Bold (600)" },
+            { "value": "700", "label": "Bold (700)" },
+            { "value": "800", "label": "Extra Bold (800)" },
+            { "value": "900", "label": "Black (900)" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "custom_font_style",
+          "label": "Font Style",
+          "default": "normal",
+          "options": [
+            { "value": "normal", "label": "Normal" },
+            { "value": "italic", "label": "Italic" }
+          ]
+        },
+        { "type": "checkbox", "id": "apply_h1", "label": "Apply to H1" },
+        { "type": "checkbox", "id": "apply_h2", "label": "Apply to H2" },
+        { "type": "checkbox", "id": "apply_h3", "label": "Apply to H3" },
+        { "type": "checkbox", "id": "apply_h4", "label": "Apply to H4" },
+        { "type": "checkbox", "id": "apply_h5", "label": "Apply to H5" },
+        { "type": "checkbox", "id": "apply_h6", "label": "Apply to H6" },
+        { "type": "checkbox", "id": "apply_p", "label": "Apply to Paragraphs (<p>)" },
+        { "type": "checkbox", "id": "apply_a", "label": "Apply to Links (<a>)" },
+        { "type": "checkbox", "id": "apply_li", "label": "Apply to List Items (<li>)" },
+        { "type": "checkbox", "id": "apply_ul", "label": "Apply to Unordered Lists (<ul>)" },
+        { "type": "checkbox", "id": "apply_ol", "label": "Apply to Ordered Lists (<ol>)" },
+        { "type": "checkbox", "id": "apply_span", "label": "Apply to Spans (<span>)" },
+        { "type": "checkbox", "id": "apply_div", "label": "Apply to Divs (<div>)" },
+        { "type": "checkbox", "id": "apply_button", "label": "Apply to Buttons (<button>)" },
+        { "type": "checkbox", "id": "apply_input", "label": "Apply to Inputs (<input>)" },
+        {
+          "type": "text",
+          "id": "custom_selector",
+          "label": "Custom CSS Selector (optional)",
+          "info": "e.g. .product-title, .footer a"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fonts Loader",
+      "category": "Typography",
+      "blocks": [
+        {
+          "type": "font"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
