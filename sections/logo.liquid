@@ -7,6 +7,13 @@
   if section_settings.inverse and settings.logo_inverse
     assign image = settings.logo_inverse
   endif
+
+  if section_settings.custom_logo != blank
+    assign image = section_settings.custom_logo
+  endif
+  if section_settings.inverse and section_settings.custom_logo_inverse != blank
+    assign image = section_settings.custom_logo_inverse
+  endif
 %}
 
 {%- if image -%}
@@ -131,6 +138,17 @@
       "id": "inverse",
       "default": false,
       "visible_if": "{{ settings.logo_inverse }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_logo",
+      "label": "t:settings.upload_logo",
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_logo_inverse",
+      "label": "t:settings.upload_inverse_logo",
+      "visible_if": "{{ section.settings.inverse }}"
     },
     {
       "type": "select",

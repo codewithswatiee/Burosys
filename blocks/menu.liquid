@@ -2,7 +2,8 @@
 
 {% liquid
   assign block_settings = block.settings
-  assign menu = block_settings.menu
+  assign menu_handle = block_settings.menu
+  assign menu = linklists[menu_handle]
   assign heading = block_settings.heading
   assign color_scheme = block_settings.color_scheme
   assign show_as_accordion = block_settings.show_as_accordion
@@ -56,15 +57,43 @@
 
       <div class="details-content">
         {% if menu %}
-          <ul class="list-unstyled">
-            {% for link in menu.links %}
-              <li class="menu__item {{ block_settings.link_preset }}">
-                <a href="{{ link.url }}">
-                  {{ link.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
+          {% assign top_links = menu.links %}
+
+          {% comment %}Detect if any top-level link contains children{% endcomment %}
+          {% assign has_children = false %}
+          {% for l in top_links %}
+            {% if l.links and l.links.size > 0 %}
+              {% assign has_children = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if has_children %}
+            <div class="menu__columns">
+              {% for group in top_links %}
+                <div class="menu__column {{ block_settings.link_preset }}">
+                  <div class="menu__column__heading">{{ group.title }}</div>
+                  {% if group.links and group.links.size > 0 %}
+                    <ul class="list-unstyled">
+                      {% for child in group.links %}
+                        <li class="menu__item">
+                          <a href="{{ child.url }}">{{ child.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <ul class="list-unstyled">
+              {% for link in top_links %}
+                <li class="menu__item {{ block_settings.link_preset }}">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         {% endif %}
       </div>
     </details>
@@ -82,6 +111,10 @@
 
   .menu__item + .menu__item {
     margin-block-start: var(--spacing--size);
+  }
+
+  .menu__item a{
+    font-size: 24px !important;
   }
 
   .menu .menu__heading--empty {
@@ -130,6 +163,37 @@
   .menu--caret .icon-plus,
   .menu--plus .icon-caret {
     display: none;
+  }
+
+  /* Columns layout for menus with grouped links */
+  .menu__columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing--size);
+    align-items: start;
+  }
+
+  .menu__column {
+    width: 100%;
+  }
+
+  .menu__column__heading {
+    color: #C0C0C0;
+    font-weight: 300;
+    font-size: 22px !important;
+    line-height: 46px;
+    letter-spacing: -0.72px;
+    /* margin-block-end: calc(var(--spacing--size) / 2); */
+  }
+
+  @media screen and (max-width: 749px) {
+    .menu__columns {
+      display: block;
+    }
+
+    .menu__column {
+      margin-block-end: var(--spacing--size);
+    }
   }
 {% endstylesheet %}
 
