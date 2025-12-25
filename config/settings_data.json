@@ -73,10 +73,35 @@
       "change_font": {
         "type": "change_font",
         "blocks": {
+          "font_Fi9EA7": {
+            "type": "font",
+            "settings": {
+              "name": "matter-light",
+              "custom_font_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Matter-Light.ttf?v=1766650500",
+              "custom_font_weight": "400",
+              "custom_font_style": "normal",
+              "apply_h1": false,
+              "apply_h2": false,
+              "apply_h3": false,
+              "apply_h4": false,
+              "apply_h5": false,
+              "apply_h6": false,
+              "apply_p": false,
+              "apply_a": false,
+              "apply_li": false,
+              "apply_ul": false,
+              "apply_ol": false,
+              "apply_span": false,
+              "apply_div": false,
+              "apply_button": false,
+              "apply_input": false,
+              "custom_selector": ".menu__item a"
+            }
+          },
           "font_jj6yXF": {
             "type": "font",
             "settings": {
-              "name": "Matter",
+              "name": "Matter-regular",
               "custom_font_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Matter-Regular.ttf?v=1766565682",
               "custom_font_weight": "400",
               "custom_font_style": "normal",
@@ -100,6 +125,7 @@
           }
         },
         "block_order": [
+          "font_Fi9EA7",
           "font_jj6yXF"
         ],
         "settings": {
