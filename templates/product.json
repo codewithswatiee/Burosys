@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "product-information",
@@ -24,6 +25,7 @@
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "bottom",
             "thumbnail_width": 48,
+            "thumbnail_radius": 0,
             "aspect_ratio": "1/1.25",
             "constrain_to_viewport": false,
             "media_fit": "cover",
@@ -70,7 +72,6 @@
               "type": "group",
               "name": "Header",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -94,11 +95,13 @@
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
-                "placeholder": "",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -135,7 +138,6 @@
                   "type": "group",
                   "name": "Price & Rating",
                   "settings": {
-                    "open_in_new_tab": false,
                     "content_direction": "row",
                     "vertical_on_mobile": true,
                     "horizontal_alignment": "flex-start",
@@ -159,11 +161,13 @@
                     "border_width": 1,
                     "border_opacity": 100,
                     "border_radius": 0,
-                    "placeholder": "",
                     "toggle_overlay": false,
                     "overlay_color": "#00000026",
                     "overlay_style": "solid",
                     "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -199,6 +203,7 @@
                         "show_number": true,
                         "rating_color": "primary",
                         "type_preset": "paragraph",
+                        "width": "100%",
                         "alignment": "left"
                       },
                       "blocks": {}
@@ -263,6 +268,24 @@
               },
               "block_order": []
             },
+            "fish_wishlist_atw_button_pdp_Utx4Cg": {
+              "type": "shopify://apps/fish-wishlist/blocks/atw-button-pdp/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
+              "settings": {
+                "icon_only": false,
+                "apply_custom_styles": true,
+                "full_width": true,
+                "border": true,
+                "border_radius_button": 0,
+                "button_primary_font_color": "#000000",
+                "button_primary_background_color": "",
+                "button_primary_border_color": "",
+                "button_primary_font_color_hover": "#000000",
+                "button_primary_background_color_hover": "",
+                "button_primary_border_color_hover": "",
+                "vertical_padding_button": 8,
+                "horizontal_padding_button": 4
+              }
+            },
             "divider": {
               "type": "_divider",
               "name": "t:names.divider",
@@ -306,6 +329,7 @@
             "group",
             "variant_picker",
             "buy_buttons",
+            "fish_wishlist_atw_button_pdp_Utx4Cg",
             "divider",
             "text"
           ]
@@ -317,6 +341,7 @@
         "equal_columns": false,
         "limit_details_width": true,
         "gap": 48,
+        "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
         "padding-block-start": 0,
         "padding-block-end": 0
@@ -388,7 +413,6 @@
             "group": {
               "type": "_product-card-group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": false,
                 "horizontal_alignment": "space-between",
@@ -416,6 +440,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -426,7 +452,6 @@
                   "type": "_product-card-group",
                   "name": "t:names.group",
                   "settings": {
-                    "open_in_new_tab": false,
                     "content_direction": "column",
                     "vertical_on_mobile": true,
                     "horizontal_alignment": "flex-start",
@@ -454,6 +479,8 @@
                     "overlay_color": "#00000026",
                     "overlay_style": "solid",
                     "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
                     "padding-block-start": 8,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -599,6 +626,7 @@
       },
       "name": "t:names.collection_links_text",
       "settings": {
+        "collection_list": [],
         "layout": "text",
         "section_width": "page-width",
         "alignment": "left",

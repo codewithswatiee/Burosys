@@ -1,0 +1,266 @@
+{{ 'section-customer-stories.css' | asset_url | stylesheet_tag }}
+
+<div class="customer-stories-section">
+  <div class="customer-stories__header">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="customer-stories__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.subheading != blank -%}
+      <p class="customer-stories__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="customer-stories__grid">
+      {%- for block in section.blocks -%}
+        <div class="story-item" {{ block.shopify_attributes }}>
+          <div class="story-item__image-wrapper">
+            {%- if block.settings.image != blank -%}
+              <img
+                srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                        {{ block.settings.image | image_url: width: 600 }} 600w,
+                        {{ block.settings.image | image_url: width: 800 }} 800w"
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                alt="{{ block.settings.image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                class="story-item__image"
+              >
+            {%- else -%}
+              <div class="story-item__placeholder">
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="story-item__content">
+            {%- if block.settings.label != blank -%}
+              <p class="story-item__label">{{ block.settings.label }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="story-item__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="story-item__description">{{ block.settings.description }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.link_text != blank -%}
+              <a 
+                href="{{ block.settings.link_url | default: '#' }}" 
+                class="story-item__link"
+              >
+                {{ block.settings.link_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  .customer-stories-section {
+    background-color: {{ section.settings.section_background }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .customer-stories__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  .customer-stories__subheading {
+    color: {{ section.settings.subheading_color }};
+  }
+
+  .story-item__label {
+    color: {{ section.settings.label_color }};
+  }
+
+  .story-item__title {
+    color: {{ section.settings.title_color }};
+  }
+
+  .story-item__description {
+    color: {{ section.settings.description_color }};
+  }
+
+  .story-item__link {
+    color: {{ section.settings.link_color }};
+  }
+
+  .story-item__link:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Stories",
+  "tag": "section",
+  "class": "section-customer-stories",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "CUSTOMER STORIES"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Explore chairs tailored to your interests"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Card Label Color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Card Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Card Description Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label (Small Text)",
+          "default": "THE DESIGN"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lorem ipsum Lorem ipsum"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "At Burosys, we create our workspace furniture with you in mind."
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "READ MORE"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Stories",
+      "blocks": [
+        {
+          "type": "story"
+        },
+        {
+          "type": "story"
+        },
+        {
+          "type": "story"
+        },
+        {
+          "type": "story"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

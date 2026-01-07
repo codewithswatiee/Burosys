@@ -9,6 +9,413 @@
  */
 {
   "sections": {
+    "marquee_9AMajF": {
+      "type": "marquee",
+      "blocks": {
+        "text_RGxHtE": {
+          "type": "text",
+          "settings": {
+            "text": "<h1><a href=\"/collections/all\" title=\"All products\">SHOP NOW </a></h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-heading--family)",
+            "font_size": "2.5rem",
+            "line_height": "tight",
+            "letter_spacing": "loose",
+            "case": "uppercase",
+            "wrap": "nowrap",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 20,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 20,
+            "padding-inline-end": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_RGxHtE"
+      ],
+      "name": "t:names.marquee_section",
+      "settings": {
+        "movement_direction": "reverse",
+        "color_scheme": "scheme-3",
+        "padding-block-start": 48,
+        "padding-block-end": 48,
+        "gap_between_elements": 100
+      }
+    },
+    "divider_kykDtX": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 6,
+        "padding-block-end": 6
+      }
+    },
+    "marquee_fJMDER": {
+      "type": "marquee",
+      "blocks": {
+        "text_njrnwL": {
+          "type": "text",
+          "settings": {
+            "text": "<h1><a href=\"/collections/all\" title=\"All products\">SHOP NOW </a></h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-heading--family)",
+            "font_size": "2.5rem",
+            "line_height": "tight",
+            "letter_spacing": "loose",
+            "case": "uppercase",
+            "wrap": "nowrap",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 20,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 20,
+            "padding-inline-end": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_njrnwL"
+      ],
+      "name": "t:names.marquee_section",
+      "settings": {
+        "movement_direction": "normal",
+        "color_scheme": "scheme-3",
+        "padding-block-start": 48,
+        "padding-block-end": 48,
+        "gap_between_elements": 100
+      }
+    },
+    "divider_aLPDrw": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 6,
+        "padding-block-end": 26
+      }
+    },
+    "custom_showroom_banner_8yTfkP": {
+      "type": "custom-showroom-banner",
+      "name": "Custom Showroom Banner",
+      "settings": {
+        "heading": "EXPLORE OUR SHOWROOM",
+        "subheading": "Explore chairs tailored to your interests",
+        "image_desktop": "shopify://shop_images/Gemini_Generated_Image_nm3tbynm3tbynm3t_1.png",
+        "image_link": "",
+        "padding_top": 0,
+        "padding_bottom": 44
+      }
+    },
+    "stories_carousel_gxaEbk": {
+      "type": "stories-carousel",
+      "blocks": {
+        "story_zpchQV": {
+          "type": "story",
+          "settings": {
+            "title": "BANK OF AMERICA",
+            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
+            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+          }
+        },
+        "story_4WYkHt": {
+          "type": "story",
+          "settings": {
+            "title": "BANK OF AMERICA",
+            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
+            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+          }
+        },
+        "story_axFgci": {
+          "type": "story",
+          "settings": {
+            "title": "BANK OF AMERICA",
+            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
+            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+          }
+        }
+      },
+      "block_order": [
+        "story_zpchQV",
+        "story_4WYkHt",
+        "story_axFgci"
+      ],
+      "name": "Stories Carousel",
+      "settings": {
+        "heading": "DISCOVER INSPIRING STORIES",
+        "subheading": "Explore chairs tailored to your interests",
+        "section_background": "#ffffff",
+        "heading_color": "#000000",
+        "subheading_color": "#666666",
+        "card_background": "#e8e8e8",
+        "card_title_color": "#000000",
+        "card_text_color": "#000000",
+        "pagination_active_color": "#000000",
+        "pagination_inactive_color": "#cccccc",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "section_category_tabs_gahBen": {
+      "type": "section-category-tabs",
+      "blocks": {
+        "tab_tbPQwf": {
+          "type": "tab",
+          "settings": {
+            "title": "SEATING",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": "shopify://collections"
+          }
+        },
+        "item_hgWD3y": {
+          "type": "item",
+          "settings": {
+            "title": "EXECUTIVE CHAIRS",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "item_nxHxYR": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "item_cDPX3f": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "tab_Gc9x6y": {
+          "type": "tab",
+          "settings": {
+            "title": "DESKS",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": ""
+          }
+        },
+        "item_diJXJf": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "item_TzYgcC": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "tab_w9Ue63": {
+          "type": "tab",
+          "settings": {
+            "title": "TABLES",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": ""
+          }
+        },
+        "item_nLmD4B": {
+          "type": "item",
+          "settings": {
+            "title": "EXECUTIVE CHAIRS",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "item_N47MrP": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        },
+        "item_HrNix3": {
+          "type": "item",
+          "settings": {
+            "title": "LOREM IPSUM",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_tbPQwf",
+        "item_hgWD3y",
+        "item_nxHxYR",
+        "item_cDPX3f",
+        "tab_Gc9x6y",
+        "item_diJXJf",
+        "item_TzYgcC",
+        "tab_w9Ue63",
+        "item_nLmD4B",
+        "item_N47MrP",
+        "item_HrNix3"
+      ],
+      "name": "Category Tabs",
+      "settings": {
+        "heading": "DISCOVER THE WORLD OF CHAIRS",
+        "subheading": "Explore chairs tailored to your interests"
+      }
+    },
+    "section_showroom_showcase_FkHwLy": {
+      "type": "section-showroom-showcase",
+      "blocks": {
+        "image_cYK7WV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/91fb6713bf4f0f6532553bc3dcdd9faf39b60964.png",
+            "alt_text": ""
+          }
+        },
+        "image_7k8mxh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_nm3tbynm3tbynm3t_1.png",
+            "alt_text": ""
+          }
+        },
+        "image_ia7iDT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Picture4.png",
+            "alt_text": ""
+          }
+        },
+        "image_6jQ6pY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Picture2.png",
+            "alt_text": ""
+          }
+        },
+        "image_9VAmzD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Picture1.png",
+            "alt_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_cYK7WV",
+        "image_7k8mxh",
+        "image_ia7iDT",
+        "image_6jQ6pY",
+        "image_9VAmzD"
+      ],
+      "name": "Showroom Showcase",
+      "settings": {
+        "label": "SHOWROOM",
+        "heading": "EXPLORE OUR SHOWROOM",
+        "description": "<p>Sculpted to catch the light and the imagination, Prismatica redefines the luxury experience.</p>",
+        "button_text": "BOOK AN APPOINTMENT",
+        "button_link": ""
+      }
+    },
+    "customer_stories_gadfDp": {
+      "type": "customer-stories",
+      "blocks": {
+        "story_KNiEUe": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430103580.png",
+            "label": "THE DESIGN",
+            "title": "Lorem ipsum Lorem ipsum",
+            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "link_text": "READ MORE",
+            "link_url": ""
+          }
+        },
+        "story_qgh3jn": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430103677.png",
+            "label": "THE DESIGN",
+            "title": "Lorem ipsum Lorem ipsum",
+            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "link_text": "READ MORE",
+            "link_url": ""
+          }
+        },
+        "story_GhFAjG": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430103580.png",
+            "label": "THE DESIGN",
+            "title": "Lorem ipsum Lorem ipsum",
+            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "link_text": "READ MORE",
+            "link_url": ""
+          }
+        },
+        "story_b9CYHx": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430103677.png",
+            "label": "THE DESIGN",
+            "title": "Lorem ipsum Lorem ipsum",
+            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "link_text": "READ MORE",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "story_KNiEUe",
+        "story_qgh3jn",
+        "story_GhFAjG",
+        "story_b9CYHx"
+      ],
+      "name": "Customer Stories",
+      "settings": {
+        "heading": "CUSTOMER STORIES",
+        "subheading": "Explore chairs tailored to your interests",
+        "section_background": "#1a1a1a",
+        "heading_color": "#ffffff",
+        "subheading_color": "#cccccc",
+        "label_color": "#999999",
+        "title_color": "#ffffff",
+        "description_color": "#ffffff",
+        "link_color": "#ffffff",
+        "link_hover_color": "#cccccc",
+        "padding_top": 40,
+        "padding_bottom": 32
+      }
+    },
     "section_rXAheV": {
       "type": "section",
       "blocks": {
@@ -160,54 +567,21 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
+        "padding-block-start": 22,
         "padding-block-end": 40
-      }
-    },
-    "marquee_9AMajF": {
-      "type": "marquee",
-      "blocks": {
-        "text_RGxHtE": {
-          "type": "text",
-          "settings": {
-            "text": "<h1><a href=\"/collections/all\" title=\"All products\">SHOP NOW </a></h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "tight",
-            "letter_spacing": "tight",
-            "case": "none",
-            "wrap": "nowrap",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_RGxHtE"
-      ],
-      "name": "t:names.marquee_section",
-      "settings": {
-        "movement_direction": "normal",
-        "color_scheme": "scheme-2",
-        "padding-block-start": 48,
-        "padding-block-end": 48,
-        "gap_between_elements": 100
       }
     }
   },
   "order": [
-    "section_rXAheV",
-    "marquee_9AMajF"
+    "marquee_9AMajF",
+    "divider_kykDtX",
+    "marquee_fJMDER",
+    "divider_aLPDrw",
+    "custom_showroom_banner_8yTfkP",
+    "stories_carousel_gxaEbk",
+    "section_category_tabs_gahBen",
+    "section_showroom_showcase_FkHwLy",
+    "customer_stories_gadfDp",
+    "section_rXAheV"
   ]
 }

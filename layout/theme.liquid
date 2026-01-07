@@ -43,11 +43,22 @@
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
-    {% section 'change_font.liquid' %}
+    {% section 'change_font' %}
+
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}
     </div>
+{% comment %} 
+    <input type="hidden" name="ms_customer_id" id="ms_customer_id"
+  value="{% if customer %}{{ customer.id }}{% else %}0{% endif %}" />
+
+  <input type="hidden" name="store_name" id="store_name"
+    data-domain="{{ request.host }}"
+  value="{% if shop %}{{ shop.permanent_domain }}{% else %}0{% endif %}" /> {% endcomment %}
+
+
+  
 
     <script>
       // Inline header height calculation to prevent layout shift

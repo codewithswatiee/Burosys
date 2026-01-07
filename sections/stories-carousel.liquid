@@ -1,0 +1,363 @@
+{{ 'section-stories-carousel.css' | asset_url | stylesheet_tag }}
+
+<div class="stories-carousel-section">
+  <div class="stories-carousel__header">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="stories-carousel__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.subheading != blank -%}
+      <p class="stories-carousel__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="stories-carousel__wrapper">
+      <div class="stories-carousel__track" id="stories-track-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          <div class="story-card" {{ block.shopify_attributes }}>
+            <div class="story-card__content">
+              {%- if block.settings.title != blank -%}
+                <h3 class="story-card__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.description != blank -%}
+                <p class="story-card__description">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+            
+            <div class="story-card__image-wrapper">
+              {%- if block.settings.image != blank -%}
+                <img
+                  srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                          {{ block.settings.image | image_url: width: 600 }} 600w,
+                          {{ block.settings.image | image_url: width: 800 }} 800w"
+                  src="{{ block.settings.image | image_url: width: 600 }}"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  class="story-card__image"
+                >
+              {%- else -%}
+                <div class="story-card__placeholder">
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <div class="stories-carousel__pagination" id="pagination-{{ section.id }}">
+          {%- for block in section.blocks -%}
+            <button 
+              class="pagination-dot{% if forloop.first %} active{% endif %}" 
+              data-index="{{ forloop.index0 }}"
+              aria-label="Go to slide {{ forloop.index }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  .stories-carousel-section {
+    background-color: {{ section.settings.section_background }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .stories-carousel__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  .stories-carousel__subheading {
+    color: {{ section.settings.subheading_color }};
+  }
+
+  .story-card__content {
+    background-color: {{ section.settings.card_background }};
+  }
+
+  .story-card__title {
+    color: {{ section.settings.card_title_color }};
+  }
+
+  .story-card__description {
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .pagination-dot {
+    background-color: {{ section.settings.pagination_inactive_color }};
+  }
+
+  .pagination-dot.active {
+    background-color: {{ section.settings.pagination_active_color }};
+  }
+</style>
+
+<script>
+  class StoriesCarousel {
+    constructor(sectionId) {
+      this.track = document.getElementById(`stories-track-${sectionId}`);
+      this.pagination = document.getElementById(`pagination-${sectionId}`);
+      
+      if (!this.track) return;
+      
+      this.cards = Array.from(this.track.querySelectorAll('.story-card'));
+      this.dots = this.pagination ? Array.from(this.pagination.querySelectorAll('.pagination-dot')) : [];
+      this.currentIndex = 0;
+      this.startX = 0;
+      this.isDragging = false;
+      this.currentTranslate = 0;
+      this.prevTranslate = 0;
+      
+      this.init();
+    }
+
+    init() {
+      // Touch events
+      this.track.addEventListener('touchstart', this.touchStart.bind(this), { passive: true });
+      this.track.addEventListener('touchmove', this.touchMove.bind(this), { passive: false });
+      this.track.addEventListener('touchend', this.touchEnd.bind(this));
+
+      // Mouse events
+      this.track.addEventListener('mousedown', this.touchStart.bind(this));
+      this.track.addEventListener('mousemove', this.touchMove.bind(this));
+      this.track.addEventListener('mouseup', this.touchEnd.bind(this));
+      this.track.addEventListener('mouseleave', this.touchEnd.bind(this));
+
+      // Pagination dots
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.goToSlide(index));
+      });
+
+      // Scroll snap fallback
+      this.track.addEventListener('scroll', this.handleScroll.bind(this));
+    }
+
+    touchStart(e) {
+      this.isDragging = true;
+      this.startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+      this.track.style.cursor = 'grabbing';
+    }
+
+    touchMove(e) {
+      if (!this.isDragging) return;
+      
+      const currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+      const diff = currentX - this.startX;
+      
+      if (Math.abs(diff) > 5) {
+        e.preventDefault();
+      }
+    }
+
+    touchEnd(e) {
+      if (!this.isDragging) return;
+      
+      this.isDragging = false;
+      this.track.style.cursor = 'grab';
+      
+      const movedBy = e.type.includes('mouse') 
+        ? e.pageX - this.startX 
+        : e.changedTouches[0].clientX - this.startX;
+      
+      if (movedBy < -50 && this.currentIndex < this.cards.length - 1) {
+        this.currentIndex++;
+      } else if (movedBy > 50 && this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+      
+      this.goToSlide(this.currentIndex);
+    }
+
+    handleScroll() {
+      const scrollLeft = this.track.scrollLeft;
+      const cardWidth = this.cards[0]?.offsetWidth || 0;
+      const gap = 20;
+      const newIndex = Math.round(scrollLeft / (cardWidth + gap));
+      
+      if (newIndex !== this.currentIndex) {
+        this.currentIndex = newIndex;
+        this.updatePagination();
+      }
+    }
+
+    goToSlide(index) {
+      this.currentIndex = index;
+      const card = this.cards[index];
+      
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      }
+      
+      this.updatePagination();
+    }
+
+    updatePagination() {
+      this.dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === this.currentIndex);
+      });
+    }
+  }
+
+  // Initialize carousel
+  document.addEventListener('DOMContentLoaded', () => {
+    new StoriesCarousel('{{ section.id }}');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Stories Carousel",
+  "tag": "section",
+  "class": "section-stories-carousel",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DISCOVER INSPIRING STORIES"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Explore chairs tailored to your interests"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card Content Background",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Description Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Pagination Dots"
+    },
+    {
+      "type": "color",
+      "id": "pagination_active_color",
+      "label": "Active Dot Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "pagination_inactive_color",
+      "label": "Inactive Dot Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "BANK OF AMERICA"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stories Carousel",
+      "blocks": [
+        {
+          "type": "story"
+        },
+        {
+          "type": "story"
+        },
+        {
+          "type": "story"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

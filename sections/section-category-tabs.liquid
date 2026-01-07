@@ -1,0 +1,110 @@
+{% comment %}Category tabs section: creates tabs where each tab has left-side items (plus buttons) and a right-side linked image. Data for tabs and items comes from blocks and block.settings.items (newline-separated, title||description).{% endcomment %}
+<link href="{{ 'section-category-tabs.css' | asset_url }}" rel="stylesheet" />
+<div class="category-tabs-section" id="section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 class="ct-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="ct-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="ct-tabs-row">
+      <ul class="ct-top-tabs" role="tablist">
+        {% comment %}Render only tab blocks as top tabs (items are separate blocks placed after their tab){% endcomment %}
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'tab' %}
+            <li class="ct-top-tab" data-tab-index="{{ idx }}" role="presentation">
+              <button type="button" class="ct-top-tab-btn">{{ block.settings.title }}</button>
+            </li>
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="ct-content">
+      <div class="ct-left">
+        <div class="ct-items" aria-live="polite">
+          <!-- left items populated by JS -->
+        </div>
+      </div>
+
+      <div class="ct-right">
+        <a class="ct-image-link" href="#" target="_self">
+          <img class="ct-image" src="" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.sectionCategoryTabs = [
+    {% assign currentTabIndex = -1 %}
+    {% for block in section.blocks %}
+      {% if block.type == 'tab' %}
+        {% if currentTabIndex >= 0 %},{% endif %}
+        {
+          title: {{ block.settings.title | json }},
+          image: {{ block.settings.image | img_url: 'master' | json }},
+          link: {{ block.settings.link | default: '' | json }},
+          items: []
+        }
+        {% assign currentTabIndex = currentTabIndex | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  ];
+  
+  {% comment %}Now add items to their respective tabs{% endcomment %}
+  {% assign currentTab = -1 %}
+  {% for block in section.blocks %}
+    {% if block.type == 'tab' %}
+      {% assign currentTab = currentTab | plus: 1 %}
+    {% elsif block.type == 'item' %}
+      {% if currentTab >= 0 %}
+        window.sectionCategoryTabs[{{ currentTab }}].items.push({
+          title: {{ block.settings.title | json }},
+          content: {{ block.settings.content | json }},
+          link: {{ block.settings.link | default: '' | json }}
+        });
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</script>
+
+<script src="{{ 'section-category-tabs.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Category Tabs",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "DISCOVER THE WORLD OF CHAIRS" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Explore chairs tailored to your interests" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tab title", "default": "Seating" },
+        { "type": "image_picker", "id": "image", "label": "Right-side image" },
+        { "type": "url", "id": "link", "label": "Image link (URL)" }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Item title", "default": "Executive Chairs" },
+        { "type": "richtext", "id": "content", "label": "Content (rich text)", "default": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>" },
+        { "type": "url", "id": "link", "label": "Item link (URL)" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Category Tabs" }
+  ]
+}
+{% endschema %}

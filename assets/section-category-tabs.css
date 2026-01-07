@@ -1,0 +1,31 @@
+/* Styles for Category Tabs section */
+.category-tabs-section { padding: 60px 0; background: #fff; }
+.category-tabs-section .container { margin: 0 auto; padding: 0 32px; }
+.ct-heading { text-align: center; font-size: 36px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 700; }
+.ct-subheading { text-align: center; color: #777; margin: 0 0 28px; }
+.ct-top-tabs { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0 0 40px; gap: 24px; }
+.ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 14px; letter-spacing: 1px; transition: all 0.2s ease; }
+.ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; }
+.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 600; }
+
+.ct-content { display: flex; gap: 40px; align-items: flex-start; }
+.ct-left { width: 38%; position: relative; }
+.ct-right { width: 62%; display:flex; align-items:center; justify-content:end; }
+.ct-image { max-width: 100%; height: auto; display: block; }
+.ct-image-link { display:block; }
+
+.ct-items { display: flex; flex-direction: column; }
+.ct-item-wrapper { display: flex; flex-direction: column; }
+.ct-item-btn { display: inline-flex; align-items: center; gap: 12px; background: #000; color: #fff; border-radius: 30px; padding: 12px 18px; border: none; cursor: pointer; font-weight: 600; max-width: max-content; transition: all 0.3s ease; }
+.ct-item-btn .ct-plus { background: transparent; color: #fff; font-weight: 700; margin-right: 6px; }
+
+.ct-hover-box { max-height: 0; opacity: 0; overflow: hidden; background: #f2f2f2; border-radius: 12px; margin: 8px 0 10px 0; transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease; }
+.ct-hover-box.visible { max-height: 500px; opacity: 1; margin: 8px 0 10px 0; }
+.ct-hover-box .ct-hover-text { color: #333; font-size: 14px; line-height: 1.45; padding: 18px; }
+
+/* small screens */
+@media (max-width: 900px) {
+  .ct-content { flex-direction: column; }
+  .ct-left, .ct-right { width: 100%; }
+  .ct-hover-box { position: static; display: none; margin-top: 12px; }
+}
