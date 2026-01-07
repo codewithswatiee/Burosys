@@ -135,37 +135,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "8856999177732579450": {
-        "type": "shopify://apps/fish-wishlist/blocks/wishlist/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
-        "disabled": false,
-        "settings": {
-          "use_custom_styles": false,
-          "header_text_color": "#000",
-          "body_text_color": "#000",
-          "subdued_text_color": "#d3d3d3",
-          "drawer_bg_color": "#fff",
-          "card_borders": "bottom_border",
-          "border_color_card": "#ECECEC",
-          "border_radius_card": 0,
-          "card_background": "#fff",
-          "buttons_font_size": 14,
-          "vertical_padding_button": 8,
-          "horizontal_padding_button": 12,
-          "border_radius_button": 0,
-          "button_primary_font_color": "#fff",
-          "button_primary_background_color": "#000",
-          "button_primary_border_color": "#000",
-          "button_primary_font_color_hover": "#fff",
-          "button_primary_background_color_hover": "#000",
-          "button_primary_border_color_hover": "#000",
-          "button_secondary_font_color": "#000",
-          "button_secondary_background_color": "#fff",
-          "button_secondary_border_color": "#000",
-          "button_secondary_font_color_hover": "#000",
-          "button_secondary_background_color_hover": "#fff",
-          "button_secondary_border_color_hover": "#000"
-        }
-      },
       "15166237627559936004": {
         "type": "shopify://apps/fish-wishlist/blocks/wishlists-drawer/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
         "disabled": false,
@@ -190,6 +159,37 @@
           "text_subgroup_plural": "Projects",
           "link_to_product": true,
           "open_product_new_tab": true
+        }
+      },
+      "8856999177732579450": {
+        "type": "shopify://apps/fish-wishlist/blocks/wishlist/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
+        "disabled": false,
+        "settings": {
+          "use_custom_styles": true,
+          "header_text_color": "#000000",
+          "body_text_color": "#ffffff",
+          "subdued_text_color": "#d3d3d3",
+          "drawer_bg_color": "#fff",
+          "card_borders": "bottom_border",
+          "border_color_card": "#ececec",
+          "border_radius_card": 0,
+          "card_background": "#ffffff",
+          "buttons_font_size": 14,
+          "vertical_padding_button": 8,
+          "horizontal_padding_button": 12,
+          "border_radius_button": 0,
+          "button_primary_font_color": "#ffffff",
+          "button_primary_background_color": "#000000",
+          "button_primary_border_color": "#000000",
+          "button_primary_font_color_hover": "#ffffff",
+          "button_primary_background_color_hover": "#ffffff",
+          "button_primary_border_color_hover": "#c15045",
+          "button_secondary_font_color": "#000000",
+          "button_secondary_background_color": "#ffffff",
+          "button_secondary_border_color": "#000000",
+          "button_secondary_font_color_hover": "#ffffff",
+          "button_secondary_background_color_hover": "#232323",
+          "button_secondary_border_color_hover": "#000000"
         }
       }
     },

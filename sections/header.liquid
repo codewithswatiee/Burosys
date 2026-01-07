@@ -1,10 +1,10 @@
 
 
 {% liquid
-  assign order = 'logo,menu,localization,search,mobile_search,actions'
+  assign order = 'logo,menu,localization,search,mobile_search,actions,app_blocks'
 
   if shop.customer_accounts_enabled
-    assign order = 'mobile_search,logo,menu,localization,search,actions'
+    assign order = 'mobile_search,logo,menu,localization,search,actions,app_blocks'
   endif
 
   assign rows = 'top,bottom' | split: ','
@@ -61,6 +61,12 @@
 
   capture actions
     render 'header-actions'
+  endcapture
+
+  capture app_blocks
+    for block in section.blocks
+      render block
+    endfor
   endcapture
 
   if shop.customer_accounts_enabled
@@ -332,7 +338,8 @@
         actions: actions,
         localization: localization_markup,
         search: search,
-        mobile_search: mobile_search
+        mobile_search: mobile_search,
+        app_blocks: app_blocks
       %}
     {% endcapture %}
 
@@ -878,6 +885,21 @@
     },
     {
       "type": "header",
+      "content": "Stories Link"
+    },
+    {
+      "type": "text",
+      "id": "stories_label",
+      "label": "Stories Link Label",
+      "default": "Stories"
+    },
+    {
+      "type": "url",
+      "id": "stories_link",
+      "label": "Stories Link URL"
+    },
+    {
+      "type": "header",
       "content": "t:content.localization"
     },
     {
@@ -1184,6 +1206,11 @@
       ],
       "default": "default",
       "visible_if": "{{ section.settings.enable_transparent_header_collection }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
     }
   ],
   "presets": []

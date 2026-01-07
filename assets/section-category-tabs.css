@@ -1,12 +1,12 @@
 /* Styles for Category Tabs section */
 .category-tabs-section { padding: 60px 0; background: #fff; }
 .category-tabs-section .container { margin: 0 auto; padding: 0 32px; }
-.ct-heading { text-align: center; font-size: 36px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 700; }
-.ct-subheading { text-align: center; color: #777; margin: 0 0 28px; }
+.ct-heading { text-align: center; font-size: 36px; letter-spacing: 2px; margin: 0 0 8px; font-weight: 400; }
+.ct-subheading { text-align: center; color: #777; margin: 18px 0 28px; font-size: 16px; }
 .ct-top-tabs { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0 0 40px; gap: 24px; }
-.ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 14px; letter-spacing: 1px; transition: all 0.2s ease; }
-.ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; }
-.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 600; }
+.ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; letter-spacing: 1px; transition: all 0.2s ease; }
+.ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; text-underline-offset: 10px;}
+.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 400; text-underline-offset: 10px;}
 
 .ct-content { display: flex; gap: 40px; align-items: flex-start; }
 .ct-left { width: 38%; position: relative; }

@@ -279,7 +279,7 @@
                 "button_primary_font_color": "#000000",
                 "button_primary_background_color": "",
                 "button_primary_border_color": "",
-                "button_primary_font_color_hover": "#000000",
+                "button_primary_font_color_hover": "#ffffff",
                 "button_primary_background_color_hover": "",
                 "button_primary_border_color_hover": "",
                 "vertical_padding_button": 8,

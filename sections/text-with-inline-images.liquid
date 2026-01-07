@@ -1,0 +1,350 @@
+{% liquid
+  assign heading = section.settings.heading
+  assign heading_size = section.settings.heading_size
+  assign text_alignment = section.settings.text_alignment
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} text-with-inline-images color-{{ section.settings.color_scheme }} spacing-style"
+  style="
+    {%- render 'spacing-style', settings: section.settings -%}
+    {% render 'border-override', settings: section.settings %}
+    --text-alignment: {{ text_alignment }};
+  "
+>
+  <div class="text-with-inline-images__container">
+    {% if heading != blank %}
+      <h2 class="text-with-inline-images__heading {{ heading_size }}" style="text-align: {{ text_alignment }};">
+        {{ heading }}
+      </h2>
+    {% endif %}
+
+    <div class="text-with-inline-images__content" style="text-align: {{ text_alignment }};">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'text' %}
+            <span class="text-with-inline-images__text {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </span>
+
+          {% when 'image' %}
+            {% if block.settings.image != blank %}
+              <span class="text-with-inline-images__image-wrapper" {{ block.shopify_attributes }}>
+                {{
+                  block.settings.image
+                  | image_url: width: 150
+                  | image_tag: loading: 'lazy', class: 'text-with-inline-images__image', widths: '50, 75, 100, 150, 200, 300'
+                }}
+              </span>
+            {% else %}
+              <span class="text-with-inline-images__image-wrapper text-with-inline-images__image-wrapper--placeholder" {{ block.shopify_attributes }}>
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </span>
+            {% endif %}
+
+          {% when 'line_break' %}
+            <span class="text-with-inline-images__line-break" {{ block.shopify_attributes }}></span>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .text-with-inline-images__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .text-with-inline-images__heading {
+    margin-bottom: var(--spacing-lg);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  .text-with-inline-images__heading.h0 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .text-with-inline-images__heading.h1 {
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+  }
+
+  .text-with-inline-images__heading.h2 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .text-with-inline-images__heading.h3 {
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 3px;
+    font-weight: 400; }
+
+  .text-with-inline-images__content {
+    font-size: 42px;
+    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: var(--text-alignment, center);
+    margin-top: 20px;
+  }
+
+  .text-with-inline-images__text {
+    display: inline-block;
+    line-height: 1.2;
+    letter-spacing: 10px;
+  }
+
+  .text-with-inline-images__text.text-uppercase {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 5px;
+
+  }
+
+  .text-with-inline-images__text.text-bold {
+    font-weight: 700;
+  }
+
+  .text-with-inline-images__text.text-normal {
+    font-weight: 400;
+  }
+
+  .text-with-inline-images__image-wrapper {
+    display: inline-block;
+    line-height: 0;
+    height: 70px;
+  }
+
+  .text-with-inline-images__image {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .text-with-inline-images__image-wrapper--placeholder {
+    width: 100px;
+    height: 100px;
+  }
+
+  .text-with-inline-images__image-wrapper--placeholder svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .text-with-inline-images__line-break {
+    flex-basis: 100%;
+    height: 0;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .text-with-inline-images__content {
+      font-size: clamp(1.25rem, 5vw, 1.75rem);
+      gap: 0.4em;
+    }
+
+    .text-with-inline-images__heading {
+      margin-bottom: var(--spacing-md);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Text with Inline Images",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHY FROM US?"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        {
+          "value": "h0",
+          "label": "Extra Large"
+        },
+        {
+          "value": "h1",
+          "label": "Large"
+        },
+        {
+          "value": "h2",
+          "label": "Medium"
+        },
+        {
+          "value": "h3",
+          "label": "Small"
+        }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page Width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "YOUR TEXT HERE"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "label": "Text Style",
+          "options": [
+            {
+              "value": "text-normal",
+              "label": "Normal"
+            },
+            {
+              "value": "text-bold",
+              "label": "Bold"
+            },
+            {
+              "value": "text-uppercase",
+              "label": "Uppercase & Bold"
+            }
+          ],
+          "default": "text-uppercase"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "line_break",
+      "name": "Line Break"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text with Inline Images",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "THOUGHTFULLY DESIGNED",
+            "text_style": "text-uppercase"
+          }
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "FURNITURE",
+            "text_style": "text-uppercase"
+          }
+        },
+        {
+          "type": "line_break"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "MADE TO UPLIFT YOUR HOME AND OFFICE EVERY SINGLE DAY",
+            "text_style": "text-normal"
+          }
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
