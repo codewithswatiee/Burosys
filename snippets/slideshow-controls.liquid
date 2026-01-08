@@ -489,18 +489,18 @@
     padding-inline: var(--slideshow-thumbnails-padding-inline, var(--padding-sm));
     padding-block: var(--slideshow-thumbnails-padding-block, var(--padding-sm));
     gap: var(--gap-xs);
-    margin-inline: auto;
     height: fit-content;
 
     .slideshow-control {
-      border-radius: var(--thumbnail-radius, var(--media-radius));
-      width: clamp(44px, 7vw, var(--thumbnail-width));
+      border-radius: 10px;
+      width: 142px;
       height: auto;
       aspect-ratio: var(--aspect-ratio);
-
+      /* later */
       img {
         height: 100%;
         object-fit: cover;
+        /* object-fit: contain ; */
         border-radius: var(--thumbnail-radius, var(--media-radius));
       }
 

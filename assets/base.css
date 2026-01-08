@@ -1622,7 +1622,7 @@ media-gallery {
 
   display: flex;
   aspect-ratio: var(--gallery-aspect-ratio, var(--media-preview-ratio));
-  max-height: var(--constrained-height);
+  max-height: 700px;
   width: 100%;
 
   /* Relative position needed for video and 3d models */
@@ -2167,6 +2167,7 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 
 .variant-picker .variant-option--buttons label:has(.swatch) {
   border-radius: var(--variant-picker-swatch-radius);
+  margin: 0 5px;
 }
 
 .sticky-content {
@@ -3321,7 +3322,7 @@ slideshow-slide {
   view-timeline-axis: inline;
   content-visibility: auto;
   contain-intrinsic-size: auto none;
-  border-radius: var(--corner-radius, 0);
+  border-radius: 20px;
   overflow: hidden;
 
   slideshow-component[actioned] &,

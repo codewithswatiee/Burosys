@@ -168,7 +168,7 @@
           "use_custom_styles": true,
           "header_text_color": "#000000",
           "body_text_color": "#000000",
-          "subdued_text_color": "#d3d3d3",
+          "subdued_text_color": "#000000",
           "drawer_bg_color": "#fff",
           "card_borders": "no_border",
           "border_color_card": "#ececec",
