@@ -14,6 +14,14 @@
     "header_section": {
       "type": "header",
       "blocks": {
+        "fish_wishlist_open_wishlists_button_yxhmtm": {
+          "type": "shopify://apps/fish-wishlist/blocks/open-wishlists-button/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
+          "settings": {
+            "icon_color": "#2D2D2D",
+            "count": true,
+            "count_color": "#fff"
+          }
+        },
         "header-logo": {
           "type": "_header-logo",
           "static": true,
@@ -49,6 +57,9 @@
           "blocks": {}
         }
       },
+      "block_order": [
+        "fish_wishlist_open_wishlists_button_yxhmtm"
+      ],
       "settings": {
         "logo_position": "center",
         "menu_position": "left",
