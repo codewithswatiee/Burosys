@@ -10,18 +10,18 @@
         id="account-drawer-heading"
         class="account-actions-enhanced__title h5"
       >
-        {% if customer and customer.first_name != blank %}
-          {{ 'content.account_title_personalized' | t: first_name: customer.first_name }}
+        {% if customer %}
+          Hello
         {% else %}
-          {{ 'content.account_title' | t }}
+          WELCOME TO BUROSYS!
         {% endif %}
       </h2>
       {% if customer %}
         <span class="account-actions-enhanced__email">
           {% if customer.email %}
-            {{ customer.email }}
+            {{ customer.email }} !
           {% elsif customer.phone %}
-            {{ customer.phone }}
+            {{ customer.phone }} !
           {% endif %}
         </span>
       {% endif %}
@@ -40,54 +40,38 @@
       </a>
     </div>
 
-    {% comment %} My Projects Link {% endcomment %}
-    <div class="account-actions-enhanced__section">
-      <a
-        href="{{ routes.account_url }}"
-        class="account-actions-enhanced__link button-secondary"
-      >
-        <span
-          class="account-actions-enhanced__icon"
-          aria-hidden="true"
-        >
-          {{- 'icon-orders.svg' | inline_asset_content -}}
-        </span>
-        My Projects
-      </a>
-    </div>
-
     {% unless customer %}
       <div
         class="account-actions-enhanced__sign-ins"
         data-skip-subtree-update="true"
       >
-        <script
-          src="{{ 'account-login-actions.js' | asset_url }}"
-          type="module"
-          fetchpriority="low"
-        ></script>
-        <account-login-actions class="account-actions-enhanced__shop-login">
-          {{ shop | login_button }}
-        </account-login-actions>
-
-        <a
-          href="{% if request.design_mode %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
-          class="account-actions-enhanced__link button"
-        >
-          <span class="account-actions-enhanced__sign-in-text">
-            {{ 'actions.sign_in_options' | t }}
-          </span>
-          <span class="account-actions-enhanced__fallback-text">
-            {{ 'actions.log_in' | t }}
-          </span>
-        </a>
+        <div class="account-actions-enhanced__auth-buttons">
+          <a
+            href="{% if request.design_mode %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
+            class="account-actions-enhanced__auth-button"
+          >
+            <span class="account-actions-enhanced__icon" aria-hidden="true">
+              {{- 'icon-account.svg' | inline_asset_content -}}
+            </span>
+            Login
+          </a>
+          <a
+            href="{% if request.design_mode %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
+            class="account-actions-enhanced__auth-button"
+          >
+            <span class="account-actions-enhanced__icon" aria-hidden="true">
+              {{- 'icon-account.svg' | inline_asset_content -}}
+            </span>
+            Sign up
+          </a>
+        </div>
       </div>
     {% else %}
       {% comment %} Logout Button {% endcomment %}
-      <div class="account-actions-enhanced__section">
+      <div class="account-actions-enhanced__sign-ins">
         <a
           href="{{ routes.account_logout_url }}"
-          class="account-actions-enhanced__link button-secondary"
+          class="account-actions-enhanced__auth-button account-actions-enhanced__auth-button--logout"
         >
           <span
             class="account-actions-enhanced__icon"
@@ -95,7 +79,7 @@
           >
             {{- 'icon-account.svg' | inline_asset_content -}}
           </span>
-          {{ 'actions.log_out' | t }}
+          Logout
         </a>
       </div>
     {% endunless %}
@@ -122,32 +106,38 @@
     padding: var(--padding-xl);
     padding-bottom: var(--padding-md);
     display: flex;
-    flex-direction: column;
-    gap: var(--gap-2xs);
-    border-bottom: 1px solid var(--color-border);
+    flex-direction: row;
+    gap: 7px;
+    color: #838383;
+    text-transform: none !important;
+    align-items: baseline;
   }
 
   .account-actions-enhanced__title {
-    --font-h5--size: var(--font-size--lg);
+    --font-h5--size: 22px !important;
+    font-family: 'matter-light' !important;
     margin: 0;
+    font-weight: 300 !important;
+    color: #838383 !important;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-transform: none !important;
   }
 
   .account-actions-enhanced__email {
+    font-family: 'matter-light' !important;
     display: flex;
     align-items: center;
     gap: var(--gap-2xs);
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-60));
+    color: #838383 !important;
     max-width: var(--account-actions-max-width);
     word-break: break-all;
-    font-size: var(--font-size--sm);
+    font-size: 22px !important;
   }
 
   .account-actions-enhanced__section {
-    padding: var(--padding-md) var(--padding-xl);
-    border-bottom: 1px solid var(--color-border);
+    padding: 0.2rem 0.8rem;
   }
 
   .account-actions-enhanced__cart-link,
@@ -183,13 +173,37 @@
   }
 
   .account-actions-enhanced__sign-ins {
-    padding: var(--padding-xl);
-    padding-block-start: var(--padding-md);
-    padding-block-end: var(--padding-md);
+    padding: 0.2rem 0.8rem;
     display: flex;
     flex-direction: column;
     gap: var(--gap-sm);
-    border-bottom: 1px solid var(--color-border);
+  }
+
+  .account-actions-enhanced__auth-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-md);
+  }
+
+  .account-actions-enhanced__auth-button {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    padding: var(--padding-sm) var(--padding-md);
+    text-decoration: none;
+    color: var(--color-foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .account-actions-enhanced__auth-button:hover {
+    opacity: 0.7;
+  }
+
+  .account-actions-enhanced__auth-button--logout {
+    grid-column: 1 / -1;
   }
 
   .account-actions-enhanced__sign-in-text {
@@ -200,24 +214,13 @@
     display: none;
   }
 
-  .account-actions-enhanced__sign-ins:not(:has(shop-login-button)) {
-    gap: 0;
-  }
-
-  .account-actions-enhanced__sign-ins:not(:has(shop-login-button)) .account-actions-enhanced__sign-in-text {
-    display: none;
-  }
-
-  .account-actions-enhanced__sign-ins:not(:has(shop-login-button)) .account-actions-enhanced__fallback-text {
-    display: block;
-  }
-
   .account-actions-enhanced__shop-login {
     --buttons-radius: var(--style-border-radius-buttons-primary);
   }
 
   .account-actions-enhanced__app-blocks {
     padding: var(--padding-md) var(--padding-xl);
+    border-top: 1px solid var(--color-border);
   }
 
   /* Safari < 16.4 outline bug workaround */

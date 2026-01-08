@@ -23,6 +23,12 @@
   </cart-icon>
 {% endcapture %}
 
+{% capture app_blocks %}
+  {% for block in section.blocks %}
+    {% render block %}
+  {% endfor %}
+{% endcapture %}
+
 <header-actions
   {{- block.shopify_attributes -}}
 >
@@ -44,6 +50,7 @@
 
   <anchored-popover-component
     data-close-on-resize="true"
+    data-close-on-scroll="true"
     class="account-popover mobile:hidden"
   >
     {% render 'account-button' with 'account-popover' as popover_id %}
@@ -52,6 +59,7 @@
       id="account-popover"
       popover="auto"
       ref="popover"
+      on:beforetoggle="window/closeOtherPopovers"
     >
       {% render 'account-actions-enhanced', cart_icon: cart_icon, app_blocks: app_blocks %}
     </div>
@@ -87,6 +95,42 @@
   </dialog-component>
 </header-actions>
 
+<script type="module">
+  // Close account popover when clicking outside or when other interactions occur
+  document.addEventListener('DOMContentLoaded', () => {
+    const accountPopover = document.getElementById('account-popover');
+    
+    if (accountPopover) {
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        const accountButton = document.querySelector('.account-button');
+        const popover = document.querySelector('.account-popover');
+        
+        if (accountPopover.matches(':popover-open') && 
+            !popover?.contains(e.target) && 
+            !accountButton?.contains(e.target)) {
+          accountPopover.hidePopover();
+        }
+      });
+      
+      // Close when any dialog opens
+      document.addEventListener('toggle', (e) => {
+        if (e.target !== accountPopover && accountPopover.matches(':popover-open')) {
+          accountPopover.hidePopover();
+        }
+      });
+      
+      // Close when navigating
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (link && accountPopover.matches(':popover-open')) {
+          accountPopover.hidePopover();
+        }
+      });
+    }
+  });
+</script>
+
 {% stylesheet %}
   .header-actions__stories-link {
     color: var(--color-foreground);
@@ -120,7 +164,7 @@
     --account-popover-y: 20px;
 
     position-anchor: --account-button-trigger;
-    border-radius: var(--style-border-radius-popover);
+    border-radius: 20px;
     margin: 0;
     left: unset;
     width: max-content;

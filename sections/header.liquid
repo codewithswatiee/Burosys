@@ -64,9 +64,10 @@
   endcapture
 
   capture app_blocks
-    for block in section.blocks
-      render block
-    endfor
+    comment
+      App blocks are now rendered inside the account dropdown
+      See header-actions.liquid and account-actions-enhanced.liquid
+    endcomment
   endcapture
 
   if shop.customer_accounts_enabled

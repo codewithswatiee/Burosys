@@ -14,14 +14,6 @@
     "header_section": {
       "type": "header",
       "blocks": {
-        "fish_wishlist_open_wishlists_button_VHfXwP": {
-          "type": "shopify://apps/fish-wishlist/blocks/open-wishlists-button/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
-          "settings": {
-            "icon_color": "#2D2D2D",
-            "count": true,
-            "count_color": "#000000"
-          }
-        },
         "header-logo": {
           "type": "_header-logo",
           "static": true,
@@ -38,7 +30,7 @@
           "type": "_header-menu",
           "static": true,
           "settings": {
-            "menu": "main-menu",
+            "menu": "main-menu-copy",
             "color_scheme": "scheme-3",
             "type_font_primary_size": "0.875rem",
             "menu_font_style": "inverse",
@@ -57,9 +49,6 @@
           "blocks": {}
         }
       },
-      "block_order": [
-        "fish_wishlist_open_wishlists_button_VHfXwP"
-      ],
       "settings": {
         "logo_position": "center",
         "menu_position": "left",
@@ -67,6 +56,8 @@
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
+        "stories_label": "Stories",
+        "stories_link": "shopify://blogs/news",
         "show_country": true,
         "country_selector_style": false,
         "show_language": true,
