@@ -9,6 +9,47 @@
  */
 {
   "sections": {
+    "orbit_banner_EVMdCt": {
+      "type": "orbit-banner",
+      "name": "Orbiting Products Hero",
+      "settings": {
+        "heading": "NOT JUST ABOUT FORM & FUNCTION.",
+        "button_text": "DISCOVER OUR PROJECT SERVICES",
+        "button_link": "",
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "button_bg": "#000000",
+        "button_text_color": "#ffffff",
+        "inner_speed": 20,
+        "outer_speed": 30,
+        "inner_product_1": "alex-f",
+        "inner_product_2": "alina-dininge",
+        "inner_product_3": "allure",
+        "inner_product_4": "astoria-barstool",
+        "inner_product_5": "bns",
+        "inner_product_6": "athens-revolving",
+        "inner_product_7": "bond-hb",
+        "inner_product_8": "bns",
+        "inner_product_9": "antonia",
+        "inner_product_10": "bonanza",
+        "outer_product_1": "bistro-with-armse",
+        "outer_product_2": "bonny",
+        "outer_product_3": "astoria-barstool",
+        "outer_product_4": "bond-med-backe",
+        "outer_product_5": "capital",
+        "outer_product_6": "carnival",
+        "outer_product_7": "bostone",
+        "outer_product_8": "cora",
+        "outer_product_9": "comet",
+        "outer_product_10": "daisy-high-back",
+        "outer_product_11": "freeedom-leather-with-polished-aluminiume",
+        "outer_product_12": "chios",
+        "outer_product_13": "daisy-med-backe",
+        "outer_product_14": "duster-high-backe",
+        "outer_product_15": "milano-high-back",
+        "outer_product_16": "q88-high-backe"
+      }
+    },
     "marquee_9AMajF": {
       "type": "marquee",
       "blocks": {
@@ -573,6 +614,7 @@
     }
   },
   "order": [
+    "orbit_banner_EVMdCt",
     "marquee_9AMajF",
     "divider_kykDtX",
     "marquee_fJMDER",
