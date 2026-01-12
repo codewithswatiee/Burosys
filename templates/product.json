@@ -68,21 +68,19 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "simple_breadcrumb_breadcrumb_Bn49pk": {
-              "type": "shopify://apps/simple-breadcrumb/blocks/breadcrumb/72abe039-63af-4862-822d-d042976a1a4f",
+            "breadcrumb_star_breadcrumb_AfxtHq": {
+              "type": "shopify://apps/breadcrumb-star/blocks/breadcrumb/9114f6fc-47c4-4035-80d6-eff2d35fbf47",
               "settings": {
-                "color_scheme": "accent-1",
-                "seperator": "gt",
-                "custom_seperator": "",
-                "home_label": "Home",
-                "products_label": "Products",
-                "products_url": "shopify://collections/all",
-                "padding": 16,
-                "font_size": 100,
-                "align_center": false,
-                "uppercase": false,
-                "disable_wrap": true,
-                "page_width": true
+                "breadcrumbs_home_type": "text",
+                "text_color": "#666666",
+                "main_text_color": "#666666",
+                "font_size": 16,
+                "home-icon_height": 20,
+                "home-icon_width": 20,
+                "font_weight": "500",
+                "section_padding_top": 0,
+                "section_padding_bottom": 0,
+                "section_padding_inline": 0
               }
             },
             "group": {
@@ -288,24 +286,6 @@
               },
               "blocks": {}
             },
-            "fish_wishlist_atw_button_pdp_Utx4Cg": {
-              "type": "shopify://apps/fish-wishlist/blocks/atw-button-pdp/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
-              "settings": {
-                "icon_only": false,
-                "apply_custom_styles": true,
-                "full_width": true,
-                "border": true,
-                "border_radius_button": 0,
-                "button_primary_font_color": "#000000",
-                "button_primary_background_color": "",
-                "button_primary_border_color": "#000000",
-                "button_primary_font_color_hover": "#000000",
-                "button_primary_background_color_hover": "",
-                "button_primary_border_color_hover": "#c15045",
-                "vertical_padding_button": 8,
-                "horizontal_padding_button": 4
-              }
-            },
             "buy_buttons": {
               "type": "buy-buttons",
               "settings": {
@@ -342,16 +322,31 @@
                 }
               },
               "block_order": []
+            },
+            "mst_wishlist_marketing_flow_v3_app_block_product_RaFLdc": {
+              "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-block-product/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
+              "settings": {
+                "multi_language": false,
+                "iwish_add_txt": "Add To Projects",
+                "iwish_added_txt": "Added To Projects",
+                "theme_btn_class": "",
+                "icon_style": "heart",
+                "iwish_add_icon_outline": "",
+                "iwish_added_icon_filled": "",
+                "text_font_size": 14,
+                "text_color": "#000000",
+                "text_color_hover": ""
+              }
             }
           },
           "block_order": [
-            "simple_breadcrumb_breadcrumb_Bn49pk",
+            "breadcrumb_star_breadcrumb_AfxtHq",
             "group",
             "divider",
             "variant_picker",
             "text",
-            "fish_wishlist_atw_button_pdp_Utx4Cg",
-            "buy_buttons"
+            "buy_buttons",
+            "mst_wishlist_marketing_flow_v3_app_block_product_RaFLdc"
           ]
         }
       },
@@ -374,18 +369,44 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>Goes well with...</h3>",
-            "width": "fit-content",
+            "text": "<p>recommended products </p>",
+            "width": "100%",
             "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
+            "alignment": "center",
+            "type_preset": "custom",
+            "font": "var(--font-subheading--family)",
+            "font_size": "2rem",
+            "line_height": "normal",
+            "letter_spacing": "loose",
+            "case": "uppercase",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_MPN9rx": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Explore chairs tailored to your interests<br/><br/></p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "color": "",
+            "color": "var(--color-foreground)",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -587,7 +608,8 @@
         }
       },
       "block_order": [
-        "header"
+        "header",
+        "text_MPN9rx"
       ],
       "settings": {
         "product": "{{ closest.product }}",
@@ -604,62 +626,50 @@
         "section_width": "page-width",
         "gap": 24,
         "color_scheme": "scheme-1",
-        "padding-block-start": 24,
+        "padding-block-start": 30,
         "padding-block-end": 24
       }
     },
-    "collection_links_9Pc4EL": {
-      "type": "collection-links",
+    "image_with_side_buttons_WGPWzJ": {
+      "type": "image-with-side-buttons",
       "blocks": {
-        "link": {
-          "type": "_collection-link",
-          "static": true,
+        "side_button_g9Xhm8": {
+          "type": "side_button",
           "settings": {
-            "show_count": true
-          },
-          "blocks": {
-            "title": {
-              "type": "_inline-collection-title",
-              "static": true,
-              "settings": {
-                "font": "var(--font-body--family)",
-                "weight": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            },
-            "image": {
-              "type": "_image",
-              "static": true,
-              "settings": {
-                "height": "medium",
-                "ratio": "square",
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "label": "Book an appointment",
+            "link": "#"
+          }
+        },
+        "side_button_Lk4Wxx": {
+          "type": "side_button",
+          "settings": {
+            "label": "Contact us",
+            "link": "shopify://pages/contact"
+          }
+        },
+        "side_button_6jX9Uz": {
+          "type": "side_button",
+          "settings": {
+            "label": "Request quote",
+            "link": "#"
+          }
         }
       },
-      "name": "t:names.collection_links_text",
+      "block_order": [
+        "side_button_g9Xhm8",
+        "side_button_Lk4Wxx",
+        "side_button_6jX9Uz"
+      ],
+      "name": "Image with side buttons",
       "settings": {
-        "collection_list": [],
-        "layout": "text",
-        "section_width": "page-width",
-        "alignment": "left",
-        "image_position": "right",
-        "color_scheme": "scheme-5",
-        "padding-block-start": 60,
-        "padding-block-end": 60
+        "hero_image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+        "image_alt": "Hero image"
       }
     }
   },
   "order": [
     "main",
     "product-recommendations",
-    "collection_links_9Pc4EL"
+    "image_with_side_buttons_WGPWzJ"
   ]
 }

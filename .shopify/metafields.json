@@ -138,6 +138,66 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "lead_time",
+      "namespace": "custom",
+      "name": "Lead Time",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "resources",
+      "namespace": "custom",
+      "name": "Resources",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "specifications",
+      "namespace": "custom",
+      "name": "specifications",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "warranty",
+      "namespace": "custom",
+      "name": "WARRANTY",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "care_maintainance",
+      "namespace": "custom",
+      "name": "CARE & MAINTAINANCE",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "tabletop-color",
+      "namespace": "shopify",
+      "name": "Tabletop color",
+      "description": "Specifies the color of a table's top surface, such as black or white",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [],
