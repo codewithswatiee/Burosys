@@ -6,13 +6,32 @@
   fetchpriority="low"
 ></script>
 
+{%- liquid
+  # Filter articles by tags
+  assign stories_articles = ''
+  assign articles_list = ''
+  assign news_events = ''
+  
+  for article in blog.articles
+    if article.tags contains 'stories'
+      assign stories_articles = stories_articles | append: article.id | append: ','
+    endif
+    if article.tags contains 'blogs-articles'
+      assign articles_list = articles_list | append: article.id | append: ','
+    endif
+    if article.tags contains 'news-events'
+      assign news_events = news_events | append: article.id | append: ','
+    endif
+  endfor
+-%}
+
 <blog-posts-list section-id="{{ section.id }}">
   <div class="section-background color-{{ section.settings.color_scheme }}"></div>
   <div
     class="
       section
       color-{{ section.settings.color_scheme }}
-      blog-posts
+      blog-posts-main
       spacing-style
       size-style
     "
@@ -20,25 +39,94 @@
   >
     {% content_for 'blocks' %}
 
-    {%- paginate blog.articles by 12 -%}
-      <span ref="viewMorePrevious"></span>
-      <div
-        ref="grid"
-        class="blog-posts-container"
-        data-last-page="{{ paginate.pages }}"
-      >
-        {% for article in blog.articles %}
-          <div
-            class="blog-post-item"
-            ref="cards[]"
-            data-page="{{ paginate.current_page }}"
-          >
-            {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
-          </div>
-        {% endfor %}
+    {%- comment -%} Category Navigation Tabs {%- endcomment -%}
+    <div class="blog-category-tabs">
+      <button class="blog-tab active" data-category="all">
+        <span class="blog-tab-label projects">PROJECTS</span>
+      </button>
+      <button class="blog-tab" data-category="news">
+        <span class="blog-tab-label">NEWS & EVENTS</span>
+      </button>
+      <button class="blog-tab" data-category="articles">
+        <span class="blog-tab-label">BLOGS & ARTICLES</span>
+      </button>
+      <button class="blog-tab" data-category="social">
+        <span class="blog-tab-label">SOCIAL FEED</span>
+      </button>
+    </div>
+
+    {%- comment -%} Main Content Grid: Stories + News & Events {%- endcomment -%}
+    <div class="blog-main-grid">
+      {%- comment -%} Left: Stories Section {%- endcomment -%}
+      <div class="blog-section blog-section-stories">
+        <div class="blog-posts-stories">
+          {%- assign story_count = 0 -%}
+          {%- for article in blog.articles -%}
+            {%- if article.tags contains 'stories' and story_count < 12 -%}
+              <div class="blog-post-item blog-post-item-stories">
+                {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+              </div>
+              {%- assign story_count = story_count | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
-      <span ref="viewMoreNext"></span>
-    {%- endpaginate -%}
+
+      {%- comment -%} Right: News & Events Section {%- endcomment -%}
+      <div class="blog-section blog-section-news">
+        <div class="blog-section-header">
+          <h2 class="blog-section-title">NEWS & EVENTS</h2>
+        </div>
+        <div class="blog-posts-news-sidebar">
+          {%- assign news_count = 0 -%}
+          {%- for article in blog.articles -%}
+            {%- if article.tags contains 'news-events' and news_count < 8 -%}
+              <div class="news-event-card">
+                <div class="news-event-content">
+                  <h3 class="news-event-title">
+                    <a href="{{ article.url }}">{{ article.title }}</a>
+                  </h3>
+                  <div class="news-event-author">BY {{ article.author | upcase }}</div>
+                </div>
+                {%- if article.image -%}
+                  <div class="news-event-image">
+                    <a href="{{ article.url }}">
+                      <img
+                        src="{{ article.image | image_url: width: 200 }}"
+                        alt="{{ article.image.alt | escape }}"
+                        loading="lazy"
+                        width="200"
+                        height="200"
+                      >
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+              {%- assign news_count = news_count | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Bottom: Blogs & Articles Section {%- endcomment -%}
+    <div class="blog-section blog-section-articles">
+      <div class="blog-section-header">
+        <h2 class="blog-article-title">BLOGS & ARTICLES</h2>
+        <p class="blog-article-subtitle">Explore chairs tailored to your interests</p>
+      </div>
+      <div class="blog-posts-articles">
+        {%- assign articles_count = 0 -%}
+        {%- for article in blog.articles -%}
+          {%- if article.tags contains 'blogs-articles' and articles_count < 8 -%}
+            <div class="blog-post-item blog-post-item-articles">
+              {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
+            </div>
+            {%- assign articles_count = articles_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
   </div>
 </blog-posts-list>
 
@@ -46,89 +134,407 @@
   /**
    * Blog posts page layout
    */
-  .blog-posts {
-    --page-content-width: var(--narrow-page-width);
-    --page-width: calc(var(--page-content-width) + (var(--page-margin) * 2));
-    --columns-gap: 36px;
-    --rows-gap: 36px;
+  .blog-posts-main {
+    --page-content-width: var(--page-width);
+    --page-width: 100%;
+      background-color: #F3F3F3 !important;
   }
 
-  .blog-posts-container {
+  /**
+   * Category Tabs Navigation
+   */
+  .blog-category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    flex-wrap: wrap;
+  }
+
+  .blog-tab {
+    background: transparent;
+    border: 1.5px solid rgb(var(--color-foreground-rgb) / 0.3);
+    border-radius: 30px;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgb(var(--color-foreground-rgb));
+  }
+
+  .blog-tab:hover {
+    border-color: rgb(var(--color-foreground-rgb) / 0.6);
+    background: rgb(var(--color-foreground-rgb) / 0.05);
+  }
+
+  .blog-tab.active {
+    background: rgb(var(--color-accent-rgb) / 1);
+    border-color: rgb(var(--color-accent-rgb) / 1);
+    color: white;
+  }
+
+  .blog-tab.projects {
+    background: #ff5722;
+    border-color: #ff5722;
+    color: white;
+  }
+
+  /**
+   * Section Headers
+   */
+  .blog-section-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .blog-section-title {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 0.5rem;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .blog-section-subtitle {
+    font-size: 0.875rem;
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+    margin-top: 0.5rem;
+  }
+
+
+  .blog-article-title {
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .blog-article-subtitle {
+    font-size: 16px;
+    color: #00000099;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  /**
+   * Main Grid Layout: Stories (3 cols) + News & Events (1 col)
+   */
+  .blog-main-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  /**
+   * Stories Section - Masonry Grid Layout
+   */
+  .blog-section-stories {
+    grid-column: 1;
+  }
+
+  .blog-posts-stories {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
     width: 100%;
-    column-gap: var(--columns-gap);
-    row-gap: var(--rows-gap);
   }
 
-  /**
-   * Apart from the first and second rows in the grid, all remaining blog posts
-   * are arranged in a three-column layout:
-   * +------------+------------+-------------+
-   * |            |            |             |
-   * |  (span 2)  |  (span 2)  |  (span 2)   |
-   * |            |            |             |
-   * +------------+------------+-------------+
-   */
-  .blog-post-item {
-    --blog-post-card-scale: 0.6;
-
-    grid-column: span 2;
-
-    @media screen and (max-width: 749px) {
-      --blog-post-card-scale: 0.5;
-
-      grid-column: span 6;
-    }
-  }
-
-  /**
-   * The second row of blog posts has two columns:
-   * +-------------------+-------------------+
-   * |                   |                   |
-   * |  (column span 3)  |  (column span 3)  |
-   * |                   |                   |
-   * +-------------------+-------------------+
-   */
-  .blog-post-item:nth-child(2),
-  .blog-post-item:nth-child(3) {
-    --blog-post-card-scale: 0.8;
-
-    grid-column: span 3;
-
-    @media screen and (max-width: 749px) {
-      --blog-post-card-scale: 0.5;
-
-      grid-column: span 6;
-    }
-  }
-
-  /**
-   * The first row of blog posts has only one column:
-   * +---------------------------------------+
-   * |                                       |
-   * |           (1 column span 6)           |
-   * |                                       |
-   * +---------------------------------------+
-   */
-  .blog-post-item:first-child {
+  /* First card - Full width hero */
+  .blog-posts-stories .blog-post-item-stories:nth-child(1) {
     --blog-post-card-scale: 1;
-
     grid-column: span 6;
   }
 
+  /* Second and third cards - Half width */
+  .blog-posts-stories .blog-post-item-stories:nth-child(2),
+  .blog-posts-stories .blog-post-item-stories:nth-child(3) {
+    --blog-post-card-scale: 0.8;
+    grid-column: span 3;
+  }
+
+  /* Remaining cards - Third width */
+  .blog-posts-stories .blog-post-item-stories:nth-child(n+4) {
+    --blog-post-card-scale: 0.6;
+    grid-column: span 2;
+  }
+
   /**
-   * When there's no image, the blog post item has a border.
+   * News & Events Sidebar - Vertical List
+   */
+  .blog-section-news {
+    grid-column: 2;
+    border: 1px #E9E9E9 solid;
+    padding: 1.5rem;
+    border-radius: 22px;
+    max-height: fit-content;
+    background-color: white !important;
+  }
+
+  .blog-posts-news-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /**
+   * News & Events Card - Horizontal Layout
+   */
+  .news-event-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #D9D9D9;
+  }
+
+  .news-event-card:first-child {
+    padding-top: 0;
+  }
+
+  .news-event-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .news-event-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .news-event-category {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+    text-transform: uppercase;
+  }
+
+  .news-event-title {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .news-event-title a {
+    color: rgb(var(--color-foreground-rgb));
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .news-event-title a:hover {
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+  }
+
+  .news-event-author {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #00000099;
+    margin-top: 0.25rem;
+  }
+
+  .news-event-image {
+    flex-shrink: 0;
+    width: 120px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .news-event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /**
+   * Blogs & Articles Section - Uniform 4-Column Grid
+   */
+  .blog-section-articles {
+    padding-top: 3rem;
+    text-align: center;
+  }
+
+  .blog-posts-articles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .blog-posts-articles .blog-post-item-articles {
+    --blog-post-card-scale: 0.7;
+    grid-column: span 1;
+    background-color: white !important;
+    border-radius: 16px;
+    overflow: hidden;
+    border: none;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .blog-posts-articles .blog-post-item-articles:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .blog-posts-articles .blog-post-card__image-container {
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .blog-posts-articles .blog-post-card__image {
+    border-radius: 0;
+  }
+
+  .blog-posts-articles .blog-post-card__content {
+    padding: 1.5rem;
+    text-align: left;
+  }
+
+  .blog-posts-articles .blog-post-card__content a {
+    padding-block-start: 0;
+  }
+
+  /**
+   * Common blog post item styles
    */
   .blog-post-item {
     border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
     padding: 0 1rem 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .blog-post-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgb(var(--color-foreground-rgb) / 0.1);
   }
 
   .blog-post-item:has(.blog-post-card__image-container) {
     border: none;
     padding: 0;
+  }
+
+  .blog-post-item-stories {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /**
+   * Responsive Breakpoints
+   */
+
+  /* Tablet - Large */
+  @media screen and (max-width: 1024px) {
+    .blog-main-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .blog-posts-articles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .blog-posts-stories .blog-post-item-stories:nth-child(n+4) {
+      grid-column: span 3;
+    }
+  }
+
+  /* Tablet - Small */
+  @media screen and (max-width: 749px) {
+    .blog-main-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .blog-section-news {
+      grid-column: 1;
+    }
+
+    .blog-posts-news-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .news-event-image {
+      width: 100px;
+      height: 80px;
+    }
+
+    .blog-posts-stories .blog-post-item-stories {
+      grid-column: span 6 !important;
+      --blog-post-card-scale: 0.6 !important;
+    }
+
+    .blog-posts-articles {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-posts-articles .blog-post-item-articles {
+      --blog-post-card-scale: 0.6;
+    }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 480px) {
+    .blog-category-tabs {
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .blog-tab {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+    }
+
+    .blog-section-title {
+      font-size: 1.25rem;
+    }
+
+    .news-event-card {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1rem 0;
+    }
+
+    .news-event-image {
+      width: 100%;
+      height: 150px;
+      order: -1;
+      margin-bottom: 0.75rem;
+    }
+
+    .news-event-title {
+      font-size: 14px;
+    }
+  }
+      margin-bottom: 2rem;
+    }
+
+    .blog-tab {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+    }
+
+    .blog-posts-news-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-section-title {
+      font-size: 1.25rem;
+    }
   }
 {% endstylesheet %}
 

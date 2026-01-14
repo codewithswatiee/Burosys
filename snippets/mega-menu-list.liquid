@@ -625,6 +625,31 @@
   
   if (!menuList) return;
 
+  // Function to recalculate and update the header menu height
+  function updateHeaderMenuHeight() {
+    const headerMenu = menuList.closest('header-menu');
+    if (headerMenu) {
+      // Find the currently active submenu within this menu list
+      const activeSubmenu = menuList.querySelector('.mega-menu__submenu.is-active');
+      
+      // Use requestAnimationFrame to ensure DOM has updated before measuring
+      requestAnimationFrame(function() {
+        let heightToSet;
+        
+        if (activeSubmenu) {
+          // If there's an active submenu, measure its height
+          heightToSet = activeSubmenu.scrollHeight;
+        } else {
+          // Otherwise, measure the entire menu list height
+          heightToSet = menuList.scrollHeight;
+        }
+        
+        // Update the CSS variable with the new height
+        headerMenu.style.setProperty('--submenu-height', heightToSet + 'px');
+      });
+    }
+  }
+
   // Handle parent link clicks to show submenu
   menuList.addEventListener('click', function(e) {
     const trigger = e.target.closest('[data-submenu-trigger]');
@@ -651,6 +676,9 @@
         
         // Show the submenu
         submenu.classList.add('is-active');
+        
+        // Recalculate header menu height after showing submenu
+        updateHeaderMenuHeight();
       }
     }
   });
@@ -678,6 +706,9 @@
         allColumns.forEach(function(col) {
           col.classList.remove('is-hidden');
         });
+        
+        // Recalculate header menu height after hiding submenu
+        updateHeaderMenuHeight();
       }
     }
   });

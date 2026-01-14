@@ -77,6 +77,31 @@
       "change_font": {
         "type": "change_font",
         "blocks": {
+          "font_JwLXC8": {
+            "type": "font",
+            "settings": {
+              "name": "britney",
+              "custom_font_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Britney-Variable.ttf?v=1768223791",
+              "custom_font_weight": "400",
+              "custom_font_style": "normal",
+              "apply_h1": false,
+              "apply_h2": false,
+              "apply_h3": false,
+              "apply_h4": false,
+              "apply_h5": false,
+              "apply_h6": false,
+              "apply_p": false,
+              "apply_a": false,
+              "apply_li": false,
+              "apply_ul": false,
+              "apply_ol": false,
+              "apply_span": false,
+              "apply_div": false,
+              "apply_button": false,
+              "apply_input": false,
+              "custom_selector": ".mega-menu__collection-title, .image-card__title.title-italic"
+            }
+          },
           "font_Fi9EA7": {
             "type": "font",
             "settings": {
@@ -129,6 +154,7 @@
           }
         },
         "block_order": [
+          "font_JwLXC8",
           "font_Fi9EA7",
           "font_jj6yXF"
         ],

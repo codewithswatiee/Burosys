@@ -78,6 +78,11 @@
   .custom-color > :is(h1, h2, h3, h4, h5, h6, p, *) {
     color: var(--color);
   }
+
+  /* Hide description for blogs-articles cards */
+  .blog-post-item-articles .blog-post-card__content-text {
+    display: none;
+  }
 {% endstylesheet %}
 
 {% schema %}
