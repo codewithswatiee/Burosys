@@ -26,6 +26,14 @@
   assign filters = filters | default: results.filters
   assign total_active_values = 0
 
+  # Extract category filter for tabs display
+  assign category_filter = nil
+  for filter in filters
+    if filter.label == 'Product type' or filter.label == 'Category' or filter.param_name contains 'product_type'
+      assign category_filter = filter
+    endif
+  endfor
+
   # Calculate facets margin style
   capture facets_margin_style
     echo '--facets-margin: 0px '
@@ -78,10 +86,86 @@
 -%}
 
 {% if block_settings.enable_filtering or block_settings.enable_sorting or block_settings.enable_grid_density %}
+  {%- comment -%} New Category Tabs Bar - matches the design with pill-style tabs {%- endcomment -%}
+  <div class="category-filter-bar" style="{% render 'spacing-style', settings: block_settings %}">
+    <div class="category-filter-bar__inner">
+      {%- comment -%} Left side: Category tabs as pills {%- endcomment -%}
+      <div class="category-tabs-wrapper">
+        {% if category_filter != nil %}
+          <facets-form-component
+            class="category-tabs-form"
+            section-id="{{ section.id }}"
+          >
+            <form
+              action="{{ results_url }}"
+              id="CategoryTabsForm--{{ section.id }}"
+              class="category-tabs-form__inner"
+              ref="facetsForm"
+            >
+              <div class="category-tabs">
+                {% for value in category_filter.values %}
+                  {% if value.count > 0 or value.active %}
+                    <label class="category-tab{% if value.active %} category-tab--active{% endif %}">
+                      <input
+                        type="checkbox"
+                        name="{{ value.param_name }}"
+                        value="{{ value.value }}"
+                        {% if value.active %}checked{% endif %}
+                        class="visually-hidden"
+                        on:change="facets-form-component/updateFilterAndSorting"
+                      >
+                      <span class="category-tab__label">{{ value.label | upcase }}</span>
+                    </label>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </form>
+          </facets-form-component>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Right side: Items count, Sort, Filter buttons {%- endcomment -%}
+      <div class="category-filter-bar__right">
+        <div class="products-count-wrapper" data-testid="products-count">
+          <span class="products-count-text">
+            {% if products_count > 25000 %}
+              25000+ ITEMS
+            {% else %}
+              {{ products_count }} ITEMS
+            {% endif %}
+          </span>
+        </div>
+
+        {% if block_settings.enable_sorting %}
+          <button
+            type="button"
+            class="sort-filter-btn"
+            on:click="#sorting-drawer/showDialog"
+          >
+            Sort
+          </button>
+        {% endif %}
+
+        {% if block_settings.enable_filtering %}
+          <button
+            type="button"
+            class="sort-filter-btn"
+            on:click="#filters-drawer/showDialog"
+          >
+            Filter
+            {% if total_active_values > 0 %}
+              <span class="filter-badge">{{ total_active_values }}</span>
+            {% endif %}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
   {% if block_settings.filter_style == 'vertical' %}
     {% # These elements are always rendered in the horizontal bar that's why we apply the .facets--horizontal class %}
     <div
-      class="facets facets--horizontal facets-controls-wrapper spacing-style"
+      class="facets facets--horizontal facets-controls-wrapper spacing-style hidden"
       style="{% render 'spacing-style', settings: block_settings %}{% if block_settings.text_label_case == 'uppercase' %} --facet-label-transform: uppercase;{% endif %}"
     >
       {% if block_settings.enable_filtering %}
@@ -359,7 +443,7 @@
   >
     <dialog
       ref="dialog"
-      class="facets facets--drawer dialog-modal drawer dialog-drawer dialog-drawer--right spacing-style"
+      class="facets facets--drawer dialog-modal drawer dialog-drawer dialog-drawer--left spacing-style"
       style="{% render 'spacing-style', settings: block_settings %}"
       scroll-lock
       aria-labelledby="filters-drawer-heading"
@@ -475,6 +559,83 @@
         should_show_clear_all: true,
         clear_all_button_style: 'button-secondary'
       %}
+    </dialog>
+  </dialog-component>
+{% endif %}
+
+{%- comment -%} Sorting Drawer - Opens from the right side {%- endcomment -%}
+{% if block_settings.enable_sorting %}
+  <dialog-component
+    id="sorting-drawer"
+    class="facets-block-wrapper facets-block-wrapper--vertical facets-block-wrapper--drawer color-{{ settings.drawer_color_scheme }}"
+  >
+    <dialog
+      ref="dialog"
+      class="facets facets--drawer dialog-modal drawer dialog-drawer dialog-drawer--right spacing-style sorting-drawer"
+      scroll-lock
+      aria-labelledby="sorting-drawer-heading"
+    >
+      <facets-form-component
+        class="facets__form-wrapper facets-drawer__form-wrapper"
+        section-id="{{ section.id }}"
+        id="SortingFormComponent--{{ section.id }}"
+      >
+        <form
+          action="{{ results_url }}"
+          id="SortingForm--{{ section.id }}"
+          class="facets__form"
+          ref="facetsForm"
+        >
+          <div
+            class="facets__title-wrapper"
+            style="--color-shadow: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));"
+          >
+            <h2
+              id="sorting-drawer-heading"
+              class="facets-drawer__title h3"
+            >
+              {{ 'actions.sort' | t }}
+            </h2>
+            <button
+              class="button facets-drawer__close button-unstyled close-button"
+              on:click="dialog-component/closeDialog"
+              type="button"
+            >
+              <span
+                class="svg-wrapper svg-wrapper--small"
+                title="{{ 'actions.close' | t }}"
+              >
+                {{ 'icon-close.svg' | inline_asset_content }}
+              </span>
+            </button>
+          </div>
+
+          <scroll-hint class="facets-drawer__filters sorting-drawer__options">
+            <div class="sorting-options-list">
+              {% for option in results.sort_options %}
+                <label class="sorting-option{% if option.value == sort_by %} sorting-option--active{% endif %}">
+                  <input
+                    type="radio"
+                    name="sort_by"
+                    value="{{ option.value }}"
+                    {% if option.value == sort_by %}checked{% endif %}
+                    class="visually-hidden"
+                    on:change="facets-form-component/updateFilterAndSorting"
+                  >
+                  <span class="sorting-option__label">{{ option.name }}</span>
+                  {% if option.value == sort_by %}
+                    <span class="sorting-option__check">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  {% endif %}
+                </label>
+              {% endfor %}
+            </div>
+          </scroll-hint>
+        </form>
+      </facets-form-component>
     </dialog>
   </dialog-component>
 {% endif %}
@@ -1204,6 +1365,273 @@
     @media screen and (min-width: 750px) {
       z-index: var(--facets-open-z-index);
     }
+  }
+
+  /* =====================================================
+     NEW CATEGORY FILTER BAR STYLES
+     Matches the design with pill-style category tabs
+     ===================================================== */
+  .category-filter-bar {
+    display: flex;
+    align-items: center;
+    padding: var(--padding-md) var(--padding-lg);
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .category-filter-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: var(--gap-lg);
+    flex-wrap: wrap;
+  }
+
+  /* Category tabs wrapper */
+  .category-tabs-wrapper {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .category-tabs-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-tabs-form,
+  .category-tabs-form__inner {
+    display: flex;
+  }
+
+  /* Category tabs container */
+  .category-tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    flex-wrap: nowrap;
+  }
+
+  /* Individual category tab - pill style */
+  .category-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 1px solid #222;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #222;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .category-tab:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Active category tab - filled orange style */
+  .category-tab--active {
+    background-color: #f26522;
+    border-color: #f26522;
+    color: #fff;
+  }
+
+  .category-tab--active:hover {
+    background-color: #e55a1c;
+    border-color: #e55a1c;
+  }
+
+  .category-tab__label {
+    pointer-events: none;
+  }
+
+  /* Right side controls */
+  .category-filter-bar__right {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    flex-shrink: 0;
+  }
+
+  /* Products count styling */
+  .category-filter-bar__right .products-count-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .products-count-text {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #222;
+    text-transform: uppercase;
+  }
+
+  /* Sort and Filter buttons - pill style */
+  .sort-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-2xs);
+    padding: 10px 24px;
+    border: 1px solid #222;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #222;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .sort-filter-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Filter badge for active filters count */
+  .filter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background-color: #f26522;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 50%;
+    margin-left: 4px;
+  }
+
+  /* Mobile responsive adjustments */
+  @media screen and (max-width: 749px) {
+    .category-filter-bar {
+      padding: var(--padding-sm) var(--padding-md);
+    }
+
+    .category-filter-bar__inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--gap-md);
+    }
+
+    .category-tabs-wrapper {
+      order: 1;
+    }
+
+    .category-filter-bar__right {
+      order: 2;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .category-tab {
+      padding: 8px 16px;
+      font-size: 11px;
+    }
+
+    .sort-filter-btn {
+      padding: 8px 18px;
+      font-size: 13px;
+    }
+  }
+
+  /* =====================================================
+     LEFT DRAWER STYLES
+     Filter drawer opens from the left side
+     ===================================================== */
+  .dialog-drawer--left {
+    left: 0;
+    right: auto;
+    border-left: none;
+    border-right: var(--style-border-drawer);
+  }
+
+  .dialog-drawer--left[open] {
+    --start-x: -100%;
+    --end-x: 0px;
+    --start-opacity: 1;
+
+    animation: var(--dialog-drawer-opening-animation) var(--animation-speed) var(--animation-easing) forwards;
+  }
+
+  .dialog-drawer--left[open].dialog-closing {
+    --start-x: 0px;
+    --end-x: -100%;
+    --start-opacity: 1;
+    --end-opacity: 1;
+
+    animation: var(--dialog-drawer-closing-animation) var(--animation-speed) var(--animation-easing);
+  }
+
+  /* Sorting drawer (optional - if using separate drawer for sorting) */
+  #sorting-drawer .facets--drawer {
+    left: auto;
+    right: 0;
+  }
+
+  /* =====================================================
+     SORTING DRAWER STYLES
+     ===================================================== */
+  .sorting-drawer {
+    max-width: 320px;
+  }
+
+  .sorting-drawer__options {
+    padding: var(--padding-md) 0;
+  }
+
+  .sorting-options-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sorting-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding-md) var(--drawer-padding);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sorting-option:last-child {
+    border-bottom: none;
+  }
+
+  .sorting-option:hover {
+    background-color: rgb(var(--color-foreground-rgb) / 5%);
+  }
+
+  .sorting-option--active {
+    font-weight: 600;
+  }
+
+  .sorting-option__label {
+    font-size: var(--font-paragraph--size);
+    color: var(--color-foreground);
+  }
+
+  .sorting-option__check {
+    color: #f26522;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 {% endstylesheet %}
 

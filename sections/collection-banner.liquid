@@ -1,0 +1,86 @@
+<section id="collection-banner-{{ section.id }}" class="collection-banner-section">
+	<style>
+		#collection-banner-{{ section.id }}{--banner-gap:48px}
+		@media (max-width: 749px){
+			#collection-banner-{{ section.id }}{--banner-gap:24px}
+		}
+		.collection-banner-section{padding:48px 24px}
+		.collection-banner-section .collection-banner__inner{display:flex;gap:var(--banner-gap);align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto}
+		.collection-banner__text{flex:1 1 48%;min-width:220px}
+		.collection-banner__image{flex:1 1 48%;display:flex;align-items:center;justify-content:center}
+		.collection-banner__image img{width:100%;height:auto;border-radius:24px;object-fit:cover;display:block}
+		.collection-banner__title{font-size:48px;line-height:1;letter-spacing:4px;margin:0;font-weight:300;text-transform:uppercase}
+		.collection-banner__count{font-size:16px;color:#9aa0a6;margin-left:10px;font-weight:400}
+		.collection-banner__subheading{font-size:20px;margin-top:28px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase}
+		.collection-banner__description{color:#6b6f71;font-size:16px;line-height:1.6;max-width:680px}
+		@media (max-width: 999px){
+			.collection-banner__title{font-size:40px}
+		}
+		@media (max-width: 749px){
+			.collection-banner-section .collection-banner__inner{flex-direction:column}
+			.collection-banner__image{width:100%}
+			.collection-banner__text{width:100%}
+			.collection-banner__title{font-size:36px;margin-bottom:8px}
+			.collection-banner__subheading{margin-top:12px}
+		}
+	</style>
+
+	{% if collection %}
+		{% assign coll = collection %}
+	{% elsif section.settings.collection != blank %}
+		{% assign coll = collections[section.settings.collection] %}
+	{% else %}
+		{% assign coll = nil %}
+	{% endif %}
+
+	<div class="collection-banner__inner">
+		<div class="collection-banner__text">
+			<h1 class="collection-banner__title">
+				{% if coll %}
+					{{ coll.title | upcase }}
+					{% if coll.all_product_count %}
+						<span class="collection-banner__count">({{ coll.all_product_count }} PRODUCTS)</span>
+					{% endif %}
+				{% else %}
+					{{ section.settings.fallback_heading | default: 'Collection' | upcase }}
+				{% endif %}
+			</h1>
+
+			{% if section.settings.sub_heading != blank %}
+				<h2 class="collection-banner__subheading">{{ section.settings.sub_heading }}</h2>
+			{% endif %}
+
+			{% if section.settings.description != blank %}
+				<div class="collection-banner__description">{{ section.settings.description }}</div>
+			{% else %}
+				<div class="collection-banner__description">{{ coll.description | default: section.settings.fallback_description }}</div>
+			{% endif %}
+		</div>
+
+		<div class="collection-banner__image">
+			{% if section.settings.image != blank %}
+				<img src="{{ section.settings.image | img_url: '2048x2048' }}" alt="{{ coll.title | default: section.settings.fallback_heading }}" loading="lazy" />
+			{% elsif coll and coll.image %}
+				<img src="{{ coll.image | img_url: '2048x2048' }}" alt="{{ coll.title }}" loading="lazy" />
+			{% else %}
+				<div style="width:100%;height:260px;border-radius:24px;background:#f2f2f2"></div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% schema %}
+	{
+		"name": "Collection banner",
+		"settings": [
+			{"type":"collection","id":"collection","label":"Collection"},
+			{"type":"image_picker","id":"image","label":"Banner image"},
+			{"type":"text","id":"sub_heading","label":"Sub heading","default":"HIGH END DESIGNS AND ALL WITHIN REACH"},
+			{"type":"textarea","id":"description","label":"Description","default":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
+			{"type":"text","id":"fallback_heading","label":"Fallback heading","default":"Seating"},
+			{"type":"textarea","id":"fallback_description","label":"Fallback description","default":"Add a collection description or this fallback description will display."}
+		],
+		"presets": [{"name":"Collection banner","category":"Collection"}]
+	}
+	{% endschema %}
+</section>
+

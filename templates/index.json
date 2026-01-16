@@ -52,7 +52,10 @@
     },
     "text_with_inline_images_JaMD7M": {
       "type": "text-with-inline-images",
+    "text_with_inline_images_JaMD7M": {
+      "type": "text-with-inline-images",
       "blocks": {
+        "text_iiiJUX": {
         "text_iiiJUX": {
           "type": "text",
           "settings": {

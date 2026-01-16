@@ -1,0 +1,135 @@
+{% liquid
+  assign product = closest.product
+  
+  # Check for product tags to determine badge type
+  assign show_featured_badge = false
+  assign show_ready_to_ship_badge = false
+  
+  for tag in product.tags
+    if tag == 'featured' or tag == 'Featured' or tag == 'FEATURED'
+      assign show_featured_badge = true
+    elsif tag == 'ready-to-ship' or tag == 'Ready to Ship' or tag == 'READY TO SHIP'
+      assign show_ready_to_ship_badge = true
+    endif
+  endfor
+  
+  # Get product metafields for custom properties
+  assign lead_time = product.metafields.custom.lead_time | default: '3 Weeks'
+  assign material = product.metafields.custom.material | default: 'Fabric'
+  
+  # Get variant colors if available
+  assign has_color_options = false
+  for option in product.options_with_values
+    if option.name == 'Color' or option.name == 'Colour'
+      assign has_color_options = true
+      assign color_option = option
+    endif
+  endfor
+%}
+
+<style>
+  {{ 'custom-product-card-styles.css' | asset_url | stylesheet_tag }}
+</style>
+
+<div class="custom-product-card-wrapper" {{ block.shopify_attributes }}>
+  <!-- Product Badge -->
+  {% if show_featured_badge %}
+    <div class="product-badge product-badge--featured">
+      FEATURED
+    </div>
+  {% elsif show_ready_to_ship_badge %}
+    <div class="product-badge product-badge--ready-to-ship">
+      READY TO SHIP
+    </div>
+  {% endif %}
+  
+  <!-- Product Title -->
+  <div class="product-title">
+    {{ product.title }}
+  </div>
+  
+  <!-- Product Price -->
+  <div class="product-price">
+    {{ product.price | money }}
+  </div>
+  
+  <!-- Product Image Container -->
+  <div class="product-image-container">
+    {% if product.featured_image %}
+      {{
+        product.featured_image
+        | image_url: width: 800
+        | image_tag: loading: 'lazy', alt: product.title
+      }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+    
+    <!-- Image Navigation Dots -->
+    {% if product.images.size > 1 %}
+      <div class="product-image-dots">
+        {% for image in product.images limit: 5 %}
+          <span class="dot {% if forloop.first %}active{% endif %}"></span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  
+  <!-- Product Info Grid (Lead Time, Color, Material) -->
+  <div class="product-info-grid">
+    <!-- Lead Time -->
+    <div class="product-info-item">
+      <div class="product-info-label">Lead Time</div>
+      <div class="product-info-value">{{ lead_time }}</div>
+    </div>
+    
+    <!-- Color Swatches -->
+    <div class="product-info-item">
+      <div class="product-info-label">Color</div>
+      <div class="product-info-value">
+        {% if has_color_options %}
+          <div class="product-color-swatches">
+            {% for value in color_option.values limit: 3 %}
+              {% assign color_class = value | handleize %}
+              <span class="color-swatch {{ color_class }}" title="{{ value }}"></span>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="product-color-swatches">
+            <span class="color-swatch brown" title="Brown"></span>
+            <span class="color-swatch beige" title="Beige"></span>
+            <span class="color-swatch blue" title="Blue"></span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Material -->
+    <div class="product-info-item">
+      <div class="product-info-label">Material</div>
+      <div class="product-info-value">{{ material }}</div>
+    </div>
+  </div>
+  
+  <!-- Add to Project Button -->
+  <button 
+    class="add-to-project-btn"
+    onclick="window.location.href='{{ product.url }}'"
+    type="button"
+  >
+    ADD TO PROJECT
+  </button>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Product Card",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This custom product card displays products with badges, lead time, color swatches, and material information. Add 'featured' or 'ready-to-ship' tags to products to show badges. Use product metafields 'custom.lead_time' and 'custom.material' for custom values."
+    }
+  ]
+}
+{% endschema %}
