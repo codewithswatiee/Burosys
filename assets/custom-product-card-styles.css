@@ -1,0 +1,211 @@
+/* Custom Product Card Styles for Collection Page */
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Title Styling */
+.product-card .product-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #000;
+  margin: 16px 16px 8px 16px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Product Price Styling */
+.product-card .product-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 16px 16px 16px;
+  text-align: center;
+}
+
+/* Product Badge Styling */
+.product-card .product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.product-badge--featured {
+  background-color: #ffffff;
+  color: #dc2626;
+}
+
+.product-badge--ready-to-ship {
+  background-color: #ffffff;
+  color: #2563eb;
+}
+
+/* Product Image Container */
+.product-card .product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f9f9f9;
+}
+
+.product-card .product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image Navigation Dots */
+.product-image-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+.product-image-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.product-image-dots .dot.active {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Product Info Grid (Lead Time, Color, Material) */
+.product-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.product-info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-info-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: capitalize;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.product-info-value {
+  font-size: 13px;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Color Swatches */
+.product-color-swatches {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.color-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch.brown {
+  background-color: #8b6f47;
+}
+
+.color-swatch.beige {
+  background-color: #d4a574;
+}
+
+.color-swatch.blue {
+  background-color: #2563eb;
+}
+
+/* Add to Project Button */
+.product-card .add-to-project-btn {
+  width: calc(100% - 32px);
+  margin: 16px 16px;
+  padding: 14px 24px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card .add-to-project-btn:hover {
+  background-color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 749px) {
+  .product-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .product-card .product-title {
+    font-size: 12px;
+  }
+  
+  .product-card .product-price {
+    font-size: 14px;
+  }
+}
+
+/* Override existing product card styles if needed */
+.product-card__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Ensure proper spacing and layout */
+.product-card-link {
+  text-decoration: none;
+  color: inherit;
+}

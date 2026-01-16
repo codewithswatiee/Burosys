@@ -98,20 +98,8 @@
         "padding-block-end": 48
       }
     },
-    "1767785654d4980e4a": {
+    "1768209256fa73e48c": {
       "type": "_blocks",
-      "blocks": {
-        "fish_wishlist_wishlist_page_fAXjBW": {
-          "type": "shopify://apps/fish-wishlist/blocks/wishlist-page/8f1c1b6e-1c8d-44e5-999d-7136c1bc003e",
-          "settings": {
-            "wishlist_id": "WL1",
-            "additional_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "fish_wishlist_wishlist_page_fAXjBW"
-      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -183,6 +171,28 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "mst_wishlist_marketing_flow_v3_app_block_list_zKAEdQ": {
+              "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-block-list/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
+              "disabled": true,
+              "settings": {
+                "multi_language": false,
+                "iwish_add_txt": "Add To Projects",
+                "iwish_added_txt": "Added To Projects",
+                "theme_btn_class": "",
+                "icon_position": "top-right",
+                "icon_style": "heart",
+                "iwish_add_icon_outline": "",
+                "iwish_added_icon_filled": "",
+                "text_font_size": 14,
+                "text_color": "#ffffff",
+                "text_color_hover": "",
+                "background_color": "#000000",
+                "z_index": 2,
+                "qv_wrapper": "",
+                "qv_button": "",
+                "qv_close_button": ""
+              }
+            },
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
@@ -349,6 +359,7 @@
             }
           },
           "block_order": [
+            "mst_wishlist_marketing_flow_v3_app_block_list_zKAEdQ",
             "card-gallery",
             "group_dCDKMz"
           ]
@@ -358,7 +369,7 @@
         "layout_type": "grid",
         "product_card_size": "large",
         "mobile_product_card_size": "small",
-        "enable_infinite_scroll": true,
+        "enable_infinite_scroll": false,
         "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
@@ -370,11 +381,49 @@
         "padding-block-start": 4,
         "padding-block-end": 48
       }
+    },
+    "image_with_side_buttons_iCBFWr": {
+      "type": "image-with-side-buttons",
+      "blocks": {
+        "side_button_hTUBgq": {
+          "type": "side_button",
+          "settings": {
+            "label": "Book an appointment",
+            "link": "#"
+          }
+        },
+        "side_button_6QpKjQ": {
+          "type": "side_button",
+          "settings": {
+            "label": "Contact us",
+            "link": "shopify://pages/contact"
+          }
+        },
+        "side_button_LX3F9G": {
+          "type": "side_button",
+          "settings": {
+            "label": "Request quote",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "side_button_hTUBgq",
+        "side_button_6QpKjQ",
+        "side_button_LX3F9G"
+      ],
+      "custom_css": [],
+      "name": "Image with side buttons",
+      "settings": {
+        "hero_image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+        "image_alt": "Hero image"
+      }
     }
   },
   "order": [
     "section",
-    "1767785654d4980e4a",
-    "main"
+    "1768209256fa73e48c",
+    "main",
+    "image_with_side_buttons_iCBFWr"
   ]
 }
