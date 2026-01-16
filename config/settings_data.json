@@ -99,7 +99,7 @@
               "apply_div": false,
               "apply_button": false,
               "apply_input": false,
-              "custom_selector": ".mega-menu__collection-title, .image-card__title.title-italic"
+              "custom_selector": ".mega-menu__collection-title, .image-card__title.title-italic, .luxury-hero-slide__heading"
             }
           },
           "font_Fi9EA7": {
