@@ -1,0 +1,252 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "luxury_hero_carousel_GQqyAV": {
+      "type": "luxury-hero-carousel",
+      "blocks": {
+        "slide_XDnFhw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5b3a1026a4f598dcd2eea0594776438d9a6d9d83.png",
+            "enable_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "heading": "Prismatica",
+            "subheading": "A label of love",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_XDnFhw"
+      ],
+      "name": "Hero Carousel",
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 3,
+        "show_arrows": false
+      }
+    },
+    "luxury_hero_carousel_JmKa9w": {
+      "type": "luxury-hero-carousel",
+      "blocks": {
+        "slide_gRd4X8": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Picture2.png",
+            "enable_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "heading": "Prismatica",
+            "subheading": "A label of love",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_gRd4X8"
+      ],
+      "name": "Hero Carousel",
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 3,
+        "show_arrows": false
+      }
+    },
+    "side_image_text_WGxQ8z": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+        "reversed": true,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "Our Heritage",
+        "heading": "Deliberate Non-Corporate",
+        "text": "Born from the stillness of Lake Orta and the rhythm of classical music, this collection draws inspiration from the lake’s dusky hues and the vibrant pulse of sound. It celebrates the beauty of intentional imperfection, where calm and rhythm meet in iridescent form.",
+        "color_scheme": ""
+      }
+    },
+    "side_image_text_EapxHt": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/Picture1.png",
+        "reversed": false,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "",
+        "heading": "Arc of Invention",
+        "text": "",
+        "color_scheme": ""
+      }
+    },
+    "side_image_text_QkkFMz": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/The_artisian_edit_2.png",
+        "reversed": true,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "",
+        "heading": "Spectrum of Design Possibilities",
+        "text": "",
+        "color_scheme": ""
+      }
+    },
+    "side_image_text_TCJajr": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/Picture1.png",
+        "reversed": false,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "",
+        "heading": "Arc of Invention",
+        "text": "",
+        "color_scheme": ""
+      }
+    },
+    "side_image_text_eYDUBf": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/The_artisian_edit_2.png",
+        "reversed": true,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "",
+        "heading": "Spectrum of Design Possibilities",
+        "text": "",
+        "color_scheme": ""
+      }
+    },
+    "section_BDdHVa": {
+      "type": "section",
+      "blocks": {
+        "text_Wbgeeh": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>Crafted for those who see Beauty in difference</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "center",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "3rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "balance",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_Wbgeeh"
+      ],
+      "custom_css": [
+        "p {font-family: \"britney\" !important;}",
+        ".section--page-width {max-width: 800px; margin: auto;}"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 20,
+        "padding-block-end": 20
+      }
+    },
+    "luxury_hero_carousel_fztrtY": {
+      "type": "luxury-hero-carousel",
+      "blocks": {
+        "slide_Q3FwWN": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Theartisianedit_2.png",
+            "enable_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_Q3FwWN"
+      ],
+      "custom_css": [],
+      "name": "Hero Carousel",
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "show_arrows": false
+      }
+    }
+  },
+  "order": [
+    "luxury_hero_carousel_GQqyAV",
+    "luxury_hero_carousel_JmKa9w",
+    "side_image_text_WGxQ8z",
+    "side_image_text_EapxHt",
+    "side_image_text_QkkFMz",
+    "side_image_text_TCJajr",
+    "side_image_text_eYDUBf",
+    "section_BDdHVa",
+    "luxury_hero_carousel_fztrtY"
+  ]
+}
