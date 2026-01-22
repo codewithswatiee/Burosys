@@ -98,6 +98,80 @@
         "color_scheme": ""
       }
     },
+    "side_image_text_tabs_NTbLdb": {
+      "type": "side-image-text-tabs",
+      "blocks": {
+        "tab_ycEENC": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Glass",
+            "image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+            "kicker": "CLEAR glass and Chrome details",
+            "heading": "Glass",
+            "subheading": "",
+            "text": "Filotto is a contemporary pro billiard table with an Italian slate base.",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_4PjjUt": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Wood2",
+            "image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+            "kicker": "CLEAR glass and Chrome details",
+            "heading": "Scivolo Wood",
+            "subheading": "",
+            "text": "Filotto is a contemporary pro billiard table with an Italian slate base.",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_tpTRCX": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Wood3",
+            "image": "shopify://shop_images/e39a73f5aef5eff6feae5b99117d512cef5d43e0.jpg",
+            "kicker": "CLEAR glass and Chrome details",
+            "heading": "Scivolo Wood",
+            "subheading": "",
+            "text": "Filotto is a contemporary pro billiard table with an Italian slate base.",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_ycEENC",
+        "tab_4PjjUt",
+        "tab_tpTRCX"
+      ],
+      "name": "Side Image + Tabs",
+      "settings": {
+        "section_width": "full-width",
+        "reversed": true,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "color_scheme": "scheme-5"
+      }
+    },
+    "side_image_text_EapxHt": {
+      "type": "side-image-text",
+      "name": "Side Image + Text",
+      "settings": {
+        "section_width": "full-width",
+        "image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+        "reversed": false,
+        "enable_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "kicker": "Contemporary pro billiard table",
+        "heading": "Filotto Collection",
+        "text": "Where precision meets artistry. Italian slate, chrome accents, and transparent glass redefine the game.",
+        "color_scheme": ""
+      }
+    },
     "side_image_text_tabs_LUeWFE": {
       "type": "side-image-text-tabs",
       "blocks": {
@@ -107,7 +181,7 @@
             "tab_label": "Glass",
             "image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
             "kicker": "CLEAR glass and Chrome details",
-            "heading": "Scivolo Wood",
+            "heading": "Glass",
             "subheading": "",
             "text": "Filotto is a contemporary pro billiard table with an Italian slate base.",
             "button_label": "",
@@ -131,7 +205,7 @@
           "type": "tab",
           "settings": {
             "tab_label": "Wood3",
-            "image": "shopify://shop_images/6666e94e4f510090c6072d14e3154b5ecaa5aa42.jpg",
+            "image": "shopify://shop_images/e39a73f5aef5eff6feae5b99117d512cef5d43e0.jpg",
             "kicker": "CLEAR glass and Chrome details",
             "heading": "Scivolo Wood",
             "subheading": "",
@@ -156,7 +230,7 @@
         "color_scheme": "scheme-5"
       }
     },
-    "side_image_text_EapxHt": {
+    "side_image_text_QkkFMz": {
       "type": "side-image-text",
       "name": "Side Image + Text",
       "settings": {
@@ -176,7 +250,9 @@
   "order": [
     "luxury_hero_carousel_GQqyAV",
     "side_image_text_WGxQ8z",
+    "side_image_text_tabs_NTbLdb",
+    "side_image_text_EapxHt",
     "side_image_text_tabs_LUeWFE",
-    "side_image_text_EapxHt"
+    "side_image_text_QkkFMz"
   ]
 }

@@ -1,7 +1,7 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
-<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} 
-     spacing-style" style="{%- render 'spacing-style', settings: section.settings -%}">
+<div class="side-image-text-tabs section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} 
+  spacing-style" style="{%- render 'spacing-style', settings: section.settings -%}">
   <div class="side-image-text-tabs__inner {% if section.settings.reversed %}is-reversed{% endif %}" data-section-id="{{ section.id }}">
 
     <div class="side-image-text-tabs__media-area">
@@ -139,7 +139,10 @@
 
   /* Reversed layout */
   .side-image-text-tabs__inner.is-reversed {
-    grid-template-columns: 420px 1fr;
+    direction: rtl;
+  }
+  .side-image-text-tabs__inner.is-reversed > * {
+    direction: ltr;
   }
 
   .side-image-text__heading { font-size: 62px; margin: 0 0 12px 0; }
