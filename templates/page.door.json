@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "page-content": {
+          "type": "page-content",
+          "disabled": true,
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "page-content"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "dooor_jHybGg": {
+      "type": "dooor",
+      "blocks": {
+        "category_L8Rdbt": {
+          "type": "category",
+          "settings": {
+            "category_name": "Workspace",
+            "category_id": "workspace"
+          }
+        },
+        "category_t9h7xJ": {
+          "type": "category",
+          "settings": {
+            "category_name": "Hospitality",
+            "category_id": "hospitality"
+          }
+        },
+        "category_yJCidn": {
+          "type": "category",
+          "settings": {
+            "category_name": "Retail",
+            "category_id": "retail"
+          }
+        },
+        "category_rxnetH": {
+          "type": "category",
+          "settings": {
+            "category_name": "Education",
+            "category_id": "education"
+          }
+        },
+        "category_6nJNm4": {
+          "type": "category",
+          "settings": {
+            "category_name": "Healthcare",
+            "category_id": "healthcare"
+          }
+        },
+        "category_bLaRpe": {
+          "type": "category",
+          "settings": {
+            "category_name": "Exhibition",
+            "category_id": "exhibition"
+          }
+        },
+        "image_item_97ytp8": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
+            "caption": "",
+            "link": "",
+            "categories": ""
+          }
+        },
+        "image_item_UAznbJ": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
+            "caption": "",
+            "link": "",
+            "categories": ""
+          }
+        },
+        "image_item_RrktBc": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_fbfd32a6-b2a9-4cca-9df3-fc34efdfb44d.png",
+            "caption": "",
+            "link": "",
+            "categories": ""
+          }
+        },
+        "image_item_QLqBfV": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_c6637ec8-4f58-4f88-b5c9-368c50a56495.png",
+            "caption": "",
+            "link": "",
+            "categories": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_L8Rdbt",
+        "category_t9h7xJ",
+        "category_yJCidn",
+        "category_rxnetH",
+        "category_6nJNm4",
+        "category_bLaRpe",
+        "image_item_97ytp8",
+        "image_item_UAznbJ",
+        "image_item_RrktBc",
+        "image_item_QLqBfV"
+      ],
+      "name": "Dooor Gallery",
+      "settings": {
+        "subtitle": "LOREM IPSUM",
+        "title": "WHERE TO USE DOOOR",
+        "heading_size": "h2",
+        "color_scheme": "background-2"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "dooor_jHybGg"
+  ]
+}

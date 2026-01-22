@@ -41,8 +41,20 @@
   {{ block.shopify_attributes }}
 >
   {% liquid
-    assign logo_width = settings.logo_height | times: settings.logo.aspect_ratio | ceil
-    assign logo_width_mobile = settings.logo_height_mobile | times: settings.logo.aspect_ratio | ceil
+    # Prefer a page-level metafield override if present
+    assign logo_image = settings.logo
+    if page and page.metafields.custom and page.metafields.custom.logo != blank
+      assign logo_image = page.metafields.custom.logo
+    endif
+
+    # Use the aspect ratio from the chosen logo when available
+    assign logo_aspect_ratio = settings.logo.aspect_ratio
+    if logo_image.aspect_ratio != blank
+      assign logo_aspect_ratio = logo_image.aspect_ratio
+    endif
+
+    assign logo_width = settings.logo_height | times: logo_aspect_ratio | ceil
+    assign logo_width_mobile = settings.logo_height_mobile | times: logo_aspect_ratio | ceil
     assign inverse_logo_width = settings.logo_height | times: inverse_logo.aspect_ratio | ceil
     assign inverse_logo_width_mobile = settings.logo_height_mobile | times: inverse_logo.aspect_ratio | ceil
     assign logo_style = '--header-logo-image-width: ' | append: logo_width | append: 'px;' | append: '--header-logo-image-width-mobile: ' | append: logo_width_mobile | append: 'px; --header-logo-image-height: ' | append: settings.logo_height | append: 'px; --header-logo-image-height-mobile: ' | append: settings.logo_height_mobile | append: 'px;'
@@ -50,11 +62,11 @@
   %}
 
   <span
-    class="header-logo__image-container header-logo__image-container--original"
+    class="header-logo__image-container header-logo__image-container--original{% if page.metafields.custom.logo != blank %} header-logo__image-container--animated{% endif %}"
     data-testid="header-logo"
   >
     {% render 'image',
-      image: settings.logo,
+      image: logo_image,
       class: 'header-logo__image',
       height: settings.logo_height,
       text_fallback: shop.name,
@@ -136,6 +148,55 @@
 
   .header-logo__image-container--inverse {
     display: var(--header-logo-inverse-display, none);
+  }
+
+  /* Animated logo entrance effect for metafield logos */
+  .header-logo__image-container--animated {
+    animation: logoEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform-origin: center center;
+  }
+
+  @keyframes logoEntrance {
+    0% {
+      opacity: 0;
+      transform: scale(3) translateY(-20px);
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Prevent layout shift during animation */
+  .header-logo:has(.header-logo__image-container--animated) {
+    overflow: visible;
+    position: relative;
+  }
+
+  /* Create a fixed overlay for the animation */
+  .header-logo__image-container--animated {
+    position: relative;
+    z-index: 1000;
+  }
+
+  /* Smooth the animation on mobile devices */
+  @media screen and (max-width: 749px) {
+    @keyframes logoEntrance {
+      0% {
+        opacity: 0;
+        transform: scale(2.5) translateY(-15px);
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
   }
 {% endstylesheet %}
 

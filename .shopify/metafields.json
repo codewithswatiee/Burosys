@@ -7,7 +7,38 @@
   "location": [],
   "market": [],
   "order": [],
-  "page": [],
+  "page": [
+    {
+      "key": "logo",
+      "namespace": "custom",
+      "name": "logo",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "headerbg",
+      "namespace": "custom",
+      "name": "headerbg",
+      "description": "",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    },
+    {
+      "key": "text_color",
+      "namespace": "custom",
+      "name": "text-color",
+      "description": "",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    }
+  ],
   "product": [
     {
       "key": "queries",
