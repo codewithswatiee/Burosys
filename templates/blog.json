@@ -6,37 +6,101 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "main": {
-      "type": "main-blog",
+    "section_RUeGDe": {
+      "type": "section",
       "blocks": {
-        "title": {
+        "text_NJBwrb": {
           "type": "text",
-          "name": "Title",
+          "name": "t:names.heading",
           "settings": {
-            "text": "<h1>{{ closest.blog.title }}</h1>",
+            "text": "<p>EXPLORE OUR STORIES</p>",
             "width": "fit-content",
-            "max_width": "narrow",
+            "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "2rem",
             "line_height": "normal",
             "letter_spacing": "normal",
-            "case": "none",
+            "case": "uppercase",
             "wrap": "pretty",
-            "color": "",
+            "color": "var(--color-foreground)",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 48,
-            "padding-block-end": 48,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
         },
+        "text_gRWf99": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Explore chairs tailored to your interests</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_NJBwrb",
+        "text_gRWf99"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 10,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": true,
+        "overlay_color": "#f3f3f3",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "blocks": {
         "static-blog-post-card": {
           "type": "_blog-post-card",
           "static": true,
@@ -49,12 +113,12 @@
               "name": "t:names.title",
               "static": true,
               "settings": {
-                "type_preset": "h3",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
+                "type_preset": "custom",
+                "font": "var(--font-subheading--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
+                "letter_spacing": "loose",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "",
                 "text": "",
@@ -62,7 +126,7 @@
                 "alignment": "left",
                 "show_alignment": false,
                 "padding-block-start": 0,
-                "padding-block-end": 10,
+                "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
@@ -73,12 +137,29 @@
               "name": "t:names.details",
               "static": true,
               "settings": {
-                "show_date": true,
+                "show_date": false,
                 "show_author": false,
-                "type_preset": "h5",
+                "type_preset": "h6",
                 "alignment": "left",
                 "show_alignment": false,
                 "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "content": {
+              "type": "_blog-post-description",
+              "static": true,
+              "settings": {
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 16,
                 "padding-block-end": 0
               },
               "blocks": {}
@@ -99,17 +180,104 @@
           "block_order": []
         }
       },
-      "block_order": [
-        "title"
-      ],
       "settings": {
         "color_scheme": "scheme-1",
-        "padding-block-start": 40,
+        "padding-block-start": 0,
         "padding-block-end": 60
+      }
+    },
+    "text_with_inline_images_QAc9Pj": {
+      "type": "text-with-inline-images",
+      "blocks": {
+        "text_PcFTLh": {
+          "type": "text",
+          "settings": {
+            "text": "THOUGHTFULLY DESIGNED",
+            "text_style": "text-normal"
+          }
+        },
+        "image_3RKLcA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+          }
+        },
+        "text_FmgCEN": {
+          "type": "text",
+          "settings": {
+            "text": "FURNITURE",
+            "text_style": "text-normal"
+          }
+        },
+        "line_break_yVhX8N": {
+          "type": "line_break",
+          "settings": {}
+        },
+        "image_GYaBTT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+          }
+        },
+        "text_PtbhVY": {
+          "type": "text",
+          "settings": {
+            "text": "MADE TO UPLIFT",
+            "text_style": "text-normal"
+          }
+        },
+        "text_L9JR9r": {
+          "type": "text",
+          "settings": {
+            "text": "YOUR HOME AND",
+            "text_style": "text-normal"
+          }
+        },
+        "line_break_8jcMQ9": {
+          "type": "line_break",
+          "settings": {}
+        },
+        "text_fJreJb": {
+          "type": "text",
+          "settings": {
+            "text": "OFFICE EVERY SINGLE DAY",
+            "text_style": "text-normal"
+          }
+        },
+        "image_U74qrn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+          }
+        }
+      },
+      "block_order": [
+        "text_PcFTLh",
+        "image_3RKLcA",
+        "text_FmgCEN",
+        "line_break_yVhX8N",
+        "image_GYaBTT",
+        "text_PtbhVY",
+        "text_L9JR9r",
+        "line_break_8jcMQ9",
+        "text_fJreJb",
+        "image_U74qrn"
+      ],
+      "name": "Text with Inline Images",
+      "settings": {
+        "heading": "WHY FROM US?",
+        "heading_size": "h3",
+        "text_alignment": "center",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     }
   },
   "order": [
-    "main"
+    "section_RUeGDe",
+    "main",
+    "text_with_inline_images_QAc9Pj"
   ]
 }

@@ -49,6 +49,11 @@
   .blog-post-card__image--large {
     --blog-post-card-img-height: 400px;
   }
+
+  /* Ensure no rounded corners on images within blogs-articles cards since the container handles it */
+  .blog-post-item-articles .blog-post-card__image {
+    border-radius: 0;
+  }
 {% endstylesheet %}
 
 {% schema %}

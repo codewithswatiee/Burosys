@@ -108,10 +108,12 @@
       endif
     %}
     <div>
-      <a
-        href="{{ link.url }}"
-        class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
-      >
+      <div class="mega-menu__parent-link-wrapper" data-parent-wrapper="{{ id }}-{{ forloop.index }}">
+        <a
+          href="{{ link.url }}"
+          class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
+          {% if link.links != blank %}data-submenu-trigger="{{ id }}-{{ forloop.index }}"{% endif %}
+        >
         {% if menu_content_type == 'collection_images' %}
           {%- capture collection_image_sizes -%}
             {%- if parent_link.links.size <= 4 -%}
@@ -138,29 +140,49 @@
           {{- link.title -}}
         </span>
       </a>
-      {% if link.links != blank %}
-        <ul
-          class="list-unstyled"
-          {% if should_break_columns %}
-            style="column-count: {{ column_span }};"
-          {% endif %}
-        >
-          {% for childLink in link.links %}
-            {% assign break_after_modulo = forloop.index | modulo: links_before_wrap %}
-            <li
-              {% if break_after_modulo == 0 and should_break_columns %}
-                style="break-after: column;"
+      </div>
+      {% if link.links != blank and menu_content_type == 'collection_images' %}
+        {% comment %} Render child links as image cards (collection images) in full-width submenu {% endcomment %}
+        <div class="mega-menu__submenu mega-menu__submenu--collection-cards" data-submenu="{{ id }}-{{ forloop.index }}">
+          <button type="button" class="mega-menu__submenu-back" data-submenu-back="{{ id }}-{{ forloop.index }}" aria-label="Back to {{ parent_link.title }}">← Back</button>
+          <div class="mega-menu__collection-cards">
+            {% for childLink in link.links %}
+              {% if childLink.type == 'collection_link' and childLink.object != blank %}
+                <a href="{{ childLink.url }}" class="mega-menu__collection-card">
+                  <div class="mega-menu__collection-card-media">
+                    {% if childLink.object.featured_image %}
+                      {{ childLink.object.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+                    {% elsif childLink.object.products.size > 0 %}
+                      {% assign product_with_image = childLink.object.products | where: 'featured_image' | first %}
+                      {% if product_with_image.featured_image %}
+                        {{ product_with_image.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+                      {% endif %}
+                    {% endif %}
+                    <div class="mega-menu__collection-card-content">
+                      <div class="mega-menu__collection-card-text">
+                        <span class="mega-menu__collection-parent">{{ link.title }}</span>
+                        <span class="mega-menu__collection-title">{{ childLink.title }}</span>
+                      </div>
+                      <span class="mega-menu__collection-cta">Discover more</span>
+                    </div>
+                  </div>
+                </a>
               {% endif %}
-            >
-              <a
-                href="{{ childLink.url }}"
-                class="mega-menu__link"
-              >
+            {% endfor %}
+          </div>
+        </div>
+      {% elsif link.links != blank %}
+        {% comment %} Render child links as submenu for other menu types {% endcomment %}
+        <div class="mega-menu__submenu" data-submenu="{{ id }}-{{ forloop.index }}">
+          <button type="button" class="mega-menu__submenu-back" data-submenu-back="{{ id }}-{{ forloop.index }}" aria-label="Back to {{ parent_link.title }}">← Back</button>
+          <div class="mega-menu__submenu-grid">
+            {% for childLink in link.links %}
+              <a href="{{ childLink.url }}" class="mega-menu__link">
                 <span class="mega-menu__link-title wrap-text">{{- childLink.title -}}</span>
               </a>
-            </li>
-          {% endfor %}
-        </ul>
+            {% endfor %}
+          </div>
+        </div>
       {% endif %}
     </div>
 
@@ -269,6 +291,255 @@
       --menu-columns-tablet: {{ max_menu_columns_tablet }};
     {% endif %}
   }
+
+  /* Collection card submenu - spans full width */
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu--collection-cards {
+    display: none;
+    padding: 2rem 0;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu--collection-cards.is-active {
+    display: block;
+  }
+
+  /* Make parent column span full width when collection submenu is active */
+  [data-menu-list-id="{{ id }}"] .mega-menu__column:has(.mega-menu__submenu--collection-cards.is-active) {
+    grid-column: 1 / -1;
+  }
+
+  /* Collection cards grid */
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+    justify-items: center;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    transition: transform 0.2s ease;
+    height: 520px;
+    width: 460px;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card:hover {
+    transform: translateY(-4px);
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card-media {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card-text {
+    text-align: center;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-parent {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 0.25rem;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-title {
+    display: block;
+    font-style: italic;
+    font-size: 62px;
+    line-height: 1.2;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-cta {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    padding: 15px 18px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.2s ease;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__collection-card:hover .mega-menu__collection-cta {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    [data-menu-list-id="{{ id }}"] .mega-menu__collection-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Submenu grid + card styles for other menu types */
+  [data-menu-list-id="{{ id }}"] .mega-menu__parent-link-wrapper {
+    display: block;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__parent-link-wrapper.is-hidden {
+    display: none;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu {
+    display: none;
+    padding: 1rem 0;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu.is-active {
+    display: block;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__column.is-hidden {
+    display: none;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-back {
+    display: inline-block;
+    background: transparent;
+    border: 0;
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+    color: #00000066;
+    border-bottom: 1px solid #0000002a;
+    transition: all 0.2s ease;
+    border-top: 1px solid #0000002d;
+    width: 100%;
+    text-align: left;
+    line-height: 16.5px;
+    padding: 10px 0;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-back:hover {
+    text-decoration: underline;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+    transition: transform 0.2s ease;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card:hover {
+    transform: translateY(-4px);
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card-media {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card-media img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    color: #fff;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-parent {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 0.25rem;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-title {
+    display: block;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-cta {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.2s ease;
+  }
+
+  [data-menu-list-id="{{ id }}"] .mega-menu__submenu-card:hover .mega-menu__submenu-cta {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    [data-menu-list-id="{{ id }}"] .mega-menu__submenu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 {% endstyle %}
 
 {% case menu_content_type %}
@@ -346,3 +617,100 @@
       </ul>
     </span>
 {% endcase %}
+
+<script>
+(function() {
+  const menuListId = '{{ id }}';
+  const menuList = document.querySelector('[data-menu-list-id="' + menuListId + '"]');
+  
+  if (!menuList) return;
+
+  // Function to recalculate and update the header menu height
+  function updateHeaderMenuHeight() {
+    const headerMenu = menuList.closest('header-menu');
+    if (headerMenu) {
+      // Find the currently active submenu within this menu list
+      const activeSubmenu = menuList.querySelector('.mega-menu__submenu.is-active');
+      
+      // Use requestAnimationFrame to ensure DOM has updated before measuring
+      requestAnimationFrame(function() {
+        let heightToSet;
+        
+        if (activeSubmenu) {
+          // If there's an active submenu, measure its height
+          heightToSet = activeSubmenu.scrollHeight;
+        } else {
+          // Otherwise, measure the entire menu list height
+          heightToSet = menuList.scrollHeight;
+        }
+        
+        // Update the CSS variable with the new height
+        headerMenu.style.setProperty('--submenu-height', heightToSet + 'px');
+      });
+    }
+  }
+
+  // Handle parent link clicks to show submenu
+  menuList.addEventListener('click', function(e) {
+    const trigger = e.target.closest('[data-submenu-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      const submenuId = trigger.getAttribute('data-submenu-trigger');
+      const submenu = menuList.querySelector('[data-submenu="' + submenuId + '"]');
+      const parentColumn = trigger.closest('.mega-menu__column');
+      const parentWrapper = menuList.querySelector('[data-parent-wrapper="' + submenuId + '"]');
+      
+      if (submenu) {
+        // Hide all columns except the one with the active submenu
+        const allColumns = menuList.querySelectorAll('.mega-menu__column');
+        allColumns.forEach(function(col) {
+          if (col !== parentColumn) {
+            col.classList.add('is-hidden');
+          }
+        });
+        
+        // Hide the parent link wrapper
+        if (parentWrapper) {
+          parentWrapper.classList.add('is-hidden');
+        }
+        
+        // Show the submenu
+        submenu.classList.add('is-active');
+        
+        // Recalculate header menu height after showing submenu
+        updateHeaderMenuHeight();
+      }
+    }
+  });
+
+  // Handle back button clicks to hide submenu
+  menuList.addEventListener('click', function(e) {
+    const backBtn = e.target.closest('[data-submenu-back]');
+    if (backBtn) {
+      e.preventDefault();
+      const submenuId = backBtn.getAttribute('data-submenu-back');
+      const submenu = menuList.querySelector('[data-submenu="' + submenuId + '"]');
+      const parentWrapper = menuList.querySelector('[data-parent-wrapper="' + submenuId + '"]');
+      
+      if (submenu) {
+        // Hide the submenu
+        submenu.classList.remove('is-active');
+        
+        // Show the parent link wrapper again
+        if (parentWrapper) {
+          parentWrapper.classList.remove('is-hidden');
+        }
+        
+        // Show all columns again
+        const allColumns = menuList.querySelectorAll('.mega-menu__column');
+        allColumns.forEach(function(col) {
+          col.classList.remove('is-hidden');
+        });
+        
+        // Recalculate header menu height after hiding submenu
+        updateHeaderMenuHeight();
+      }
+    }
+  });
+})();
+</script>

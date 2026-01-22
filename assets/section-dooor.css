@@ -1,0 +1,203 @@
+.dooor-section {
+  padding: 6rem 0;
+  background-color: #000;
+  color: #fff;
+}
+
+.dooor-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.dooor-subtitle {
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  opacity: 0.7;
+}
+
+.dooor-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 3rem;
+  line-height: 1.2;
+}
+
+.dooor-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dooor-filter-btn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.dooor-filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dooor-filter-btn.active {
+  background: #FF5722;
+  color: #fff;
+  border-color: #FF5722;
+}
+
+.dooor-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .dooor-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .dooor-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .dooor-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.dooor-gallery-item {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dooor-gallery-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dooor-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 4/3;
+  background: #1a1a1a;
+}
+
+.dooor-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.dooor-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dooor-image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.dooor-caption {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.4;
+}
+
+/* Color scheme variations */
+.dooor-section.color-background-1 {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.dooor-section.color-background-2 {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.dooor-section.color-inverse {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.dooor-section.color-accent-1 {
+  background-color: rgb(var(--color-accent-1));
+  color: rgb(var(--color-accent-1-text));
+}
+
+.dooor-section.color-accent-2 {
+  background-color: rgb(var(--color-accent-2));
+  color: rgb(var(--color-accent-2-text));
+}
+
+/* Adjust filter buttons for light backgrounds */
+.dooor-section.color-background-1 .dooor-filter-btn,
+.dooor-section.color-background-2 .dooor-filter-btn {
+  color: rgb(var(--color-foreground));
+  border-color: rgba(var(--color-foreground), 0.3);
+}
+
+.dooor-section.color-background-1 .dooor-filter-btn:hover,
+.dooor-section.color-background-2 .dooor-filter-btn:hover {
+  border-color: rgba(var(--color-foreground), 0.6);
+  background: rgba(var(--color-foreground), 0.05);
+}
+
+.dooor-section.color-background-1 .dooor-filter-btn.active,
+.dooor-section.color-background-2 .dooor-filter-btn.active {
+  background: #FF5722;
+  color: #fff;
+  border-color: #FF5722;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .dooor-section {
+    padding: 4rem 0;
+  }
+  
+  .dooor-container {
+    padding: 0 1.5rem;
+  }
+  
+  .dooor-filters {
+    gap: 0.5rem;
+  }
+  
+  .dooor-filter-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .dooor-gallery {
+    gap: 1.5rem;
+  }
+}

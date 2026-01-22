@@ -284,6 +284,18 @@
   id="header-component"
   class="{{ class }}"
   data-theme-color="rgb({{ section.settings.color_scheme_top.settings.background.rgb }})"
+  {%- liquid
+    assign has_custom_styles = false
+    if page.metafields.custom.headerbg != blank or page.metafields.custom.text_color != blank
+      assign has_custom_styles = true
+    endif
+  -%}
+  {%- if has_custom_styles -%}
+    style="
+      {%- if page.metafields.custom.headerbg != blank -%}--header-bg-color: {{ page.metafields.custom.headerbg }};{%- endif -%}
+      {%- if page.metafields.custom.text_color != blank -%}--color-foreground: {{ page.metafields.custom.text_color }}; --menu-top-level-font-color: {{ page.metafields.custom.text_color }};{%- endif -%}
+    "
+  {%- endif -%}
   {% if transparent %}
     transparent="{{ transparent }}"
   {% endif %}
@@ -325,6 +337,15 @@
 
       if row == 'top'
         assign style = style | append: '--border-bottom-width-mobile: [width]px; ' | replace: '[width]', section.settings.border_width
+      endif
+
+      if page.metafields.custom.text_color != blank
+        assign text_color = page.metafields.custom.text_color
+        assign style = style | append: '--color-foreground: ' | append: text_color | append: '; --menu-top-level-font-color: ' | append: text_color | append: ';'
+      endif
+
+      if page.metafields.custom.headerbg != blank
+        assign style = style | append: '--color-background: ' | append: page.metafields.custom.headerbg | append: ';'
       endif
     %}
 

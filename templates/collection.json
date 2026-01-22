@@ -133,6 +133,7 @@
       "blocks": {
         "filters": {
           "type": "filters",
+          "disabled": true,
           "static": true,
           "settings": {
             "enable_filtering": true,
@@ -369,7 +370,7 @@
         "layout_type": "grid",
         "product_card_size": "large",
         "mobile_product_card_size": "small",
-        "enable_infinite_scroll": false,
+        "enable_infinite_scroll": true,
         "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,

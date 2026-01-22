@@ -1,0 +1,231 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} 
+     spacing-style" style="{%- render 'spacing-style', settings: section.settings -%}">
+  <div class="side-image-text-tabs__inner {% if section.settings.reversed %}is-reversed{% endif %}" data-section-id="{{ section.id }}">
+
+    <div class="side-image-text-tabs__media-area">
+      {% for block in section.blocks %}
+        <div class="side-image-text-tabs__media" data-index="{{ forloop.index0 }}" {% unless forloop.first %}aria-hidden="true" style="display:none"{% endunless %}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 1500 }}" alt="{{ block.settings.image.alt | escape }}" class="side-image-text-tabs__img" loading="lazy">
+            {% if section.settings.enable_overlay %}
+              <div class="side-image-text-tabs__overlay" style="--overlay-color: {{ section.settings.overlay_color }}; --overlay-opacity: {{ section.settings.overlay_opacity }}%"></div>
+            {% endif %}
+          {% else %}
+            <div class="side-image-text-tabs__placeholder">{{ 'placeholder' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="side-image-text-tabs__content-area">
+      <div class="side-image-text-tabs__content-inner">
+        <div class="side-image-text-tabs__text-panels">
+          {% for block in section.blocks %}
+            <div class="side-image-text-tabs__text-panel" data-index="{{ forloop.index0 }}" {% unless forloop.first %}aria-hidden="true" style="display:none"{% endunless %}>
+              {% if block.settings.kicker != blank %}
+                <div class="side-image-text__kicker">{{ block.settings.kicker }}</div>
+              {% endif %}
+              {% if block.settings.heading != blank %}
+                <h2 class="side-image-text__heading">{{ block.settings.heading }}</h2>
+              {% endif %}
+              {% if block.settings.subheading != blank %}
+                <div class="side-image-text__subheading">{{ block.settings.subheading }}</div>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <div class="side-image-text__text">{{ block.settings.text }}</div>
+              {% endif %}
+              {% if block.settings.button_label != blank %}
+                <a class="side-image-text__button" href="{{ block.settings.button_link | default: '#' }}">{{ block.settings.button_label }}</a>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="side-image-text-tabs__tabs">
+          {% for block in section.blocks %}
+            <button type="button" class="side-image-text-tabs__tab" data-index="{{ forloop.index0 }}" aria-controls="panel-{{ forloop.index0 }}" {% if forloop.first %}aria-current="true"{% endif %}>
+              {{ block.settings.tab_label | default: block.settings.heading | default: 'Variant ' }}
+            </button>
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .side-image-text-tabs__inner {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2rem;
+    align-items: start;
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .side-image-text-tabs__media-area {
+    grid-column: 1 / 2;
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--section-bg, transparent);
+  }
+
+  .side-image-text-tabs__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .side-image-text-tabs__img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .side-image-text-tabs__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    opacity: calc(var(--overlay-opacity, 30) / 100);
+    z-index: 1;
+  }
+
+  .side-image-text-tabs__content-area {
+    grid-column: 2 / 3;
+    padding-left: 1rem;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .side-image-text-tabs__content-inner{
+    margin: auto;
+  }
+
+  .side-image-text-tabs__text-panel {
+    margin-bottom: 1.5rem;
+  }
+
+  .side-image-text-tabs__tabs {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .side-image-text-tabs__tab {
+    background: transparent;
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .side-image-text-tabs__tab[aria-current='true'] {
+    background: #FF4000;
+    color: #fff;
+  }
+
+  /* Reversed layout */
+  .side-image-text-tabs__inner.is-reversed {
+    grid-template-columns: 420px 1fr;
+  }
+
+  .side-image-text__heading { font-size: 62px; margin: 0 0 12px 0; }
+  .side-image-text__kicker { font-size: 12px; text-transform: uppercase; margin-bottom: 8px; }
+  .side-image-text__subheading { font-size: 14px; margin-bottom: 12px; }
+  .side-image-text__text { font-size: 16px; margin-bottom: 12px; }
+  .side-image-text__button { display: inline-block; padding: 0.5rem 1rem; border: 1px solid rgba(0,0,0,0.08); }
+
+  @media screen and (max-width: 749px) {
+    .side-image-text-tabs__inner { grid-template-columns: 1fr; }
+    .side-image-text-tabs__content-area { padding-left: 0; }
+    .side-image-text-tabs__media { position: relative; height: 320px; }
+    .side-image-text-tabs__tabs { justify-content: center; }
+  }
+{% endstylesheet %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('.side-image-text-tabs');
+    sections.forEach((section) => {
+      const inner = section.querySelector('.side-image-text-tabs__inner');
+      if (!inner) return;
+      const tabs = section.querySelectorAll('.side-image-text-tabs__tab');
+      const mediaItems = section.querySelectorAll('.side-image-text-tabs__media');
+      const panels = section.querySelectorAll('.side-image-text-tabs__text-panel');
+
+      function showIndex(idx) {
+        mediaItems.forEach((m) => { m.style.display = 'none'; m.setAttribute('aria-hidden', 'true'); });
+        panels.forEach((p) => { p.style.display = 'none'; p.setAttribute('aria-hidden', 'true'); });
+        tabs.forEach((t) => t.removeAttribute('aria-current'));
+
+        const mi = section.querySelector('.side-image-text-tabs__media[data-index="' + idx + '"]');
+        const pa = section.querySelector('.side-image-text-tabs__text-panel[data-index="' + idx + '"]');
+        const tb = section.querySelector('.side-image-text-tabs__tab[data-index="' + idx + '"]');
+        if (mi) { mi.style.display = ''; mi.removeAttribute('aria-hidden'); }
+        if (pa) { pa.style.display = ''; pa.removeAttribute('aria-hidden'); }
+        if (tb) { tb.setAttribute('aria-current', 'true'); tb.focus(); }
+      }
+
+      tabs.forEach((tab) => tab.addEventListener('click', (e) => {
+        const idx = tab.getAttribute('data-index');
+        showIndex(idx);
+      }));
+
+      // keyboard nav for tabs
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+            const next = tabs[(i + 1) % tabs.length]; next.focus(); next.click();
+          } else if (e.key === 'ArrowLeft') {
+            const prev = tabs[(i - 1 + tabs.length) % tabs.length]; prev.focus(); prev.click();
+          }
+        });
+      });
+
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Side with Tabs",
+  "settings": [
+    { "type": "select", "id": "section_width", "label": "Width", "options": [ {"value":"page-width","label":"Page width"},{"value":"full-width","label":"Full width"}], "default": "page-width" },
+    { "type": "checkbox", "id": "reversed", "label": "Reverse layout (tabs on left)", "default": false },
+    { "type": "checkbox", "id": "enable_overlay", "label": "Enable overlay on images", "default": false },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 30 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "tab_label", "label": "Tab label", "default": "Variant" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "text", "id": "subheading", "label": "Subheading" },
+        { "type": "textarea", "id": "text", "label": "Body text" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Side Image + Tabs", "category": "Image" } ]
+}
+{% endschema %}

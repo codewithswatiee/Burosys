@@ -48,7 +48,7 @@
   {{ block.shopify_attributes }}
 {% endcapture %}
 
-{% if content %}
+{% if content or show_read_more %}
   {% assign truncatewords = 30 %}
   {% unless should_truncate or article.image %}
     {% assign truncatewords = 90 %}
@@ -62,9 +62,10 @@
   %}
 
   <{{ element }} {{ attributes }}>
-    {{ content | strip_html | truncatewords: truncatewords }}
     {% if show_read_more %}
       <a href="{{ article.url }}">{{- 'content.read_more' | t -}}</a>
+    {% else %}
+      {{ content | strip_html | truncatewords: truncatewords }}
     {% endif %}
   </{{ element }}>
 {% endif %}
@@ -77,6 +78,11 @@
   .custom-color,
   .custom-color > :is(h1, h2, h3, h4, h5, h6, p, *) {
     color: var(--color);
+  }
+
+  /* Hide description for blogs-articles cards */
+  .blog-post-item-articles .blog-post-card__content-text {
+    display: none;
   }
 {% endstylesheet %}
 

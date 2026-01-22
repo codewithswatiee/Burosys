@@ -32,6 +32,12 @@
   {%- endif -%}
 
   <div class="blog-post-card__content">
+    {% comment %} {%- if article.tags.size > 0 -%}
+      <div class="blog-post-card__category">
+        {{ article.tags.first | upcase }}
+      </div>
+    {%- endif -%} {% endcomment %}
+    
     <a href="{{ article.url }}">{{ title }}</a>
 
     {{ details }}
@@ -45,20 +51,23 @@
     display: flex;
     flex-direction: column;
     text-align: var(--text-align);
+    height: 100%;
   }
 
   .blog-post-card__content {
     padding-block-start: 0.4rem;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
   }
 
   .blog-post-item .blog-post-card__image-container,
   .blog-post-item .blog-post-card__content {
     width: 100%;
+    padding: 0.5rem;
   }
 
-  .blog-post-item:first-child .blog-post-card {
+  /* .blog-post-item:first-child .blog-post-card {
     flex-direction: row;
 
     @media screen and (max-width: 749px) {
@@ -72,9 +81,9 @@
     @media screen and (max-width: 749px) {
       width: 100%;
     }
-  }
+  } */
 
-  .blog-post-item:first-child:has(.blog-post-card__image-container) .blog-post-card__content {
+  /* .blog-post-item:first-child:has(.blog-post-card__image-container) .blog-post-card__content {
     padding-inline-start: var(--columns-gap);
     width: 30%;
 
@@ -82,13 +91,14 @@
       padding-inline-start: 0;
       width: 100%;
     }
-  }
+  } */
 
   .blog-post-card__content a {
     display: block;
     text-wrap: pretty;
     text-decoration: none;
     padding-block-start: 0.75rem;
+    color: black;
   }
 
   .blog-post-card__content a:hover,
@@ -102,6 +112,38 @@
 
   .blog-post-card__content a:hover [style*='--color: var(--color-foreground)'] {
     color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  /* Styling for blogs-articles cards */
+  .blog-post-item-articles .blog-post-card__content {
+    padding: 1rem;
+    width: 50%;
+  }
+
+  .blog-post-item-articles .blog-post-card__content a {
+    padding-block-start: 0.5rem;
+  }
+
+  .blog-post-card__category {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Title styling for blogs-articles */
+  .blog-post-item-articles .blog-post-card__content a {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #000;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-post-item-articles .blog-post-card__content a:hover {
+    color: #666;
   }
 {% endstylesheet %}
 
