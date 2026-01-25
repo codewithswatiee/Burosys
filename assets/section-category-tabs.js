@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var itemsWrap = section.querySelector('.ct-items');
   var imgLink = section.querySelector('.ct-image-link');
   var img = section.querySelector('.ct-image');
+  var exploreBtn = section.querySelector('.explore-now-btn');
+  
+  // Detect if device is mobile/touch
+  var isMobile = window.matchMedia('(max-width: 900px)').matches;
+  var currentOpenItem = null;
 
   function clearActiveTop() {
     topTabs.forEach(function (t) { t.classList.remove('active'); });
@@ -17,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var tab = tabs[index];
     itemsWrap.innerHTML = '';
     if (!tab) return;
+    currentOpenItem = null;
 
     tab.items.forEach(function (it, i) {
       var wrapper = document.createElement('div');
@@ -26,11 +32,25 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.type = 'button';
       btn.className = 'ct-item-btn';
       btn.setAttribute('data-item-index', i);
-      btn.innerHTML = '<span class="ct-plus">+</span>' + it.title;
+      
+      // Desktop: show + icon, Mobile: hide it
+      if (isMobile) {
+        btn.textContent = it.title;
+      } else {
+        btn.innerHTML = '<span class="ct-plus">+</span>' + it.title;
+      }
 
       var itemHoverBox = document.createElement('div');
       itemHoverBox.className = 'ct-hover-box';
-      itemHoverBox.innerHTML = '<div class="ct-hover-text">' + (it.content || '') + '</div>';
+      
+      // Build hover box content with "Explore Now" link
+      var hoverContent = '<div class="ct-hover-text">' + (it.content || '');
+      if (it.link && !isMobile) {
+        hoverContent += '<br><br><a href="' + it.link + '" class="ct-hover-link">Explore Now</a>';
+      }
+      hoverContent += '</div>';
+      
+      itemHoverBox.innerHTML = hoverContent;
       itemHoverBox.setAttribute('aria-hidden', 'true');
 
       function showHover() {
@@ -43,10 +63,37 @@ document.addEventListener('DOMContentLoaded', function () {
         itemHoverBox.setAttribute('aria-hidden', 'true');
       }
 
-      btn.addEventListener('mouseenter', showHover);
-      btn.addEventListener('mouseleave', hideHover);
-      btn.addEventListener('focus', showHover);
-      btn.addEventListener('blur', hideHover);
+      function toggleHover() {
+        var isVisible = itemHoverBox.classList.contains('visible');
+        if (!isVisible && currentOpenItem && currentOpenItem !== itemHoverBox) {
+          currentOpenItem.classList.remove('visible');
+          currentOpenItem.setAttribute('aria-hidden', 'true');
+        }
+        
+        if (isVisible) {
+          hideHover();
+          currentOpenItem = null;
+        } else {
+          showHover();
+          currentOpenItem = itemHoverBox;
+        }
+      }
+
+      // Mobile: click to navigate if link exists, Desktop: hover to show content
+      if (isMobile) {
+        if (it.link) {
+          btn.addEventListener('click', function() {
+            window.location.href = it.link;
+          });
+          btn.style.cursor = 'pointer';
+        }
+      } else {
+        // Desktop: hover behavior
+        btn.addEventListener('mouseenter', showHover);
+        btn.addEventListener('mouseleave', hideHover);
+        btn.addEventListener('focus', showHover);
+        btn.addEventListener('blur', hideHover);
+      }
 
       wrapper.appendChild(btn);
       wrapper.appendChild(itemHoverBox);
@@ -57,6 +104,14 @@ document.addEventListener('DOMContentLoaded', function () {
     img.src = tab.image || '';
     img.alt = tab.title || '';
     imgLink.href = tab.link || '#';
+    
+    // update explore now button (mobile only)
+    if (exploreBtn) {
+      exploreBtn.href = tab.link || '#';
+    }
+    
+    // Scroll items container to start
+    itemsWrap.scrollLeft = 0;
   }
 
   // init top tabs listeners
@@ -74,4 +129,18 @@ document.addEventListener('DOMContentLoaded', function () {
     topTabs[0].classList.add('active');
     renderItemsForTab(0);
   }
+  
+  // Re-check mobile status on resize
+  window.addEventListener('resize', function() {
+    var newIsMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (newIsMobile !== isMobile) {
+      isMobile = newIsMobile;
+      // Re-render current tab to update event listeners
+      var activeTab = section.querySelector('.ct-top-tab.active');
+      if (activeTab) {
+        var idx = parseInt(activeTab.getAttribute('data-tab-index'), 10) || 0;
+        renderItemsForTab(idx);
+      }
+    }
+  });
 });

@@ -9,27 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "blocks": {
-        "page-content": {
-          "type": "page-content",
-          "disabled": true,
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "page-content"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "color_scheme": "",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
     "dooor_jHybGg": {
       "type": "dooor",
       "blocks": {
@@ -134,7 +113,6 @@
     }
   },
   "order": [
-    "main",
     "dooor_jHybGg"
   ]
 }
