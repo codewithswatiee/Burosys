@@ -58,36 +58,36 @@
           "type": "image_item",
           "settings": {
             "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
-            "caption": "",
-            "link": "",
-            "categories": ""
+            "caption": "Showroom in Sicily",
+            "link": "https://dooor.it/en/projects/showroom-in-sicily/",
+            "categories": "workspace"
           }
         },
         "image_item_UAznbJ": {
           "type": "image_item",
           "settings": {
             "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
-            "caption": "",
-            "link": "",
-            "categories": ""
+            "caption": "Apartment in New York - SYA",
+            "link": "https://dooor.it/en/projects/showroom-in-sicily/",
+            "categories": "retail"
           }
         },
         "image_item_RrktBc": {
           "type": "image_item",
           "settings": {
             "image": "shopify://shop_images/Frame_1430104138_fbfd32a6-b2a9-4cca-9df3-fc34efdfb44d.png",
-            "caption": "",
+            "caption": "Apartment in New York - SYA",
             "link": "",
-            "categories": ""
+            "categories": "education"
           }
         },
         "image_item_QLqBfV": {
           "type": "image_item",
           "settings": {
             "image": "shopify://shop_images/Frame_1430104138_c6637ec8-4f58-4f88-b5c9-368c50a56495.png",
-            "caption": "",
+            "caption": "Scattered  Hotel in Termoli",
             "link": "",
-            "categories": ""
+            "categories": "exhibition"
           }
         }
       },

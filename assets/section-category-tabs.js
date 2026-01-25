@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       wrapper.appendChild(btn);
-      wrapper.appendChild(itemHoverBox);
       itemsWrap.appendChild(wrapper);
     });
 

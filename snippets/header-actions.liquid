@@ -83,12 +83,13 @@
         aria-label="{{ 'actions.close_dialog' | t }}"
         autofocus
       >
-        <span
+        My Account
+        {% comment %} <span
           class="svg-wrapper"
           aria-hidden="true"
         >
-          {{- 'icon-close.svg' | inline_asset_content -}}
-        </span>
+         {{- 'icon-close.svg' | inline_asset_content -}}
+        </span> {% endcomment %}
       </button>
       {% render 'account-actions-enhanced', cart_icon: cart_icon, app_blocks: app_blocks %}
     </dialog>
@@ -575,6 +576,29 @@
       #fff 45.45%,
       #fff 100%
     );
+  }
+
+  /* Mobile: simplify header to only show hamburger, logo and search button */
+  @media screen and (max-width: 749px) {
+    /* Hide all action items except the search button */
+    .header-actions__action {
+      display: none !important;
+    }
+
+    /* Keep the search button visible */
+    .search-modal__button.header-actions__action,
+    .search-modal__button {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Ensure stories link and cart icon stay hidden on mobile */
+    .header-actions__stories-link,
+    .header-actions__cart-icon,
+    .account-button {
+      display: none !important;
+    }
   }
 
   .cart-drawer__heading .cart-bubble__background {

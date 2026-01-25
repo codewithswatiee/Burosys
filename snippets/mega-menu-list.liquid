@@ -147,26 +147,45 @@
           <button type="button" class="mega-menu__submenu-back" data-submenu-back="{{ id }}-{{ forloop.index }}" aria-label="Back to {{ parent_link.title }}">← Back</button>
           <div class="mega-menu__collection-cards">
             {% for childLink in link.links %}
-              {% if childLink.type == 'collection_link' and childLink.object != blank %}
-                <a href="{{ childLink.url }}" class="mega-menu__collection-card">
-                  <div class="mega-menu__collection-card-media">
-                    {% if childLink.object.featured_image %}
-                      {{ childLink.object.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
-                    {% elsif childLink.object.products.size > 0 %}
-                      {% assign product_with_image = childLink.object.products | where: 'featured_image' | first %}
-                      {% if product_with_image.featured_image %}
-                        {{ product_with_image.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+              {%- comment -%} Support both collection cards and page cards. Pages use a `custom.header_image` metafield for the image.{%- endcomment -%}
+              {% if childLink.object != blank %}
+                {% if childLink.type == 'collection_link' %}
+                  <a href="{{ childLink.url }}" class="mega-menu__collection-card">
+                    <div class="mega-menu__collection-card-media">
+                      {% if childLink.object.featured_image %}
+                        {{ childLink.object.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+                      {% elsif childLink.object.products.size > 0 %}
+                        {% assign product_with_image = childLink.object.products | where: 'featured_image' | first %}
+                        {% if product_with_image.featured_image %}
+                          {{ product_with_image.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+                        {% endif %}
                       {% endif %}
-                    {% endif %}
-                    <div class="mega-menu__collection-card-content">
-                      <div class="mega-menu__collection-card-text">
-                        <span class="mega-menu__collection-parent">{{ link.title }}</span>
-                        <span class="mega-menu__collection-title">{{ childLink.title }}</span>
+                      <div class="mega-menu__collection-card-content">
+                        <div class="mega-menu__collection-card-text">
+                          <span class="mega-menu__collection-parent">{{ link.title }}</span>
+                          <span class="mega-menu__collection-title">{{ childLink.title }}</span>
+                        </div>
+                        <span class="mega-menu__collection-cta">Discover more</span>
                       </div>
-                      <span class="mega-menu__collection-cta">Discover more</span>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                {% elsif childLink.type == 'page_link' %}
+                  <a href="{{ childLink.url }}" class="mega-menu__collection-card">
+                    <div class="mega-menu__collection-card-media">
+                      {% assign header_image = childLink.object.metafields.custom.header_image %}
+                      {% if header_image != blank %}
+                        {{ header_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: childLink.title }}
+                      {% endif %}
+                      <div class="mega-menu__collection-card-content">
+                        <div class="mega-menu__collection-card-text">
+                          <span class="mega-menu__collection-parent">{{ link.title }}</span>
+                          <span class="mega-menu__collection-title">{{ childLink.title }}</span>
+                        </div>
+                        <span class="mega-menu__collection-cta">Discover more</span>
+                      </div>
+                    </div>
+                  </a>
+                {% endif %}
               {% endif %}
             {% endfor %}
           </div>

@@ -19,7 +19,7 @@
   ref="trigger"
   {{ attributes }}
 >
-  {%- if customer.has_avatar? -%}
+  {% comment %} {%- if customer.has_avatar? -%}
     {{ customer | avatar }}
   {%- elsif customer.first_name or customer.email -%}
     {%- liquid
@@ -42,7 +42,13 @@
     >
       {{- 'icon-account.svg' | inline_asset_content -}}
     </span>
-  {%- endif -%}
+  {%- endif -%} {% endcomment %}
+  <span
+      class="account-button__text"
+      aria-hidden="true"
+    >
+      My Account
+    </span>
 </{{ tag }}>
 
 {% stylesheet %}
@@ -76,6 +82,12 @@
     color: var(--color-primary-button-text);
     text-transform: uppercase;
     line-height: 1;
+  }
+  .account-button__text{
+    font-size: 16px;
+    margin-left: 78px;
+    white-space: nowrap;
+    
   }
 
   .account-button__icon {
