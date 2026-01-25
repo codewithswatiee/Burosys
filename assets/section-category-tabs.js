@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var itemsWrap = section.querySelector('.ct-items');
   var imgLink = section.querySelector('.ct-image-link');
   var img = section.querySelector('.ct-image');
+  var exploreBtn = section.querySelector('.explore-now-btn');
 
   function clearActiveTop() {
     topTabs.forEach(function (t) { t.classList.remove('active'); });
@@ -26,30 +27,17 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.type = 'button';
       btn.className = 'ct-item-btn';
       btn.setAttribute('data-item-index', i);
-      btn.innerHTML = '<span class="ct-plus">+</span>' + it.title;
+      btn.textContent = it.title;
 
-      var itemHoverBox = document.createElement('div');
-      itemHoverBox.className = 'ct-hover-box';
-      itemHoverBox.innerHTML = '<div class="ct-hover-text">' + (it.content || '') + '</div>';
-      itemHoverBox.setAttribute('aria-hidden', 'true');
-
-      function showHover() {
-        itemHoverBox.classList.add('visible');
-        itemHoverBox.setAttribute('aria-hidden', 'false');
+      // If item has a link, make button clickable to navigate
+      if (it.link) {
+        btn.addEventListener('click', function() {
+          window.location.href = it.link;
+        });
+        btn.style.cursor = 'pointer';
       }
-
-      function hideHover() {
-        itemHoverBox.classList.remove('visible');
-        itemHoverBox.setAttribute('aria-hidden', 'true');
-      }
-
-      btn.addEventListener('mouseenter', showHover);
-      btn.addEventListener('mouseleave', hideHover);
-      btn.addEventListener('focus', showHover);
-      btn.addEventListener('blur', hideHover);
 
       wrapper.appendChild(btn);
-      wrapper.appendChild(itemHoverBox);
       itemsWrap.appendChild(wrapper);
     });
 
@@ -57,6 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
     img.src = tab.image || '';
     img.alt = tab.title || '';
     imgLink.href = tab.link || '#';
+    
+    // update explore now button
+    if (exploreBtn) {
+      exploreBtn.href = tab.link || '#';
+    }
+    
+    // Scroll items container to start
+    itemsWrap.scrollLeft = 0;
   }
 
   // init top tabs listeners

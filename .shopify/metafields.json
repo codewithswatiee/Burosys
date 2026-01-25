@@ -37,6 +37,16 @@
         "name": "color",
         "category": "COLOR"
       }
+    },
+    {
+      "key": "header_image",
+      "namespace": "custom",
+      "name": "header_image",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "product": [

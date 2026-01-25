@@ -575,9 +575,10 @@
   }
 
   .header__column--right {
-    gap: var(--gap-xl);
+    gap: 2rem;
     justify-content: flex-end;
     grid-area: right;
+    padding-right: 50px;
 
     .overflow-menu::part(list) {
       justify-content: flex-end;
@@ -647,7 +648,7 @@
       }
 
       &:not(:has(.account-actions)) .search-action {
-        grid-area: rightA;
+        grid-area: rightB;
       }
 
       .search-action {

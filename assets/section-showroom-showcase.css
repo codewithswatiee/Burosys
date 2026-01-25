@@ -5,6 +5,7 @@
 }
 
 .ss-container {
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 32px;
   display: flex;
@@ -20,27 +21,33 @@
   padding-left: 3.5rem;
 }
 
+.ss-left-bottom {
+  display: none;
+}
+
 .ss-label {
   font-size: 12px;
   letter-spacing: 2px;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 12px;
   text-transform: uppercase;
+  color: #000;
 }
 
 .ss-heading {
   font-size: 36px;
   font-weight: 700;
   line-height: 1.2;
-  margin: 0;
+  margin: 0 0 20px;
   letter-spacing: -0.5px;
+  text-transform: uppercase;
 }
 
 .ss-description {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: #666;
-  margin: 8px 0;
+  margin: 0 0 24px;
   max-width: 50%;
 }
 
@@ -48,10 +55,10 @@
   display: inline-block;
   background: #000;
   color: #fff;
-  padding: 14px 28px;
+  padding: 14px 16px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
   border-radius: 2px;
@@ -120,12 +127,20 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 70%;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
 }
 
 .ss-thumbnails-wrap {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+.ss-thumbnails-wrap::-webkit-scrollbar {
+  display: none;
 }
 
 .ss-thumbnails {
@@ -205,34 +220,194 @@
   .ss-container {
     flex-direction: column;
     gap: 40px;
+    padding: 0 24px;
   }
 
-  .ss-left,
+  .ss-left:not(.ss-left-bottom),
   .ss-right {
     width: 100%;
+    padding-left: 0;
+  }
+
+  .ss-left:not(.ss-left-bottom) {
+    text-align: center;
+    align-items: center;
+  }
+
+  .ss-left-bottom {
+    display: none;
   }
 
   .ss-heading {
-    font-size: 36px;
+    font-size: 32px;
+  }
+
+  .ss-description {
+    max-width: 100%;
+  }
+
+  .showroom-showcase-section {
+    padding: 50px 0;
   }
 }
 
 @media (max-width: 768px) {
-  .ss-thumbnail {
-    flex: 0 0 calc(33.333% - 8px);
+  .showroom-showcase-section {
+    padding: 40px 0;
+  }
+
+  .ss-container {
+    padding: 0 20px;
+    gap: 32px;
+  }
+
+  /* Show content below on mobile */
+  .ss-left:first-child .ss-description,
+  .ss-left:first-child .ss-button {
+    display: none;
+  }
+
+  .ss-left-bottom {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .ss-label {
+    font-size: 11px;
+    margin: 0 0 8px;
   }
 
   .ss-heading {
     font-size: 28px;
+    margin: 0 0 16px;
   }
 
+  .ss-description {
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+
+  .ss-button {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+
+  .ss-main-image-wrap {
+    border-radius: 12px;
+    aspect-ratio: 16 / 11;
+  }
+
+  .ss-thumbnail {
+    flex: 0 0 calc(33.333% - 8px);
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 640px) {
   .showroom-showcase-section {
-    padding: 40px 0;
+    padding: 32px 0;
+  }
+
+  .ss-container {
+    padding: 0 16px;
+    gap: 24px;
+  }
+
+  .ss-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .ss-heading {
+    font-size: 24px;
+    letter-spacing: -0.3px;
+  }
+
+  .ss-description {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .ss-button {
+    padding: 12px 32px;
+    font-size: 11px;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .ss-main-image-wrap {
+    border-radius: 10px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .ss-thumbnails {
+    gap: 10px;
+  }
+
+  .ss-thumbnail {
+    flex: 0 0 calc(25% - 7.5px);
+    min-width: 80px;
+    border-radius: 8px;
+    border-width: 2px;
+  }
+
+  .ss-pagination {
+    gap: 6px;
+  }
+
+  .ss-pagination-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .ss-pagination-dot.active {
+    width: 18px;
   }
 }
 
 @media (max-width: 480px) {
+  .showroom-showcase-section {
+    padding: 24px 0;
+  }
+
+  .ss-container {
+    padding: 0 12px;
+    gap: 20px;
+  }
+
+  .ss-heading {
+    font-size: 20px;
+  }
+
+  .ss-description {
+    font-size: 12px;
+  }
+
+  .ss-button {
+    padding: 10px 24px;
+    font-size: 10px;
+  }
+
   .ss-thumbnail {
-    flex: 0 0 calc(50% - 6px);
+    flex: 0 0 calc(25% - 7.5px);
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 375px) {
+  .ss-container {
+    padding: 0 10px;
+  }
+
+  .ss-heading {
+    font-size: 18px;
+  }
+
+  .ss-thumbnail {
+    min-width: 65px;
   }
 }

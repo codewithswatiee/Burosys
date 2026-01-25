@@ -1,7 +1,6 @@
 {{ 'section-dooor.css' | asset_url | stylesheet_tag }}
 
 <div class="dooor-section color-{{ section.settings.color_scheme }} gradient">
-  <div class="dooor-container page-width">
     {% if section.settings.subtitle != blank %}
       <p class="dooor-subtitle">{{ section.settings.subtitle }}</p>
     {% endif %}
@@ -62,7 +61,7 @@
         {%- endfor -%}
       </div>
     {%- endif -%}
-  </div>
+  
 </div>
 
 <script>

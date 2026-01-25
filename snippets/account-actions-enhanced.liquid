@@ -55,15 +55,6 @@
             </span>
             Login
           </a>
-          <a
-            href="{% if request.design_mode %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
-            class="account-actions-enhanced__auth-button"
-          >
-            <span class="account-actions-enhanced__icon" aria-hidden="true">
-              {{- 'icon-account.svg' | inline_asset_content -}}
-            </span>
-            Sign up
-          </a>
         </div>
       </div>
     {% else %}
