@@ -42,16 +42,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var itemHoverBox = document.createElement('div');
       itemHoverBox.className = 'ct-hover-box';
-      
-      // Build hover box content with "Explore Now" link
-      var hoverContent = '<div class="ct-hover-text">' + (it.content || '');
-      if (it.link && !isMobile) {
-        hoverContent += '<br><br><a href="' + it.link + '" class="ct-hover-link">Explore Now</a>';
+
+      // Build hover box content with CTA coming from the item's cta_label + cta_link
+      var ctaLabel = it.cta_label || 'Explore Now';
+      var ctaHref = it.cta_link || '';
+      var hoverMain = '<div class="ct-hover-text">' + (it.content || '') + '</div>';
+      var hoverFooter = '';
+      if (ctaHref && !isMobile) {
+        hoverFooter = '<div class="ct-hover-footer"><a href="' + ctaHref + '" class="ct-hover-link">' + ctaLabel + '</a></div>';
       }
-      hoverContent += '</div>';
-      
-      itemHoverBox.innerHTML = hoverContent;
+
+      itemHoverBox.innerHTML = hoverMain + hoverFooter;
       itemHoverBox.setAttribute('aria-hidden', 'true');
+
+      // hover box will be appended after the button so it appears below the label
 
       function showHover() {
         itemHoverBox.classList.add('visible');
@@ -79,23 +83,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      // Mobile: click to navigate if link exists, Desktop: hover to show content
+      // Mobile: clicking selects the item and updates the mobile CTA (from customizer)
       if (isMobile) {
-        if (it.link) {
-          btn.addEventListener('click', function() {
-            window.location.href = it.link;
-          });
-          btn.style.cursor = 'pointer';
-        }
+        btn.addEventListener('click', function() {
+          // mark active button
+          var previouslyActive = itemsWrap.querySelector('.ct-item-btn.active');
+          if (previouslyActive) previouslyActive.classList.remove('active');
+          btn.classList.add('active');
+
+          // update explore button (mobile CTA) to this item's CTA link/label
+          if (exploreBtn) {
+            exploreBtn.href = it.cta_link || tab.link || '#';
+            exploreBtn.textContent = it.cta_label || ctaLabel || 'Explore Now';
+          }
+        });
+        btn.style.cursor = 'pointer';
       } else {
-        // Desktop: hover behavior
-        btn.addEventListener('mouseenter', showHover);
-        btn.addEventListener('mouseleave', hideHover);
-        btn.addEventListener('focus', showHover);
-        btn.addEventListener('blur', hideHover);
+        // Desktop: hover behavior on the whole wrapper so the hover box stays open
+        wrapper.addEventListener('mouseenter', showHover);
+        wrapper.addEventListener('mouseleave', hideHover);
+        wrapper.addEventListener('focusin', showHover);
+        wrapper.addEventListener('focusout', hideHover);
       }
 
       wrapper.appendChild(btn);
+      wrapper.appendChild(itemHoverBox);
       itemsWrap.appendChild(wrapper);
     });
 
@@ -106,7 +118,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // update explore now button (mobile only)
     if (exploreBtn) {
-      exploreBtn.href = tab.link || '#';
+      // default to the first item's CTA if available, otherwise fall back to the tab link
+      if (tab.items && tab.items.length) {
+        exploreBtn.href = tab.items[0].cta_link || tab.items[0].link || tab.link || '#';
+        exploreBtn.textContent = tab.items[0].cta_label || 'Explore Now';
+      } else {
+        exploreBtn.href = tab.link || '#';
+        exploreBtn.textContent = 'Explore Now';
+      }
     }
     
     // Scroll items container to start

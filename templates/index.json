@@ -73,16 +73,6 @@
             "text_style": "text-normal"
           }
         },
-        "line_break_gP9Uky": {
-          "type": "line_break",
-          "settings": {}
-        },
-        "image_cVG9wK": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
-          }
-        },
         "text_XpRgKi": {
           "type": "text",
           "settings": {
@@ -90,9 +80,21 @@
             "text_style": "text-normal"
           }
         },
-        "line_break_cGxwHB": {
+        "image_cVG9wK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+          }
+        },
+        "line_break_CaR6gi": {
           "type": "line_break",
           "settings": {}
+        },
+        "image_c4Cdam": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+          }
         },
         "text_Kw44gr": {
           "type": "text",
@@ -100,24 +102,17 @@
             "text": "OFFICE EVERY SINGLE DAY",
             "text_style": "text-normal"
           }
-        },
-        "image_c4Cdam": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
-          }
         }
       },
       "block_order": [
         "text_iiiJUX",
         "image_rFr4pd",
         "text_BewCge",
-        "line_break_gP9Uky",
-        "image_cVG9wK",
         "text_XpRgKi",
-        "line_break_cGxwHB",
-        "text_Kw44gr",
-        "image_c4Cdam"
+        "image_cVG9wK",
+        "line_break_CaR6gi",
+        "image_c4Cdam",
+        "text_Kw44gr"
       ],
       "name": "Text with Inline Images",
       "settings": {
@@ -146,7 +141,8 @@
           "settings": {
             "title": "EXECUTIVE CHAIRS",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_nxHxYR": {
@@ -154,7 +150,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_cDPX3f": {
@@ -162,7 +159,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_KCbXPQ": {
@@ -170,7 +168,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "tab_Gc9x6y": {
@@ -186,7 +185,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_TzYgcC": {
@@ -194,7 +194,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_ierWR7": {
@@ -202,7 +203,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "tab_w9Ue63": {
@@ -218,7 +220,8 @@
           "settings": {
             "title": "EXECUTIVE CHAIRS",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_N47MrP": {
@@ -226,7 +229,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_WUqFfj": {
@@ -234,7 +238,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "tab_BCz7LJ": {
@@ -250,7 +255,8 @@
           "settings": {
             "title": "EXECUTIVE CHAIRS",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_HrNix3": {
@@ -258,7 +264,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_xJQXew": {
@@ -266,7 +273,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "tab_MFgnHP": {
@@ -282,7 +290,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_eVc4Xq": {
@@ -290,7 +299,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "tab_NqgLX8": {
@@ -306,7 +316,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_z8zWfN": {
@@ -314,7 +325,8 @@
           "settings": {
             "title": "LOREM IPSUM",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         },
         "item_HxYWBA": {
@@ -322,7 +334,8 @@
           "settings": {
             "title": "EXECUTIVE CHAIRS",
             "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "link": ""
+            "cta_link": "",
+            "cta_label": "Explore Now"
           }
         }
       },

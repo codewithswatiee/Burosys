@@ -13,102 +13,19 @@
   "sections": {
     "footer_QAE7jb": {
       "type": "footer",
-      "blocks": {
-        "menu_ywDwTf": {
-          "type": "menu",
-          "name": "t:names.menu",
-          "settings": {
-            "menu": "footer",
-            "heading": "",
-            "menu_spacing": 12,
-            "show_as_accordion": false,
-            "accordion_icon": "caret",
-            "accordion_dividers": true,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "heading_preset": "h5",
-            "link_preset": "paragraph",
-            "padding-block-start": 100,
-            "padding-block-end": 100,
-            "padding-inline-start": 64,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "menu_ywDwTf"
-      ],
       "name": "t:names.footer",
       "settings": {
-        "section_width": "full-width",
-        "gap": 0,
-        "color_scheme": "scheme-5",
-        "padding-block-start": 30,
-        "padding-block-end": 90
-      }
-    },
-    "logo_Rpw4dD": {
-      "type": "logo",
-      "name": "t:names.logo",
-      "settings": {
-        "inverse": false,
-        "custom_logo": "shopify://shop_images/Group_287.svg",
-        "font": "heading",
-        "unit": "percent",
-        "pixel_height": 48,
-        "percent_width": 100,
-        "custom_mobile_size": false,
-        "unit_mobile": "percent",
-        "percent_width_mobile": 100,
-        "pixel_height_mobile": 120,
-        "section_width": "page-width",
-        "alignment_horizontal": "center",
-        "color_scheme": "scheme-5",
-        "padding-block-start": 100,
-        "padding-block-end": 12
-      }
-    },
-    "utilities": {
-      "type": "footer-utilities",
-      "blocks": {
-        "footer_copyright_gF93Yj": {
-          "type": "footer-copyright",
-          "name": "t:names.copyright",
-          "settings": {
-            "show_powered_by": false,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_d67hbx": {
-          "type": "footer-policy-list",
-          "name": "t:names.policy_list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "footer_copyright_gF93Yj",
-        "footer_policy_list_d67hbx"
-      ],
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 0,
-        "color_scheme": "scheme-5",
-        "padding-block-start": 0,
-        "padding-block-end": 6
+        "logo": "shopify://shop_images/Group_287.svg",
+        "logo_alt": "Site logo",
+        "logo_width": 420,
+        "menu": "footer",
+        "right_links_menu": "bottom-links",
+        "copyright_text": "© 2025 Burosys",
+        "color_scheme": ""
       }
     }
   },
   "order": [
-    "footer_QAE7jb",
-    "logo_Rpw4dD",
-    "utilities"
+    "footer_QAE7jb"
   ]
 }

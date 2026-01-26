@@ -28,11 +28,22 @@
 .ct-item-btn { display: inline-flex; align-items: center; gap: 12px; background: #000; color: #fff; border-radius: 30px; padding: 12px 18px; border: none; cursor: pointer; font-weight: 600; max-width: max-content; transition: all 0.3s ease; font-size: 14px; }
 .ct-item-btn .ct-plus { background: transparent; color: #fff; font-weight: 700; margin-right: 6px; font-size: 18px; }
 
-.ct-hover-box { max-height: 0; opacity: 0; overflow: hidden; background: #f2f2f2; border-radius: 12px; margin: 8px 0 10px 0; transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease; }
+.ct-hover-box {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  background: #f2f2f2;
+  border-radius: 12px;
+  margin: 8px 0 10px 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
 .ct-hover-box.visible { max-height: 500px; opacity: 1; margin: 8px 0 10px 0; }
-.ct-hover-box .ct-hover-text { color: #333; font-size: 14px; line-height: 1.45; padding: 18px; }
-.ct-hover-link { color: #333; text-decoration: underline; font-weight: 600; transition: opacity 0.3s ease; display: inline-block; margin-top: 8px; }
-.ct-hover-link:hover { opacity: 0.7; }
+.ct-hover-box .ct-hover-text { color: #333; font-size: 14px; line-height: 1.45; padding: 18px; flex: 1 1 auto; }
+.ct-hover-footer { padding: 12px 18px; border-top: 1px solid rgba(0,0,0,0.04); display:flex; justify-content:flex-start; }
+.ct-hover-link { color: #6F6F6F; text-decoration: underline; font-weight: 400; transition: opacity 0.3s ease; font-size: 16px; }
+.ct-hover-link:hover { opacity: 0.85; }
 
 /* Tablet screens */
 @media (max-width: 1024px) {
@@ -61,8 +72,8 @@
   
   /* Show explore now button */
   .explore-now-wrapper { display: block; width: 100%; text-align: center; margin: 16px 0 24px; order: 2; }
-  .explore-now-btn { display: inline-block; text-decoration: none; color: #000; font-size: 14px; letter-spacing: 1px; padding: 0 0 4px; border-bottom: 2px solid #000; transition: opacity 0.3s ease; }
-  .explore-now-btn:hover { opacity: 0.7; }
+  .explore-now-btn { display: inline-block; text-decoration: none; color: #6F6F6F; font-size: 16px; letter-spacing: 1px; padding: 0 0 4px; border-bottom: 1px solid #6F6F6F; }
+  .explore-now-btn:hover { color:#000; }
   
   /* Items as horizontal carousel */
   .ct-items { flex-direction: row; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding: 10px 0; gap: 10px; }
@@ -89,9 +100,9 @@
   
   .ct-image { max-height: 300px; border-radius: 6px; }
   .explore-now-wrapper { margin: 12px 0 20px; }
-  .explore-now-btn { font-size: 13px; }
+  .explore-now-btn { font-size: 14px; }
   .ct-items { gap: 8px; }
-  .ct-item-wrapper { min-width: 180px; }
+  .ct-item-wrapper { min-width: max-content; }
   .ct-item-btn { padding: 12px 24px; font-size: 14px; border-radius: 25px; }
 }
 
@@ -109,7 +120,7 @@
   .explore-now-wrapper { margin: 10px 0 16px; }
   .explore-now-btn { font-size: 12px; }
   .ct-items { gap: 6px; }
-  .ct-item-wrapper { min-width: 160px; }
+  .ct-item-wrapper { min-width: max-content;}
   .ct-item-btn { padding: 12px 20px; font-size: 13px; border-radius: 20px; }
 }
 
@@ -127,7 +138,7 @@
   .explore-now-wrapper { margin: 8px 0 14px; }
   .explore-now-btn { font-size: 11px; }
   .ct-items { gap: 5px; }
-  .ct-item-wrapper { min-width: 150px; }
+  .ct-item-wrapper { min-width: max-content; }
   .ct-item-btn { padding: 11px 18px; font-size: 12px; }
 }
 
