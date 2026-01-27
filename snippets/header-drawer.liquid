@@ -84,48 +84,76 @@
                       <!-- Special handling for Products with category images -->
                       <div class="header-drawer__products-grid">
                         {% for child_link in link.links %}
-                          {% if child_link.type == 'collection_link' %}
-                            <a href="{{ child_link.url }}" class="header-drawer__product-category">
-                              {% if child_link.object.image %}
-                                <div class="header-drawer__category-image">
-                                  <img
-                                    src="{{ child_link.object.image | image_url: width: 240 }}"
-                                    alt="{{ child_link.object.title }}"
-                                    loading="lazy"
-                                    width="119"
-                                    height="119"
-                                  >
-                                </div>
-                              {% else %}
-                                <div class="header-drawer__category-image header-drawer__category-image--placeholder">
-                                  <span class="svg-wrapper" aria-hidden="true">
-                                    {{ 'icon-search.svg' | inline_asset_content }}
-                                  </span>
-                                </div>
-                              {% endif %}
-                              <span class="header-drawer__category-title">{{ child_link.title | upcase }}</span>
-                            </a>
+                          {% if child_link.links != blank %}
+                            {%- comment -%} Child link has its own children — render a details panel that opens a submenu with large image cards {%- endcomment -%}
+                            <details class="header-drawer__product-details">
+                              <summary class="header-drawer__product-category" data-has-subpanel="true">
+                                {% if child_link.type == 'collection_link' and child_link.object.image %}
+                                  <div class="header-drawer__category-image">
+                                    <img src="{{ child_link.object.image | image_url: width: 240 }}" alt="{{ child_link.title }}" loading="lazy" width="119" height="119">
+                                  </div>
+                                {% elsif child_link.object.metafields.custom.header_image %}
+                                  <div class="header-drawer__category-image">
+                                    <img src="{{ child_link.object.metafields.custom.header_image | image_url: width: 240 }}" alt="{{ child_link.title }}" loading="lazy" width="119" height="119">
+                                  </div>
+                                {% else %}
+                                  <div class="header-drawer__category-image header-drawer__category-image--placeholder">
+                                    <span class="svg-wrapper" aria-hidden="true">{{ 'icon-search.svg' | inline_asset_content }}</span>
+                                  </div>
+                                {% endif %}
+                                <span class="header-drawer__category-title">{{ child_link.title | upcase }}</span>
+                              </summary>
+
+                              <div class="header-drawer__product-subpanel">
+                                {% for grand in child_link.links %}
+                                  <a href="{{ grand.url }}" class="header-drawer__product-card">
+                                    {% if grand.type == 'collection_link' and grand.object.image %}
+                                      <img src="{{ grand.object.image | image_url: width: 1400 }}" alt="{{ grand.title }}" loading="lazy">
+                                    {% elsif grand.object.metafields.custom.header_image %}
+                                      <img src="{{ grand.object.metafields.custom.header_image | image_url: width: 1400 }}" alt="{{ grand.title }}" loading="lazy">
+                                    {% else %}
+                                      <div class="header-drawer__category-image header-drawer__category-image--placeholder">
+                                        <span class="svg-wrapper" aria-hidden="true">{{ 'icon-search.svg' | inline_asset_content }}</span>
+                                      </div>
+                                    {% endif %}
+
+                                    <div class="header-drawer__product-card-overlay" aria-hidden="true">
+                                      <span class="header-drawer__product-card-parent">{{ child_link.title | upcase }}</span>
+                                      <span class="header-drawer__product-card-title">{{ grand.title | upcase }}</span>
+                                      <span class="header-drawer__product-card-cta">DISCOVER MORE</span>
+                                    </div>
+                                  </a>
+                                {% endfor %}
+                              </div>
+                            </details>
                           {% else %}
-                            <a href="{{ child_link.url }}" class="header-drawer__product-category">
-                              {% if child_link.object.metafields.custom.header_image %}
-                                <div class="header-drawer__category-image">
-                                  <img
-                                    src="{{ child_link.object.metafields.custom.header_image | image_url: width: 240 }}"
-                                    alt="{{ child_link.title }}"
-                                    loading="lazy"
-                                    width="119"
-                                    height="119"
-                                  >
-                                </div>
-                              {% else %}
-                                <div class="header-drawer__category-image header-drawer__category-image--placeholder">
-                                  <span class="svg-wrapper" aria-hidden="true">
-                                    {{ 'icon-search.svg' | inline_asset_content }}
-                                  </span>
-                                </div>
-                              {% endif %}
-                              <span class="header-drawer__category-title">{{ child_link.title | upcase }}</span>
-                            </a>
+                            {% if child_link.type == 'collection_link' %}
+                              <a href="{{ child_link.url }}" class="header-drawer__product-category">
+                                {% if child_link.object.image %}
+                                  <div class="header-drawer__category-image">
+                                    <img src="{{ child_link.object.image | image_url: width: 240 }}" alt="{{ child_link.object.title }}" loading="lazy" width="119" height="119">
+                                  </div>
+                                {% else %}
+                                  <div class="header-drawer__category-image header-drawer__category-image--placeholder">
+                                    <span class="svg-wrapper" aria-hidden="true">{{ 'icon-search.svg' | inline_asset_content }}</span>
+                                  </div>
+                                {% endif %}
+                                <span class="header-drawer__category-title">{{ child_link.title | upcase }}</span>
+                              </a>
+                            {% else %}
+                              <a href="{{ child_link.url }}" class="header-drawer__product-category">
+                                {% if child_link.object.metafields.custom.header_image %}
+                                  <div class="header-drawer__category-image">
+                                    <img src="{{ child_link.object.metafields.custom.header_image | image_url: width: 240 }}" alt="{{ child_link.title }}" loading="lazy" width="119" height="119">
+                                  </div>
+                                {% else %}
+                                  <div class="header-drawer__category-image header-drawer__category-image--placeholder">
+                                    <span class="svg-wrapper" aria-hidden="true">{{ 'icon-search.svg' | inline_asset_content }}</span>
+                                  </div>
+                                {% endif %}
+                                <span class="header-drawer__category-title">{{ child_link.title | upcase }}</span>
+                              </a>
+                            {% endif %}
                           {% endif %}
                         {% endfor %}
                       </div>
@@ -259,6 +287,24 @@
           REQUEST QUOTE
         </a>
       </div>
+      
+        <!-- Product submenu full panel (hidden by default) -->
+        <div class="header-drawer__product-panel" aria-hidden="true">
+          <div class="header-drawer__product-panel-header">
+            <button type="button" class="header-drawer__product-panel-back button button-unstyled" aria-label="Back">
+              <span class="svg-wrapper" aria-hidden="true">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+              <span class="header-drawer__product-panel-back-text">Back</span>
+            </button>
+          </div>
+
+          <div class="header-drawer__product-panel-content"></div>
+
+          <div class="header-drawer__product-panel-footer">
+            <a href="{{ pages.request-quote.url | default: '/pages/request-quote' }}" class="header-drawer__request-quote button button-primary">
+              REQUEST QUOTE
+            </a>
+          </div>
+        </div>
     </div>
 
     <!-- Overlay -->
@@ -302,6 +348,29 @@
           document.body.style.overflow = '';
         }
       });
+
+      // Product subpanel wiring
+      this.productPanel = this.querySelector('.header-drawer__product-panel');
+      this.productPanelContent = this.productPanel?.querySelector('.header-drawer__product-panel-content');
+      this.productPanelBack = this.productPanel?.querySelector('.header-drawer__product-panel-back');
+
+      if (this.productPanelBack) {
+        this.productPanelBack.addEventListener('click', () => this.closeProductPanel());
+      }
+
+      // Attach open handlers to categories that have subpanels
+      const triggers = this.querySelectorAll('[data-has-subpanel]');
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          // Prevent native details toggle; open custom panel instead
+          e.preventDefault();
+          const details = trigger.closest('.header-drawer__product-details');
+          const subpanel = details?.querySelector('.header-drawer__product-subpanel');
+          if (subpanel && this.productPanel && this.productPanelContent) {
+            this.openProductPanel(subpanel.innerHTML, trigger);
+          }
+        });
+      });
     }
 
     toggleDrawer() {
@@ -320,6 +389,29 @@
       setTimeout(() => {
         this.drawer.focus();
       }, 100);
+    }
+
+    openProductPanel(html, triggerElement) {
+      if (!this.productPanel) return;
+      this.productPanelContent.innerHTML = html;
+      this.productPanel.classList.add('header-drawer__product-panel--open');
+      this.productPanel.setAttribute('aria-hidden', 'false');
+      // Hide primary nav for screen readers
+      this.querySelector('.header-drawer__nav')?.setAttribute('aria-hidden', 'true');
+      // focus to panel
+      setTimeout(() => {
+        this.productPanel.querySelector('.header-drawer__product-panel-back')?.focus();
+      }, 80);
+      this._lastTrigger = triggerElement;
+    }
+
+    closeProductPanel() {
+      if (!this.productPanel) return;
+      this.productPanel.classList.remove('header-drawer__product-panel--open');
+      this.productPanel.setAttribute('aria-hidden', 'true');
+      this.querySelector('.header-drawer__nav')?.removeAttribute('aria-hidden');
+      // return focus to last trigger if available
+      if (this._lastTrigger) this._lastTrigger.focus();
     }
 
     closeDrawer() {
@@ -427,8 +519,9 @@
   }
 
   .header-drawer__close .svg-wrapper {
-    width: 20px;
-    height: 20px;
+    width: 20px !important;
+    transform: rotate(90deg) !important;
+    height: 20px !important;
     color: var(--color-foreground);
   }
 
@@ -660,6 +753,113 @@
 
   .header-drawer__submenu {
     animation: slideDown 0.3s ease-out;
+  }
+
+  /* Hide inline product subpanels by default to avoid revealing off-canvas content */
+  .header-drawer__product-subpanel {
+    display: none;
+  }
+
+  /* If the details element is explicitly opened, show subpanel (keeps native behavior intact) */
+  .header-drawer__product-details[open] .header-drawer__product-subpanel {
+    display: block;
+  }
+
+  /* Prevent transformed off-canvas panels from causing horizontal scroll */
+  .header-drawer__panel,
+  .header-drawer__content {
+    overflow-x: hidden;
+  }
+
+  /* Product panel (full submenu drawer inside header drawer) */
+  .header-drawer__product-panel {
+    position: absolute;
+    inset: 0 0 0 0;
+    background: var(--color-background);
+    z-index: 3;
+    transform: translateX(100%);
+    transition: transform 0.28s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-md);
+    pointer-events: none;
+  }
+
+  .header-drawer__product-panel--open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .header-drawer__product-panel-header {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  .header-drawer__product-panel-back {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-xs);
+    color: #00000066;
+    font-size: 16px;
+  }
+
+  .header-drawer__product-panel-content {
+    margin: auto 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-md);
+    overflow-y: auto;
+    padding-bottom: var(--padding-lg);
+  }
+
+  .header-drawer__product-card {
+    display: block;
+    width: 100%;
+    height: 230px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .header-drawer__product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .header-drawer__product-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+    padding: var(--padding-md);
+  }
+
+  .header-drawer__product-card-parent {
+    font-size: var(--font-size--xs);
+    letter-spacing: 2px;
+    margin-bottom: var(--padding-xs);
+  }
+
+  .header-drawer__product-card-title {
+    font-size: 32px;
+    font-family: 'britney' !important;
+    text-transform: capitalize;
+    margin-bottom: var(--padding-sm);
+  }
+
+  .header-drawer__product-card-cta {
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    margin-top: 60px;
   }
 
   @keyframes slideDown {

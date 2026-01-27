@@ -10,7 +10,7 @@
 .ct-top-tabs::-webkit-scrollbar { display: none; }
 .ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; letter-spacing: 1px; transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0; }
 .ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; text-underline-offset: 10px;}
-.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 400; text-underline-offset: 10px;}
+.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 400; text-underline-offset: 10px; color: #000;}
 
 /* Desktop Layout - Side by Side */
 .ct-content { display: flex; gap: 40px; align-items: flex-start; }

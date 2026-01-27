@@ -5,23 +5,27 @@
 			#collection-banner-{{ section.id }}{--banner-gap:24px}
 		}
 		.collection-banner-section{padding:48px 24px}
-		.collection-banner-section .collection-banner__inner{display:flex;gap:var(--banner-gap);align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto}
+		.collection-banner-section .collection-banner__inner{display:flex;gap:var(--banner-gap);align-items:center;justify-content:space-between;margin:0 32px}
 		.collection-banner__text{flex:1 1 48%;min-width:220px}
 		.collection-banner__image{flex:1 1 48%;display:flex;align-items:center;justify-content:center}
 		.collection-banner__image img{width:100%;height:auto;border-radius:24px;object-fit:cover;display:block}
-		.collection-banner__title{font-size:48px;line-height:1;letter-spacing:4px;margin:0;font-weight:300;text-transform:uppercase}
+		.collection-banner__title{font-size:36px;line-height:1;letter-spacing:4px;margin:0;font-weight:300;text-transform:uppercase}
 		.collection-banner__count{font-size:16px;color:#9aa0a6;margin-left:10px;font-weight:400}
-		.collection-banner__subheading{font-size:20px;margin-top:28px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase}
-		.collection-banner__description{color:#6b6f71;font-size:16px;line-height:1.6;max-width:680px}
+		.collection-banner__subheading{font-size:18px;margin-top:28px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase; font-weight:500;color:#000}
+		.collection-banner__description{color:#00000099;font-size:16px;line-height:normal;max-width:80%;margin-top:8px}
 		@media (max-width: 999px){
 			.collection-banner__title{font-size:40px}
 		}
 		@media (max-width: 749px){
-			.collection-banner-section .collection-banner__inner{flex-direction:column}
-			.collection-banner__image{width:100%}
+			.collection-banner-section{
+				padding:24px 16px;
+			}
+			.collection-banner-section .collection-banner__inner{flex-direction:column; margin:0}
+			.collection-banner__image{display:none}
 			.collection-banner__text{width:100%}
-			.collection-banner__title{font-size:36px;margin-bottom:8px}
-			.collection-banner__subheading{margin-top:12px}
+			.collection-banner__description{display:none}
+			.collection-banner__title{font-size:32px;margin-bottom:8px;text-align:center}
+			.collection-banner__subheading{display:none}
 		}
 	</style>
 

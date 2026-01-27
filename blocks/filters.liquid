@@ -1377,7 +1377,8 @@
     align-items: center;
     padding: var(--padding-md) var(--padding-lg);
     background-color: var(--color-background);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #0000001A;
+    border-top: 1px solid #0000001A;
     margin-bottom: 24px;
     width: 100%;
     max-width: 100%;
@@ -1434,12 +1435,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 24px;
+    padding: 10px;
     border: 1.5px solid #000;
     border-radius: 50px;
     background-color: #fff;
     color: #000;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -1450,8 +1451,7 @@
   }
 
   .category-tab:hover {
-    background-color: #f9f9f9;
-    border-color: #333;
+    border-color: #ff5722;
   }
 
   /* Active category tab - filled orange/red style */
@@ -1486,7 +1486,7 @@
   }
 
   .products-count-text {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: 2px;
     color: #222;
@@ -1499,7 +1499,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--gap-2xs);
-    padding: 10px 24px;
+    padding: 10px;
     border: 1px solid #222;
     border-radius: 50px;
     background-color: transparent;
@@ -1537,10 +1537,21 @@
       padding: var(--padding-sm) var(--padding-md);
     }
 
+    .category-filter-bar__right .products-count-wrapper{
+      width: 70%;
+    }
+    .category-filter-bar__right{
+      border-top: 1px solid #0000001A;
+      padding-top: var(--padding-sm);
+    }
     .category-filter-bar__inner {
       flex-direction: column;
       align-items: stretch;
       gap: var(--gap-md);
+    }
+    .category-tabs{
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .category-tabs-wrapper {
@@ -1554,14 +1565,18 @@
     }
 
     .category-tab {
-      padding: 8px 16px;
-      font-size: 11px;
+      padding:10px;
+      font-size: 14px;
     }
 
     .sort-filter-btn {
-      padding: 8px 18px;
-      font-size: 13px;
+      border: 0;
     }
+
+    /* .category-filter-bar__right:nth-child(1) {
+      border-right: 1px solid black;
+      border-radius: 0;
+    } */
   }
 
   /* =====================================================
@@ -1576,16 +1591,16 @@
   }
 
   .dialog-drawer--left[open] {
-    --start-x: -100%;
-    --end-x: 0px;
+    --start-x: -100% !important;
+    --end-x: 0px !important;
     --start-opacity: 1;
 
     animation: var(--dialog-drawer-opening-animation) var(--animation-speed) var(--animation-easing) forwards;
   }
 
   .dialog-drawer--left[open].dialog-closing {
-    --start-x: 0px;
-    --end-x: -100%;
+    --start-x: 0px !important;
+    --end-x: -100% !important;
     --start-opacity: 1;
     --end-opacity: 1;
 

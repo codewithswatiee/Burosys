@@ -1343,13 +1343,13 @@ results-list[initialized] {
 }
 
 .dialog-drawer--right[open] {
-  --start-x: -100%;
+  --start-x: 100%;
   --start-opacity: 1;
 }
 
 .dialog-drawer--right[open].dialog-closing {
   --start-x: 0px;
-  --end-x: -100%;
+  --end-x: 100%;
   --start-opacity: 1;
   --end-opacity: 1;
 
@@ -1585,7 +1585,6 @@ summary {
   align-items: center;
   cursor: pointer;
   list-style: none;
-  padding-block: var(--padding-sm);
 }
 
 summary:hover {

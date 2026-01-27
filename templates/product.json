@@ -260,6 +260,20 @@
               },
               "blocks": {}
             },
+            "swatches_UzYfLG": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "center",
+                "product_swatches_alignment_mobile": "center",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            },
             "text": {
               "type": "product-description",
               "name": "Product description",
@@ -344,6 +358,7 @@
             "group",
             "divider",
             "variant_picker",
+            "swatches_UzYfLG",
             "text",
             "buy_buttons",
             "mst_wishlist_marketing_flow_v3_app_block_product_RaFLdc"

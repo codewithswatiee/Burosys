@@ -44,7 +44,7 @@
   }
 
   .custom-product-card-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1.5px solid #FF4000;
   }
 
   .custom-product-card-wrapper .product-badge {
@@ -71,10 +71,10 @@
   }
 
   .custom-product-card-wrapper .product-title {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
     color: #000;
     margin: 16px 16px 8px 16px;
     text-align: center;
@@ -83,24 +83,54 @@
 
   .custom-product-card-wrapper .product-price {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     color: #6F6F6F;
     margin: 0 16px 12px 16px;
     text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   .custom-product-card-wrapper .product-image-container {
     position: relative;
     width: 100%;
+    height: 320px;
     aspect-ratio: 1/1.3;
     overflow: hidden;
     background: #f9f9f9;
   }
 
-  .custom-product-card-wrapper .product-image-container img {
+  /* Horizontal scrollable image track */
+  .custom-product-card-wrapper .product-image-container {
+    position: relative;
     width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #f9f9f9;
+  }
+
+  .product-image-track {
+    display: flex;
     height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-image-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-image-slide img {
+    width: 100%;
+    height: 320px;
     object-fit: cover;
+    display: block;
   }
 
   .product-image-dots {
@@ -119,11 +149,19 @@
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
   .product-image-dots .dot.active {
     background-color: rgba(0, 0, 0, 0.8);
   }
+
+  /* hide native scrollbar visuals */
+  .product-image-track {
+    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .product-image-track::-webkit-scrollbar { display: none; height: 0; }
 
   .product-info-grid {
     display: grid;
@@ -207,8 +245,22 @@
 
   @media (max-width: 749px) {
     .product-info-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
+      display: flex !important;
+      flex-direction: row !important;
+      padding: 10px 5px !important;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .add-to-project-btn{
+      padding: 8px !important;
+      margin: 3px !important;
+      font-size: 8px !important;
+
+    }
+
+    .custom-product-card-wrapper .product-image-container{
+      height: 180px;
     }
     
     .custom-product-card-wrapper .product-title {
@@ -245,22 +297,30 @@
   
   <!-- Product Image Container -->
   <div class="product-image-container">
-    <a href="{{ product.url }}">
-      {% if product.featured_image %}
-        {{
-          product.featured_image
-          | image_url: width: 800
-          | image_tag: loading: 'lazy', alt: product.title
-        }}
+    <div class="product-image-track">
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+          <div class="product-image-slide">
+            <a href="{{ product.url }}">
+              {{
+                image
+                | image_url: width: 2400
+                | image_tag: loading: 'lazy', alt: product.title
+              }}
+            </a>
+          </div>
+        {% endfor %}
       {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        <div class="product-image-slide">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
       {% endif %}
-    </a>
-    
+    </div>
+
     <!-- Image Navigation Dots -->
     {% if product.images.size > 1 %}
       <div class="product-image-dots">
-        {% for image in product.images limit: 5 %}
+        {% for image in product.images %}
           <span class="dot {% if forloop.first %}active{% endif %}"></span>
         {% endfor %}
       </div>
@@ -304,14 +364,69 @@
   </div>
   
   <!-- Add to Project Button -->
-  <button 
+  {% comment %} <button 
     class="add-to-project-btn"
     onclick="window.location.href='{{ product.url }}'"
     type="button"
   >
     ADD TO PROJECT
-  </button>
+  </button> {% endcomment %}
 </div>
+
+<script>
+  (function(){
+    try {
+      var script = document.currentScript;
+      var wrapper = script && script.parentElement;
+      if (!wrapper) return;
+
+      var track = wrapper.querySelector('.product-image-track');
+      if (!track) return;
+      var slides = Array.prototype.slice.call(wrapper.querySelectorAll('.product-image-slide'));
+      var dotsContainer = wrapper.querySelector('.product-image-dots');
+      var dots = dotsContainer ? Array.prototype.slice.call(dotsContainer.querySelectorAll('.dot')) : [];
+
+      // ensure dots clickable
+      dots.forEach(function(d){ d.setAttribute('role','button'); d.tabIndex = 0; });
+
+      var ticking = false;
+
+      function updateActive(){
+        var center = track.scrollLeft + track.clientWidth / 2;
+        var closestIndex = 0; var closestDist = Infinity;
+        slides.forEach(function(s, i){
+          var slideCenter = s.offsetLeft + s.offsetWidth / 2;
+          var dist = Math.abs(slideCenter - center);
+          if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+        });
+        dots.forEach(function(dot, i){ dot.classList.toggle('active', i === closestIndex); });
+      }
+
+      track.addEventListener('scroll', function(){
+        if (!ticking) {
+          window.requestAnimationFrame(function(){ updateActive(); ticking = false; });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // click / key handlers for dots
+      dots.forEach(function(dot, i){
+        var go = function(e){
+          e && e.preventDefault();
+          if (!slides[i]) return;
+          slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        };
+        dot.addEventListener('click', go);
+        dot.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { go(e); } });
+      });
+
+      // initial activation
+      updateActive();
+    } catch (err) {
+      console.error('product-card carousel init error', err);
+    }
+  })();
+</script>
 
 {% schema %}
 {
