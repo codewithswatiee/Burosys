@@ -70,7 +70,7 @@
     "variant_swatch_border_style": "solid",
     "variant_swatch_border_width": 1,
     "variant_swatch_border_opacity": 20,
-    "variant_button_border_width": 2,
+    "variant_button_border_width": 0,
     "variant_button_radius": 0,
     "variant_button_width": "equal-width-buttons",
     "sections": {
@@ -186,6 +186,11 @@
           "option_selector": "",
           "custom_settings": "{\"show_price_on_login\": \"false\", \"show_vendor\": \"false\", \"cart_counter\": \".cart-count-bubble span:first-of-type\", \"custom_filters\": \"facet-filters-form, .facet-filters__sort\", \"custom_delay\": \"500\", \"remove_all_wishlist\": \"false\",\"hide_cart_btn\": \"false\"}"
         }
+      },
+      "11469127169306096870": {
+        "type": "shopify://apps/storeify-request-a-quote/blocks/embed-app/dac9aba2-251e-4c25-abc3-9fc57dbf7885",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

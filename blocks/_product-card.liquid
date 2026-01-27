@@ -15,8 +15,24 @@
     endif
   endfor
   
-  # Get product metafields for custom properties
-  assign lead_time = product.metafields.custom.lead_time | default: '3 Weeks'
+  # Get product metafields for custom properties (no default — show blank if missing)
+  assign lead_time = product.metafields.custom.lead_time
+
+  # Build a unique list of color values from variants (prefer variant metafield, fallback to option value)
+  assign _color_csv = ''
+  for v in product.variants
+    assign v_color = v.metafields.custom.color | default: v.metafields.custom.hex_color | default: v.option1
+    if v_color != blank
+      unless _color_csv contains v_color
+        if _color_csv == ''
+          assign _color_csv = v_color
+        else
+          assign _color_csv = _color_csv | append: '||' | append: v_color
+        endif
+      endunless
+    endif
+  endfor
+  assign color_values = _color_csv | split: '||'
   assign material = product.metafields.custom.material | default: 'Fabric'
   
   # Get variant colors if available
@@ -79,6 +95,7 @@
     margin: 16px 16px 8px 16px;
     text-align: center;
     line-height: 1.4;
+    white-space: nowrap;
   }
 
   .custom-product-card-wrapper .product-price {
@@ -168,6 +185,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     padding: 12px 16px;
+    justify-content: center;
     border-top: 1px solid #e5e5e5;
   }
 
@@ -178,18 +196,26 @@
     text-align: center;
   }
 
+  /* Add right border between info items except the last one */
+  .product-info-item:not(:last-child) {
+    border-right: 0.5px solid #D5D5D5;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
   .product-info-label {
     font-size: 12px;
-    color: #6F6F6F;
+    color: #00000099;
     text-transform: capitalize;
     margin-bottom: 8px;
     font-weight: 400;
+    white-space: nowrap;
   }
 
   .product-info-value {
     font-size: 13px;
     color: #000;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .product-color-swatches {
@@ -204,6 +230,8 @@
     border-radius: 50%;
     border: 1px solid #e5e5e5;
     cursor: pointer;
+    text-align: center;
+    font-size: 9px;
     transition: transform 0.2s ease;
   }
 
@@ -250,6 +278,18 @@
       padding: 10px 5px !important;
       gap: 8px;
       flex-wrap: nowrap;
+    }
+
+    .color-swatch{
+    font-size: 7px;
+  }
+
+    .product-info-label{
+      font-size: 7px !important;
+    }
+
+    .product-info-value{
+      font-size: 8px !important;
     }
 
     .add-to-project-btn{
@@ -330,28 +370,30 @@
   <!-- Product Info Grid (Lead Time, Color, Material) -->
   <div class="product-info-grid">
     <!-- Lead Time -->
-    <div class="product-info-item">
+    <div class="product-info-item" {% if lead_time == blank %}style="display:none;"{% endif %}>
       <div class="product-info-label">Lead Time</div>
       <div class="product-info-value">{{ lead_time }}</div>
     </div>
     
     <!-- Color Swatches -->
-    <div class="product-info-item">
+    {% assign color_count = color_values.size | default: 0 %}
+    <div class="product-info-item" {% unless color_count > 0 %}style="display:none;"{% endunless %}>
       <div class="product-info-label">Color</div>
       <div class="product-info-value">
-        {% if has_color_options %}
+        {% if color_count > 0 %}
           <div class="product-color-swatches">
-            {% for value in color_option.values limit: 3 %}
-              {% assign color_class = value | handleize %}
-              <span class="color-swatch {{ color_class }}" title="{{ value }}"></span>
+            {% assign max_show = 2 %}
+            {% for color in color_values limit: max_show %}
+              {% assign safe_color = color | strip %}
+              <span class="color-swatch" title="{{ safe_color }}" style="background: {{ safe_color }};"></span>
             {% endfor %}
+            {% if color_values.size > max_show %}
+              {% assign more = color_values.size | minus: max_show %}
+              <span class="color-swatch color-swatch-more">+{{ more }}</span>
+            {% endif %}
           </div>
         {% else %}
-          <div class="product-color-swatches">
-            <span class="color-swatch brown" title="Brown"></span>
-            <span class="color-swatch beige" title="Beige"></span>
-            <span class="color-swatch blue" title="Blue"></span>
-          </div>
+          <span aria-hidden="true">—</span>
         {% endif %}
       </div>
     </div>
