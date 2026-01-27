@@ -260,8 +260,59 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "material",
+      "namespace": "custom",
+      "name": "Material",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "frame-material",
+      "namespace": "shopify",
+      "name": "Frame material",
+      "description": "Defines the material used in the product's frame, such as wood or plastic",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "tag",
+      "namespace": "custom",
+      "name": "Tag",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "frame-color",
+      "namespace": "shopify",
+      "name": "Frame color",
+      "description": "Specifies the color of a product's frame, such as clear or gold",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
-  "variant": [],
+  "variant": [
+    {
+      "key": "color",
+      "namespace": "custom",
+      "name": "Color",
+      "description": "",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    }
+  ],
   "shop": []
 }

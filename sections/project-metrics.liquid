@@ -1,0 +1,116 @@
+{% comment %}
+Section: Project Metrics
+Grid of customizable metric cards. Each card has:
+- image (image_picker)
+- title (text)
+- description (text, optional)
+
+Add as many metric blocks as needed in the Theme Editor (max_blocks set in schema).
+{% endcomment %}
+
+<section id="project-metrics-{{ section.id }}" class="section project-metrics" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <header class="pm-header" role="region" aria-label="Project metrics header">
+      <h2 class="pm-title">PROJECT METRICS</h2>
+      <p class="pm-subheading">{{ section.settings.subheading | default: 'Explore chairs tailored to your interests' }}</p>
+    </header>
+
+    <div class="pm-grid">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <article class="pm-card" role="article">
+            <div class="pm-card-media">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.title | escape }}" loading="lazy" />
+              {% else %}
+                <div class="pm-placeholder" aria-hidden="true">
+                  <svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="120" height="80" rx="4" fill="#f4f4f4"></rect><path d="M10 60 L38 32 L58 54 L78 30 L110 60" stroke="#e0e0e0" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="pm-card-body">
+              {% if block.settings.title != blank %}
+                <h3 class="pm-card-title">{{ forloop.index }}. {{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="pm-card-desc">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      {% else %}
+        <div class="pm-empty">Add metric cards in the section settings to populate this area.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <style>
+    .wrap{
+    padding-bottom: 28px;}
+    .pm-header{text-align:center;margin-bottom:30px}
+    .pm-title{font-size:28px;letter-spacing:4px;margin:0 0 8px;font-weight:700}
+    .pm-subheading{color:#6b6b6b;margin:0;font-size:15px}
+
+    .pm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    .pm-card{background:#fff;overflow:hidden;display:flex;flex-direction:column;}
+    .pm-card-media{height:313px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .pm-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .pm-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fafafa}
+
+    .pm-card-body{padding:2px 0;}
+    .pm-card-title{font-size:18px;margin:0 0 8px;font-weight:400;color:#111}
+    .pm-card-desc{margin:0;color:#666;font-size:14px}
+
+    .pm-empty{padding:40px;border:1px dashed #eaeaea;text-align:center;color:#999}
+
+    @media (max-width: 990px){
+        .pm-card-title{font-size:12px;}
+      .pm-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+      .pm-card-media{height:140px}
+      .pm-card:{
+        min-height: 0px !important
+    }
+    }
+    @media (max-width: 749px){
+      .pm-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+      .pm-title{font-size:22px}
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Project Metrics",
+    "settings": [
+      {"type":"text","id":"subheading","label":"Subheading","default":"Explore chairs tailored to your interests"}
+    ],
+    "blocks": [
+      {
+        "type": "metric",
+        "name": "Metric card",
+        "settings": [
+          {"type":"image_picker","id":"image","label":"Image"},
+          {"type":"text","id":"title","label":"Title","default":"AI Powered space Planning"},
+          {"type":"text","id":"description","label":"Description","default":"Short description or metric detail"}
+        ]
+      }
+    ],
+    "max_blocks": 12,
+    "presets": [
+      {
+        "name": "Project Metrics",
+        "category": "Sections",
+        "blocks": [
+          {"type":"metric","settings":{"title":"AI Powered space Planning","description":""}},
+          {"type":"metric","settings":{"title":"Interactive 3D Virtual tours","description":""}},
+          {"type":"metric","settings":{"title":"Rendered Images","description":""}},
+          {"type":"metric","settings":{"title":"Walkthrough videos","description":""}},
+          {"type":"metric","settings":{"title":"PDF Brochures","description":""}},
+          {"type":"metric","settings":{"title":"Usage Analytics","description":""}}
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+
+</section>
