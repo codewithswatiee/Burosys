@@ -51,7 +51,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 24,
+            "gap": 16,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
             "color_scheme": "scheme-3",
@@ -343,12 +343,22 @@
               },
               "blocks": {}
             },
+            "button_cta_Wecn6n": {
+              "type": "button-cta",
+              "name": "Button CTA",
+              "settings": {
+                "section_width": "page-width",
+                "button_text": "Configure",
+                "button_link": "shopify://collections"
+              },
+              "blocks": {}
+            },
             "buy_buttons": {
               "type": "buy-buttons",
               "settings": {
                 "stacking": false,
                 "show_pickup_availability": false,
-                "gift_card_form": true,
+                "gift_card_form": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -357,7 +367,6 @@
               "blocks": {
                 "quantity": {
                   "type": "quantity",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -379,33 +388,6 @@
                 }
               },
               "block_order": []
-            },
-            "mst_wishlist_marketing_flow_v3_app_block_product_Efm6gw": {
-              "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-block-product/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
-              "settings": {
-                "multi_language": false,
-                "iwish_add_txt": "Add To Wishlist",
-                "iwish_added_txt": "Added To Wishlist",
-                "theme_btn_class": "",
-                "icon_style": "none",
-                "iwish_add_icon_outline": "",
-                "iwish_added_icon_filled": "",
-                "text_font_size": 16,
-                "text_color": "#000000",
-                "text_color_hover": ""
-              }
-            },
-            "divider_FQCrbw": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
             }
           },
           "block_order": [
@@ -416,9 +398,8 @@
             "variant_picker_VXBwia",
             "text_t7ttq3",
             "text_KTaHXQ",
-            "buy_buttons",
-            "mst_wishlist_marketing_flow_v3_app_block_product_Efm6gw",
-            "divider_FQCrbw"
+            "button_cta_Wecn6n",
+            "buy_buttons"
           ]
         }
       },
@@ -427,11 +408,39 @@
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": true,
-        "gap": 48,
+        "gap": 24,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
         "padding-block-start": 10,
         "padding-block-end": 0
+      }
+    },
+    "product_info_tabs_mzCJfa": {
+      "type": "product-info-tabs",
+      "name": "Product Info Tabs",
+      "settings": {
+        "section_width": "page-width",
+        "title": "More about this product",
+        "show_note": false,
+        "note_text": "*Does not cover wear and tear, fabric damage due to misuse.",
+        "tab1_title": "Specifications",
+        "tab1_number": "",
+        "tab1_icon": "shopify://shop_images/Vector.png",
+        "tab1_source": "richtext",
+        "tab1_metafield": "custom.specifications",
+        "tab1_content": "<p><strong>Modern Aesthetics:</strong> Features a bold blue rexine cover with classic button tufting and striking gold-tone leg accents.</p><p><strong>Spacious Seating:</strong> Designed in three varrious configurations to comfortably accommodate multiple people.</p><p><strong>Premium Durability:</strong> Expertly crafted  with high-quality materials for long-lasting use in various sitting applications.</p><p><strong>Effortless Setup:</strong> Delivered fully constructed so you can enjoy your new furniture without the hassle of assembly.<br/><br/></p>",
+        "tab2_title": "Warranty",
+        "tab2_number": "",
+        "tab2_icon": "shopify://shop_images/SVGRepo_iconCarrier.png",
+        "tab2_source": "richtext",
+        "tab2_metafield": "custom.warranty",
+        "tab2_content": "<p><strong>Mechanism Assurance: </strong>Functional warranty is applicable only on chair mechanisms, as specified per model.</p><p><strong>Manufacturing Support:</strong> Any manufacturing-related concerns are reviewed and addressed on a case-to-case basis.</p><p><strong>Usage Disclaimer:</strong> Warranty does not cover normal wear & tear, upholstery, finishes, or damage due to misuse.<br/><br/></p>",
+        "tab3_title": "Care & Maintenance",
+        "tab3_number": "",
+        "tab3_icon": "shopify://shop_images/SVGRepo_iconCarrier_1.png",
+        "tab3_source": "richtext",
+        "tab3_metafield": "custom.care",
+        "tab3_content": "<p><strong>Sunlight Exposure: </strong>Avoid placing your sofa in direct sunlight or near windows to prevent the fabric from fading and the material from becoming brittle.</p><p><strong>Regular Maintenance:</strong> Vacuum weekly using a soft brush nozzle to remove dust and grit, and gently wipe leather or frames with a soft, lightly damp cloth.</p><p><strong>Moisture Protection: </strong>Maintain a small gap between the sofa and walls to prevent moisture buildup, and promptly wipe away any dampness with a dry cloth.<strong>Structural Integrity: </strong>Avoid sitting on the armrests or jumping on the cushions to protect the internal frame and maintain the shape of the foam.<br/><br/></p>"
       }
     },
     "product-recommendations": {
@@ -743,6 +752,7 @@
   },
   "order": [
     "main",
+    "product_info_tabs_mzCJfa",
     "product-recommendations",
     "image_with_side_buttons_WGPWzJ"
   ]

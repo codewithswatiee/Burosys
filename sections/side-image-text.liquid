@@ -1,6 +1,6 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
-<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} side-image-text-section spacing-style" style="{%- render 'spacing-style', settings: section.settings -%}">
+<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} side-image-text-section spacing-style {% if section.settings.mobile_overlay_enable %}mobile-overlay-enabled mobile-overlay-pos-{{ section.settings.mobile_overlay_position }}{% endif %}" style="{%- render 'spacing-style', settings: section.settings -%}">
   <div class="side-image-text__inner {% if section.settings.reversed %}is-reversed{% endif %}">
     <div class="side-image-text__media">
       {% if section.settings.image != blank %}
@@ -13,6 +13,10 @@
         >
         {% if section.settings.enable_overlay %}
           <div class="side-image-text__overlay" style="--overlay-color: {{ section.settings.overlay_color }}; --overlay-opacity: {{ section.settings.overlay_opacity }}%"></div>
+        {% endif %}
+
+        {% if section.settings.mobile_overlay_enable %}
+          <div class="side-image-text__heading-overlay">{{ section.settings.heading }}</div>
         {% endif %}
       {% else %}
         <div class="side-image-text__placeholder">{{ 'placeholder' | placeholder_svg_tag: 'placeholder-svg' }}</div>
@@ -118,13 +122,49 @@
       gap: 1.25rem;
     }
 
+    .side-image-text__img{
+      aspect-ratio: 2/3;
+    }
+
     .side-image-text__media {
       min-height: 320px;
     }
 
-    .side-image-text__content {
-      padding: 0;
+    .side-image-text__heading{
+      font-size: 42px;
     }
+
+    .side-image-text__text{
+      font-size: 14px;
+      max-width: 40ch;
+    }
+
+    .side-image-text__content {
+      padding: 0 16px;
+    }
+
+    /* Mobile heading overlay styles */
+    .side-image-text-section .side-image-text__heading-overlay { display:none }
+    .side-image-text-section.mobile-overlay-enabled .side-image-text__heading { display:none }
+    .side-image-text-section.mobile-overlay-enabled .side-image-text__heading-overlay{
+      display:block;
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:10;
+      color:#fff;
+      text-align:center;
+      padding:0 16px;
+      width:100%;
+      font-size:42px;
+      line-height:1.05;
+      font-family: 'britney' !important;
+      text-transform: capitalize;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+    .side-image-text-section.mobile-overlay-pos-top .side-image-text__heading-overlay{ top: 16px }
+    .side-image-text-section.mobile-overlay-pos-bottom .side-image-text__heading-overlay{ bottom: 16px }
   }
 {% endstylesheet %}
 
@@ -191,6 +231,22 @@
       "id": "text",
       "label": "Body text",
       "default": "Where precision meets artistry. Italian slate, chrome accents, and transparent glass redefine the game."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_overlay_enable",
+      "label": "Enable mobile heading overlay",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "mobile_overlay_position",
+      "label": "Mobile overlay position",
+      "default": "bottom",
+      "options": [
+        { "value": "top", "label": "Top center" },
+        { "value": "bottom", "label": "Bottom center" }
+      ]
     },
     {
       "type": "color_scheme",

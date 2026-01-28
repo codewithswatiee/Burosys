@@ -12,6 +12,8 @@
   style="
     {%- render 'spacing-style', settings: section.settings -%}
     {% render 'border-override', settings: section.settings %}
+    --card-radius: {{ section.settings.card_border_radius | default: 16 }}px;
+    --header-align: {{ section.settings.header_alignment | default: 'center' }};
   "
 >
   <div class="image-cards-grid__container">
@@ -82,8 +84,13 @@
 
 {% stylesheet %}
 
+  /* Ensure this section's background element picks up the color scheme variables */
+  .section-background.color-{{ section.settings.color_scheme }} {
+    background-color: var(--color-background);
+  }
+
   .image-cards-grid__header {
-    text-align: center;
+    text-align: var(--header-align, center);
     margin-bottom:40px;
   }
 
@@ -115,7 +122,7 @@
 
   .image-cards-grid__subheading {
     font-size: 16px;
-    color: #00000099;
+    color: #FFFFFFCC;
     margin: 20px 0;
   }
 
@@ -139,7 +146,7 @@
   .image-card__inner {
     position: relative;
     height: 100%;
-    border-radius: 16px;
+    border-radius: var(--card-radius, 16px);
     overflow: hidden;
   }
 
@@ -202,7 +209,7 @@
 
   .image-card__title.title-italic {
     font-style: italic;
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'britney' !important;
   }
 
   .image-card__title.title-normal {
@@ -250,7 +257,7 @@
     }
 
     .image-card__inner {
-      border-radius: 12px;
+      border-radius: calc(var(--card-radius, 16px) * 0.75);
     }
 
     .image-card__content {
@@ -301,7 +308,7 @@
     }
 
     .image-card__inner {
-      border-radius: 8px;
+      border-radius: calc(var(--card-radius, 16px) * 0.5);
     }
 
     .image-card__content {
@@ -337,7 +344,6 @@
 {
   "name": "Image Cards Grid",
   "tag": "section",
-  "class": "section",
   "settings": [
     {
       "type": "text",
@@ -421,6 +427,27 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius (px)",
+      "min": 0,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "header",
