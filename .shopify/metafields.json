@@ -300,6 +300,36 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "backrest-type",
+      "namespace": "shopify",
+      "name": "Backrest type",
+      "description": "Specifies the material or style of a chair's backrest; e.g. mesh, padded",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "seat-type",
+      "namespace": "shopify",
+      "name": "Seat type",
+      "description": "Describes the design of a chair or bench seat, such as padded or bucket ",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "firmness",
+      "namespace": "shopify",
+      "name": "Firmness",
+      "description": "Defines the level of firmness in items like furniture or mattresses, e.g. extra soft, firm",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [
