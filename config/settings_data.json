@@ -196,6 +196,41 @@
         "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": false,
         "settings": {}
+      },
+      "5784066569132941777": {
+        "type": "shopify://apps/s-store-locator/blocks/embed-app/e7003487-cc51-4321-9488-2c47c07a5b17",
+        "disabled": false,
+        "settings": {}
+      },
+      "10603822535667782919": {
+        "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/app-embed/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
+        "disabled": true,
+        "settings": {
+          "hide_float_icon": true,
+          "is_show_vendor": false,
+          "heart_icon_color": "",
+          "iwish_count_clr": "#FFFFFF",
+          "iwish_float_custom_icon": "",
+          "float_heart_position": "middle",
+          "float_heart_alignment": "left",
+          "open_drawer_once": false,
+          "multi_category_wishlist": false,
+          "is_old_cur_convertor": false,
+          "drawer_is_add_all_to_cart": false,
+          "cart_icon_class": ".cart-count-bubble",
+          "iwish_img_col": "2",
+          "iwish_img_size": "50X50",
+          "is_multi_language": true,
+          "drawer_title": "My Wishlist",
+          "drawer_empty_description": "Explore more and shortlist some items",
+          "drawer_empty_msg": "Your wishlist is empty!",
+          "drawer_login_msg": "Wishlist is not saved permanently yet. Please <a class=\"link-text\" href=\"/account/login\">log in</a> or <a class=\"link-text\" href=\"/account/register\">Create Account</a> to save it.",
+          "add_to_cart_txt": "Add To Cart",
+          "add_all_to_cart_txt": "Add All To Cart",
+          "drawer_sold_out": "Sold Out",
+          "main_wishlist_text": "Main Wishlist",
+          "save_btn_text": "SAVE"
+        }
       }
     },
     "color_schemes": {

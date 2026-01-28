@@ -246,6 +246,12 @@
     grid-auto-flow: row dense;
   }
 
+  .blog-posts-stories .blog-post-item-stories:nth-child(3){
+    grid-column: 3 / span 4;
+    grid-row: 1 / span 2;
+    --blog-post-card-scale: 2;
+  }
+
   /* Stories layout (match design)
    * - 1st + 2nd: left column, stacked
    * - 3rd: right, spans both rows
@@ -459,6 +465,20 @@
 
     .blog-posts-articles {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    .blog-posts-stories{
+      display: grid;
+      width: 100%;
+      gap: 12px;
+      grid-auto-flow: unset;
+      grid-template-columns: auto;
+    }
+
+    .blog-posts-stories .blog-post-item-stories:nth-child(3){
+      grid-column: span 6;
+      grid-row: 1;
+      --blog-post-card-scale: 1;
     }
 
     /* Keep 3-up grid for remaining stories cards */

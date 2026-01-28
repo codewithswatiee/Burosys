@@ -51,7 +51,7 @@
           "type": "_product-card",
           "static": true,
           "settings": {
-            "product_card_gap": 4,
+            "product_card_gap": 0,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -64,28 +64,6 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "mst_wishlist_marketing_flow_v3_app_block_list_zKAEdQ": {
-              "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-block-list/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
-              "disabled": true,
-              "settings": {
-                "multi_language": false,
-                "iwish_add_txt": "Add To Projects",
-                "iwish_added_txt": "Added To Projects",
-                "theme_btn_class": "",
-                "icon_position": "top-right",
-                "icon_style": "heart",
-                "iwish_add_icon_outline": "",
-                "iwish_added_icon_filled": "",
-                "text_font_size": 14,
-                "text_color": "#ffffff",
-                "text_color_hover": "",
-                "background_color": "#000000",
-                "z_index": 2,
-                "qv_wrapper": "",
-                "qv_button": "",
-                "qv_close_button": ""
-              }
-            },
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
@@ -252,7 +230,6 @@
             }
           },
           "block_order": [
-            "mst_wishlist_marketing_flow_v3_app_block_list_zKAEdQ",
             "card-gallery",
             "group_dCDKMz"
           ]
