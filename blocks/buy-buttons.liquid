@@ -367,6 +367,7 @@
   .product-form-buttons {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
   }
 
   .product-form-buttons:not(:has(.quantity-rules)) {
@@ -378,7 +379,6 @@
   }
 
   .product-form-buttons > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
-    flex: 1 1 var(--buy-button-preferred-width, 0);
     min-width: fit-content;
   }
 

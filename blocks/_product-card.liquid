@@ -6,7 +6,7 @@
   # Check for product tags to determine badge type
   assign show_featured_badge = false
   assign show_ready_to_ship_badge = false
-  
+
   for tag in product.tags
     if tag == 'featured' or tag == 'Featured' or tag == 'FEATURED'
       assign show_featured_badge = true
@@ -14,35 +14,46 @@
       assign show_ready_to_ship_badge = true
     endif
   endfor
+
+  # Prefer metafield `custom.tag` for badge override when present
+  assign badge_metafield = product.metafields.custom.tag | default: ''
+  assign badge_class = ''
+  assign badge_text = ''
+  if badge_metafield != ''
+    assign badge_value = badge_metafield | downcase | strip
+    if badge_value contains 'featured'
+      assign badge_class = 'product-badge--featured'
+      assign badge_text = 'FEATURED'
+    elsif badge_value contains 'ready'
+      assign badge_class = 'product-badge--ready-to-ship'
+      assign badge_text = 'READY TO SHIP'
+    else
+      assign badge_class = 'product-badge--custom'
+      assign badge_text = badge_metafield | upcase
+    endif
+  endif
   
   # Get product metafields for custom properties (no default — show blank if missing)
   assign lead_time = product.metafields.custom.lead_time
 
   # Build a unique list of color values from variants (prefer variant metafield, fallback to option value)
-  assign _color_csv = ''
+  assign color_csv = ''
   for v in product.variants
     assign v_color = v.metafields.custom.color | default: v.metafields.custom.hex_color | default: v.option1
     if v_color != blank
-      unless _color_csv contains v_color
-        if _color_csv == ''
-          assign _color_csv = v_color
+      unless color_csv contains v_color
+        if color_csv == ''
+          assign color_csv = v_color
         else
-          assign _color_csv = _color_csv | append: '||' | append: v_color
+          assign color_csv = color_csv | append: '||' | append: v_color
         endif
       endunless
     endif
   endfor
-  assign color_values = _color_csv | split: '||'
+  assign color_values = color_csv | split: '||'
   assign material = product.metafields.custom.material | default: 'Fabric'
   
-  # Get variant colors if available
-  assign has_color_options = false
-  for option in product.options_with_values
-    if option.name == 'Color' or option.name == 'Colour'
-      assign has_color_options = true
-      assign color_option = option
-    endif
-  endfor
+  # (variant option detection removed - not used)
 -%}
 
 <style>
@@ -63,27 +74,30 @@
     border: 1.5px solid #FF4000;
   }
 
-  .custom-product-card-wrapper .product-badge {
+  /* Badge placed over the product image for better visual alignment */
+  .product-image-container .product-badge {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 10;
+    top: 12px;
+    left: 12px;
+    z-index: 20;
     padding: 6px 12px;
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 4px;
+    letter-spacing: 0.7px;
   }
 
+  /* Badge backgrounds use colored backgrounds for better contrast when using metafield override */
   .product-badge--featured {
-    background-color: #ffffff;
-    color: #dc2626;
+    color: #DA2D2D !important;
   }
 
   .product-badge--ready-to-ship {
-    background-color: #ffffff;
-    color: #2563eb;
+    color: #2A24E7 !important;
+  }
+
+  .product-badge--custom {
+    color: #000;
   }
 
   .custom-product-card-wrapper .product-title {
@@ -145,7 +159,7 @@
 
   .product-image-slide img {
     width: 100%;
-    height: 320px;
+    height: 330px;
     object-fit: cover;
     display: block;
   }
@@ -314,29 +328,23 @@
 </style>
 
 <div class="custom-product-card-wrapper" {{ block.shopify_attributes }}>
-  <!-- Product Badge -->
-  {% if show_featured_badge %}
-    <div class="product-badge product-badge--featured">
-      FEATURED
-    </div>
-  {% elsif show_ready_to_ship_badge %}
-    <div class="product-badge product-badge--ready-to-ship">
-      READY TO SHIP
-    </div>
-  {% endif %}
-  
   <!-- Product Title -->
   <div class="product-title">
     {{ product.title }}
   </div>
-  
+
   <!-- Product Price -->
   <div class="product-price">
     {{ product.price | money }}
   </div>
-  
+
   <!-- Product Image Container -->
   <div class="product-image-container">
+    <!-- Product Badge (placed over image) -->
+    {% if badge_metafield != '' %}
+      <div class="product-badge {{ badge_class }}">{{ badge_text }}</div>
+    {% endif %}
+
     <div class="product-image-track">
       {% if product.images.size > 0 %}
         {% for image in product.images %}

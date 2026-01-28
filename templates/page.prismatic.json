@@ -36,31 +36,39 @@
         "show_arrows": false
       }
     },
-    "luxury_hero_carousel_JmKa9w": {
-      "type": "luxury-hero-carousel",
-      "blocks": {
-        "slide_gRd4X8": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Picture2.png",
-            "enable_overlay": true,
-            "overlay_color": "#000000",
-            "overlay_opacity": 15,
-            "heading": "Prismatica",
-            "subheading": "A label of love",
-            "button_label": "",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_gRd4X8"
-      ],
-      "name": "Hero Carousel",
+    "hero_6m9Wt7": {
+      "type": "hero",
+      "name": "t:names.hero",
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 3,
-        "show_arrows": false
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/Picture2.png",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "full-width",
+        "section_height": "custom",
+        "section_height_custom": 70,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 0,
+        "padding-block-end": 40
       }
     },
     "side_image_text_WGxQ8z": {
@@ -76,7 +84,9 @@
         "kicker": "Our Heritage",
         "heading": "Deliberate Non-Corporate",
         "text": "Born from the stillness of Lake Orta and the rhythm of classical music, this collection draws inspiration from the lake’s dusky hues and the vibrant pulse of sound. It celebrates the beauty of intentional imperfection, where calm and rhythm meet in iridescent form.",
-        "color_scheme": ""
+        "mobile_overlay_enable": false,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_EapxHt": {
@@ -92,7 +102,9 @@
         "kicker": "",
         "heading": "Arc of Invention",
         "text": "",
-        "color_scheme": ""
+        "mobile_overlay_enable": true,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_QkkFMz": {
@@ -108,7 +120,9 @@
         "kicker": "",
         "heading": "Spectrum of Design Possibilities",
         "text": "",
-        "color_scheme": ""
+        "mobile_overlay_enable": true,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_TCJajr": {
@@ -124,7 +138,9 @@
         "kicker": "",
         "heading": "Arc of Invention",
         "text": "",
-        "color_scheme": ""
+        "mobile_overlay_enable": true,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_eYDUBf": {
@@ -140,7 +156,9 @@
         "kicker": "",
         "heading": "Spectrum of Design Possibilities",
         "text": "",
-        "color_scheme": ""
+        "mobile_overlay_enable": true,
+        "mobile_overlay_position": "top",
+        "color_scheme": "scheme-5"
       }
     },
     "section_BDdHVa": {
@@ -162,6 +180,7 @@
             "case": "none",
             "wrap": "balance",
             "color": "var(--color-foreground)",
+            "text_color_custom": "#ffffff",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -178,7 +197,8 @@
       ],
       "custom_css": [
         "p {font-family: \"britney\" !important;}",
-        ".section--page-width {max-width: 800px; margin: auto;}"
+        ".section--page-width {max-width: 800px; margin: auto;}",
+        "@media screen and (max-width: 749px) {p {font-size: 22px; } .section--page-width {max-width: 30ch; margin: auto; }}"
       ],
       "name": "t:names.rich_text_section",
       "settings": {
@@ -209,44 +229,156 @@
         "padding-block-end": 20
       }
     },
-    "luxury_hero_carousel_fztrtY": {
-      "type": "luxury-hero-carousel",
+    "hero_dxBAPy": {
+      "type": "hero",
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/Picture2.png",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "full-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 0,
+        "padding-block-end": 40
+      }
+    },
+    "accomplishments_whFxtx": {
+      "type": "accomplishments",
       "blocks": {
-        "slide_Q3FwWN": {
-          "type": "slide",
+        "item_BM33BY": {
+          "type": "item",
           "settings": {
-            "image": "shopify://shop_images/Theartisianedit_2.png",
-            "enable_overlay": true,
-            "overlay_color": "#000000",
-            "overlay_opacity": 40,
-            "heading": "",
-            "subheading": "",
-            "button_label": "",
-            "button_link": ""
+            "image": "shopify://shop_images/a47d1396d7e199733b5bb0811177fa4e3f7bf9ed.png",
+            "sku": "IRD-01",
+            "title": "MIDNIGHT IRIS",
+            "subtitle": ""
+          }
+        },
+        "item_aR9giH": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/a47d1396d7e199733b5bb0811177fa4e3f7bf9ed.png",
+            "sku": "IRD-02",
+            "title": "MIDNIGHT IRIS",
+            "subtitle": ""
+          }
+        },
+        "item_e3eE78": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/a47d1396d7e199733b5bb0811177fa4e3f7bf9ed.png",
+            "sku": "IRD-03",
+            "title": "MIDNIGHT IRIS",
+            "subtitle": ""
           }
         }
       },
       "block_order": [
-        "slide_Q3FwWN"
+        "item_BM33BY",
+        "item_aR9giH",
+        "item_e3eE78"
       ],
-      "custom_css": [],
-      "name": "Hero Carousel",
+      "name": "Accomplishments (three items)",
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 5,
-        "show_arrows": false
+        "scheme": "dark",
+        "small_heading": "ACCOMPLISHMENTS",
+        "heading": "IRIDESCENT FINISHES"
+      }
+    },
+    "image_cards_grid_3fdPTX": {
+      "type": "image-cards-grid",
+      "blocks": {
+        "card_fBRnqn": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Picture1.png",
+            "label": "ELEVATED SPACES",
+            "title": "Prismatica",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "card_y9tkrX": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/milos_2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Soft Partition",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "card_VYnHbD": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
+            "label": "ELEVATED SPACES",
+            "title": "Gaming Tables",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "card_fBRnqn",
+        "card_y9tkrX",
+        "card_VYnHbD"
+      ],
+      "name": "Image Cards Grid",
+      "settings": {
+        "heading": "EXPLORE ELEVATED SPACES",
+        "subheading": "Explore chairs tailored to your interests",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "section_width": "page-width",
+        "color_scheme": "scheme-5",
+        "card_border_radius": 0,
+        "header_alignment": "left",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     }
   },
   "order": [
     "luxury_hero_carousel_GQqyAV",
-    "luxury_hero_carousel_JmKa9w",
+    "hero_6m9Wt7",
     "side_image_text_WGxQ8z",
     "side_image_text_EapxHt",
     "side_image_text_QkkFMz",
     "side_image_text_TCJajr",
     "side_image_text_eYDUBf",
     "section_BDdHVa",
-    "luxury_hero_carousel_fztrtY"
+    "hero_dxBAPy",
+    "accomplishments_whFxtx",
+    "image_cards_grid_3fdPTX"
   ]
 }

@@ -1,0 +1,149 @@
+<section id="{{ section.id }}" class="product-info-tabs section--{{ section.settings.section_width }} spacing-style">
+  <div class="product-info-tabs__inner">
+    {% if section.settings.title != blank %}
+      <h2 class="product-info-tabs__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <nav class="product-info-tabs__nav" role="tablist">
+      {% for i in (1..3) %}
+        {% capture key %}tab{{ i }}_title{% endcapture %}
+        {% assign t_title = section.settings[key] %}
+        <button class="product-info-tabs__tab" data-tab-index="{{ i }}" role="tab" aria-selected="{% if i == 1 %}true{% else %}false{% endif %}">{% if t_title != blank %}{{ t_title }}{% else %}Tab {{ i }}{% endif %}</button>
+      {% endfor %}
+    </nav>
+
+    <div class="product-info-tabs__panels">
+      {% for i in (1..3) %}
+        {% capture key_title %}tab{{ i }}_title{% endcapture %}
+        {% capture key_icon %}tab{{ i }}_icon{% endcapture %}
+        {% capture key_number %}tab{{ i }}_number{% endcapture %}
+        {% capture key_source %}tab{{ i }}_source{% endcapture %}
+        {% capture key_meta %}tab{{ i }}_metafield{% endcapture %}
+        {% capture key_content %}tab{{ i }}_content{% endcapture %}
+
+        {% assign tab_title = section.settings[key_title] %}
+        {% assign tab_icon = section.settings[key_icon] %}
+        {% assign tab_number = section.settings[key_number] %}
+        {% assign content_source = section.settings[key_source] %}
+        {% assign metafield_key = section.settings[key_meta] %}
+        {% assign tab_content = section.settings[key_content] %}
+
+        <section class="product-info-tabs__panel" data-panel-index="{{ i }}" role="tabpanel" aria-hidden="{% if i != 1 %}true{% else %}false{% endif %}">
+          <div class="product-info-card">
+            <div class="product-info-card__left">
+              {% if tab_number != blank %}
+                <div class="product-info-card__bignumber">{{ tab_number }}</div>
+              {% endif %}
+              <div class="product-info-card__heading">{{ tab_title }}</div>
+              <div class="product-info-card__note">{% if section.settings.show_note %}{{ section.settings.note_text }}{% endif %}</div>
+            </div>
+
+            <div class="product-info-card__right">
+              {% if tab_icon != blank %}
+                <div class="product-info-card__icon"><img src="{{ tab_icon | image_url: width: 84 }}" width="84" height="84" alt="{{ tab_title | escape }}"></div>
+              {% endif %}
+            </div>
+
+            <div class="product-info-card__content">
+              {% comment %} Choose content source: metafield (namespace.key on product) or richtext {% endcomment %}
+              {% if content_source == 'metafield' and metafield_key != blank and product != nil %}
+                {% assign parts = metafield_key | split: '.' %}
+                {% assign ns = parts[0] | default: '' %}
+                {% assign ky = parts[1] | default: '' %}
+                {% if ns != '' and ky != '' and product.metafields[ns] != nil and product.metafields[ns][ky] != nil %}
+                  {{ product.metafields[ns][ky].value }}
+                {% else %}
+                  <div class="product-info-tabs__fallback">No metafield content found.</div>
+                {% endif %}
+              {% else %}
+                {{ tab_content }}
+              {% endif %}
+            </div>
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% stylesheet %}
+  .product-info-tabs__inner{max-width:var(--page-width);margin:0 auto}
+  .product-info-tabs__title{font-size:28px;text-align:center;margin-bottom:18px;letter-spacing:0.2em;text-transform:uppercase}
+  .product-info-tabs__nav{display:flex;justify-content:center;gap:36px;margin-bottom:18px}
+  .product-info-tabs__tab{background:none;border:none;padding:8px 12px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);}
+  .product-info-tabs__tab[aria-selected="true"]{border-bottom:2px solid var(--color-primary);padding-bottom:6px}
+
+  .product-info-tabs__panels{display:block}
+  .product-info-tabs__panel{display:none}
+  .product-info-tabs__panel[aria-hidden="false"]{display:block}
+
+  .product-info-card{background:var(--color-background);border-radius:12px;padding:28px;display:grid;grid-template-columns:1fr 160px;align-items:start;gap:20px;border:1px solid rgba(var(--color-border-rgb),0.12)}
+  .product-info-card__left{padding-right:10px}
+  .product-info-card__bignumber{font-size:96px;font-weight:400;line-height:1;margin-bottom:8px}
+  .product-info-card__heading{font-size:28px;font-weight:400;margin-bottom:18px}
+  .product-info-card__note{font-size:12px;color:rgba(var(--color-foreground-rgb),0.5);margin-bottom:12px}
+  .product-info-card__icon img{width:84px;height:84px;object-fit:contain}
+
+  .product-info-card__content{grid-column:1 / -1;padding-top:8px;display:flex;gap:24px;flex-wrap:wrap}
+  .product-info-card__content > *{flex:1 1 200px}
+
+  @media (max-width: 900px){
+    .product-info-card{grid-template-columns:1fr;}
+    .product-info-card__icon{justify-self:end}
+    .product-info-card__bignumber{font-size:60px}
+  }
+  {% endstylesheet %}
+
+  {% schema %}
+  {
+    "name": "Product Info Tabs",
+    "settings": [
+      { "type": "select", "id": "section_width", "label": "Width", "options": [ { "value": "page-width", "label": "Page width" }, { "value": "full-width", "label": "Full width" } ], "default": "page-width" },
+      { "type": "text", "id": "title", "label": "Section title", "default": "More about this product" },
+      { "type": "checkbox", "id": "show_note", "label": "Show small note under heading", "default": false },
+      { "type": "textarea", "id": "note_text", "label": "Note text", "default": "*Does not cover wear and tear, fabric damage due to misuse." },
+
+      { "type": "text", "id": "tab1_title", "label": "Tab 1 title", "default": "Specifications" },
+      { "type": "text", "id": "tab1_number", "label": "Tab 1 big number (optional)" },
+      { "type": "image_picker", "id": "tab1_icon", "label": "Tab 1 icon (optional)" },
+      { "type": "select", "id": "tab1_source", "label": "Tab 1 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
+      { "type": "text", "id": "tab1_metafield", "label": "Tab 1 metafield (namespace.key)", "default": "custom.specifications" },
+      { "type": "richtext", "id": "tab1_content", "label": "Tab 1 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" },
+
+      { "type": "text", "id": "tab2_title", "label": "Tab 2 title", "default": "Warranty" },
+      { "type": "text", "id": "tab2_number", "label": "Tab 2 big number (optional)"},
+      { "type": "image_picker", "id": "tab2_icon", "label": "Tab 2 icon (optional)" },
+      { "type": "select", "id": "tab2_source", "label": "Tab 2 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
+      { "type": "text", "id": "tab2_metafield", "label": "Tab 2 metafield (namespace.key)", "default": "custom.warranty" },
+      { "type": "richtext", "id": "tab2_content", "label": "Tab 2 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" },
+
+      { "type": "text", "id": "tab3_title", "label": "Tab 3 title", "default": "Care & Maintenance" },
+      { "type": "text", "id": "tab3_number", "label": "Tab 3 big number (optional)" },
+      { "type": "image_picker", "id": "tab3_icon", "label": "Tab 3 icon (optional)" },
+      { "type": "select", "id": "tab3_source", "label": "Tab 3 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
+      { "type": "text", "id": "tab3_metafield", "label": "Tab 3 metafield (namespace.key)", "default": "custom.care" },
+      { "type": "richtext", "id": "tab3_content", "label": "Tab 3 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" }
+
+    ],
+    "blocks": [],
+    "presets": [
+      { "name": "Product Info Tabs", "category": "Product" }
+    ],
+    "locales": {}
+  }
+  {% endschema %}
+</section>
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.product-info-tabs__tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var idx = btn.getAttribute('data-tab-index');
+      document.querySelectorAll('.product-info-tabs__tab').forEach(function(b){ b.setAttribute('aria-selected','false'); });
+      btn.setAttribute('aria-selected','true');
+      document.querySelectorAll('.product-info-tabs__panel').forEach(function(p){ p.setAttribute('aria-hidden','true'); });
+      var panel = document.querySelector('.product-info-tabs__panel[data-panel-index="'+idx+'"]');
+      if (panel) panel.setAttribute('aria-hidden','false');
+    });
+  });
+});
+{% endjavascript %}

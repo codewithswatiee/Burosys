@@ -95,7 +95,9 @@
         "kicker": "Contemporary pro billiard table",
         "heading": "Filotto Collection",
         "text": "Where precision meets artistry. Italian slate, chrome accents, and transparent glass redefine the game.",
-        "color_scheme": ""
+        "mobile_overlay_enable": false,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_tabs_NTbLdb": {
@@ -169,7 +171,9 @@
         "kicker": "Contemporary pro billiard table",
         "heading": "Filotto Collection",
         "text": "Where precision meets artistry. Italian slate, chrome accents, and transparent glass redefine the game.",
-        "color_scheme": ""
+        "mobile_overlay_enable": false,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
       }
     },
     "side_image_text_tabs_LUeWFE": {
@@ -243,7 +247,69 @@
         "kicker": "Contemporary pro billiard table",
         "heading": "Filotto Collection",
         "text": "Where precision meets artistry. Italian slate, chrome accents, and transparent glass redefine the game.",
-        "color_scheme": ""
+        "mobile_overlay_enable": false,
+        "mobile_overlay_position": "bottom",
+        "color_scheme": "scheme-5"
+      }
+    },
+    "image_cards_grid_YP866n": {
+      "type": "image-cards-grid",
+      "blocks": {
+        "card_icMU6d": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img_3_2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Prismatica",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "card_C8X6WP": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/R2_GREY_8.png",
+            "label": "ELEVATED SPACES",
+            "title": "Soft Partition",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "card_E96gxw": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/FILOTTO-Marble-edition.jpg",
+            "label": "ELEVATED SPACES",
+            "title": "Gaming Tables",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "card_icMU6d",
+        "card_C8X6WP",
+        "card_E96gxw"
+      ],
+      "name": "Image Cards Grid",
+      "settings": {
+        "heading": "EXPLORE ELEVATED SPACES",
+        "subheading": "",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "section_width": "page-width",
+        "color_scheme": "scheme-5",
+        "card_border_radius": 0,
+        "header_alignment": "left",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     }
   },
@@ -253,6 +319,7 @@
     "side_image_text_tabs_NTbLdb",
     "side_image_text_EapxHt",
     "side_image_text_tabs_LUeWFE",
-    "side_image_text_QkkFMz"
+    "side_image_text_QkkFMz",
+    "image_cards_grid_YP866n"
   ]
 }
