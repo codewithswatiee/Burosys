@@ -1,0 +1,410 @@
+{% comment %}
+  Resources Section - Filterable resource library with tabs for Catalogs, 2D/3D Files, and Idea Starters
+  Features: Left sidebar filters, search bar, tabbed content with resource cards
+{% endcomment %}
+
+<link href="{{ 'section-resources.css' | asset_url }}" rel="stylesheet" />
+
+<section class="resources-section" id="section-{{ section.id }}">
+  <div class="resources-container">
+    <!-- Left Sidebar Filters -->
+    <aside class="resources-filters">
+      <h2 class="filters-title">FILTERS</h2>
+      
+      <!-- Catalogs Filter Group -->
+      <div class="filter-group" data-filter-group="catalogs">
+        <button class="filter-group-header" type="button" aria-expanded="true">
+          <span>Catalogs</span>
+          <span class="filter-toggle">−</span>
+        </button>
+        <div class="filter-options">
+          {% for block in section.blocks %}
+            {% if block.type == 'catalog_filter' %}
+              <label class="filter-option">
+                <input type="checkbox" name="catalog_filter" value="{{ block.settings.filter_value | handle }}" data-filter-type="catalogs">
+                <span class="filter-checkbox"></span>
+                <span class="filter-label">{{ block.settings.filter_label }}</span>
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- 2D/3D Files Filter Group -->
+      <div class="filter-group" data-filter-group="files">
+        <button class="filter-group-header" type="button" aria-expanded="true">
+          <span>2D / 3D Files</span>
+          <span class="filter-toggle">−</span>
+        </button>
+        <div class="filter-options">
+          {% for block in section.blocks %}
+            {% if block.type == 'files_filter' %}
+              <label class="filter-option">
+                <input type="checkbox" name="files_filter" value="{{ block.settings.filter_value | handle }}" data-filter-type="files">
+                <span class="filter-checkbox"></span>
+                <span class="filter-label">{{ block.settings.filter_label }}</span>
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Idea Starter Filter Group -->
+      <div class="filter-group" data-filter-group="ideas">
+        <button class="filter-group-header" type="button" aria-expanded="true">
+          <span>Idea Starter</span>
+          <span class="filter-toggle">−</span>
+        </button>
+        <div class="filter-options">
+          {% for block in section.blocks %}
+            {% if block.type == 'idea_filter' %}
+              <label class="filter-option">
+                <input type="checkbox" name="idea_filter" value="{{ block.settings.filter_value | handle }}" data-filter-type="ideas">
+                <span class="filter-checkbox"></span>
+                <span class="filter-label">{{ block.settings.filter_label }}</span>
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Sort By Filter Group -->
+      <div class="filter-group" data-filter-group="sort">
+        <button class="filter-group-header" type="button" aria-expanded="true">
+          <span>SORT BY</span>
+          <span class="filter-toggle">−</span>
+        </button>
+        <div class="filter-options">
+          <label class="filter-option">
+            <input type="radio" name="sort_by" value="name" data-filter-type="sort">
+            <span class="filter-checkbox"></span>
+            <span class="filter-label">Name</span>
+          </label>
+          <label class="filter-option">
+            <input type="radio" name="sort_by" value="relevance" data-filter-type="sort" checked>
+            <span class="filter-checkbox"></span>
+            <span class="filter-label">Relevance</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Content Area -->
+    <main class="resources-content">
+      <!-- Search Bar -->
+      <div class="resources-search">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input type="text" class="search-input" placeholder="Search for resources" id="resources-search-input">
+        </div>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="resources-tabs">
+        <button class="resources-tab active" data-tab="catalogs" type="button">CATALOGS</button>
+        <button class="resources-tab" data-tab="files" type="button">2D/3D FILES</button>
+        <button class="resources-tab" data-tab="ideas" type="button">IDEA STARTER</button>
+      </div>
+
+      <!-- Tab Content - Catalogs -->
+      <div class="resources-grid-wrapper" data-tab-content="catalogs">
+        <div class="resources-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'catalog_item' %}
+              <div class="resource-card" 
+                   data-filters="{{ block.settings.filters | handle }}"
+                   data-name="{{ block.settings.title | downcase }}"
+                   {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.download_url }}" class="resource-card-link" target="_blank" rel="noopener">
+                  <div class="resource-card-image">
+                    {% if block.settings.image != blank %}
+                      <img src="{{ block.settings.image | image_url: width: 400 }}" 
+                           alt="{{ block.settings.title | escape }}"
+                           loading="lazy"
+                           width="300"
+                           height="400">
+                    {% else %}
+                      <div class="resource-placeholder">
+                        <span>{{ block.settings.title | truncate: 20 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <p class="resource-card-title">{{ block.settings.title }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Tab Content - 2D/3D Files -->
+      <div class="resources-grid-wrapper hidden" data-tab-content="files">
+        <div class="resources-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'file_item' %}
+              <div class="resource-card" 
+                   data-filters="{{ block.settings.filters | handle }}"
+                   data-name="{{ block.settings.title | downcase }}"
+                   {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.download_url }}" class="resource-card-link" target="_blank" rel="noopener">
+                  <div class="resource-card-image">
+                    {% if block.settings.image != blank %}
+                      <img src="{{ block.settings.image | image_url: width: 400 }}" 
+                           alt="{{ block.settings.title | escape }}"
+                           loading="lazy"
+                           width="300"
+                           height="400">
+                    {% else %}
+                      <div class="resource-placeholder">
+                        <span>{{ block.settings.title | truncate: 20 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <p class="resource-card-title">{{ block.settings.title }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Tab Content - Idea Starter -->
+      <div class="resources-grid-wrapper hidden" data-tab-content="ideas">
+        <div class="resources-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'idea_item' %}
+              <div class="resource-card" 
+                   data-filters="{{ block.settings.filters | handle }}"
+                   data-name="{{ block.settings.title | downcase }}"
+                   {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.download_url }}" class="resource-card-link" target="_blank" rel="noopener">
+                  <div class="resource-card-image">
+                    {% if block.settings.image != blank %}
+                      <img src="{{ block.settings.image | image_url: width: 400 }}" 
+                           alt="{{ block.settings.title | escape }}"
+                           loading="lazy"
+                           width="300"
+                           height="400">
+                    {% else %}
+                      <div class="resource-placeholder">
+                        <span>{{ block.settings.title | truncate: 20 }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <p class="resource-card-title">{{ block.settings.title }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results hidden">
+        <p>No resources found matching your criteria.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile Filter Toggle -->
+  <button class="mobile-filter-toggle" type="button" aria-label="Toggle filters">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+    </svg>
+    <span>Filters</span>
+  </button>
+</section>
+
+<script src="{{ 'section-resources.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Resources Library",
+  "tag": "section",
+  "class": "resources-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Resources"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "catalog_filter",
+      "name": "Catalog Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Filter Label",
+          "default": "Brochures"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Filter Value (lowercase, no spaces)",
+          "default": "brochures"
+        }
+      ]
+    },
+    {
+      "type": "files_filter",
+      "name": "2D/3D Files Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Filter Label",
+          "default": "Startek"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Filter Value (lowercase, no spaces)",
+          "default": "startek"
+        }
+      ]
+    },
+    {
+      "type": "idea_filter",
+      "name": "Idea Starter Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Filter Label",
+          "default": "Open Spaces"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Filter Value (lowercase, no spaces)",
+          "default": "open-spaces"
+        }
+      ]
+    },
+    {
+      "type": "catalog_item",
+      "name": "Catalog Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover Image"
+        },
+        {
+          "type": "url",
+          "id": "download_url",
+          "label": "Download/View URL"
+        },
+        {
+          "type": "text",
+          "id": "filters",
+          "label": "Assigned Filters (comma separated)",
+          "info": "Enter filter values separated by commas (e.g., brochures, finishes)",
+          "default": "brochures"
+        }
+      ]
+    },
+    {
+      "type": "file_item",
+      "name": "2D/3D File Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover Image"
+        },
+        {
+          "type": "url",
+          "id": "download_url",
+          "label": "Download/View URL"
+        },
+        {
+          "type": "text",
+          "id": "filters",
+          "label": "Assigned Filters (comma separated)",
+          "info": "Enter filter values separated by commas (e.g., startek, crossover)",
+          "default": "startek"
+        }
+      ]
+    },
+    {
+      "type": "idea_item",
+      "name": "Idea Starter Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover Image"
+        },
+        {
+          "type": "url",
+          "id": "download_url",
+          "label": "Download/View URL"
+        },
+        {
+          "type": "text",
+          "id": "filters",
+          "label": "Assigned Filters (comma separated)",
+          "info": "Enter filter values separated by commas (e.g., open-spaces, closed-spaces)",
+          "default": "open-spaces"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Resources Library",
+      "blocks": [
+        { "type": "catalog_filter", "settings": { "filter_label": "Brochures", "filter_value": "brochures" } },
+        { "type": "catalog_filter", "settings": { "filter_label": "Finishes", "filter_value": "finishes" } },
+        { "type": "files_filter", "settings": { "filter_label": "Startek", "filter_value": "startek" } },
+        { "type": "files_filter", "settings": { "filter_label": "Crossover", "filter_value": "crossover" } },
+        { "type": "files_filter", "settings": { "filter_label": "Loop", "filter_value": "loop" } },
+        { "type": "files_filter", "settings": { "filter_label": "Lexington", "filter_value": "lexington" } },
+        { "type": "files_filter", "settings": { "filter_label": "Storage", "filter_value": "storage" } },
+        { "type": "files_filter", "settings": { "filter_label": "Seating", "filter_value": "seating" } },
+        { "type": "idea_filter", "settings": { "filter_label": "Open Spaces", "filter_value": "open-spaces" } },
+        { "type": "idea_filter", "settings": { "filter_label": "Closed Spaces", "filter_value": "closed-spaces" } },
+        { "type": "idea_filter", "settings": { "filter_label": "Collab Spaces", "filter_value": "collab-spaces" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "brochures" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "brochures" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "finishes" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "brochures" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "finishes" } },
+        { "type": "catalog_item", "settings": { "title": "Lorem ipsum", "filters": "brochures" } },
+        { "type": "file_item", "settings": { "title": "Lorem ipsum", "filters": "startek" } },
+        { "type": "file_item", "settings": { "title": "Lorem ipsum", "filters": "crossover" } },
+        { "type": "file_item", "settings": { "title": "Lorem ipsum", "filters": "loop" } },
+        { "type": "idea_item", "settings": { "title": "Lorem ipsum", "filters": "open-spaces" } },
+        { "type": "idea_item", "settings": { "title": "Lorem ipsum", "filters": "closed-spaces" } },
+        { "type": "idea_item", "settings": { "title": "Lorem ipsum", "filters": "collab-spaces" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
