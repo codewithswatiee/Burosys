@@ -1,0 +1,274 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "name": "Title",
+          "settings": {
+            "text": "<h1>{{ closest.page.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "text_color_custom": "#000000",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "page-content"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "resources_cEi7fc": {
+      "type": "resources",
+      "blocks": {
+        "catalog_filter_CijEjF": {
+          "type": "catalog_filter",
+          "settings": {
+            "filter_label": "Brochures",
+            "filter_value": "brochures"
+          }
+        },
+        "catalog_filter_UnVHLB": {
+          "type": "catalog_filter",
+          "settings": {
+            "filter_label": "Finishes",
+            "filter_value": "finishes"
+          }
+        },
+        "files_filter_y6UKPf": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Startek",
+            "filter_value": "startek"
+          }
+        },
+        "files_filter_PmgCpH": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Crossover",
+            "filter_value": "crossover"
+          }
+        },
+        "files_filter_bmYW8V": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Loop",
+            "filter_value": "loop"
+          }
+        },
+        "files_filter_kPrJwf": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Lexington",
+            "filter_value": "lexington"
+          }
+        },
+        "files_filter_cn87Kz": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Storage",
+            "filter_value": "storage"
+          }
+        },
+        "files_filter_AFCwnF": {
+          "type": "files_filter",
+          "settings": {
+            "filter_label": "Seating",
+            "filter_value": "seating"
+          }
+        },
+        "idea_filter_34HaUB": {
+          "type": "idea_filter",
+          "settings": {
+            "filter_label": "Open Spaces",
+            "filter_value": "open-spaces"
+          }
+        },
+        "idea_filter_G3agXK": {
+          "type": "idea_filter",
+          "settings": {
+            "filter_label": "Closed Spaces",
+            "filter_value": "closed-spaces"
+          }
+        },
+        "idea_filter_i9mUig": {
+          "type": "idea_filter",
+          "settings": {
+            "filter_label": "Collab Spaces",
+            "filter_value": "collab-spaces"
+          }
+        },
+        "catalog_item_V3M6Pk": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "image": "shopify://shop_images/R2_GREY04.jpg",
+            "download_url": "",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_WTVztB": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_4yQmnt": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "finishes"
+          }
+        },
+        "catalog_item_jTa874": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_fMhRBN": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "finishes"
+          }
+        },
+        "catalog_item_6VaUT7": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "brochures"
+          }
+        },
+        "file_item_GG47Vh": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "startek"
+          }
+        },
+        "file_item_HpNjFV": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_pa7fQH": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "loop"
+          }
+        },
+        "idea_item_rkKVjL": {
+          "type": "idea_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "open-spaces"
+          }
+        },
+        "idea_item_GHQJna": {
+          "type": "idea_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "closed-spaces"
+          }
+        },
+        "idea_item_q9QYtG": {
+          "type": "idea_item",
+          "settings": {
+            "title": "Lorem ipsum",
+            "download_url": "",
+            "filters": "collab-spaces"
+          }
+        }
+      },
+      "block_order": [
+        "catalog_filter_CijEjF",
+        "catalog_filter_UnVHLB",
+        "files_filter_y6UKPf",
+        "files_filter_PmgCpH",
+        "files_filter_bmYW8V",
+        "files_filter_kPrJwf",
+        "files_filter_cn87Kz",
+        "files_filter_AFCwnF",
+        "idea_filter_34HaUB",
+        "idea_filter_G3agXK",
+        "idea_filter_i9mUig",
+        "catalog_item_V3M6Pk",
+        "catalog_item_WTVztB",
+        "catalog_item_4yQmnt",
+        "catalog_item_jTa874",
+        "catalog_item_fMhRBN",
+        "catalog_item_6VaUT7",
+        "file_item_GG47Vh",
+        "file_item_HpNjFV",
+        "file_item_pa7fQH",
+        "idea_item_rkKVjL",
+        "idea_item_GHQJna",
+        "idea_item_q9QYtG"
+      ],
+      "name": "Resources Library",
+      "settings": {
+        "heading": "Resources"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "resources_cEi7fc"
+  ]
+}

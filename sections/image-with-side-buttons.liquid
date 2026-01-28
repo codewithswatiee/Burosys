@@ -53,8 +53,20 @@ Styling is kept inline so this section is self-contained and matches the provide
     .isb-button a .label { display:block; }
 
     @media (max-width: 900px) {
-      .isb-wrap { grid-template-columns: 1fr; }
-      .isb-buttons { flex-direction: row; gap: 12px; }
+      .isb-wrap { 
+        display: flex;
+        flex-direction: column;
+        margin: 20px 16px;
+        gap: 20px;
+      }
+      .isb-buttons { 
+        flex-direction: column; 
+        gap: 12px; 
+        width: 100%;
+      }
+      .isb-image img{
+        height: 240px;
+      }
       .isb-button a { height: 56px; flex:1; font-size:14px; letter-spacing:2px; }
       .isb-image { min-height:200px; }
     }

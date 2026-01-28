@@ -29,14 +29,14 @@
             "aspect_ratio": "1",
             "constrain_to_viewport": false,
             "media_fit": "cover",
-            "media_radius": 12,
+            "media_radius": 0,
             "extend_media": true,
             "zoom": true,
             "video_loop": true,
-            "hide_variants": false,
+            "hide_variants": true,
             "padding-block-start": 60,
             "padding-block-end": 0,
-            "padding-inline-start": 32,
+            "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
@@ -82,6 +82,33 @@
                 "section_padding_bottom": 0,
                 "section_padding_inline": 0
               }
+            },
+            "text_M4Vryx": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>{{ closest.product.metafields.custom.tag.value }}</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-subheading--family)",
+                "font_size": "0.75rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "color": "var(--color-foreground-heading)",
+                "text_color_custom": "#6f6f6f",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "group": {
               "type": "group",
@@ -139,6 +166,7 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
+                    "text_color_custom": "#000000",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -247,12 +275,40 @@
               },
               "blocks": {}
             },
-            "variant_picker": {
+            "variant_picker_VXBwia": {
               "type": "variant-picker",
+              "name": "t:names.product_variant_picker",
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": true,
                 "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 8,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_t7ttq3": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "{{ closest.product.description }}",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "text_color_custom": "#6d6d6d",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -260,22 +316,23 @@
               },
               "blocks": {}
             },
-            "text": {
-              "type": "product-description",
-              "name": "Product description",
+            "text_KTaHXQ": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
+                "text": "<p>Lead Time: {{ closest.product.metafields.custom.lead_time.value }}</p>",
+                "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "custom",
-                "font": "var(--font-primary--family)",
+                "font": "var(--font-body--family)",
                 "font_size": "0.875rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "color": "",
+                "color": "var(--color-foreground)",
+                "text_color_custom": "#6d6d6d",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -323,30 +380,45 @@
               },
               "block_order": []
             },
-            "mst_wishlist_marketing_flow_v3_app_block_product_RaFLdc": {
+            "mst_wishlist_marketing_flow_v3_app_block_product_Efm6gw": {
               "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-block-product/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
               "settings": {
                 "multi_language": false,
-                "iwish_add_txt": "Add To Projects",
-                "iwish_added_txt": "Added To Projects",
+                "iwish_add_txt": "Add To Wishlist",
+                "iwish_added_txt": "Added To Wishlist",
                 "theme_btn_class": "",
-                "icon_style": "heart",
+                "icon_style": "none",
                 "iwish_add_icon_outline": "",
                 "iwish_added_icon_filled": "",
-                "text_font_size": 14,
+                "text_font_size": 16,
                 "text_color": "#000000",
                 "text_color_hover": ""
               }
+            },
+            "divider_FQCrbw": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "breadcrumb_star_breadcrumb_AfxtHq",
+            "text_M4Vryx",
             "group",
             "divider",
-            "variant_picker",
-            "text",
+            "variant_picker_VXBwia",
+            "text_t7ttq3",
+            "text_KTaHXQ",
             "buy_buttons",
-            "mst_wishlist_marketing_flow_v3_app_block_product_RaFLdc"
+            "mst_wishlist_marketing_flow_v3_app_block_product_Efm6gw",
+            "divider_FQCrbw"
           ]
         }
       },
@@ -358,7 +430,7 @@
         "gap": 48,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
-        "padding-block-start": 0,
+        "padding-block-start": 10,
         "padding-block-end": 0
       }
     },
@@ -381,6 +453,7 @@
             "case": "uppercase",
             "wrap": "pretty",
             "color": "",
+            "text_color_custom": "#000000",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -407,6 +480,7 @@
             "case": "none",
             "wrap": "pretty",
             "color": "var(--color-foreground)",
+            "text_color_custom": "#666666",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -615,7 +689,7 @@
         "product": "{{ closest.product }}",
         "recommendation_type": "related",
         "layout_type": "grid",
-        "carousel_on_mobile": false,
+        "carousel_on_mobile": true,
         "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",

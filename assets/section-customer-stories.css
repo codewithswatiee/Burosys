@@ -126,7 +126,7 @@
 }
 
 .story-item__link {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.12em;
@@ -234,5 +234,25 @@
 
   .story-item__title {
     font-size: 19px;
+  }
+}
+
+/* Mobile: hide scrollbar when grid becomes scrollable carousel */
+@media screen and (max-width: 900px) {
+  .customer-stories__grid {
+    /* Hide scrollbars across browsers */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .customer-stories__grid::-webkit-scrollbar {
+    height: 0px;
+    display: none;
+  }
+
+  /* Also hide scrollbar on any inner scrollable elements */
+  .customer-stories__grid *::-webkit-scrollbar {
+    display: none;
+    height: 0;
   }
 }

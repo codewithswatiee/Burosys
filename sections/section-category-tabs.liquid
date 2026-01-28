@@ -71,7 +71,8 @@
         window.sectionCategoryTabs[{{ currentTab }}].items.push({
           title: {{ block.settings.title | json }},
           content: {{ block.settings.content | json }},
-          link: {{ block.settings.link | default: '' | json }}
+          cta_label: {{ block.settings.cta_label | default: 'Explore Now' | json }},
+          cta_link: {{ block.settings.cta_link | default: '' | json }}
         });
       {% endif %}
     {% endif %}
@@ -103,7 +104,8 @@
       "settings": [
         { "type": "text", "id": "title", "label": "Item title", "default": "Executive Chairs" },
         { "type": "richtext", "id": "content", "label": "Content (rich text)", "default": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>" },
-        { "type": "url", "id": "link", "label": "Item link (URL)" }
+        { "type": "url", "id": "cta_link", "label": "CTA link (URL)" },
+        { "type": "text", "id": "cta_label", "label": "CTA label (mobile & desktop)", "default": "Explore Now" }
       ]
     }
   ],

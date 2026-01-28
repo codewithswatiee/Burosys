@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "iframe_xptdMJ": {
+      "type": "iframe",
+      "blocks": {
+        "project_36ykir": {
+          "type": "project",
+          "settings": {
+            "tab_label": "SMALL OFFICE",
+            "iframe_url": "https://getfloorplan.com/public_fp/1bdebe8b-a8a0-496e-97df-83335b4350c1",
+            "project_name": "NAME OF THE PROJECT",
+            "project_subheading": "Explore chairs tailored to your interests"
+          }
+        },
+        "project_QEJTTH": {
+          "type": "project",
+          "settings": {
+            "tab_label": "LARGE OFFICE",
+            "iframe_url": "https://ivamostudios.in",
+            "project_name": "NAME OF THE PROJECT",
+            "project_subheading": "Explore chairs tailored to your interests"
+          }
+        }
+      },
+      "block_order": [
+        "project_36ykir",
+        "project_QEJTTH"
+      ],
+      "name": "Iframe Projects",
+      "settings": {}
+    },
+    "project_metrics_pmYtFt": {
+      "type": "project-metrics",
+      "blocks": {
+        "metric_zWNFPA": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_38b5ff54-7269-411e-b495-72ed4cf78045.png",
+            "title": "AI Powered space Planning",
+            "description": ""
+          }
+        },
+        "metric_mn7HLH": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/73dbc0343d7b5b6f1b7000048d80e53a7339cc57.jpg",
+            "title": "Interactive 3D Virtual tours",
+            "description": ""
+          }
+        },
+        "metric_X6XyMC": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/bec2f3b75b7315bf1f11c046f6d353548ed2503c.png",
+            "title": "Rendered Images",
+            "description": ""
+          }
+        },
+        "metric_qRXUfT": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/73dbc0343d7b5b6f1b7000048d80e53a7339cc57.jpg",
+            "title": "Walkthrough videos",
+            "description": ""
+          }
+        },
+        "metric_EQUtHE": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1430104138_38b5ff54-7269-411e-b495-72ed4cf78045.png",
+            "title": "PDF Brochures",
+            "description": ""
+          }
+        },
+        "metric_meKq3j": {
+          "type": "metric",
+          "settings": {
+            "image": "shopify://shop_images/bec2f3b75b7315bf1f11c046f6d353548ed2503c.png",
+            "title": "Usage Analytics",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "metric_zWNFPA",
+        "metric_mn7HLH",
+        "metric_X6XyMC",
+        "metric_qRXUfT",
+        "metric_EQUtHE",
+        "metric_meKq3j"
+      ],
+      "name": "Project Metrics",
+      "settings": {
+        "subheading": "Explore chairs tailored to your interests"
+      }
+    }
+  },
+  "order": [
+    "iframe_xptdMJ",
+    "project_metrics_pmYtFt"
+  ]
+}

@@ -347,9 +347,9 @@
     list-style: none;
 
     button {
-      --color: rgb(var(--color-foreground-rgb) / var(--opacity-30));
-      --color-active: var(--color-foreground);
-      --color-hover: rgb(var(--color-foreground-rgb) / var(--opacity-50));
+      --color: #fff;
+      --color-active: #fff;
+      --color-hover: #ffffffae;
     }
   }
 
@@ -379,7 +379,7 @@
       &::after {
         content: '';
         display: block;
-        background-color: var(--color);
+        background-color: #fff;
         height: var(--size);
         width: var(--size);
         border-radius: calc(var(--size) / 2);
@@ -387,17 +387,17 @@
 
         @supports not (view-timeline-axis: inline) {
           &[aria-selected='true'] {
-            --color: var(--color-active);
+            --color: #fff;
           }
         }
 
         &:hover {
-          --color: var(--color-hover);
+          --color: #ffffff88;
         }
       }
 
       &[aria-selected='true'] {
-        --color: var(--color-active);
+        --color: #fff;
 
         &::after {
           box-shadow: inset 0 0 0 1.5px hsl(0 0% 0% / 0.4);

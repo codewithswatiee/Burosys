@@ -9,6 +9,14 @@
       {% if section.settings.heading != blank %}
         <h2 class="ss-heading">{{ section.settings.heading }}</h2>
       {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="ss-description">{{ section.settings.description }}</div>
+      {% endif %}
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="ss-button">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
     </div>
 
     <div class="ss-right">

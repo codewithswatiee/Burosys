@@ -17,14 +17,22 @@
   assign lead_time = product.metafields.custom.lead_time | default: '3 Weeks'
   assign material = product.metafields.custom.material | default: 'Fabric'
   
-  # Get variant colors if available
-  assign has_color_options = false
-  for option in product.options_with_values
-    if option.name == 'Color' or option.name == 'Colour'
-      assign has_color_options = true
-      assign color_option = option
+  # Build unique color list from variants (prefer variant metafield color/hex, fallback to option value)
+  assign _color_csv = ''
+  for v in product.variants
+    assign v_color = v.metafields.custom.color | default: v.metafields.custom.hex_color | default: v.option1
+    if v_color != blank
+      unless _color_csv contains v_color
+        if _color_csv == ''
+          assign _color_csv = v_color
+        else
+          assign _color_csv = _color_csv | append: '||' | append: v_color
+        endif
+      endunless
     endif
   endfor
+  assign color_values = _color_csv | split: '||'
+  assign color_count = color_values.size | default: 0
 %}
 
 <style>
@@ -84,22 +92,23 @@
     </div>
     
     <!-- Color Swatches -->
-    <div class="product-info-item">
+    <div class="product-info-item" {% unless color_count > 0 %}style="display:none;"{% endunless %}>
       <div class="product-info-label">Color</div>
       <div class="product-info-value">
-        {% if has_color_options %}
+        {% if color_count > 0 %}
           <div class="product-color-swatches">
-            {% for value in color_option.values limit: 3 %}
-              {% assign color_class = value | handleize %}
-              <span class="color-swatch {{ color_class }}" title="{{ value }}"></span>
+            {% assign max_show = 3 %}
+            {% for color in color_values limit: max_show %}
+              {% assign safe_color = color | strip %}
+              <span class="color-swatch" title="{{ safe_color }}" style="background: {{ safe_color }};"></span>
             {% endfor %}
+            {% if color_values.size > max_show %}
+              {% assign more = color_values.size | minus: max_show %}
+              <span class="color-swatch color-swatch-more">+{{ more }}</span>
+            {% endif %}
           </div>
         {% else %}
-          <div class="product-color-swatches">
-            <span class="color-swatch brown" title="Brown"></span>
-            <span class="color-swatch beige" title="Beige"></span>
-            <span class="color-swatch blue" title="Blue"></span>
-          </div>
+          <span aria-hidden="true">—</span>
         {% endif %}
       </div>
     </div>

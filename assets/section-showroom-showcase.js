@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var mainImages = section.querySelectorAll('.ss-main-image');
   var thumbnails = section.querySelectorAll('.ss-thumbnail');
   var thumbnailsContainer = section.querySelector('.ss-thumbnails');
+  var thumbnailsWrap = section.querySelector('.ss-thumbnails-wrap');
   var paginationContainer = section.querySelector('.ss-pagination');
 
   var currentIndex = 0;
@@ -33,18 +34,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     if (thumbnails[index]) {
       thumbnails[index].classList.add('active');
+
+      // Ensure the active thumbnail is visible inside the scroll container
+      // Use scrollIntoView on the thumbnail so the nearest scrollable ancestor (thumbnailsWrap) scrolls
+      try {
+        thumbnails[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      } catch (e) {
+        // Fallback: adjust scrollLeft of the wrap to center the thumbnail
+        if (thumbnailsWrap) {
+          var wrapRect = thumbnailsWrap.getBoundingClientRect();
+          var thumbRect = thumbnails[index].getBoundingClientRect();
+          var offset = (thumbRect.left + thumbRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+          thumbnailsWrap.scrollLeft += offset;
+        }
+      }
     }
 
     currentIndex = index;
 
     // Update pagination dots
     updatePaginationDots();
-
-    // Auto-scroll to page containing this thumbnail
-    var targetPage = Math.floor(index / thumbnailsPerPage);
-    if (targetPage !== currentPage) {
-      goToPage(targetPage);
-    }
   }
 
   // Thumbnail click handlers

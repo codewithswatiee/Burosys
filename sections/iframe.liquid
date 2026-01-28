@@ -1,0 +1,170 @@
+{% comment %}
+Section: Iframe Projects
+Provides a tabbed interface where each tab is a project containing:
+- Tab label
+- Iframe URL
+- Project name
+- Project subheading
+
+Tabs are editable as blocks in the theme editor. Iframe is lazy-loaded when a tab is activated.
+{% endcomment %}
+
+<section id="section-{{ section.id }}" class="section iframe-section" data-section-id="{{ section.id }}">
+  <div class="wrap">
+    <div class="iframe-top">
+      <div class="iframe-tabs" role="tablist" aria-label="Project tabs">
+        {% for block in section.blocks %}
+          <button
+            type="button"
+            class="iframe-tab-button{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-tab-index="{{ forloop.index0 }}"
+          >
+            {{ block.settings.tab_label | default: 'Project' }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <div class="iframe-header">
+        <h2 class="iframe-project-name">{% if section.blocks.size > 0 %}{{ section.blocks.first.settings.project_name | default: 'Name of the Project' }}{% else %}Name of the Project{% endif %}</h2>
+        <p class="iframe-project-subheading">{% if section.blocks.size > 0 %}{{ section.blocks.first.settings.project_subheading | default: 'Explore chairs tailored to your interests' }}{% else %}Explore chairs tailored to your interests{% endif %}</p>
+      </div>
+    </div>
+
+    <div class="iframe-stage">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="iframe-panel{% if forloop.first %} is-active{% endif %}" data-panel-index="{{ forloop.index0 }}" aria-hidden="{% unless forloop.first %}true{% else %}false{% endunless %}" data-project-name="{{ block.settings.project_name | escape }}" data-project-subheading="{{ block.settings.project_subheading | escape }}">
+            <div class="iframe-frame-wrap">
+              {% assign url = block.settings.iframe_url | default: '' %}
+              <iframe class="iframe-content" data-src="{{ url }}" src="{% if forloop.first %}{{ url }}{% endif %}" frameborder="0" loading="lazy" allowfullscreen></iframe>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="iframe-panel is-active" data-panel-index="0">
+          <div class="iframe-frame-wrap">
+            <div class="iframe-placeholder">Add project blocks in the section settings to configure this iframe.</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+  <style>
+    .iframe-section .wrap{padding-bottom:28px}
+    .iframe-tabs{display:flex;gap:12px;justify-content:center;margin-bottom:18px; background:#F7F7F7; border-bottom: 1px solid #0000001A; padding:12px 0}
+    .iframe-tab-button{appearance:none;border:1px solid #e6e6e6;background:#fff;padding:10px;border-radius:28px;font-weight:400;cursor:pointer;color:#111;font-size:14px}
+    .iframe-tab-button.is-active{background:#ff5a1a;color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+    .iframe-header{text-align:center;margin-bottom:22px}
+    .iframe-project-name{font-size:22px;letter-spacing:4px;margin:6px 0 6px;font-weight:400}
+    .iframe-project-subheading{color:#666;margin:0;font-size:15px}
+
+    .iframe-stage{display:block}
+    .iframe-panel{display:none}
+    .iframe-panel.is-active{display:block}
+    .iframe-frame-wrap{position:relative;width:100%;padding-top:46%; /* default ~ 21:10 aspect ratio that matches showroom style */ overflow:hidden;background:#fff;border-top:1px solid #f3f3f3}
+    .iframe-content{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+    .iframe-placeholder{height:360px;display:flex;align-items:center;justify-content:center;color:#999;border:1px dashed #eaeaea;padding:24px}
+
+    /* Responsive tweaks */
+    @media (max-width: 749px){
+      .iframe-project-name{font-size:18px;letter-spacing:2px}
+      .iframe-header{margin-bottom:16px}
+      .iframe-frame-wrap{padding-top:75%; height: 70vh;}
+      .iframe-tabs{gap:8px}
+      .iframe-tab-button{padding:10px;font-size:12px}
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var sectionEl = document.getElementById('section-{{ section.id }}');
+      if (!sectionEl) return;
+
+      var tabButtons = Array.prototype.slice.call(sectionEl.querySelectorAll('.iframe-tab-button'));
+      var panels = Array.prototype.slice.call(sectionEl.querySelectorAll('.iframe-panel'));
+      var projectNameEl = sectionEl.querySelector('.iframe-project-name');
+      var projectSubEl = sectionEl.querySelector('.iframe-project-subheading');
+
+      function activate(index){
+        tabButtons.forEach(function(btn,i){
+          var isActive = i === index;
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        panels.forEach(function(p,i){
+          var isActive = i === index;
+          p.classList.toggle('is-active', isActive);
+          p.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          if (isActive){
+            // lazy-load iframe
+            var iframe = p.querySelector('iframe.iframe-content');
+            if (iframe && !iframe.getAttribute('src')){
+              var dataSrc = iframe.getAttribute('data-src');
+              if (dataSrc){ iframe.setAttribute('src', dataSrc); }
+            }
+            // update header text from data attributes
+            var name = p.getAttribute('data-project-name');
+            var sub = p.getAttribute('data-project-subheading');
+            if (name) projectNameEl.textContent = name;
+            if (sub) projectSubEl.textContent = sub;
+          }
+        });
+      }
+
+      // Attach click handlers
+      tabButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var idx = parseInt(btn.getAttribute('data-tab-index'), 10);
+          activate(idx);
+        });
+      });
+
+      // Initialize panel data-attributes already set via Liquid attributes
+
+      // Activate first tab by default
+      if (tabButtons.length) activate(0);
+    });
+  </script>
+
+  {%- comment -%}
+  The following schema defines editable blocks for tabs. Each block includes:
+  - tab_label: text for the tab
+  - iframe_url: url used as src for iframe
+  - project_name: heading shown above iframe when tab active
+  - project_subheading: subheading shown above iframe when tab active
+  {%- endcomment -%}
+
+  {% schema %}
+  {
+    "name": "Iframe Projects",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "project",
+        "name": "Project",
+        "settings": [
+          {"type":"text","id":"tab_label","label":"Tab label","default":"SMALL OFFICE"},
+          {"type":"url","id":"iframe_url","label":"Iframe URL"},
+          {"type":"text","id":"project_name","label":"Project name","default":"NAME OF THE PROJECT"},
+          {"type":"text","id":"project_subheading","label":"Project subheading","default":"Explore chairs tailored to your interests"}
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      {
+        "name": "Iframe Projects",
+        "category": "Sections",
+        "blocks": [
+          {"type":"project","settings":{"tab_label":"SMALL OFFICE","iframe_url":"https://getfloorplan.com/public_fp/1bdebe8b-a8a0-496e-97df-83335b4350c1","project_name":"NAME OF THE PROJECT","project_subheading":"Explore chairs tailored to your interests"}},
+          {"type":"project","settings":{"tab_label":"LARGE OFFICE","iframe_url":"https://getfloorplan.com/public_fp/1bdebe8b-a8a0-496e-97df-83335b4350c1","project_name":"NAME OF THE PROJECT","project_subheading":"Explore chairs tailored to your interests"}}
+        ]
+      }
+    ]
+  }
+  {% endschema %}

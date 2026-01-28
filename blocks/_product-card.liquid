@@ -15,8 +15,24 @@
     endif
   endfor
   
-  # Get product metafields for custom properties
-  assign lead_time = product.metafields.custom.lead_time | default: '3 Weeks'
+  # Get product metafields for custom properties (no default — show blank if missing)
+  assign lead_time = product.metafields.custom.lead_time
+
+  # Build a unique list of color values from variants (prefer variant metafield, fallback to option value)
+  assign _color_csv = ''
+  for v in product.variants
+    assign v_color = v.metafields.custom.color | default: v.metafields.custom.hex_color | default: v.option1
+    if v_color != blank
+      unless _color_csv contains v_color
+        if _color_csv == ''
+          assign _color_csv = v_color
+        else
+          assign _color_csv = _color_csv | append: '||' | append: v_color
+        endif
+      endunless
+    endif
+  endfor
+  assign color_values = _color_csv | split: '||'
   assign material = product.metafields.custom.material | default: 'Fabric'
   
   # Get variant colors if available
@@ -44,7 +60,7 @@
   }
 
   .custom-product-card-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1.5px solid #FF4000;
   }
 
   .custom-product-card-wrapper .product-badge {
@@ -71,36 +87,67 @@
   }
 
   .custom-product-card-wrapper .product-title {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
     color: #000;
     margin: 16px 16px 8px 16px;
     text-align: center;
     line-height: 1.4;
+    white-space: nowrap;
   }
 
   .custom-product-card-wrapper .product-price {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     color: #6F6F6F;
     margin: 0 16px 12px 16px;
     text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   .custom-product-card-wrapper .product-image-container {
     position: relative;
     width: 100%;
+    height: 320px;
     aspect-ratio: 1/1.3;
     overflow: hidden;
     background: #f9f9f9;
   }
 
-  .custom-product-card-wrapper .product-image-container img {
+  /* Horizontal scrollable image track */
+  .custom-product-card-wrapper .product-image-container {
+    position: relative;
     width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #f9f9f9;
+  }
+
+  .product-image-track {
+    display: flex;
     height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-image-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-image-slide img {
+    width: 100%;
+    height: 320px;
     object-fit: cover;
+    display: block;
   }
 
   .product-image-dots {
@@ -119,17 +166,26 @@
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
   .product-image-dots .dot.active {
     background-color: rgba(0, 0, 0, 0.8);
   }
 
+  /* hide native scrollbar visuals */
+  .product-image-track {
+    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .product-image-track::-webkit-scrollbar { display: none; height: 0; }
+
   .product-info-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     padding: 12px 16px;
+    justify-content: center;
     border-top: 1px solid #e5e5e5;
   }
 
@@ -140,18 +196,26 @@
     text-align: center;
   }
 
+  /* Add right border between info items except the last one */
+  .product-info-item:not(:last-child) {
+    border-right: 0.5px solid #D5D5D5;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
   .product-info-label {
     font-size: 12px;
-    color: #6F6F6F;
+    color: #00000099;
     text-transform: capitalize;
     margin-bottom: 8px;
     font-weight: 400;
+    white-space: nowrap;
   }
 
   .product-info-value {
     font-size: 13px;
     color: #000;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .product-color-swatches {
@@ -166,6 +230,8 @@
     border-radius: 50%;
     border: 1px solid #e5e5e5;
     cursor: pointer;
+    text-align: center;
+    font-size: 9px;
     transition: transform 0.2s ease;
   }
 
@@ -207,8 +273,34 @@
 
   @media (max-width: 749px) {
     .product-info-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
+      display: flex !important;
+      flex-direction: row !important;
+      padding: 10px 5px !important;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .color-swatch{
+    font-size: 7px;
+  }
+
+    .product-info-label{
+      font-size: 7px !important;
+    }
+
+    .product-info-value{
+      font-size: 8px !important;
+    }
+
+    .add-to-project-btn{
+      padding: 8px !important;
+      margin: 3px !important;
+      font-size: 8px !important;
+
+    }
+
+    .custom-product-card-wrapper .product-image-container{
+      height: 180px;
     }
     
     .custom-product-card-wrapper .product-title {
@@ -245,22 +337,30 @@
   
   <!-- Product Image Container -->
   <div class="product-image-container">
-    <a href="{{ product.url }}">
-      {% if product.featured_image %}
-        {{
-          product.featured_image
-          | image_url: width: 800
-          | image_tag: loading: 'lazy', alt: product.title
-        }}
+    <div class="product-image-track">
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+          <div class="product-image-slide">
+            <a href="{{ product.url }}">
+              {{
+                image
+                | image_url: width: 2400
+                | image_tag: loading: 'lazy', alt: product.title
+              }}
+            </a>
+          </div>
+        {% endfor %}
       {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        <div class="product-image-slide">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
       {% endif %}
-    </a>
-    
+    </div>
+
     <!-- Image Navigation Dots -->
     {% if product.images.size > 1 %}
       <div class="product-image-dots">
-        {% for image in product.images limit: 5 %}
+        {% for image in product.images %}
           <span class="dot {% if forloop.first %}active{% endif %}"></span>
         {% endfor %}
       </div>
@@ -270,28 +370,30 @@
   <!-- Product Info Grid (Lead Time, Color, Material) -->
   <div class="product-info-grid">
     <!-- Lead Time -->
-    <div class="product-info-item">
+    <div class="product-info-item" {% if lead_time == blank %}style="display:none;"{% endif %}>
       <div class="product-info-label">Lead Time</div>
       <div class="product-info-value">{{ lead_time }}</div>
     </div>
     
     <!-- Color Swatches -->
-    <div class="product-info-item">
+    {% assign color_count = color_values.size | default: 0 %}
+    <div class="product-info-item" {% unless color_count > 0 %}style="display:none;"{% endunless %}>
       <div class="product-info-label">Color</div>
       <div class="product-info-value">
-        {% if has_color_options %}
+        {% if color_count > 0 %}
           <div class="product-color-swatches">
-            {% for value in color_option.values limit: 3 %}
-              {% assign color_class = value | handleize %}
-              <span class="color-swatch {{ color_class }}" title="{{ value }}"></span>
+            {% assign max_show = 2 %}
+            {% for color in color_values limit: max_show %}
+              {% assign safe_color = color | strip %}
+              <span class="color-swatch" title="{{ safe_color }}" style="background: {{ safe_color }};"></span>
             {% endfor %}
+            {% if color_values.size > max_show %}
+              {% assign more = color_values.size | minus: max_show %}
+              <span class="color-swatch color-swatch-more">+{{ more }}</span>
+            {% endif %}
           </div>
         {% else %}
-          <div class="product-color-swatches">
-            <span class="color-swatch brown" title="Brown"></span>
-            <span class="color-swatch beige" title="Beige"></span>
-            <span class="color-swatch blue" title="Blue"></span>
-          </div>
+          <span aria-hidden="true">—</span>
         {% endif %}
       </div>
     </div>
@@ -304,14 +406,69 @@
   </div>
   
   <!-- Add to Project Button -->
-  <button 
+  {% comment %} <button 
     class="add-to-project-btn"
     onclick="window.location.href='{{ product.url }}'"
     type="button"
   >
     ADD TO PROJECT
-  </button>
+  </button> {% endcomment %}
 </div>
+
+<script>
+  (function(){
+    try {
+      var script = document.currentScript;
+      var wrapper = script && script.parentElement;
+      if (!wrapper) return;
+
+      var track = wrapper.querySelector('.product-image-track');
+      if (!track) return;
+      var slides = Array.prototype.slice.call(wrapper.querySelectorAll('.product-image-slide'));
+      var dotsContainer = wrapper.querySelector('.product-image-dots');
+      var dots = dotsContainer ? Array.prototype.slice.call(dotsContainer.querySelectorAll('.dot')) : [];
+
+      // ensure dots clickable
+      dots.forEach(function(d){ d.setAttribute('role','button'); d.tabIndex = 0; });
+
+      var ticking = false;
+
+      function updateActive(){
+        var center = track.scrollLeft + track.clientWidth / 2;
+        var closestIndex = 0; var closestDist = Infinity;
+        slides.forEach(function(s, i){
+          var slideCenter = s.offsetLeft + s.offsetWidth / 2;
+          var dist = Math.abs(slideCenter - center);
+          if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+        });
+        dots.forEach(function(dot, i){ dot.classList.toggle('active', i === closestIndex); });
+      }
+
+      track.addEventListener('scroll', function(){
+        if (!ticking) {
+          window.requestAnimationFrame(function(){ updateActive(); ticking = false; });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // click / key handlers for dots
+      dots.forEach(function(dot, i){
+        var go = function(e){
+          e && e.preventDefault();
+          if (!slides[i]) return;
+          slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        };
+        dot.addEventListener('click', go);
+        dot.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { go(e); } });
+      });
+
+      // initial activation
+      updateActive();
+    } catch (err) {
+      console.error('product-card carousel init error', err);
+    }
+  })();
+</script>
 
 {% schema %}
 {

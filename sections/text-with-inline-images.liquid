@@ -52,11 +52,6 @@
 </div>
 
 {% stylesheet %}
-  .text-with-inline-images__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-  }
 
   .text-with-inline-images__heading {
     margin-bottom: var(--spacing-lg);
@@ -126,6 +121,8 @@
     display: block;
   }
 
+
+
   .text-with-inline-images__image-wrapper--placeholder {
     width: 100px;
     height: 100px;
@@ -144,15 +141,167 @@
 
   @media screen and (max-width: 749px) {
     .text-with-inline-images__content {
-      font-size: clamp(1.25rem, 5vw, 1.75rem);
+      font-size: 14px;
       gap: 0.4em;
+      /* Center inline images vertically with the text on mobile */
+      align-items: center;
+    }
+    .text-with-inline-images__heading.h3{
+      font-size: 16px;
     }
 
     .text-with-inline-images__heading {
       margin-bottom: var(--spacing-md);
     }
+    .text-with-inline-images__text,
+    .text-with-inline-images__image-wrapper {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .text-with-inline-images__image-wrapper {
+      height: auto;
+    }
+
+    .text-with-inline-images__image {
+      width: 40px;
+      height: auto;
+    }
+
+    /* Pair text+image into rows on narrow screens */
+    .text-with-inline-images__content {
+      display: block;
+    }
+
+    .text-with-inline-images__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: auto;
+      width: max-content;
+    }
+
+    .text-with-inline-images__row .text-with-inline-images__text {
+      flex: 1 1 auto;
+      display: block;
+      white-space: nowrap;
+      font-size: 12.5px;
+      letter-spacing: 2px;
+    }
+
+    .text-with-inline-images__row .text-with-inline-images__image-wrapper {
+      flex: 0 0 auto;
+    }
   }
 {% endstylesheet %}
+
+<script>
+  (function(){
+    var mq = window.matchMedia('(max-width: 749px)');
+
+    function transformContainer(container){
+      var isMobile = mq.matches;
+
+      if (!container.dataset.twiiOriginal) container.dataset.twiiOriginal = container.innerHTML;
+
+      if (!isMobile){
+        // restore original markup on larger screens
+        container.innerHTML = container.dataset.twiiOriginal;
+        return;
+      }
+
+      // work from the original markup so multiple resizes are safe
+      var temp = document.createElement('div');
+      temp.innerHTML = container.dataset.twiiOriginal;
+      var nodes = Array.prototype.slice.call(temp.children);
+
+      var rows = [];
+      var i = 0;
+      while (i < nodes.length){
+        var node = nodes[i];
+
+        if (node.classList && node.classList.contains('text-with-inline-images__line-break')){
+          i++; // explicit break
+          continue;
+        }
+
+        if (node.classList && node.classList.contains('text-with-inline-images__text')){
+          var textEl = node;
+          // only pair with the immediate next node (do NOT pair across explicit line_break)
+          var next = nodes[i + 1];
+          if (next && next.classList && next.classList.contains('text-with-inline-images__image-wrapper')){
+            var row = document.createElement('div');
+            row.className = 'text-with-inline-images__row';
+            row.appendChild(textEl.cloneNode(true));
+            row.appendChild(next.cloneNode(true));
+            rows.push(row);
+            i = i + 2;
+            continue;
+          }
+
+          // no image after text — single text row
+          var rowT = document.createElement('div');
+          rowT.className = 'text-with-inline-images__row';
+          rowT.appendChild(textEl.cloneNode(true));
+          rows.push(rowT);
+          i++;
+          continue;
+        }
+
+        if (node.classList && node.classList.contains('text-with-inline-images__image-wrapper')){
+          // if an image is followed by text, pair image+text preserving order
+          var next = nodes[i + 1];
+          if (next && next.classList && next.classList.contains('text-with-inline-images__text')){
+            var rowIT = document.createElement('div');
+            rowIT.className = 'text-with-inline-images__row';
+            // preserve original order: image then text
+            rowIT.appendChild(node.cloneNode(true));
+            rowIT.appendChild(next.cloneNode(true));
+            rows.push(rowIT);
+            i = i + 2;
+            continue;
+          }
+
+          // image without adjacent text — make its own row
+          var rowI = document.createElement('div');
+          rowI.className = 'text-with-inline-images__row';
+          rowI.appendChild(node.cloneNode(true));
+          rows.push(rowI);
+          i++;
+          continue;
+        }
+
+        // fallback: wrap whatever node we found
+        var rowF = document.createElement('div');
+        rowF.className = 'text-with-inline-images__row';
+        rowF.appendChild(node.cloneNode(true));
+        rows.push(rowF);
+        i++;
+      }
+
+      // replace container content with rows
+      container.innerHTML = '';
+      rows.forEach(function(r){ container.appendChild(r); });
+    }
+
+    function init(){
+      var containers = document.querySelectorAll('.text-with-inline-images__content');
+      containers.forEach(function(c){ transformContainer(c); });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 150);
+    });
+  })();
+</script>
 
 {% schema %}
 {
