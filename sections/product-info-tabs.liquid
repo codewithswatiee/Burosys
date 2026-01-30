@@ -1,4 +1,4 @@
-<section id="{{ section.id }}" class="product-info-tabs section--{{ section.settings.section_width }} spacing-style">
+<section id="{{ section.id }}" class="section product-info-tabs section--{{ section.settings.section_width }} spacing-style" style="background: #FAFAFA; padding: 40px 0;">
   <div class="product-info-tabs__inner">
     {% if section.settings.title != blank %}
       <h2 class="product-info-tabs__title">{{ section.settings.title }}</h2>
@@ -15,27 +15,28 @@
     <div class="product-info-tabs__panels">
       {% for i in (1..3) %}
         {% capture key_title %}tab{{ i }}_title{% endcapture %}
+        {% capture key_card_title %}tab{{ i }}_card_title{% endcapture %}
         {% capture key_icon %}tab{{ i }}_icon{% endcapture %}
         {% capture key_number %}tab{{ i }}_number{% endcapture %}
+        {% capture key_note %}tab{{ i }}_note{% endcapture %}
         {% capture key_source %}tab{{ i }}_source{% endcapture %}
-        {% capture key_meta %}tab{{ i }}_metafield{% endcapture %}
         {% capture key_content %}tab{{ i }}_content{% endcapture %}
 
         {% assign tab_title = section.settings[key_title] %}
+        {% assign tab_card_title = section.settings[key_card_title] %}
         {% assign tab_icon = section.settings[key_icon] %}
         {% assign tab_number = section.settings[key_number] %}
+        {% assign tab_note = section.settings[key_note] %}
         {% assign content_source = section.settings[key_source] %}
-        {% assign metafield_key = section.settings[key_meta] %}
         {% assign tab_content = section.settings[key_content] %}
 
-        <section class="product-info-tabs__panel" data-panel-index="{{ i }}" role="tabpanel" aria-hidden="{% if i != 1 %}true{% else %}false{% endif %}">
+        <section class="product-info-tabs__panel{% if tab_note != blank %} has-note{% endif %}" data-panel-index="{{ i }}" role="tabpanel" aria-hidden="{% if i != 1 %}true{% else %}false{% endif %}">
           <div class="product-info-card">
             <div class="product-info-card__left">
               {% if tab_number != blank %}
                 <div class="product-info-card__bignumber">{{ tab_number }}</div>
               {% endif %}
-              <div class="product-info-card__heading">{{ tab_title }}</div>
-              <div class="product-info-card__note">{% if section.settings.show_note %}{{ section.settings.note_text }}{% endif %}</div>
+              <div class="product-info-card__heading">{% if tab_card_title != blank %}{{ tab_card_title }}{% else %}{{ tab_title }}{% endif %}</div>
             </div>
 
             <div class="product-info-card__right">
@@ -45,15 +46,19 @@
             </div>
 
             <div class="product-info-card__content">
-              {% comment %} Choose content source: metafield (namespace.key on product) or richtext {% endcomment %}
-              {% if content_source == 'metafield' and metafield_key != blank and product != nil %}
-                {% assign parts = metafield_key | split: '.' %}
-                {% assign ns = parts[0] | default: '' %}
-                {% assign ky = parts[1] | default: '' %}
-                {% if ns != '' and ky != '' and product.metafields[ns] != nil and product.metafields[ns][ky] != nil %}
-                  {{ product.metafields[ns][ky].value }}
-                {% else %}
-                  <div class="product-info-tabs__fallback">No metafield content found.</div>
+              {% if tab_note != blank %}
+                <div class="product-info-card__note">
+                  <p>{{ tab_note }}</p>
+                </div>
+              {% endif %}
+              {% comment %} Choose content source: metafield or richtext {% endcomment %}
+              {% if content_source == 'metafield' and product != nil %}
+                {% if i == 1 and product.metafields.custom.specifications_list %}
+                  {{ product.metafields.custom.specifications_list.value }}
+                {% elsif i == 2 and product.metafields.custom.warranty_list %}
+                  {{ product.metafields.custom.warranty_list.value }}
+                {% elsif i == 3 and product.metafields.custom.care_list %}
+                  {{ product.metafields.custom.care_list.value }}
                 {% endif %}
               {% else %}
                 {{ tab_content }}
@@ -66,31 +71,112 @@
   </div>
 
   {% stylesheet %}
-  .product-info-tabs__inner{max-width:var(--page-width);margin:0 auto}
-  .product-info-tabs__title{font-size:28px;text-align:center;margin-bottom:18px;letter-spacing:0.2em;text-transform:uppercase}
-  .product-info-tabs__nav{display:flex;justify-content:center;gap:36px;margin-bottom:18px}
-  .product-info-tabs__tab{background:none;border:none;padding:8px 12px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);}
+  .product-info-tabs__title{
+    font-size:36px;
+    text-align:center;
+    letter-spacing:0.2em;
+    padding-bottom:16px;
+    font-weight: 400;
+}
+
+.product-info-card__note p{
+  max-width: 50%;
+  font-size: 16px;
+}
+  .product-info-tabs__nav{display:flex;justify-content:center;gap:24px;padding-bottom:30px;}
+  .product-info-tabs__tab{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;}
   .product-info-tabs__tab[aria-selected="true"]{border-bottom:2px solid var(--color-primary);padding-bottom:6px}
 
   .product-info-tabs__panels{display:block}
   .product-info-tabs__panel{display:none}
   .product-info-tabs__panel[aria-hidden="false"]{display:block}
 
-  .product-info-card{background:var(--color-background);border-radius:12px;padding:28px;display:grid;grid-template-columns:1fr 160px;align-items:start;gap:20px;border:1px solid rgba(var(--color-border-rgb),0.12)}
-  .product-info-card__left{padding-right:10px}
-  .product-info-card__bignumber{font-size:96px;font-weight:400;line-height:1;margin-bottom:8px}
-  .product-info-card__heading{font-size:28px;font-weight:400;margin-bottom:18px}
-  .product-info-card__note{font-size:12px;color:rgba(var(--color-foreground-rgb),0.5);margin-bottom:12px}
+  /* Card layout to match screenshots: big number left, heading below, icon top-right */
+  .product-info-card{background:var(--color-background);border-radius:14px;padding:36px;display:grid;grid-template-columns:1fr 140px;align-items:start;gap:24px;border:1px solid #DFDFDF;}
+  .product-info-card__left{padding-right:12px}
+  .product-info-card__bignumber{font-size:116px;font-weight:300;line-height:1;margin:0 0 12px 0;color:#000000}
+  .product-info-card__heading{font-size:36px;font-weight:400;margin:0 0 18px 0;color:#000000;line-height:1.2}
+  .product-info-card__note{
+    font-size: 11px;
+    color: #666666;
+    height: 100%;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    font-style: italic;
+  }
+  .product-info-card__icon{align-self:start;justify-self:end}
   .product-info-card__icon img{width:84px;height:84px;object-fit:contain}
 
-  .product-info-card__content{grid-column:1 / -1;padding-top:8px;display:flex;gap:24px;flex-wrap:wrap}
-  .product-info-card__content > *{flex:1 1 200px}
-
-  @media (max-width: 900px){
-    .product-info-card{grid-template-columns:1fr;}
-    .product-info-card__icon{justify-self:end}
-    .product-info-card__bignumber{font-size:60px}
+  /* Content list styled as horizontal columns with thin vertical separators */
+  .product-info-card__content{
+    grid-column: 1 / -1;
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
   }
+  .product-info-card__content ul{display:flex;gap:40px;list-style:none;margin:0;padding:0;width:100%;align-items:stretch}
+  .product-info-card__content li{flex:1 1 180px;position:relative;min-width:160px;padding-right:20px;display:flex;flex-direction:column}
+  .product-info-card__content li:not(:first-child):before{content:"";position:absolute;left:-20px;top:0;bottom:0;width:1px;background:#FF5722}
+  .product-info-card__content li strong{margin:0 0 8px 0;font-size:22px !important;font-weight:600 !important;color:#000000;display:block}
+  .product-info-card__content li {margin:0;font-size:16px !important;color:#00000099;font-family: 'matter-light' !important;}
+
+  /* Support richtext output: treat first child (strong/em) as title and following text as description */
+  .product-info-card__content ul li > *:first-child{display:block;font-weight:600;font-size:16px;margin-bottom:8px;color:#000000}
+  .product-info-card__content ul li p, .product-info-card__content ul li small, .product-info-card__content ul li span{margin:0;font-size:13px;color:#666666;line-height:1.4}
+  .product-info-card__content ul li br + small{margin-top:4px;display:block}
+
+  /* Make sure any direct children (when editor gives markup) follow the same structure */
+  .product-info-card__content > *{width:100%}
+  .product-info-tabs__panel:not(.has-note) .product-info-card__content > *{width:100%}
+  .product-info-tabs__panel:not(.has-note) .product-info-card__content > *{width:100%}
+
+  @media  (max-width: 1025px){
+    .product-info-card{grid-template-columns:repeat(2, 1fr);box-shadow:none;padding:24px}
+    .product-info-card__bignumber{font-size:76px}
+    .product-info-card__heading{font-size:22px; margin:18px 0 0px 0}
+    .product-info-card__content{
+        flex-direction: column-reverse;
+        gap: 20px;
+      }
+
+      .product-info-tabs__tab{
+        font-size:16px;
+      }
+
+    .product-info-tabs__title{
+      font-size: 18px;
+    }
+    .product-info-card__content ul{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    .product-info-tabs__nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start;
+    }
+
+    .product-info-card__note p{
+      max-width: 100%;
+      font-size: 14px !important;
+    }
+
+    .product-info-card__content li strong{
+      font-size: 16px !important;
+    }
+    .product-info-card__content li{padding-right:0; font-size: 14px !important;}
+    .product-info-card__content li:not(:first-child):before{display:none}
+  }
+
+    @media (max-width: 330px){
+      .product-info-card__content ul{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
   {% endstylesheet %}
 
   {% schema %}
@@ -99,28 +185,26 @@
     "settings": [
       { "type": "select", "id": "section_width", "label": "Width", "options": [ { "value": "page-width", "label": "Page width" }, { "value": "full-width", "label": "Full width" } ], "default": "page-width" },
       { "type": "text", "id": "title", "label": "Section title", "default": "More about this product" },
-      { "type": "checkbox", "id": "show_note", "label": "Show small note under heading", "default": false },
-      { "type": "textarea", "id": "note_text", "label": "Note text", "default": "*Does not cover wear and tear, fabric damage due to misuse." },
 
       { "type": "text", "id": "tab1_title", "label": "Tab 1 title", "default": "Specifications" },
+      { "type": "text", "id": "tab1_card_title", "label": "Tab 1 card title (different from tab name)", "default": "Specifications" },
       { "type": "text", "id": "tab1_number", "label": "Tab 1 big number (optional)" },
       { "type": "image_picker", "id": "tab1_icon", "label": "Tab 1 icon (optional)" },
-      { "type": "select", "id": "tab1_source", "label": "Tab 1 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
-      { "type": "text", "id": "tab1_metafield", "label": "Tab 1 metafield (namespace.key)", "default": "custom.specifications" },
+      { "type": "select", "id": "tab1_source", "label": "Tab 1 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product specifications metafield" } ] },
       { "type": "richtext", "id": "tab1_content", "label": "Tab 1 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" },
 
-      { "type": "text", "id": "tab2_title", "label": "Tab 2 title", "default": "Warranty" },
-      { "type": "text", "id": "tab2_number", "label": "Tab 2 big number (optional)"},
+      { "type": "text", "id": "tab2_title", "label": "Tab 2 title", "default": "Years Manufacturing Warranty" },
+      { "type": "text", "id": "tab2_card_title", "label": "Tab 2 card title (different from tab name)", "default": "Warranty" },
+      { "type": "text", "id": "tab2_number", "label": "Tab 2 big number (optional)", "default": "3"},
       { "type": "image_picker", "id": "tab2_icon", "label": "Tab 2 icon (optional)" },
-      { "type": "select", "id": "tab2_source", "label": "Tab 2 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
-      { "type": "text", "id": "tab2_metafield", "label": "Tab 2 metafield (namespace.key)", "default": "custom.warranty" },
-      { "type": "richtext", "id": "tab2_content", "label": "Tab 2 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" },
-
+      { "type": "text", "id": "tab2_note", "label": "Tab 2 small note text (optional)", "default": "*Does not cover wear and tear from damage due to misuse or actions over different surfaces on castors" },
+      { "type": "select", "id": "tab2_source", "label": "Tab 2 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product warranty metafield" } ] },
+      { "type": "richtext", "id": "tab2_content", "label": "Tab 2 warranty content (use list items)"},
       { "type": "text", "id": "tab3_title", "label": "Tab 3 title", "default": "Care & Maintenance" },
+      { "type": "text", "id": "tab3_card_title", "label": "Tab 3 card title (different from tab name)", "default": "Care & Maintenance" },
       { "type": "text", "id": "tab3_number", "label": "Tab 3 big number (optional)" },
       { "type": "image_picker", "id": "tab3_icon", "label": "Tab 3 icon (optional)" },
-      { "type": "select", "id": "tab3_source", "label": "Tab 3 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product metafield (namespace.key)" } ] },
-      { "type": "text", "id": "tab3_metafield", "label": "Tab 3 metafield (namespace.key)", "default": "custom.care" },
+      { "type": "select", "id": "tab3_source", "label": "Tab 3 content source", "default": "richtext", "options": [ { "value": "richtext", "label": "Rich text editor" }, { "value": "metafield", "label": "Product care metafield" } ] },
       { "type": "richtext", "id": "tab3_content", "label": "Tab 3 content (use list items)", "default": "<ul><li>Point one</li><li>Point two</li><li>Point three</li></ul>" }
 
     ],

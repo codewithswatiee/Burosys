@@ -42,6 +42,16 @@
     </a>
   {% endif %}
 
+  {% comment %} Resources Link {% endcomment %}
+  {% if section.settings.resources_link != blank %}
+    <a
+      href="{{ section.settings.resources_link }}"
+      class="header-actions__action header-actions__resources-link"
+    >
+      {{ section.settings.resources_label | default: 'Resources' }}
+    </a>
+  {% endif %}
+
   {% comment %} My Account Dropdown {% endcomment %}
   <script
     src="{{ 'dialog.js' | asset_url }}"
@@ -147,6 +157,20 @@
     opacity: var(--opacity-subdued-text);
   }
 
+  .header-actions__resources-link {
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-size: var(--font-size--md);
+    display: flex;
+    align-items: center;
+    height: var(--button-size);
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .header-actions__resources-link:hover {
+    opacity: var(--opacity-subdued-text);
+  }
+
   .account-popover {
     --account-popover-min-width: 22rem;
     --account-actions-max-width: 22rem;
@@ -181,7 +205,7 @@
     transition-timing-function: var(--ease-out-quad);
     transition-behavior: allow-discrete;
     top: calc(anchor(bottom) + var(--header-padding));
-    right: anchor(right);
+    right: 30px;
 
     &:popover-open {
       --account-popover-opacity: 1;
@@ -507,6 +531,7 @@
 
   header-actions {
     display: flex;
+    gap: 18px;
 
     @media screen and (max-width: 749px) {
       justify-self: flex-end;

@@ -10,12 +10,12 @@
 .ct-top-tabs::-webkit-scrollbar { display: none; }
 .ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; letter-spacing: 1px; transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0; }
 .ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; text-underline-offset: 10px;}
-.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 400; text-underline-offset: 10px; color: #000;}
+.ct-top-tab.active .ct-top-tab-btn { text-decoration: underline; font-weight: 400; text-underline-offset: 10px; color: #000 !important;}
 
 /* Desktop Layout - Side by Side */
 .ct-content { display: flex; gap: 40px; align-items: flex-start; }
 .ct-left { width: 38%; position: relative; order: 1; flex-shrink: 0; }
-.ct-right { width: 62%; display:flex; align-items:center; justify-content:end; order: 2; flex-shrink: 0; }
+.ct-right { width: 50%; display:flex; align-items:center; justify-content:end; order: 2; flex-shrink: 0; }
 .ct-image { max-width: 100%; height: auto; display: block; border-radius: 8px; }
 .ct-image-link { display:block; }
 
@@ -96,7 +96,7 @@
   .ct-top-tabs { gap: 8px; }
   .ct-top-tab-btn { font-size: 14px; padding: 6px 8px; letter-spacing: 0.5px; }
   .ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-underline-offset: 6px; }
-  .ct-top-tab.active .ct-top-tab-btn { text-underline-offset: 6px; }
+  .ct-top-tab.active .ct-top-tab-btn { text-underline-offset: 6px; color: #000 !important;}
   
   .ct-image { max-height: 300px; border-radius: 6px; }
   .explore-now-wrapper { margin: 12px 0 20px; }

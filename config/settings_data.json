@@ -165,43 +165,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "6403324215520875301": {
-        "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-embed/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
-        "disabled": false,
-        "settings": {
-          "multi_language": false,
-          "drawer_title": "My Projects",
-          "share_page_title": "Projects",
-          "login_msg": "Project is not saved permanently yet. Please <a class=\"link-text\" href=\"/account/login\">log in</a> or <a class=\"link-text\" href=\"/account/register\">Create Account</a> to save it.",
-          "empty_msg": "<h4>Your Project is empty!</h4> \n<p>Explore more and shortlist some items</p>",
-          "enable_drawer": true,
-          "multi_category": true,
-          "open_drawer_on": "2",
-          "float_icon": true,
-          "heart_icon_color": "#000000",
-          "iwish_count_color": "#FFFFFF",
-          "icon_position": "bottom-right",
-          "custom_icon": "",
-          "variant_selector": "[name=id]",
-          "option_selector": "",
-          "custom_settings": "{\"show_price_on_login\": \"false\", \"show_vendor\": \"false\", \"cart_counter\": \".cart-count-bubble span:first-of-type\", \"custom_filters\": \"facet-filters-form, .facet-filters__sort\", \"custom_delay\": \"500\", \"remove_all_wishlist\": \"false\",\"hide_cart_btn\": \"false\"}"
-        }
-      },
-      "11469127169306096870": {
-        "type": "shopify://apps/storeify-request-a-quote/blocks/embed-app/dac9aba2-251e-4c25-abc3-9fc57dbf7885",
-        "disabled": false,
-        "settings": {}
-      },
-      "pagefly-page-builder": {
-        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": false,
-        "settings": {}
-      },
-      "5784066569132941777": {
-        "type": "shopify://apps/s-store-locator/blocks/embed-app/e7003487-cc51-4321-9488-2c47c07a5b17",
-        "disabled": false,
-        "settings": {}
-      },
       "10603822535667782919": {
         "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/app-embed/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
         "disabled": true,
@@ -230,6 +193,43 @@
           "drawer_sold_out": "Sold Out",
           "main_wishlist_text": "Main Wishlist",
           "save_btn_text": "SAVE"
+        }
+      },
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": true,
+        "settings": {}
+      },
+      "11469127169306096870": {
+        "type": "shopify://apps/storeify-request-a-quote/blocks/embed-app/dac9aba2-251e-4c25-abc3-9fc57dbf7885",
+        "disabled": true,
+        "settings": {}
+      },
+      "5784066569132941777": {
+        "type": "shopify://apps/s-store-locator/blocks/embed-app/e7003487-cc51-4321-9488-2c47c07a5b17",
+        "disabled": true,
+        "settings": {}
+      },
+      "6403324215520875301": {
+        "type": "shopify://apps/mst-wishlist-marketing-flow/blocks/v3-app-embed/7f9269b0-1b45-4d0c-8479-faf04f05d8ac",
+        "disabled": true,
+        "settings": {
+          "multi_language": false,
+          "drawer_title": "My Projects",
+          "share_page_title": "Projects",
+          "login_msg": "Project is not saved permanently yet. Please <a class=\"link-text\" href=\"/account/login\">log in</a> or <a class=\"link-text\" href=\"/account/register\">Create Account</a> to save it.",
+          "empty_msg": "<h4>Your Project is empty!</h4> \n<p>Explore more and shortlist some items</p>",
+          "enable_drawer": true,
+          "multi_category": true,
+          "open_drawer_on": "2",
+          "float_icon": true,
+          "heart_icon_color": "#000000",
+          "iwish_count_color": "#ffffff",
+          "icon_position": "bottom-right",
+          "custom_icon": "",
+          "variant_selector": "[name=id]",
+          "option_selector": "",
+          "custom_settings": "{\"show_price_on_login\": \"false\", \"show_vendor\": \"false\", \"cart_counter\": \".cart-count-bubble span:first-of-type\", \"custom_filters\": \"facet-filters-form, .facet-filters__sort\", \"custom_delay\": \"500\", \"remove_all_wishlist\": \"false\",\"hide_cart_btn\": \"false\"}"
         }
       }
     },

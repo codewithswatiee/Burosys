@@ -275,6 +275,13 @@
               </a>
             </li>
           {% endif %}
+          {% if section.settings.resources_link != blank %}
+            <li class="header-drawer__menu-item">
+              <a href="{{ section.settings.resources_link }}" class="header-drawer__link">
+                <span class="header-drawer__link-text">{{ section.settings.resources_label | default: 'Resources' }}</span>
+              </a>
+            </li>
+          {% endif %}
         </ul>
       </nav>
 

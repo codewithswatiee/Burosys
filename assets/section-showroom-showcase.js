@@ -36,18 +36,46 @@ document.addEventListener('DOMContentLoaded', function () {
       thumbnails[index].classList.add('active');
 
       // Ensure the active thumbnail is visible inside the scroll container
-      // Use scrollIntoView on the thumbnail so the nearest scrollable ancestor (thumbnailsWrap) scrolls
-      try {
-        thumbnails[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      } catch (e) {
-        // Fallback: adjust scrollLeft of the wrap to center the thumbnail
-        if (thumbnailsWrap) {
-          var wrapRect = thumbnailsWrap.getBoundingClientRect();
-          var thumbRect = thumbnails[index].getBoundingClientRect();
-          var offset = (thumbRect.left + thumbRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
-          thumbnailsWrap.scrollLeft += offset;
+      // Scroll only the nearest scrollable ancestor to avoid scrolling the whole page
+      (function() {
+        function getScrollableAncestor(el) {
+          var parent = el.parentElement;
+          while (parent && parent !== document.body) {
+            var style = window.getComputedStyle(parent);
+            var overflowX = style.overflowX;
+            if (overflowX === 'auto' || overflowX === 'scroll' || overflowX === 'overlay') return parent;
+            parent = parent.parentElement;
+          }
+          return null;
         }
-      }
+
+        var ancestor = getScrollableAncestor(thumbnails[index]);
+        if (ancestor) {
+          try {
+            var thumbRect = thumbnails[index].getBoundingClientRect();
+            var ancRect = ancestor.getBoundingClientRect();
+            var offset = (thumbRect.left + thumbRect.width / 2) - (ancRect.left + ancRect.width / 2);
+            ancestor.scrollTo({ left: ancestor.scrollLeft + offset, behavior: 'smooth' });
+          } catch (e) {
+            // fallback to adjusting the known thumbnailsWrap scrollLeft when available
+            if (thumbnailsWrap) {
+              var wrapRect = thumbnailsWrap.getBoundingClientRect();
+              var thumbRect = thumbnails[index].getBoundingClientRect();
+              var offset = (thumbRect.left + thumbRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+              thumbnailsWrap.scrollLeft += offset;
+            }
+          }
+        } else {
+          // No scrollable ancestor found: avoid calling scrollIntoView which may scroll the document.
+          // If thumbnailsWrap is scrollable, adjust its scrollLeft; otherwise do nothing to prevent page jump.
+          if (thumbnailsWrap && thumbnailsWrap.scrollWidth > thumbnailsWrap.clientWidth) {
+            var wrapRect = thumbnailsWrap.getBoundingClientRect();
+            var thumbRect = thumbnails[index].getBoundingClientRect();
+            var offset = (thumbRect.left + thumbRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+            thumbnailsWrap.scrollLeft += offset;
+          }
+        }
+      })();
     }
 
     currentIndex = index;
