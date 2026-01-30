@@ -419,6 +419,7 @@
     },
     "product_info_tabs_mzCJfa": {
       "type": "product-info-tabs",
+      "disabled": true,
       "name": "Product Info Tabs",
       "settings": {
         "section_width": "page-width",

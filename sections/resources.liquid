@@ -109,6 +109,13 @@
         <button class="resources-tab" data-tab="ideas" type="button">IDEA STARTER</button>
       </div>
 
+      <!-- Mobile inline actions: Sort | Filter (visible on small screens) -->
+      <div class="mobile-actions" aria-hidden="false">
+        <button class="mobile-sort-btn" type="button">Sort</button>
+        <span class="mobile-actions-divider">|</span>
+        <button class="mobile-filter-btn" type="button" aria-label="Toggle filters" onclick="document.querySelector('.mobile-filter-toggle').click()">Filter</button>
+      </div>
+
       <!-- Tab Content - Catalogs -->
       <div class="resources-grid-wrapper" data-tab-content="catalogs">
         <div class="resources-grid">
