@@ -212,19 +212,9 @@
       }
     },
     {
-      "key": "resources",
-      "namespace": "custom",
-      "name": "Resources",
-      "description": "",
-      "type": {
-        "name": "list.mixed_reference",
-        "category": "REFERENCE"
-      }
-    },
-    {
       "key": "specifications",
       "namespace": "custom",
-      "name": "specifications",
+      "name": "specifications list",
       "description": "",
       "type": {
         "name": "rich_text_field",
@@ -234,7 +224,7 @@
     {
       "key": "warranty",
       "namespace": "custom",
-      "name": "WARRANTY",
+      "name": "Warranty list",
       "description": "",
       "type": {
         "name": "rich_text_field",
@@ -244,7 +234,7 @@
     {
       "key": "care_maintainance",
       "namespace": "custom",
-      "name": "CARE & MAINTAINANCE",
+      "name": "care list",
       "description": "",
       "type": {
         "name": "rich_text_field",
@@ -298,6 +288,96 @@
       "description": "Specifies the color of a product's frame, such as clear or gold",
       "type": {
         "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "backrest-type",
+      "namespace": "shopify",
+      "name": "Backrest type",
+      "description": "Specifies the material or style of a chair's backrest; e.g. mesh, padded",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "seat-type",
+      "namespace": "shopify",
+      "name": "Seat type",
+      "description": "Describes the design of a chair or bench seat, such as padded or bucket ",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "firmness",
+      "namespace": "shopify",
+      "name": "Firmness",
+      "description": "Defines the level of firmness in items like furniture or mattresses, e.g. extra soft, firm",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "waranty_years",
+      "namespace": "custom",
+      "name": "waranty years",
+      "description": "",
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    },
+    {
+      "key": "warranty_note",
+      "namespace": "custom",
+      "name": "warranty note",
+      "description": "",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "warranty_title",
+      "namespace": "custom",
+      "name": "warranty title",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "care_icon",
+      "namespace": "custom",
+      "name": "care_icon",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "warranty_icon",
+      "namespace": "custom",
+      "name": "warranty_icon",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "specification_icon",
+      "namespace": "custom",
+      "name": "specification_icon",
+      "description": "",
+      "type": {
+        "name": "file_reference",
         "category": "REFERENCE"
       }
     }

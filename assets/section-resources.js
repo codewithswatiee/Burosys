@@ -151,7 +151,13 @@
     section.appendChild(overlay);
 
     // Create close button for filters
-
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'mobile-filter-close';
+    closeBtn.setAttribute('aria-label', 'Close filters');
+    closeBtn.innerHTML = '&times;';
+    // prepend to filters so it's visible at top-right
+    filters.prepend(closeBtn);
 
     // Toggle filter panel
     mobileFilterToggle.addEventListener('click', () => {
@@ -166,7 +172,6 @@
       overlay.classList.remove('active');
       document.body.style.overflow = '';
     };
-
     closeBtn.addEventListener('click', closeFilters);
     overlay.addEventListener('click', closeFilters);
   }

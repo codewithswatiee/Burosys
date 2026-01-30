@@ -74,36 +74,48 @@
 
       {%- comment -%} Right: News & Events Section {%- endcomment -%}
       <div class="blog-section blog-section-news">
-        <div class="blog-section-header">
+        <div class="blog-section-header blog-section-header-desktop">
           <h2 class="blog-section-title">NEWS & EVENTS</h2>
+        </div>
+        {%- comment -%} Mobile Carousel Header {%- endcomment -%}
+        <div class="blog-section-header blog-section-header-mobile">
+          <h2 class="blog-article-title">NEWS AND EVENTS</h2>
+          <p class="blog-article-subtitle">Explore chairs tailored to your interests</p>
         </div>
         <div class="blog-posts-news-sidebar">
           {%- assign news_count = 0 -%}
           {%- for article in blog.articles -%}
             {%- if article.tags contains 'news-events' and news_count < 8 -%}
               <div class="news-event-card">
+                {%- if article.image -%}
+                  <div class="news-event-image">
+                    <a href="{{ article.url }}">
+                      <img
+                        src="{{ article.image | image_url: width: 400 }}"
+                        alt="{{ article.image.alt | escape }}"
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                      >
+                    </a>
+                  </div>
+                {%- endif -%}
                 <div class="news-event-content">
+                  <span class="news-event-category">LOREM IPSUM</span>
                   <h3 class="news-event-title">
                     <a href="{{ article.url }}">{{ article.title }}</a>
                   </h3>
                   <div class="news-event-author">BY {{ article.author | upcase }}</div>
                 </div>
-                {%- if article.image -%}
-                  <div class="news-event-image">
-                    <a href="{{ article.url }}">
-                      <img
-                        src="{{ article.image | image_url: width: 200 }}"
-                        alt="{{ article.image.alt | escape }}"
-                        loading="lazy"
-                        width="200"
-                        height="200"
-                      >
-                    </a>
-                  </div>
-                {%- endif -%}
               </div>
               {%- assign news_count = news_count | plus: 1 -%}
             {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- comment -%} Mobile Carousel Pagination Dots {%- endcomment -%}
+        <div class="news-carousel-pagination">
+          {%- for i in (1..8) -%}
+            <span class="pagination-dot{% if i == 4 %} active{% endif %}"></span>
           {%- endfor -%}
         </div>
       </div>
@@ -124,6 +136,12 @@
             </div>
             {%- assign articles_count = articles_count | plus: 1 -%}
           {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- comment -%} Mobile Carousel Pagination Dots {%- endcomment -%}
+      <div class="articles-carousel-pagination">
+        {%- for i in (1..8) -%}
+          <span class="pagination-dot{% if i == 1 %} active{% endif %}"></span>
         {%- endfor -%}
       </div>
     </div>
@@ -171,15 +189,11 @@
 
   .blog-tab.active {
     background: #FF4000;
-    border-color: rgb(var(--color-accent-rgb) / 1);
+    border-color: #FF4000;
     color: white;
   }
 
-  .blog-tab.projects {
-    background: #ff5722;
-    border-color: #ff5722;
-    color: white;
-  }
+  /* Remove the projects-specific styling since we want consistent orange for all active tabs */
 
   /**
    * Section Headers
@@ -337,6 +351,7 @@
     letter-spacing: 0.5px;
     color: rgb(var(--color-foreground-rgb) / 0.6);
     text-transform: uppercase;
+    display: none;
   }
 
   .news-event-title {
@@ -377,6 +392,19 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* Hide mobile elements on desktop */
+  .blog-section-header-mobile {
+    display: none;
+  }
+
+  .news-carousel-pagination {
+    display: none;
+  }
+
+  .articles-carousel-pagination {
+    display: none;
   }
 
   /**
@@ -496,17 +524,118 @@
 
     .blog-section-news {
       grid-column: 1;
+      border: none;
+      padding: 0;
+      background-color: transparent !important;
+      border-radius: 0;
     }
 
+    /* Hide desktop header, show mobile header */
+    .blog-section-header-desktop {
+      display: none;
+    }
+
+    .blog-section-header-mobile {
+      display: block;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Carousel layout for news sidebar */
     .blog-posts-news-sidebar {
       display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .blog-posts-news-sidebar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Mobile carousel card styles */
+    .news-event-card {
+      flex: 0 0 85%;
+      max-width: 85%;
       flex-direction: column;
-      gap: 0;
+      align-items: stretch;
+      padding: 0;
+      border: none;
+      border-bottom: none;
+      scroll-snap-align: center;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .news-event-card:first-child {
+      padding-top: 0;
+    }
+
+    .news-event-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .news-event-image {
-      width: 100px;
-      height: 80px;
+      width: 100%;
+      height: 280px;
+      order: -1;
+      margin-bottom: 0;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .news-event-content {
+      padding: 1rem 1.25rem 1.5rem;
+    }
+
+    .news-event-category {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .news-event-title {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .news-event-author {
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Pagination dots */
+    .news-carousel-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 1.5rem;
+    }
+
+    .pagination-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #D1D1D1;
+      transition: all 0.3s ease;
+    }
+
+    .pagination-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background-color: #888;
     }
 
     .blog-posts-stories .blog-post-item-stories {
@@ -514,12 +643,37 @@
       --blog-post-card-scale: 0.6 !important;
     }
 
+    /* Carousel layout for articles section */
     .blog-posts-articles {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .blog-posts-articles::-webkit-scrollbar {
+      display: none;
     }
 
     .blog-posts-articles .blog-post-item-articles {
+      flex: 0 0 85%;
+      max-width: 85%;
+      scroll-snap-align: center;
       --blog-post-card-scale: 0.6;
+    }
+
+    /* Articles pagination dots */
+    .articles-carousel-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 1.5rem;
     }
   }
 
@@ -539,24 +693,145 @@
       font-size: 1.25rem;
     }
 
+    /* Mobile carousel adjustments */
     .news-event-card {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 1rem 0;
+      flex: 0 0 88%;
+      max-width: 88%;
     }
 
     .news-event-image {
-      width: 100%;
-      height: 150px;
-      order: -1;
-      margin-bottom: 0.75rem;
+      height: 240px;
     }
 
     .news-event-title {
-      font-size: 14px;
+      font-size: 20px;
+    }
+
+    /* Articles carousel mobile adjustments */
+    .blog-posts-articles .blog-post-item-articles {
+      flex: 0 0 88%;
+      max-width: 88%;
     }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  // Tab Navigation Functionality
+  function initBlogTabs() {
+    const tabs = document.querySelectorAll('.blog-tab');
+    const articlesSection = document.querySelector('.blog-section-articles');
+    
+    if (!tabs || !articlesSection) return;
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tab (makes it orange)
+        this.classList.add('active');
+        
+        // Get the category from data attribute
+        const category = this.getAttribute('data-category');
+        
+        // Handle scrolling behavior based on tab
+        switch(category) {
+          case 'all': // Projects tab
+          case 'news': // News & Events tab
+            // Stay at top - scroll to top smoothly
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+            break;
+          
+          case 'articles': // Blogs & Articles tab
+            // Scroll to articles section
+            articlesSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            break;
+          
+          case 'social': // Social Media tab
+            // Leave for now - just stay at top
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+            break;
+        }
+      });
+    });
+  }
+
+  // Carousel Pagination Helper Function
+  function initCarouselPagination(containerSelector, paginationSelector, cardSelector) {
+    const container = document.querySelector(containerSelector);
+    const paginationContainer = document.querySelector(paginationSelector);
+    
+    if (!container || !paginationContainer) return;
+    
+    const cards = container.querySelectorAll(cardSelector);
+    const dots = paginationContainer.querySelectorAll('.pagination-dot');
+    
+    if (cards.length === 0 || dots.length === 0) return;
+    
+    // Update pagination dots based on scroll position
+    function updatePagination() {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = cards[0].offsetWidth + 16; // card width + gap
+      const activeIndex = Math.round(scrollLeft / cardWidth);
+      
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    // Add scroll event listener
+    container.addEventListener('scroll', updatePagination, { passive: true });
+    
+    // Click on dots to navigate
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', function() {
+        const cardWidth = cards[0].offsetWidth + 16;
+        container.scrollTo({
+          left: index * cardWidth,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Initial update
+    updatePagination();
+  }
+
+  // Initialize all functionality on DOM ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tab navigation
+    initBlogTabs();
+    
+    // News & Events Carousel
+    initCarouselPagination(
+      '.blog-posts-news-sidebar',
+      '.news-carousel-pagination',
+      '.news-event-card'
+    );
+    
+    // Blogs & Articles Carousel
+    initCarouselPagination(
+      '.blog-posts-articles',
+      '.articles-carousel-pagination',
+      '.blog-post-item-articles'
+    );
+  });
+{% endjavascript %}
 
 {% schema %}
 {

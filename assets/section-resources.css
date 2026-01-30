@@ -264,9 +264,10 @@ border-right: 1px solid #e5e5e5;
 }
 
 .resource-card-image {
-  aspect-ratio: 3/4;
+  /* Desktop: landscape cards */
+  aspect-ratio: 16/9;
   overflow: hidden;
-  background: #f8f8f8;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,7 +277,8 @@ border-right: 1px solid #e5e5e5;
 .resource-card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Contain the image within the landscape card on desktop */
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
@@ -298,10 +300,10 @@ border-right: 1px solid #e5e5e5;
 }
 
 .resource-card-title {
-  margin: 16px 0 0;
-  font-size: 14px;
+  margin: 6px 0 0;
+  font-size: 16px;
   font-weight: 400;
-  color: #333;
+  color: #000;
   line-height: 1.4;
 }
 
@@ -343,6 +345,15 @@ border-right: 1px solid #e5e5e5;
   height: 18px;
 }
 
+/* Ensure mobile-only controls are hidden on large screens by default */
+.mobile-actions {
+  display: none;
+}
+
+.mobile-filter-close {
+  display: none;
+}
+
 /* ===== Tablet Styles ===== */
 @media (max-width: 1024px) {
   .resources-container {
@@ -368,7 +379,7 @@ border-right: 1px solid #e5e5e5;
 /* ===== Mobile Styles ===== */
 @media (max-width: 768px) {
   .resources-section {
-    padding: 40px 0 80px;
+    padding: 10px 0 80px;
   }
 
   .resources-container {
@@ -395,6 +406,27 @@ border-right: 1px solid #e5e5e5;
     transform: translateX(0);
   }
 
+  /* Mobile close button inside the filter drawer */
+  .mobile-filter-close {
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    color: #000;
+    z-index: 1001;
+    padding: 6px;
+  }
+
+  .mobile-filter-close:focus {
+    outline: 2px solid rgba(0,0,0,0.1);
+    outline-offset: 2px;
+  }
+
   .resources-filters::before {
     content: 'FILTERS';
     display: block;
@@ -410,12 +442,41 @@ border-right: 1px solid #e5e5e5;
     display: none;
   }
 
+  /* Hide the floating bottom toggle on mobile — we'll use an inline control */
   .mobile-filter-toggle {
-    display: flex;
+    display: none;
   }
 
   .resources-content {
     width: 100%;
+    padding-top: 10px;
+  }
+
+  /* Inline mobile actions (Sort | Filter) shown beneath the tabs */
+  .mobile-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 18px;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .mobile-actions button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: 400;
+        font-size: 14px;
+
+    cursor: pointer;
+    padding: 6px 8px;
+  }
+
+  .mobile-actions .mobile-actions-divider {
+    color: #999;
+    padding: 0 6px;
   }
 
   .resources-search {
@@ -449,6 +510,15 @@ border-right: 1px solid #e5e5e5;
     margin-top: 12px;
   }
 
+  /* Restore portrait cards and use cover on smaller screens */
+  .resource-card-image {
+    aspect-ratio: 3/4;
+  }
+
+  .resource-card-image img {
+    object-fit: cover;
+  }
+
 
 
 
@@ -464,7 +534,7 @@ border-right: 1px solid #e5e5e5;
 
   .resources-tab {
     padding: 8px 12px;
-    font-size: 9px;
+    font-size: 14px;
   }
 }
 
