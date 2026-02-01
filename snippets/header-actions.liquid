@@ -171,6 +171,20 @@
     color: #FF4000;
   }
 
+  .header-actions__resources-link {
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-size: var(--font-size--md);
+    display: flex;
+    align-items: center;
+    height: var(--button-size);
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .header-actions__resources-link:hover {
+    opacity: var(--opacity-subdued-text);
+  }
+
   .account-popover {
     --account-popover-min-width: 22rem;
     --account-actions-max-width: 22rem;

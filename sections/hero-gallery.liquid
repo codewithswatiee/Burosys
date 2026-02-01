@@ -1,0 +1,917 @@
+{% schema %}
+{
+  "name": "Interactive Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product Gallery"
+    },
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Left Side Text",
+      "default": "NOT JUST ABOUT FORM & FUNCTION."
+    },
+    {
+      "type": "range",
+      "id": "image_count",
+      "min": 6,
+      "max": 25,
+      "step": 1,
+      "label": "Number of Products",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1f1f1f"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Corner Icon Color",
+      "default": "#FF5733"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive Gallery"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #interactive-gallery {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #interactive-gallery * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  #interactive-gallery body,
+  #interactive-gallery {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #interactive-gallery a,
+  #interactive-gallery p {
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02rem;
+  }
+
+  #interactive-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    backface-visibility: hidden;
+    display: block;
+    border-radius: 4px;
+  }
+
+  #interactive-gallery .gallery-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #interactive-gallery .gallery-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    perspective: 2000px;
+    will-change: transform;
+  }
+
+  #interactive-gallery .gallery {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  #interactive-gallery .card {
+    position: absolute;
+    width: 50px;
+    height: 67px;
+    border-radius: 4px;
+    transform-origin: center;
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+    background-color: #ddd;
+  }
+
+  #interactive-gallery .card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: translateZ(10px) scale(1.05);
+  }
+
+  #interactive-gallery .card::after {
+    content: attr(data-price);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+  }
+
+  #interactive-gallery .card:hover::after {
+    opacity: 1;
+  }
+
+  #interactive-gallery .title-container {
+    position: fixed;
+    bottom: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 42px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 10;
+  }
+
+  #interactive-gallery .title-container p {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    letter-spacing: -0.05rem;
+    font-weight: 700;
+  }
+
+  #interactive-gallery .word {
+    position: relative;
+    display: inline-block;
+    will-change: transform;
+  }
+
+  #interactive-gallery .reset-btn {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: {{ section.settings.text_color }};
+    color: {{ section.settings.bg_color }};
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  #interactive-gallery .reset-btn.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #interactive-gallery .instructions {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.7;
+    z-index: 20;
+    display: none;
+  }
+
+  #interactive-gallery .instructions p {
+    margin: 2px 0;
+    font-size: 12px;
+  }
+
+  #interactive-gallery .left-text {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 280px;
+    z-index: 15;
+  }
+
+  #interactive-gallery .left-text h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  #interactive-gallery .corner-icon {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background-color: {{ section.settings.icon_color }};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 15;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #interactive-gallery .corner-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  #interactive-gallery .corner-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+
+  @media (max-width: 768px) {
+    #interactive-gallery .gallery {
+      width: 400px;
+      height: 400px;
+    }
+
+    #interactive-gallery .card {
+      width: 45px;
+      height: 65px;
+    }
+
+    #interactive-gallery .title-container p {
+      font-size: 24px;
+    }
+
+    #interactive-gallery .left-text {
+      position: absolute;
+      left: 50%;
+      top: 77%;
+      transform: translateX(-50%);
+      text-align: center;
+      max-width: 100%;
+    }
+
+    #interactive-gallery .left-text h2 {
+      font-size: 20px;
+    }
+
+    #interactive-gallery .corner-icon {
+      width: 40px;
+      height: 40px;
+      bottom: 1rem;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+    }
+
+    #interactive-gallery .corner-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+<div id="interactive-gallery">
+  <div class="gallery-section">
+    <!-- Left Side Text -->
+    <div class="left-text">
+      <h2>{{ section.settings.left_text }}</h2>
+    </div>
+
+    <div class="gallery-container">
+      <div class="gallery" id="gallery"></div>
+    </div>
+    <div class="title-container" id="title-container"></div>
+    <button class="reset-btn" id="reset-btn">Reset</button>
+    <div class="instructions">
+      <p>Click to preview • Double-click to visit product</p>
+      <p>{{ section.settings.image_count }} random products from your store</p>
+    </div>
+
+    <!-- Shuffle Icon -->
+    <div class="corner-icon" id="corner-icon" title="Shuffle Products">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.getElementById('gallery');
+    const galleryContainer = document.querySelector('#interactive-gallery .gallery-container');
+    const titleContainer = document.getElementById('title-container');
+    const resetBtn = document.getElementById('reset-btn');
+    const leftText = document.querySelector('#interactive-gallery .left-text');
+    const cornerIcon = document.getElementById('corner-icon');
+
+    // Generate colored SVG data URLs for guaranteed image display
+    function generateColoredImage(index) {
+      const colors = [
+        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+        '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9',
+        '#F8B500', '#00CED1', '#FF69B4', '#32CD32', '#FF7F50',
+        '#6495ED', '#DC143C', '#00FA9A', '#FFD700', '#8A2BE2',
+        '#FF4500', '#2E8B57', '#FF1493', '#00BFFF', '#9370DB'
+      ];
+      const color = colors[index % colors.length];
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="${color}" width="200" height="200"/><text x="100" y="110" font-family="Arial" font-size="24" fill="white" text-anchor="middle">${index + 1}</text></svg>`;
+      return 'data:image/svg+xml;base64,' + btoa(svg);
+    }
+
+    // Create products array with guaranteed images
+    const products = [];
+    const productCount = {{ section.settings.image_count }};
+    
+    for (let i = 0; i < productCount; i++) {
+      products.push({
+        title: `Product ${i + 1}`,
+        image: generateColoredImage(i),
+        id: `product-${i + 1}`,
+        url: '#',
+        price: `$${(Math.random() * 200 + 20).toFixed(2)}`,
+        vendor: 'Store'
+      });
+    }
+
+    // Try to load Shopify products and replace fallbacks
+    const shopifyProductsRaw = [];
+    {% for product in collections.all.products limit: 25 %}
+      {% if product.featured_image %}
+      shopifyProductsRaw.push({
+        title: "{{ product.title | escape }}",
+        image: "{{ product.featured_image | image_url: width: 300 }}",
+        id: "{{ product.id }}",
+        url: "{{ product.url }}",
+        price: "{{ product.price | money }}",
+        vendor: "{{ product.vendor | escape }}"
+      });
+      {% endif %}
+    {% endfor %}
+
+    // Use Shopify products if available, otherwise keep generated ones
+    const finalProducts = shopifyProductsRaw.length > 0 ? shopifyProductsRaw : products;
+    
+    // Ensure we have enough products
+    while (finalProducts.length < productCount) {
+      const idx = finalProducts.length;
+      finalProducts.push({
+        title: `Product ${idx + 1}`,
+        image: generateColoredImage(idx),
+        id: `product-${idx + 1}`,
+        url: '#',
+        price: `$${(Math.random() * 200 + 20).toFixed(2)}`,
+        vendor: 'Store'
+      });
+    }
+
+    console.log('Products loaded:', finalProducts.length);
+    console.log('First product:', finalProducts[0]);
+    
+    const cards = [];
+    const transformState = [];
+
+    let currentTitle = null;
+    let isPreviewActive = false;
+    let isTransitioning = false;
+
+    const config = {
+      imageCount: finalProducts.length,
+      radius: 275,
+      sensitivity: 500,
+      effectFalloff: 250,
+      cardMoveAmount: 50,
+      lerpFactor: 0.15,
+      isMobile: window.innerWidth < 1000,
+    };
+
+    const parallaxState = {
+      targetX: 0,
+      targetY: 0,
+      targetZ: 0,
+      currentX: 0,
+      currentY: 0,
+      currentZ: 0,
+    };
+
+    // Create cards
+    for (let i = 0; i < config.imageCount; i++) {
+      const angle = (i / config.imageCount) * Math.PI * 2;
+      const x = config.radius * Math.cos(angle);
+      const y = config.radius * Math.sin(angle);
+      const productIndex = i % finalProducts.length;
+      const productData = finalProducts[productIndex];
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.index = i;
+      card.dataset.title = productData.title || `Product ${i + 1}`;
+      card.dataset.price = productData.price || '$0.00';
+      card.dataset.url = productData.url || '#';
+
+      const img = document.createElement('img');
+      img.src = productData.image || generateColoredImage(i);
+      img.alt = productData.title || `Product ${i + 1}`;
+      img.onerror = function() {
+        this.src = generateColoredImage(i);
+        this.onerror = null;
+      };
+      
+      card.appendChild(img);
+
+      gsap.set(card, {
+        x,
+        y,
+        rotation: (angle * 180) / Math.PI + 90,
+        transformPerspective: 800,
+        transformOrigin: 'center center',
+      });
+
+      gallery.appendChild(card);
+      cards.push(card);
+      transformState.push({
+        currentRotation: 0,
+        targetRotation: 0,
+        currentX: 0,
+        targetX: 0,
+        currentY: 0,
+        targetY: 0,
+        currentScale: 1,
+        targetScale: 1,
+        angle,
+      });
+
+      card.addEventListener('click', (e) => {
+        if (!isPreviewActive && !isTransitioning) {
+          const now = Date.now();
+          const timeDiff = now - (card.lastClickTime || 0);
+          
+          if (timeDiff < 300 && productData.url && productData.url !== '#') {
+            window.location.href = productData.url;
+          } else {
+            togglePreview(parseInt(card.dataset.index));
+          }
+          
+          card.lastClickTime = now;
+          e.stopPropagation();
+        }
+      });
+    }
+
+    function togglePreview(index) {
+      isPreviewActive = true;
+      isTransitioning = true;
+      resetBtn.classList.add('show');
+
+      // Animate left text out to the left
+      gsap.to(leftText, {
+        x: -200,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.inOut'
+      });
+
+      // Animate corner icon out
+      gsap.to(cornerIcon, {
+        y: 100,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.inOut'
+      });
+
+      const angle = transformState[index].angle;
+      const targetPosition = (Math.PI * 3) / 2;
+      let rotationRadians = targetPosition - angle;
+
+      if (rotationRadians > Math.PI) rotationRadians -= Math.PI * 2;
+      else if (rotationRadians < -Math.PI) rotationRadians += Math.PI * 2;
+
+      transformState.forEach((state) => {
+        state.currentRotation = state.targetRotation = 0;
+        state.currentScale = state.targetScale = 1;
+        state.currentX = state.targetX = state.currentY = state.targetY = 0;
+      });
+
+      gsap.to(gallery, {
+        onStart: () => {
+          cards.forEach((card, i) => {
+            gsap.to(card, {
+              x: config.radius * Math.cos(transformState[i].angle),
+              y: config.radius * Math.sin(transformState[i].angle),
+              rotationY: 0,
+              scale: 1,
+              duration: 1.25,
+              ease: 'power4.out',
+            });
+          });
+        },
+        scale: 5,
+        y: 1300,
+        rotation: (rotationRadians * 180) / Math.PI + 360,
+        duration: 2,
+        ease: 'power4.inOut',
+        onComplete: () => (isTransitioning = false),
+      });
+
+      gsap.to(parallaxState, {
+        currentX: 0,
+        currentY: 0,
+        currentZ: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        onUpdate: () => {
+          gsap.set(galleryContainer, {
+            rotateX: parallaxState.currentX,
+            rotateY: parallaxState.currentY,
+            rotation: parallaxState.currentZ,
+            transformOrigin: 'center center',
+          });
+        },
+      });
+
+      const titleText = cards[index].dataset.title;
+      const p = document.createElement('p');
+      p.textContent = titleText;
+      titleContainer.appendChild(p);
+      currentTitle = p;
+
+      // Split text into words for animation
+      const words = titleText.split(' ');
+      const wordElements = [];
+      p.innerHTML = words
+        .map((word, i) => `<span class="word" style="display: inline-block; margin: 0 4px;">${word}</span>`)
+        .join(' ');
+
+      const wordSpans = p.querySelectorAll('.word');
+      gsap.set(wordSpans, { y: '125%' });
+      gsap.to(wordSpans, {
+        y: '0%',
+        duration: 0.75,
+        delay: 1.25,
+        stagger: 0.1,
+        ease: 'power4.out',
+      });
+    }
+
+    function resetGallery() {
+      if (isTransitioning) return;
+
+      isTransitioning = true;
+      resetBtn.classList.remove('show');
+
+      if (currentTitle) {
+        const words = currentTitle.querySelectorAll('.word');
+        gsap.to(words, {
+          y: '-125%',
+          duration: 0.75,
+          delay: 0.5,
+          stagger: 0.1,
+          ease: 'power4.out',
+          onComplete: () => {
+            currentTitle.remove();
+            currentTitle = null;
+          },
+        });
+      }
+
+      const viewportWidth = window.innerWidth;
+      let galleryScale = 1;
+
+      if (viewportWidth < 768) {
+        galleryScale = 0.6;
+      } else if (viewportWidth < 1200) {
+        galleryScale = 0.8;
+      }
+
+      gsap.to(gallery, {
+        scale: galleryScale,
+        y: 0,
+        x: 0,
+        rotation: 0,
+        duration: 2.5,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          isPreviewActive = isTransitioning = false;
+          Object.assign(parallaxState, {
+            targetX: 0,
+            targetY: 0,
+            targetZ: 0,
+            currentX: 0,
+            currentY: 0,
+            currentZ: 0,
+          });
+        },
+      });
+
+      // Animate left text back in from left
+      gsap.to(leftText, {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 1.5,
+        ease: 'power3.out'
+      });
+
+      // Animate corner icon back in
+      gsap.to(cornerIcon, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 1.8,
+        ease: 'power3.out'
+      });
+    }
+
+    function handleResize() {
+      const viewportWidth = window.innerWidth;
+      config.isMobile = viewportWidth < 1000;
+
+      let galleryScale = 1;
+
+      if (viewportWidth < 768) {
+        galleryScale = 0.6;
+      } else if (viewportWidth < 1200) {
+        galleryScale = 0.8;
+      }
+
+      gsap.set(gallery, {
+        scale: galleryScale,
+      });
+
+      if (!isPreviewActive) {
+        parallaxState.targetX = 0;
+        parallaxState.targetY = 0;
+        parallaxState.targetZ = 0;
+        parallaxState.currentX = 0;
+        parallaxState.currentY = 0;
+        parallaxState.currentZ = 0;
+
+        transformState.forEach((state) => {
+          state.targetRotation = 0;
+          state.currentRotation = 0;
+          state.targetScale = 1;
+          state.currentScale = 1;
+          state.targetX = 0;
+          state.currentX = 0;
+          state.targetY = 0;
+          state.currentY = 0;
+        });
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    document.addEventListener('click', () => {
+      if (isPreviewActive && !isTransitioning) {
+        resetGallery();
+      }
+    });
+
+    resetBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetGallery();
+    });
+
+    // Shuffle functionality
+    let isShuffling = false;
+    
+    function shuffleGallery() {
+      if (isShuffling || isPreviewActive || isTransitioning) return;
+      
+      isShuffling = true;
+      
+      // Prepare shuffled images before animation starts
+      const images = cards.map(card => {
+        const img = card.querySelector('img');
+        return img ? img.src : null;
+      });
+      
+      // Fisher-Yates shuffle
+      for (let i = images.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [images[i], images[j]] = [images[j], images[i]];
+      }
+      
+      // Spin the gallery - starts fast, slows down smoothly
+      const spinRotations = 2 + Math.random() * 1.5; // 2-3.5 full rotations
+      
+      gsap.to(gallery, {
+        rotation: `+=${360 * spinRotations}`,
+        duration: 2.2,
+        ease: 'power3.out', // Smooth deceleration - fast start, slow end
+        onUpdate: function() {
+          // Get progress of the animation (0 to 1)
+          const progress = this.progress();
+          
+          // Start shuffling images when rotation is 70% complete (slowing down phase)
+          if (progress >= 0.7 && !this._shuffleStarted) {
+            this._shuffleStarted = true;
+            
+            // Apply shuffled images with staggered animation during slow-down
+            cards.forEach((card, index) => {
+              const img = card.querySelector('img');
+              if (img && images[index]) {
+                gsap.to(card, {
+                  scale: 0.6,
+                  duration: 0.12,
+                  delay: index * 0.015,
+                  ease: 'power2.in',
+                  onComplete: () => {
+                    img.src = images[index];
+                    gsap.to(card, {
+                      scale: 1,
+                      duration: 0.25,
+                      ease: 'back.out(1.5)'
+                    });
+                  }
+                });
+              }
+            });
+          }
+        },
+        onComplete: () => {
+          // Reset shuffling state after all animations complete
+          setTimeout(() => {
+            isShuffling = false;
+          }, 500);
+        }
+      });
+      
+      // Animate the shuffle icon - synced with gallery
+      gsap.to(cornerIcon, {
+        rotation: '+=720',
+        duration: 2.2,
+        ease: 'power3.out'
+      });
+    }
+    
+    cornerIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      shuffleGallery();
+    });
+
+    // Interaction-heavy animation (parallax + hover flip + keyboard + mouse out)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isPreviewActive && !isTransitioning) {
+        resetGallery();
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isPreviewActive || isTransitioning || config.isMobile) return;
+
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const percentX = (e.clientX - centerX) / centerX;
+      const percentY = (e.clientY - centerY) / centerY;
+
+      parallaxState.targetY = percentX * 15;
+      parallaxState.targetX = -percentY * 15;
+      parallaxState.targetZ = (percentX + percentY) * 5;
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < config.sensitivity && !config.isMobile) {
+          const flipFactor = Math.max(0, 1 - distance / config.effectFalloff);
+          const angle = transformState[index].angle;
+          const moveAmount = config.cardMoveAmount * flipFactor;
+
+          transformState[index].targetRotation = 180 * flipFactor;
+          transformState[index].targetScale = 1 + 0.3 * flipFactor;
+          transformState[index].targetX = moveAmount * Math.cos(angle);
+          transformState[index].targetY = moveAmount * Math.sin(angle);
+        } else {
+          transformState[index].targetRotation = 0;
+          transformState[index].targetScale = 1;
+          transformState[index].targetX = 0;
+          transformState[index].targetY = 0;
+        }
+      });
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if ((e.relatedTarget === null || e.relatedTarget.nodeName === 'HTML') && !isPreviewActive && !isTransitioning) {
+        transformState.forEach((state) => {
+          state.targetRotation = 0;
+          state.targetScale = 1;
+          state.targetX = 0;
+          state.targetY = 0;
+        });
+        parallaxState.targetX = 0;
+        parallaxState.targetY = 0;
+        parallaxState.targetZ = 0;
+      }
+    });
+
+    function animate() {
+      if (!isPreviewActive && !isTransitioning) {
+        parallaxState.currentX += (parallaxState.targetX - parallaxState.currentX) * config.lerpFactor;
+        parallaxState.currentY += (parallaxState.targetY - parallaxState.currentY) * config.lerpFactor;
+        parallaxState.currentZ += (parallaxState.targetZ - parallaxState.currentZ) * config.lerpFactor;
+
+        gsap.set(galleryContainer, {
+          rotateX: parallaxState.currentX,
+          rotateY: parallaxState.currentY,
+          rotation: parallaxState.currentZ,
+          transformOrigin: 'center center',
+        });
+
+        cards.forEach((card, index) => {
+          const state = transformState[index];
+
+          state.currentRotation += (state.targetRotation - state.currentRotation) * config.lerpFactor;
+          state.currentScale += (state.targetScale - state.currentScale) * config.lerpFactor;
+          state.currentX += (state.targetX - state.currentX) * config.lerpFactor;
+          state.currentY += (state.targetY - state.currentY) * config.lerpFactor;
+
+          const angle = state.angle;
+          const baseX = config.radius * Math.cos(angle);
+          const baseY = config.radius * Math.sin(angle);
+
+          gsap.set(card, {
+            x: baseX + state.currentX,
+            y: baseY + state.currentY,
+            rotationY: state.currentRotation,
+            scale: state.currentScale,
+            rotation: (angle * 180) / Math.PI + 90,
+            transformOrigin: 'center center',
+            transformPerspective: 1000,
+          });
+        });
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  });
+</script>
