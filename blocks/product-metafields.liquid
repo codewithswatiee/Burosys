@@ -1,0 +1,153 @@
+{%- assign block_settings = block.settings -%}
+
+<div class="product-metafields" {{ block.shopify_attributes }}>
+  {%- for i in (1..10) -%}
+    {%- assign metafield_key = 'metafield_' | append: i -%}
+    {%- assign metafield_value = block_settings[metafield_key] -%}
+    
+    {%- if metafield_value != blank -%}
+      {%- comment -%} Find the metafield object in custom namespace that matches this value {%- endcomment -%}
+      {%- assign found_key = '' -%}
+      {%- for metafield_entry in product.metafields.custom -%}
+        {%- assign mf = metafield_entry[1] -%}
+        {%- if mf.value == metafield_value -%}
+          {%- assign found_key = metafield_entry[0] -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      
+      <div class="product-metafield-item">
+        <span class="product-metafield-label">{{ found_key | replace: '_', ' ' | capitalize }}:</span>
+        <span class="product-metafield-value">{{ metafield_value }}</span>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% stylesheet %}
+  /* Product Metafields Styling */
+  .product-metafields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px 0;
+    max-width: 70%;
+  }
+
+  .product-metafield-item {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    min-width: 120px;
+  }
+
+  .product-metafield-label {
+    font-size: 14px;
+    color: #999999;
+    font-weight: 400;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .product-metafield-value {
+    font-size: 14px;
+    white-space: nowrap;
+    color: #000000;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-metafields {
+      gap: 12px;
+    }
+
+    .product-metafield-item {
+      min-width: 100px;
+    }
+
+    .product-metafield-label {
+      font-size: 12px;
+    }
+
+    .product-metafield-value {
+      font-size: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product Metafields",
+  "tag": null,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "metafield_1",
+      "label": "Metafield 1",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_2",
+      "label": "Metafield 2",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_3",
+      "label": "Metafield 3",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_4",
+      "label": "Metafield 4",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_5",
+      "label": "Metafield 5",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_6",
+      "label": "Metafield 6",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_7",
+      "label": "Metafield 7",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_8",
+      "label": "Metafield 8",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_9",
+      "label": "Metafield 9",
+      "info": "Use dynamic source to connect a product metafield"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "metafield_10",
+      "label": "Metafield 10",
+      "info": "Use dynamic source to connect a product metafield"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Metafields",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

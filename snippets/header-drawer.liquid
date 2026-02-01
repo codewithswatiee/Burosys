@@ -180,6 +180,23 @@
           {% endfor %}
 
           <!-- My Account Section -->
+
+          <!-- Additional links from header actions -->
+          {% if section.settings.stories_link != blank %}
+            <li class="header-drawer__menu-item">
+              <a href="{{ section.settings.stories_link }}" class="header-drawer__link">
+                <span class="header-drawer__link-text">{{ section.settings.stories_label | default: 'Stories' }}</span>
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.resources_link != blank %}
+            <li class="header-drawer__menu-item">
+              <a href="{{ section.settings.resources_link }}" class="header-drawer__link">
+                <span class="header-drawer__link-text">{{ section.settings.resources_label | default: 'Resources' }}</span>
+              </a>
+            </li>
+          {% endif %}
+
           <li class="header-drawer__menu-item">
             <details class="header-drawer__details">
               <summary class="header-drawer__summary">
@@ -266,15 +283,6 @@
               </div>
             </details>
           </li>
-
-          <!-- Additional links from header actions -->
-          {% if section.settings.stories_link != blank %}
-            <li class="header-drawer__menu-item">
-              <a href="{{ section.settings.stories_link }}" class="header-drawer__link">
-                <span class="header-drawer__link-text">{{ section.settings.stories_label | default: 'Stories' }}</span>
-              </a>
-            </li>
-          {% endif %}
         </ul>
       </nav>
 
@@ -292,7 +300,9 @@
         <div class="header-drawer__product-panel" aria-hidden="true">
           <div class="header-drawer__product-panel-header">
             <button type="button" class="header-drawer__product-panel-back button button-unstyled" aria-label="Back">
-              <span class="svg-wrapper" aria-hidden="true">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+              <span class="menu__heading__toggle svg-wrapper icon-chevron icon-animated">
+                {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+              </span>
               <span class="header-drawer__product-panel-back-text">Back</span>
             </button>
           </div>
@@ -793,8 +803,10 @@
   .header-drawer__product-panel-header {
     display: flex;
     align-items: center;
-    padding-top: 20px;
+    padding: 10px 0;
   }
+
+
 
   .header-drawer__product-panel-back {
     display: flex;
@@ -802,6 +814,13 @@
     gap: var(--padding-xs);
     color: #00000066;
     font-size: 16px;
+  }
+
+  .header-drawer__product-panel-back .svg-wrapper {
+        width: 0.4rem;
+        height: 0.5rem;
+        pointer-events: none;
+        transform: translateY(2px);
   }
 
   .header-drawer__product-panel-content {
@@ -816,7 +835,7 @@
   .header-drawer__product-card {
     display: block;
     width: 100%;
-    height: 230px;
+    height: 200px;
     border-radius: 12px;
     overflow: hidden;
     position: relative;

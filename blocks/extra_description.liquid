@@ -1,0 +1,83 @@
+{% if block.settings.title != blank or block.settings.metafield_namespace != blank %}
+  <div class="extra-description-item">
+    {% if block.settings.title != blank %}
+      <span class="extra-description-title">{{ block.settings.title }}:</span>
+    {% endif %}
+    {% if block.settings.metafield_namespace != blank and block.settings.metafield_key != blank and product != nil %}
+      {% assign metafield_value = product.metafields[block.settings.metafield_namespace][block.settings.metafield_key] %}
+      {% if metafield_value != nil %}
+        <span class="extra-description-value">{{ metafield_value.value }}</span>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+.extra-description-item {
+  display: inline-block;
+  margin-right: 24px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+
+.extra-description-title {
+  color: #000000;
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+.extra-description-value {
+  color: #666666;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .extra-description-item {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Extra Description",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "placeholder": "e.g. Width, Height, Depth"
+    },
+    {
+      "type": "select",
+      "id": "metafield_namespace",
+      "label": "Metafield Namespace",
+      "options": [
+        {
+          "value": "",
+          "label": "Select namespace"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        },
+        {
+          "value": "shopify",
+          "label": "Shopify"
+        }
+      ],
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield Key",
+      "placeholder": "e.g. width, height, depth"
+    }
+  ]
+}
+{% endschema %}

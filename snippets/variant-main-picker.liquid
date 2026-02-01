@@ -252,6 +252,15 @@
     }
   }
 
+  @media screen and (max-width: 990px) {
+    .variant-option--equal-width-buttons{
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .variant-option__button-label{
+      font-size: 11px !important;
+    }
+  }
+
   .variant-option--buttons {
     display: flex;
     flex-wrap: wrap;
@@ -325,7 +334,7 @@
     overflow: clip;
     justify-content: center;
     min-height: 3.25em;
-    min-width: fit-content;
+    min-width: max-content;
     white-space: nowrap;
     background-color: var(--color-variant-background);
     color: var(--color-variant-text);
@@ -341,7 +350,7 @@
 
     /* so instead use the layered background image trick */
     &:not(.variant-option__button-label--has-swatch):has([data-option-available='false']) {
-      border-width: 0;
+      border-width: 1px;
     }
 
     /* ::after/::before act as a fake border for the button style variant */
@@ -459,10 +468,10 @@
     --variant-min-width: clamp(44px, calc(var(--variant-option-padding-inline) * 2 + var(--variant-ch)), 100%);
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--variant-min-width), 1fr));
+    grid-template-columns: repeat(3, 1fr);
 
     .variant-option__button-label {
-      min-width: var(--variant-min-width);
+      min-width: max-content;
     }
 
     .variant-option__button-label__text {
@@ -504,7 +513,7 @@
   }
 
   .variant-option__button-label:has([data-option-available='false']) {
-    color: rgb(var(--color-variant-text-rgb) / var(--opacity-60));
+    color: black;
   }
 
   .facets__inputs-list--swatches-grid .variant-option__button-label--has-swatch:hover .swatch {
@@ -574,8 +583,8 @@
   }
 
   .variant-option__button-label:has([data-option-available='false']):has(:checked) {
-    background-color: inherit;
-    color: rgb(var(--color-variant-text-rgb) / var(--opacity-60));
+    background-color: black;
+    color: white;
   }
 
   .variant-option__button-label input,

@@ -81,6 +81,20 @@
 
 <script src="{{ 'section-category-tabs.js' | asset_url }}" defer></script>
 
+<script>
+  // Prevent automatic scrolling to this section when the URL contains its hash
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      var myHash = '#section-{{ section.id }}';
+      if (window.location.hash === myHash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    } catch (e) {
+      /* ignore */
+    }
+  });
+</script>
+
 {% schema %}
 {
   "name": "Category Tabs",

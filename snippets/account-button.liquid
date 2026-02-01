@@ -47,7 +47,10 @@
       class="account-button__text"
       aria-hidden="true"
     >
-      My Account
+      <p> My Account</p>
+      <span class="menu__heading__toggle svg-wrapper icon-caret icon-animated">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
     </span>
 </{{ tag }}>
 
@@ -83,12 +86,26 @@
     text-transform: uppercase;
     line-height: 1;
   }
+
   .account-button__text{
-    font-size: 16px;
     margin-left: 78px;
-    white-space: nowrap;
-    
+    display: flex;
+    align-items: end;
+    gap: 3px;
   }
+
+  .account-button__text p{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .account-button__text .svg-wrapper{
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+
 
   .account-button__icon {
     color: currentColor;

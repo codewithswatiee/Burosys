@@ -18,6 +18,30 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    <script>
+      // Prevent automatic browser jump when URL contains a section anchor like #section-123
+      (function() {
+        try {
+          // Prevent automatic scroll restoration on navigation/refresh
+          if ('scrollRestoration' in history) {
+            try { history.scrollRestoration = 'manual'; } catch (e) { /* ignore */ }
+          }
+
+          var h = window.location.hash;
+          if (h && /^#section-\d+$/.test(h)) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+
+          // After a short delay allow browser to restore normal behavior
+          setTimeout(function() {
+            try { if ('scrollRestoration' in history) history.scrollRestoration = 'auto'; } catch (e) { /* ignore */ }
+          }, 200);
+        } catch (e) {
+          /* ignore */
+        }
+      })();
+    </script>
+
     {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
     {% if settings.transition_to_main_product or settings.page_transition_enabled %}
       <link

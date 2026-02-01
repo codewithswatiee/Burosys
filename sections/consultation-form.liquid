@@ -1,0 +1,297 @@
+{% comment %}
+Section: Consultation Form
+Two-column layout with left content area and right embedded form (Zoho CRM or custom).
+{% endcomment %}
+
+<section class="consultation-form color-{{ section.settings.color_scheme }}" id="section-{{ section.id }}">
+  <div class="consultation-form__container">
+    <div class="consultation-form__content{% if section.settings.content_alignment == 'center' %} consultation-form__content--center{% endif %}">
+      {% if section.settings.label != blank %}
+        <p class="consultation-form__label">{{ section.settings.label }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="consultation-form__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="consultation-form__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="consultation-form__form-wrapper">
+      {% if section.settings.form_embed_code != blank %}
+        <div class="consultation-form__embed">
+          {{ section.settings.form_embed_code }}
+        </div>
+      {% else %}
+        <!-- Default form placeholder when no embed code is provided -->
+        <div class="consultation-form__placeholder">
+          <p>Add your Zoho CRM embed code in the section settings to display the form here.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .consultation-form {
+    padding: var(--spacing-xl) 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .consultation-form__container {
+    width: 100%;
+    margin: 0 32px;
+    padding: 0 var(--spacing-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+    min-height: 500px;
+  }
+
+  .consultation-form__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .consultation-form__content--center {
+    justify-content: center;
+  }
+
+  .consultation-form__label {
+    font-size: var(--font-size--xs);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm);
+    opacity: 0.8;
+    font-weight: 400;
+  }
+
+  .consultation-form__heading {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.2;
+    font-family: var(--font-heading-family, inherit);
+  }
+
+  .consultation-form__description {
+    font-size: var(--font-size--md);
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 500px;
+  }
+
+  .consultation-form__form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    min-height: 400px;
+  }
+
+  .consultation-form__embed {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .consultation-form__placeholder {
+    padding: var(--spacing-xl);
+    border: 2px dashed rgba(var(--color-foreground-rgb) / 0.3);
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: rgba(var(--color-foreground-rgb) / 0.6);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Global form styling for embedded forms */
+  .consultation-form__embed form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .consultation-form__embed input,
+  .consultation-form__embed select,
+  .consultation-form__embed textarea {
+    padding: var(--spacing-md);
+    border: 1px solid rgba(var(--color-foreground-rgb) / 0.2);
+    border-radius: var(--border-radius);
+    background: rgba(var(--color-foreground-rgb) / 0.1);
+    color: var(--color-foreground);
+    font-size: var(--font-size--md);
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .consultation-form__embed input::placeholder,
+  .consultation-form__embed textarea::placeholder {
+    color: rgba(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .consultation-form__embed input:focus,
+  .consultation-form__embed select:focus,
+  .consultation-form__embed textarea:focus {
+    outline: 2px solid var(--color-button);
+    border-color: var(--color-button);
+  }
+
+  .consultation-form__embed button[type="submit"],
+  .consultation-form__embed input[type="submit"] {
+    background: var(--color-button);
+    color: var(--color-button-text);
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size--md);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: var(--spacing-md);
+  }
+
+  .consultation-form__embed button[type="submit"]:hover,
+  .consultation-form__embed input[type="submit"]:hover {
+    background: var(--color-button-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Grid layout for form fields */
+  .consultation-form__embed .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .consultation-form__embed .form-row input {
+    margin: 0;
+  }
+
+  /* Responsive design */
+  @media screen and (max-width: 990px) {
+    .consultation-form__container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+      text-align: center;
+    }
+
+    .consultation-form__content {
+      order: 1;
+    }
+
+    .consultation-form__form-wrapper {
+      order: 2;
+    }
+
+    .consultation-form__heading {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    .consultation-form__description {
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .consultation-form {
+      padding: var(--spacing-lg) 0;
+    }
+
+    .consultation-form__container {
+      padding: 20px 0;
+      margin: 0 16px;
+      gap: var(--spacing-lg);
+    }
+
+    .consultation-form__content{
+        text-align: left;
+    }
+    .consultation-form__embed .form-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+
+    .consultation-form__heading {
+      font-size: 1.75rem;
+      margin-bottom: var(--spacing-md);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Consultation Form",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "EXCLUSIVE CONSULTATION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SPEAK WITH OUR EXPERT"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Share your contact details and one of our product specialists will personally reach out to discuss your bespoke partition requirements.</p>"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content vertical alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "html",
+      "id": "form_embed_code",
+      "label": "Form embed code",
+      "info": "Paste your Zoho CRM or other form embed code here. The form will be styled to match the theme."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Consultation Form"
+    }
+  ]
+}
+{% endschema %}

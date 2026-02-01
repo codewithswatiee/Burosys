@@ -21,7 +21,12 @@
         "menu": "footer",
         "right_links_menu": "bottom-links",
         "copyright_text": "© 2025 Burosys",
-        "color_scheme": ""
+        "facebook_url": "#",
+        "instagram_url": "#",
+        "twitter_url": "#",
+        "linkedin_url": "#",
+        "youtube_url": "#",
+        "color_scheme": "scheme-5"
       }
     }
   },
