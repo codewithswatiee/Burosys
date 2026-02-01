@@ -51,7 +51,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 16,
+            "gap": 20,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
             "color_scheme": "scheme-3",
@@ -318,40 +318,20 @@
               },
               "blocks": {}
             },
-            "text_KTaHXQ": {
-              "type": "text",
-              "name": "t:names.text",
+            "product_metafields_z3NKpF": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
               "settings": {
-                "text": "<p>Lead Time: {{ closest.product.metafields.custom.lead_time.value }}</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-body--family)",
-                "font_size": "0.875rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "text_color_custom": "#6d6d6d",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "button_cta_Wecn6n": {
-              "type": "button-cta",
-              "name": "Button CTA",
-              "settings": {
-                "section_width": "page-width",
-                "button_text": "Configure",
-                "button_link": "shopify://collections"
+                "metafield_1": "{{ closest.product.metafields.custom.width.value }}",
+                "metafield_2": "{{ closest.product.metafields.custom.depth.value }}",
+                "metafield_3": "{{ closest.product.metafields.custom.height.value }}",
+                "metafield_4": "{{ closest.product.metafields.custom.seat_height.value }}",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
               },
               "blocks": {}
             },
@@ -369,6 +349,73 @@
               "blocks": {
                 "quantity": {
                   "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "button_cta_Wecn6n": {
+              "type": "button-cta",
+              "name": "Button CTA",
+              "disabled": true,
+              "settings": {
+                "section_width": "page-width",
+                "button_text": "Configure",
+                "button_link": "shopify://collections"
+              },
+              "blocks": {}
+            },
+            "product_metafields_HERcH6": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.lead_time.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "buy_buttons_XNLaXU": {
+              "type": "buy-buttons",
+              "name": "t:names.product_buy_buttons",
+              "settings": {
+                "stacking": false,
+                "show_pickup_availability": false,
+                "gift_card_form": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -399,9 +446,11 @@
             "divider",
             "variant_picker_VXBwia",
             "text_t7ttq3",
-            "text_KTaHXQ",
+            "product_metafields_z3NKpF",
+            "buy_buttons",
             "button_cta_Wecn6n",
-            "buy_buttons"
+            "product_metafields_HERcH6",
+            "buy_buttons_XNLaXU"
           ]
         }
       },
