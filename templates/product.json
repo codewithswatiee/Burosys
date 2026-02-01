@@ -493,6 +493,53 @@
         "tab3_content": "<p>{{ product.metafields.custom.care_maintainance | metafield_tag }}</p>"
       }
     },
+    "dynamic_product_tabs_w7VhKz": {
+      "type": "dynamic-product-tabs",
+      "blocks": {
+        "specifications_gWT34z": {
+          "type": "specifications",
+          "settings": {
+            "tab_title": "Specifications",
+            "card_title": "Specifications",
+            "icon": "shopify://shop_images/Vector.png",
+            "content_source": "richtext",
+            "content": "{{ product.metafields.custom.specifications | metafield_tag }}"
+          }
+        },
+        "warranty_ipVg8B": {
+          "type": "warranty",
+          "settings": {
+            "tab_title": "Warranty",
+            "card_title": "Years Manufacturing Warranty",
+            "big_number": "3",
+            "icon": "shopify://shop_images/SVGRepo_iconCarrier.png",
+            "note": "*Does not cover wear and tear, fabric damage due to misuse, or castors over uneven surfaces",
+            "content_source": "richtext",
+            "content": "{{ product.metafields.custom.warranty | metafield_tag }}"
+          }
+        },
+        "care_87HTmp": {
+          "type": "care",
+          "settings": {
+            "tab_title": "Care & Maintenance",
+            "card_title": "Care & Maintenance",
+            "icon": "shopify://shop_images/SVGRepo_iconCarrier_1.png",
+            "content_source": "richtext",
+            "content": "{{ product.metafields.custom.care_maintainance | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "specifications_gWT34z",
+        "warranty_ipVg8B",
+        "care_87HTmp"
+      ],
+      "name": "Dynamic Product Tabs",
+      "settings": {
+        "section_width": "page-width",
+        "title": "More about this product"
+      }
+    },
     "product-recommendations": {
       "type": "product-recommendations",
       "blocks": {
@@ -803,6 +850,7 @@
   "order": [
     "main",
     "product_info_tabs_mzCJfa",
+    "dynamic_product_tabs_w7VhKz",
     "product-recommendations",
     "image_with_side_buttons_WGPWzJ"
   ]

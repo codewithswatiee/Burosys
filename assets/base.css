@@ -1041,9 +1041,15 @@ body:has(.header[transparent]) #header-group > *:not(.header-section) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--product-grid-gap);
-  margin: auto;
+  margin: 8px;
   padding: 0;
   list-style: none;
+}
+
+@media screen and (max-width: 330px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media screen and (min-width: 750px) {

@@ -89,6 +89,13 @@
   {%- comment -%} New Category Tabs Bar - matches the design with pill-style tabs {%- endcomment -%}
   <div class="category-filter-bar" style="{% render 'spacing-style', settings: block_settings %}">
     <div class="category-filter-bar__inner">
+      {%- comment -%} Collection name display {%- endcomment -%}
+      {% if collection.title %}
+        <div class="collection-name-display">
+          <h2 class="collection-name-title">{{ collection.title | upcase }}</h2>
+        </div>
+      {% endif %}
+      
       {%- comment -%} Left side: Category tabs as pills {%- endcomment -%}
       <div class="category-tabs-wrapper">
         {% if category_filter != nil %}
@@ -1375,7 +1382,7 @@
   .category-filter-bar {
     display: flex;
     align-items: center;
-    padding: var(--padding-md) var(--padding-lg);
+    padding: var(--padding-md) 16px;
     background-color: var(--color-background);
     border-bottom: 1px solid #0000001A;
     border-top: 1px solid #0000001A;
@@ -1385,6 +1392,10 @@
     grid-column: 1 / -1;
     overflow: hidden;
     box-sizing: border-box;
+    position: sticky;
+    top: calc(var(--header-height, 80px) - 10px);
+    z-index: var(--layer-raised, 10);
+    transition: all 0.3s ease;
   }
 
   .category-filter-bar__inner {
@@ -1398,6 +1409,35 @@
     overflow: hidden;
   }
 
+  /* Collection name display */
+  .collection-name-display {
+    flex-shrink: 0;
+    display: none;
+    transform: translateX(-20px);
+    width: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform, width;
+  }
+
+  .collection-name-display.show-on-sticky {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    width: auto;
+  }
+
+  .collection-name-title {
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #000;
+    margin: 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
   /* Category tabs wrapper */
   .category-tabs-wrapper {
     flex: 1;
@@ -1408,6 +1448,27 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Desktop-specific behavior */
+  @media screen and (min-width: 750px) {
+
+    .collection-name-display.show-on-sticky{
+      margin: auto;
+    }
+    /* On desktop, collection name starts hidden and only shows on sticky */
+    .collection-name-display {
+      opacity: 0;
+      transform: translateX(-20px);
+      width: 0;
+    }
+    
+    .category-filter-bar.is-sticky .collection-name-display {
+      opacity: 1;
+      transform: translateX(0);
+      width: auto;
+    }
   }
 
   .category-tabs-wrapper::-webkit-scrollbar {
@@ -1416,7 +1477,6 @@
 
   .category-tabs-form,
   .category-tabs-form__inner {
-    display: flex;
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
@@ -1428,6 +1488,10 @@
     align-items: center;
     gap: var(--gap-sm);
     flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-touch-scrolling: touch;
   }
 
   /* Individual category tab - pill style with professional-level smoothness */
@@ -1452,7 +1516,6 @@
     white-space: nowrap;
     user-select: none;
     position: relative;
-    overflow: hidden;
     
     /* Hardware-accelerated transitions with custom easing */
     will-change: background-color, border-color, color;
@@ -1481,11 +1544,6 @@
     --pill-border: #e64a19;
   }
 
-  /* Focus state for accessibility */
-  .category-tab:focus-within {
-    outline: 2px solid #ff5722;
-    outline-offset: 2px;
-  }
 
   /* Ripple effect on click */
   .category-tab::before {
@@ -1602,14 +1660,28 @@
   @media screen and (max-width: 749px) {
     .category-filter-bar {
       padding: var(--padding-sm) var(--padding-md);
+      top: calc(var(--header-height, 50px) - 10px);
+    }
+
+    /* Collection name should be visible initially on mobile */
+    .collection-name-display {
+      opacity: 1;
+      transform: translateX(0);
+      width: auto;
+      margin-bottom: var(--gap-xs);
+    }
+
+    .collection-name-title {
+      font-size: 18px;
+      margin-bottom: var(--gap-xs);
     }
 
     .category-filter-bar__right .products-count-wrapper{
       width: 70%;
     }
     .category-filter-bar__right{
-      border-top: 1px solid #0000001A;
-      padding-top: var(--padding-sm);
+      border-top: none;
+      padding-top: 0;
     }
     .category-filter-bar__inner {
       flex-direction: column;
@@ -1623,6 +1695,7 @@
 
     .category-tabs-wrapper {
       order: 1;
+      margin-left: 0; /* Reset margin on mobile */
     }
 
     .category-filter-bar__right {
@@ -1906,3 +1979,80 @@
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const categoryFilterBar = document.querySelector('.category-filter-bar');
+    const collectionNameDisplay = categoryFilterBar?.querySelector('.collection-name-display');
+    
+    if (!categoryFilterBar || !collectionNameDisplay) return;
+
+    let isScrolling = false;
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height') || '80');
+    
+    function handleScroll() {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          const rect = categoryFilterBar.getBoundingClientRect();
+          const isSticky = rect.top <= headerHeight;
+          
+          if (isSticky && !categoryFilterBar.classList.contains('is-sticky')) {
+            categoryFilterBar.classList.add('is-sticky');
+            collectionNameDisplay.classList.add('show-on-sticky');
+          } else if (!isSticky && categoryFilterBar.classList.contains('is-sticky')) {
+            categoryFilterBar.classList.remove('is-sticky');
+            collectionNameDisplay.classList.remove('show-on-sticky');
+          }
+          
+          isScrolling = false;
+        });
+      }
+      isScrolling = true;
+    }
+
+    // Immediate check on page load for sticky state
+    function checkInitialStickyState() {
+      const rect = categoryFilterBar.getBoundingClientRect();
+      const isSticky = rect.top <= headerHeight;
+      
+      if (isSticky) {
+        // If already sticky on load (like after page refresh with filters), show immediately
+        categoryFilterBar.classList.add('is-sticky');
+        collectionNameDisplay.classList.add('show-on-sticky');
+      }
+    }
+
+    // Check initial state immediately
+    checkInitialStickyState();
+    
+    // Also check after a small delay to handle any layout shifts
+    setTimeout(checkInitialStickyState, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+  });
+
+  // Also handle page updates/refreshes from AJAX filter changes
+  document.addEventListener('facets:updated', function() {
+    const categoryFilterBar = document.querySelector('.category-filter-bar');
+    const collectionNameDisplay = categoryFilterBar?.querySelector('.collection-name-display');
+    
+    if (!categoryFilterBar || !collectionNameDisplay) return;
+    
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height') || '80');
+    
+    // Check if filter bar is in sticky position after AJAX update
+    setTimeout(() => {
+      const rect = categoryFilterBar.getBoundingClientRect();
+      const isSticky = rect.top <= headerHeight;
+      
+      if (isSticky) {
+        categoryFilterBar.classList.add('is-sticky');
+        collectionNameDisplay.classList.add('show-on-sticky');
+      } else {
+        categoryFilterBar.classList.remove('is-sticky');
+        collectionNameDisplay.classList.remove('show-on-sticky');
+      }
+    }, 50);
+  });
+</script>
