@@ -15,11 +15,32 @@
 {% assign product_card_size = product_card_size | strip %}
 
 {% style %}
-  @media (min-width: 750px) {
+
+@media screen and (max-width: 750) {
+  {% case section.settings.layout_type %}
+    {% when 'grid' %}
+      .product-grid--{{ section.id }}.product-grid--grid {
+        --product-grid-columns-desktop: repeat(2, 1fr) !important;
+        margin: 0 8px;
+      }
+  {% endcase %}
+}
+
+  @media screen and (min-width: 750px) and (max-width: 1024px) {
+  {% case section.settings.layout_type %}
+    {% when 'grid' %}
+      .product-grid--{{ section.id }}.product-grid--grid {
+        --product-grid-columns-desktop: repeat(2, 1fr) !important;
+        margin: 0 12px;
+      }
+  {% endcase %}
+}
+  @media (min-width: 1024px) {
     {% case section.settings.layout_type %}
       {% when 'grid' %}
         .product-grid--{{ section.id }}:is(.product-grid--grid) {
           --product-grid-columns-desktop: repeat(4, 1fr);
+            margin: 0 16px;
         }
 
 
@@ -52,6 +73,7 @@
         @container product-grid (max-width: calc({{ product_card_size }} * 3 + {{ section.settings.columns_gap_horizontal }}px * 2)) {
           .product-grid--{{ section.id }}:is(.product-grid--grid) {
             --product-grid-columns-desktop: repeat(2, 1fr);
+            margin: 0 12px;
           }
         }
     {% endcase %}

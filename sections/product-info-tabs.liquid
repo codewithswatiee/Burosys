@@ -8,7 +8,7 @@
       {% for i in (1..3) %}
         {% capture key %}tab{{ i }}_title{% endcapture %}
         {% assign t_title = section.settings[key] %}
-        <button class="product-info-tabs__tab" data-tab-index="{{ i }}" role="tab" aria-selected="{% if i == 1 %}true{% else %}false{% endif %}">{% if t_title != blank %}{{ t_title }}{% else %}Tab {{ i }}{% endif %}</button>
+        <button class="product-info-tabs__tab product-info-tabs__tab--{{ i }}" data-tab-index="{{ i }}" role="tab" aria-selected="{% if i == 1 %}true{% else %}false{% endif %}">{% if t_title != blank %}{{ t_title }}{% else %}Tab {{ i }}{% endif %}</button>
       {% endfor %}
     </nav>
 
@@ -30,8 +30,8 @@
         {% assign content_source = section.settings[key_source] %}
         {% assign tab_content = section.settings[key_content] %}
 
-        <section class="product-info-tabs__panel{% if tab_note != blank %} has-note{% endif %}" data-panel-index="{{ i }}" role="tabpanel" aria-hidden="{% if i != 1 %}true{% else %}false{% endif %}">
-          <div class="product-info-card">
+        <section class="product-info-tabs__panel product-info-tabs__panel--{{ i }}{% if tab_note != blank %} has-note{% endif %}" data-panel-index="{{ i }}" role="tabpanel" aria-hidden="{% if i != 1 %}true{% else %}false{% endif %}">
+          <div class="product-info-card product-info-card--{{ i }}">
             <div class="product-info-card__left">
               {% if tab_number != blank %}
                 <div class="product-info-card__bignumber">{{ tab_number }}</div>
@@ -79,20 +79,45 @@
     font-weight: 400;
 }
 
+.product-info-tabs__tab--1 .product-info-card__heading{
+  font-size: 46px;
+}
+
 .product-info-card__note p{
   max-width: 50%;
   font-size: 16px;
 }
   .product-info-tabs__nav{display:flex;justify-content:center;gap:24px;padding-bottom:30px;}
-  .product-info-tabs__tab{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;}
+  .product-info-tabs__tab{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;transition:all 0.3s ease}
   .product-info-tabs__tab[aria-selected="true"]{border-bottom:2px solid #FF5722;padding-bottom:6px}
 
+  /* Independent Tab Classes */
+  .product-info-tabs__tab--1{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;transition:all 0.3s ease}
+  .product-info-tabs__tab--1[aria-selected="true"]{border-bottom:2px solid #FF5722;padding-bottom:6px}
+  .product-info-tabs__tab--2{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;transition:all 0.3s ease}
+  .product-info-tabs__tab--2[aria-selected="true"]{border-bottom:2px solid #FF5722;padding-bottom:6px}
+  .product-info-tabs__tab--3{background:none;border:none;padding:6px 10px;font-size:18px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;color:var(--color-foreground);white-space:nowrap;transition:all 0.3s ease}
+  .product-info-tabs__tab--3[aria-selected="true"]{border-bottom:2px solid #FF5722;padding-bottom:6px}
+
   .product-info-tabs__panels{display:block}
-  .product-info-tabs__panel{display:none}
-  .product-info-tabs__panel[aria-hidden="false"]{display:block}
+  .product-info-tabs__panel{display:none;opacity:0;transition:opacity 0.3s ease-in-out}
+  .product-info-tabs__panel[aria-hidden="false"]{display:block;opacity:1}
+
+  /* Independent Panel Classes */
+  .product-info-tabs__panel--1{display:none;opacity:0;transition:opacity 0.3s ease-in-out}
+  .product-info-tabs__panel--1[aria-hidden="false"]{display:block;opacity:1}
+  .product-info-tabs__panel--2{display:none;opacity:0;transition:opacity 0.3s ease-in-out}
+  .product-info-tabs__panel--2[aria-hidden="false"]{display:block;opacity:1}
+  .product-info-tabs__panel--3{display:none;opacity:0;transition:opacity 0.3s ease-in-out}
+  .product-info-tabs__panel--3[aria-hidden="false"]{display:block;opacity:1}
 
   /* Card layout to match screenshots: big number left, heading below, icon top-right */
   .product-info-card{background:var(--color-background);border-radius:14px;padding:36px;display:grid;grid-template-columns:1fr 140px;align-items:start;gap:24px;border:1px solid #DFDFDF;}
+
+  /* Independent Card Classes */
+  .product-info-card--1{background:var(--color-background);border-radius:14px;padding:36px;display:grid;grid-template-columns:1fr 140px;align-items:start;gap:24px;border:1px solid #DFDFDF;}
+  .product-info-card--2{background:var(--color-background);border-radius:14px;padding:36px;display:grid;grid-template-columns:1fr 140px;align-items:start;gap:24px;border:1px solid #DFDFDF;}
+  .product-info-card--3{background:var(--color-background);border-radius:14px;padding:36px;display:grid;grid-template-columns:1fr 140px;align-items:start;gap:24px;border:1px solid #DFDFDF;}
   .product-info-card__left{padding-right:12px}
   .product-info-card__bignumber{font-size:116px;font-weight:300;line-height:1;margin:0 0 12px 0;color:#000000}
   .product-info-card__heading{font-size:36px;font-weight:400;margin:0 0 18px 0;color:#000000;line-height:1.2}
@@ -132,6 +157,9 @@
 
   @media  (max-width: 1025px){
     .product-info-card{grid-template-columns:repeat(2, 1fr);box-shadow:none;padding:14px}
+    .product-info-card--1{grid-template-columns:repeat(2, 1fr);box-shadow:none;padding:14px}
+    .product-info-card--2{grid-template-columns:repeat(2, 1fr);box-shadow:none;padding:14px}
+    .product-info-card--3{grid-template-columns:repeat(2, 1fr);box-shadow:none;padding:14px}
     .product-info-card__bignumber{font-size:76px}
     .product-info-card__heading{font-size:22px; margin:18px 0 0px 0}
     .product-info-card__content{
@@ -140,6 +168,15 @@
       }
 
       .product-info-tabs__tab{
+        font-size:16px;
+      }
+      .product-info-tabs__tab--1{
+        font-size:16px;
+      }
+      .product-info-tabs__tab--2{
+        font-size:16px;
+      }
+      .product-info-tabs__tab--3{
         font-size:16px;
       }
 

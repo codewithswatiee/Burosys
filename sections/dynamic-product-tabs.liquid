@@ -1,0 +1,873 @@
+<section id="{{ section.id }}" class="section dynamic-product-tabs section--{{ section.settings.section_width }} spacing-style" style="background: #FAFAFA; padding: 40px 0;">
+  <div class="dynamic-product-tabs__inner">
+    {% if section.settings.title != blank %}
+      <h2 class="dynamic-product-tabs__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <nav class="dynamic-product-tabs__nav" role="tablist">
+        {% for block in section.blocks %}
+          <button 
+            class="dynamic-product-tabs__tab dynamic-product-tabs__tab--{{ block.type }}" 
+            data-tab-index="{{ forloop.index }}" 
+            role="tab" 
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.tab_title | default: 'Tab ' }}
+          </button>
+        {% endfor %}
+      </nav>
+
+      <div class="dynamic-product-tabs__panels">
+        {% for block in section.blocks %}
+          <section 
+            class="dynamic-product-tabs__panel dynamic-product-tabs__panel--{{ block.type }}{% if block.settings.note != blank %} has-note{% endif %}" 
+            data-panel-index="{{ forloop.index }}" 
+            role="tabpanel" 
+            aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="dynamic-product-card dynamic-product-card--{{ block.type }}">
+              
+              {% comment %} SPECIFICATIONS TAB TYPE {% endcomment %}
+              {% if block.type == 'specifications' %}
+                <div class="dynamic-product-card__header">
+                  <h3 class="dynamic-product-card__title">{{ block.settings.card_title }}</h3>
+                  {% if block.settings.icon != blank %}
+                    <div class="dynamic-product-card__icon dynamic-product-card__icon--specs">
+                      <img src="{{ block.settings.icon | image_url: width: 84 }}" width="84" height="84" alt="{{ block.settings.card_title | escape }}">
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="dynamic-product-card__content dynamic-product-card__content--grid">
+                  {% if block.settings.content_source == 'metafield' and product.metafields.custom.specifications_list %}
+                    {{ product.metafields.custom.specifications_list.value }}
+                  {% else %}
+                    {{ block.settings.content }}
+                  {% endif %}
+                </div>
+
+              {% comment %} WARRANTY TAB TYPE {% endcomment %}
+              {% elsif block.type == 'warranty' %}
+                <div class="dynamic-product-card__header">
+                  <div class="dynamic-product-card__left">
+                    {% if block.settings.big_number != blank %}
+                      <div class="dynamic-product-card__bignumber">{{ block.settings.big_number }}</div>
+                    {% endif %}
+                    <h3 class="dynamic-product-card__title">{{ block.settings.card_title }}</h3>
+                  </div>
+                  {% if block.settings.icon != blank %}
+                    <div class="dynamic-product-card__icon dynamic-product-card__icon--warranty">
+                      <img src="{{ block.settings.icon | image_url: width: 84 }}" width="84" height="84" alt="{{ block.settings.card_title | escape }}">
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="dynamic-product-card__bottom-row">
+                  {% if block.settings.note != blank %}
+                    <div class="dynamic-product-card__note">
+                      <p>{{ block.settings.note }}</p>
+                    </div>
+                  {% endif %}
+                  <div class="dynamic-product-card__content dynamic-product-card__content--columns">
+                    {% if block.settings.content_source == 'metafield' and product.metafields.custom.warranty_list %}
+                      {{ product.metafields.custom.warranty_list.value }}
+                    {% else %}
+                      {{ block.settings.content }}
+                    {% endif %}
+                  </div>
+                </div>
+
+              {% comment %} CARE TAB TYPE {% endcomment %}
+              {% elsif block.type == 'care' %}
+                <div class="dynamic-product-card__header">
+                  <h3 class="dynamic-product-card__title">{{ block.settings.card_title }}</h3>
+                  {% if block.settings.icon != blank %}
+                    <div class="dynamic-product-card__icon dynamic-product-card__icon--care">
+                      <img src="{{ block.settings.icon | image_url: width: 84 }}" width="84" height="84" alt="{{ block.settings.card_title | escape }}">
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="dynamic-product-card__content dynamic-product-card__content--columns">
+                  {% if block.settings.content_source == 'metafield' and product.metafields.custom.care_list %}
+                    {{ product.metafields.custom.care_list.value }}
+                  {% else %}
+                    {{ block.settings.content }}
+                  {% endif %}
+                </div>
+              {% endif %}
+              
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% stylesheet %}
+    /* =================================
+       MAIN COMPONENT STRUCTURE
+       ================================= */
+    .dynamic-product-tabs__title {
+      font-size: 36px;
+      text-align: center;
+      letter-spacing: 0.18em;
+      padding-bottom: 20px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .dynamic-product-tabs__nav {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding-bottom: 30px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .dynamic-product-tabs__nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dynamic-product-tabs__tab {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--color-foreground);
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .dynamic-product-tabs__tab[aria-selected="true"] {
+      border-bottom-color: #FF5722;
+    }
+
+    .dynamic-product-tabs__panels {
+      display: block;
+    }
+
+    .dynamic-product-tabs__panel {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .dynamic-product-tabs__panel[aria-hidden="false"] {
+      display: block;
+      opacity: 1;
+    }
+
+    /* =================================
+       CARD BASE STRUCTURE
+       ================================= */
+    .dynamic-product-card {
+      background: var(--color-background);
+      border-radius: 14px;
+      padding: 36px;
+      border: 1px solid #DFDFDF;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-product-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .dynamic-product-card__title {
+      font-size: 36px;
+      font-weight: 400;
+      max-width: 70%;
+      margin: 0;
+      color: #000000;
+      line-height: 1.2;
+      text-transform: capitalize;
+    }
+
+    .dynamic-product-card__icon {
+      flex-shrink: 0;
+    }
+
+    .dynamic-product-card__icon img {
+      width: 114px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .dynamic-product-card__content {
+      flex: 1;
+      display: flex;
+      align-items: end;
+    }
+
+    /* =================================
+       SPECIFICATIONS TAB STYLING
+       ================================= */
+    .dynamic-product-card--specifications .dynamic-product-card__header {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .dynamic-product-card--specifications .dynamic-product-card__title{
+        font-size: 46px !important;
+    }
+
+    .dynamic-product-card__content--grid ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      align-items: end;
+    }
+
+    /* Handle metafield content that might not be in ul format */
+    .dynamic-product-card__content--grid > * {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      align-items: end;
+    }
+
+    .dynamic-product-card__content--grid li {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px !important;
+      font-family: 'matter-light' !important;
+      color: #00000099;
+      position: relative;
+      padding-right: 20px;
+    }
+
+    .dynamic-product-card__content--grid li:not(:first-child):before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #FF5722;
+    }
+
+    /* Handle metafield items that might not be li elements */
+    .dynamic-product-card__content--grid > * > * {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dynamic-product-card__content--grid li strong,
+    .dynamic-product-card__content--grid > * > * strong {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #000000;
+      display: block;
+      margin: 0;
+    }
+
+    .dynamic-product-card__content--grid li span,
+    .dynamic-product-card__content--grid li p,
+    .dynamic-product-card__content--grid > * > * span,
+    .dynamic-product-card__content--grid > * > * p {
+      margin: 0;
+      font-size: 14px !important;
+      color: #00000099;
+      line-height: normal;
+      font-family: 'matter-light' !important;
+
+    }
+
+    /* =================================
+       WARRANTY TAB STYLING
+       ================================= */
+    .dynamic-product-card--warranty .dynamic-product-card__left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__bignumber {
+      font-size: 116px;
+      font-weight: 300;
+      line-height: 1;
+      margin: 0;
+      color: #000000;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__bottom-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+      flex: 1;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__content--columns ul{
+        display: flex;
+        gap: 40px;
+        list-style: none;
+        margin-left: auto;
+        width: 85%;
+        align-items: end;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__note {
+        font-size: 16px;
+        color: #00000099;
+        line-height: 1.3;
+        font-family: 'matter-light' !important;
+        flex: 0 0 auto;
+        max-width: 360px;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__note p {
+      margin: 0;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__content {
+      flex: 1;
+    }
+
+    .dynamic-product-card__content--columns ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .dynamic-product-card__content--columns li {
+      flex: 1;
+      position: relative;
+      min-width: 160px;
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px !important;
+      font-family: 'matter-light' !important;
+      color: #00000099;
+    }
+
+    .dynamic-product-card__content--columns li:not(:first-child):before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #FF5722;
+    }
+
+    .dynamic-product-card__content--columns li strong {
+      margin: 0;
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #000000;
+      display: block;
+    }
+
+    .dynamic-product-card__content--columns li span,
+    .dynamic-product-card__content--columns li p {
+      margin: 0;
+      font-size: 14px !important;
+      color: #666666;
+      line-height: 1.4;
+    }
+
+    /* =================================
+       CARE TAB STYLING
+       ================================= */
+
+    .dynamic-product-card--care .dynamic-product-card__title{
+        font-size: 46px !important;
+        max-width: 20%;
+
+    }
+    .dynamic-product-card--care .dynamic-product-card__icon--care {
+      color: #FF5722;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dynamic-product-card--care .dynamic-product-card__icon--care img {
+      filter: brightness(0) saturate(100%) invert(45%) sepia(95%) saturate(2435%) hue-rotate(6deg) brightness(101%) contrast(103%);
+    }
+
+    /* =================================
+       RESPONSIVE DESIGN
+       ================================= */
+    @media (max-width: 1025px) {
+      .dynamic-product-card {
+        padding: 24px;
+        min-height: 350px;
+      }
+
+      .dynamic-product-card__title {
+        font-size: 24px;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__bignumber {
+        font-size: 76px;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__note p {
+        font-size: 11px !important;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__bottom-row {
+        flex-direction: column-reverse;
+        gap: 20px;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__note {
+        max-width: 100%;
+      }
+
+      .dynamic-product-card__content--grid ul {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .dynamic-product-card__content--grid > * {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .dynamic-product-card__content--columns ul {
+        gap: 20px;
+      }
+
+      .dynamic-product-card__content--columns li {
+        padding-right: 10px;
+        min-width: 120px;
+      }
+
+      .dynamic-product-card__content--columns li:not(:first-child):before {
+        left: -10px;
+      }
+
+      .dynamic-product-card__content--columns li strong {
+        font-size: 16px !important;
+      }
+
+      .dynamic-product-card__content--columns li span,
+      .dynamic-product-card__content--columns li p {
+        font-size: 13px !important;
+      }
+
+      .dynamic-product-tabs__tab {
+        font-size: 14px;
+      }
+
+      .dynamic-product-tabs__title {
+        font-size: 24px;
+      }
+
+      .dynamic-product-tabs__nav{
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dynamic-product-card {
+        padding: 16px;
+      }
+
+      .dynamic-product-card__header {
+        flex-direction: row;
+        gap: 16px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .dynamic-product-card__icon img{
+        width: 76px;
+      }
+
+      .dynamic-product-card__content--grid li{
+        font-size: 12px !important;
+        padding-right: 0;
+      }
+      
+      .dynamic-product-card__content--grid li strong,
+        .dynamic-product-card__content--grid > * > * strong {
+        font-size: 14px !important;
+    }
+
+        .dynamic-product-card__content--grid li:not(:first-child):before{
+            display: none
+        }
+      .dynamic-product-card--specifications .dynamic-product-card__title{
+        font-size: 26px !important;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__content--columns ul{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        align-items: start;
+        margin: 0;
+        width: 100%;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__left {
+        text-align: left;
+      }
+
+      .dynamic-product-card__content--grid ul {
+        grid-template-columns:repeat(2, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
+
+      .dynamic-product-card__content--columns li strong{
+        font-size: 14px !important;
+      }
+
+      .dynamic-product-card__title{
+        max-width: 80%;
+        font-size: 20px;
+      }
+
+      .dynamic-product-card__content--grid > * {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .dynamic-product-card__content--columns ul {
+        display: grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap: 14px;
+        align-items: start;
+      }
+      .dynamic-product-card__content{
+        align-items: start;
+      }
+
+      .dynamic-product-card__content--columns li {
+        padding-right: 0;
+        font-size: 12px !important;
+      }
+
+      .dynamic-product-card--care .dynamic-product-card__title{
+        font-size: 26px !important;
+        max-width: 80%;
+        text-align: left;
+      }
+      .dynamic-product-card__content--columns li:not(:first-child):before {
+        display: none;
+      }
+
+      .dynamic-product-card__content--columns li:last-child {
+        border-bottom: none;
+      }
+
+      .dynamic-product-tabs__nav {
+        justify-content: flex-start;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dynamic-product-tabs__title {
+        font-size: 20px;
+      }
+
+      .dynamic-product-tabs__tab {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+
+      .dynamic-product-card__title {
+        font-size: 20px;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__bignumber {
+        font-size: 48px;
+      }
+    }
+  {% endstylesheet %}
+
+  {% schema %}
+  {
+    "name": "Dynamic Product Tabs",
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+          { "value": "page-width", "label": "Page width" },
+          { "value": "full-width", "label": "Full width" }
+        ],
+        "default": "page-width"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section title",
+        "default": "More about this product"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "specifications",
+        "name": "Specifications Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "tab_title",
+            "label": "Tab title",
+            "default": "Specifications"
+          },
+          {
+            "type": "text",
+            "id": "card_title",
+            "label": "Card title",
+            "default": "Specifications"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "select",
+            "id": "content_source",
+            "label": "Content source",
+            "default": "richtext",
+            "options": [
+              { "value": "richtext", "label": "Rich text editor" },
+              { "value": "metafield", "label": "Product specifications metafield" }
+            ]
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Specifications content",
+            "info": "Use list format: each item should have strong text for title, then description text",
+            "default": "<ul><li><strong>Ventilated Polymer Backrest</strong><span>Improves airflow and provides flexible lumbar support</span></li><li><strong>Comfort Upholstered Seat</strong><span>High-density foam with durable fabric upholstery for all-day use</span></li><li><strong>Height Adjustable Mechanism</strong><span>Pneumatic gas lift allows easy seat height adjustment</span></li><li><strong>Integrated Armrests</strong><span>Fixed armrests designed for stability and desk compatibility</span></li><li><strong>Stable 5-Star Base with Castors</strong><span>Smooth mobility and excellent load distribution</span></li><li><strong>Clean, Contemporary Design</strong><span>Suitable for modern offices, training rooms, and shared workspaces</span></li></ul>"
+          }
+        ]
+      },
+      {
+        "type": "warranty",
+        "name": "Warranty Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "tab_title",
+            "label": "Tab title",
+            "default": "Warranty"
+          },
+          {
+            "type": "text",
+            "id": "card_title",
+            "label": "Card title",
+            "default": "Years Manufacturing Warranty"
+          },
+          {
+            "type": "text",
+            "id": "big_number",
+            "label": "Big number",
+            "default": "3"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "note",
+            "label": "Note text (optional)",
+            "default": "*Does not cover wear and tear, fabric damage due to misuse, or castors over uneven surfaces"
+          },
+          {
+            "type": "select",
+            "id": "content_source",
+            "label": "Content source",
+            "default": "richtext",
+            "options": [
+              { "value": "richtext", "label": "Rich text editor" },
+              { "value": "metafield", "label": "Product warranty metafield" }
+            ]
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Warranty content",
+            "info": "Use list format with 3 columns max. Each item should have strong text for title, then description",
+            "default": "<ul><li><strong>Manufacturing Defects</strong><span>Improves airflow and provides flexible lumbar support</span></li><li><strong>Structural Integrity</strong><span>Covers structural integrity of base and frame</span></li><li><strong>Gas Lift Mechanism</strong><span>Covers structural integrity of base and frame</span></li></ul>"
+          }
+        ]
+      },
+      {
+        "type": "care",
+        "name": "Care & Maintenance Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "tab_title",
+            "label": "Tab title",
+            "default": "Care & Maintenance"
+          },
+          {
+            "type": "text",
+            "id": "card_title",
+            "label": "Card title",
+            "default": "Care & Maintenance"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "select",
+            "id": "content_source",
+            "label": "Content source",
+            "default": "richtext",
+            "options": [
+              { "value": "richtext", "label": "Rich text editor" },
+              { "value": "metafield", "label": "Product care metafield" }
+            ]
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Care content",
+            "info": "Use list format. Each item should have strong text for title, then description",
+            "default": "<ul><li><strong>Polymer Surface Care</strong><span>Clean polymer parts with a soft damp cloth</span></li><li><strong>Specialised Cleaning</strong><span>Use mild soap solution if required</span></li><li><strong>Fabric Seat Maintenance</strong><span>Vacuum fabric seat regularly</span></li><li><strong>Cleaner Restrictions</strong><span>Avoid abrasive cleaners or solvents</span></li><li><strong>Sunlight Exposure</strong><span>Do not expose to direct sunlight for prolonged periods</span></li></ul>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Dynamic Product Tabs",
+        "category": "Product",
+        "blocks": [
+          {
+            "type": "specifications"
+          },
+          {
+            "type": "warranty"
+          },
+          {
+            "type": "care"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+</section>
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.dynamic-product-tabs__tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = btn.getAttribute('data-tab-index');
+      
+      // Remove active state from all tabs
+      document.querySelectorAll('.dynamic-product-tabs__tab').forEach(function(b) { 
+        b.setAttribute('aria-selected', 'false'); 
+      });
+      
+      // Set active state for clicked tab
+      btn.setAttribute('aria-selected', 'true');
+      
+      // Find target panel
+      var panel = document.querySelector('.dynamic-product-tabs__panel[data-panel-index="' + idx + '"]');
+      if (panel) {
+        smoothTabTransition(panel);
+      }
+    });
+  });
+
+  // Ensure all cards have same height
+  function equalizeCardHeights() {
+    var cards = document.querySelectorAll('.dynamic-product-card');
+    var maxHeight = 0;
+    
+    // Reset heights
+    cards.forEach(function(card) {
+      card.style.height = 'auto';
+    });
+    
+    // Find max height
+    cards.forEach(function(card) {
+      var height = card.offsetHeight;
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
+    });
+    
+    // Apply max height to all cards
+    cards.forEach(function(card) {
+      card.style.height = maxHeight + 'px';
+    });
+  }
+
+  // Smooth tab transition
+  function smoothTabTransition(targetPanel) {
+    var currentPanel = document.querySelector('.dynamic-product-tabs__panel[aria-hidden="false"]');
+    
+    if (currentPanel && currentPanel !== targetPanel) {
+      // Fade out current panel
+      currentPanel.style.opacity = '0';
+      
+      setTimeout(function() {
+        // Hide current panel and show target panel
+        currentPanel.setAttribute('aria-hidden', 'true');
+        targetPanel.setAttribute('aria-hidden', 'false');
+        
+        // Trigger reflow
+        targetPanel.offsetHeight;
+        
+        // Fade in target panel
+        requestAnimationFrame(function() {
+          targetPanel.style.opacity = '1';
+        });
+      }, 200);
+    } else {
+      // Direct show if no current panel
+      targetPanel.setAttribute('aria-hidden', 'false');
+      targetPanel.style.opacity = '1';
+    }
+  }
+
+  // Equalize heights on load and resize
+  equalizeCardHeights();
+  window.addEventListener('resize', equalizeCardHeights);
+});
+{% endjavascript %}
