@@ -178,6 +178,7 @@
 
   #interactive-gallery .title-container {
     position: fixed;
+    {% comment %} display: none; {% endcomment %}
     bottom: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -249,7 +250,6 @@
     top: 50%;
     transform: translateY(-50%);
     max-width: 280px;
-    z-index: 15;
   }
 
   #interactive-gallery .left-text h2 {
@@ -265,28 +265,27 @@
 
   #interactive-gallery .corner-icon {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    width: 50px;
-    height: 50px;
+    bottom: 50%;
+    right: 10%;
+    padding: 12px 20px;
     background-color: {{ section.settings.icon_color }};
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     cursor: pointer;
     z-index: 15;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  #interactive-gallery .corner-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
   }
 
   #interactive-gallery .corner-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     fill: white;
   }
 
@@ -308,30 +307,28 @@
     #interactive-gallery .left-text {
       position: absolute;
       left: 50%;
-      top: 77%;
+      top: 10%;
       transform: translateX(-50%);
       text-align: center;
       max-width: 100%;
     }
 
     #interactive-gallery .left-text h2 {
-      font-size: 20px;
+      font-size: 22px;
     }
 
     #interactive-gallery .corner-icon {
-      width: 40px;
-      height: 40px;
-      bottom: 1rem;
+      padding: 12px 18px;
+      bottom: 5rem;
       left: 50%;
       right: auto;
       transform: translateX(-50%);
+      font-size: 14px;
     }
-
     #interactive-gallery .corner-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-  }
+      width: 14px;
+      height: 14px;
+    }  }
 </style>
 
 <div id="interactive-gallery">
@@ -351,12 +348,13 @@
       <p>{{ section.settings.image_count }} random products from your store</p>
     </div>
 
-    <!-- Shuffle Icon -->
-    <div class="corner-icon" id="corner-icon" title="Shuffle Products">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+    <!-- Shuffle Button -->
+    <button class="corner-icon" id="corner-icon" title="Shuffle Products">
+      <svg width="16" height="16" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.0472 3.55302C12.5812 4.01899 12.5812 4.83444 13.0472 5.30041C13.5131 5.76638 14.3286 5.76638 14.7946 5.30041L15.9012 4.19373L15.9012 9.66888C15.9012 10.5426 15.4353 11.2415 14.5033 11.9987C13.9791 12.4065 13.8626 13.1637 14.2703 13.7461C14.6781 14.2703 15.4353 14.3868 16.0177 13.9791C17.6486 12.7559 18.4058 11.358 18.4058 9.72713L18.4058 4.25198L19.5125 5.35866C19.9785 5.82463 20.7939 5.82463 21.2599 5.35866C21.4929 5.12567 21.6094 4.7762 21.6094 4.48496C21.6094 4.19373 21.4929 3.84426 21.2599 3.61127L18.0563 0.407726C17.5904 -0.0582441 16.7749 -0.058244 16.309 0.407726L13.0472 3.55302ZM5.64989 9.66888L5.64989 4.19374L6.75657 5.30041C7.22254 5.76638 8.03798 5.76638 8.50395 5.30041C8.73694 5.06743 8.85343 4.71795 8.85343 4.42672C8.85343 4.13549 8.73694 3.78601 8.50395 3.55302L5.30041 0.349478C4.83444 -0.116492 4.01899 -0.116492 3.55302 0.349478L0.349478 3.55302C-0.116492 4.01899 -0.116492 4.83444 0.349478 5.30041C0.815448 5.76638 1.6309 5.76638 2.09687 5.30041L3.20355 4.19374L3.20355 9.66888C3.20355 13.2802 6.93131 14.9693 10.2513 16.4837C13.1637 17.7651 15.843 19.0465 15.843 21.0269L15.843 24.0557C15.843 24.7547 16.3672 25.2789 17.0662 25.2789C17.7651 25.2789 18.3476 24.7547 18.3476 24.0557L18.3476 21.0269C18.3476 17.4156 14.6198 15.7265 11.2998 14.2121C8.38746 12.9307 5.64989 11.7075 5.64989 9.66888ZM5.64989 24.0557L5.64989 21.0269C5.64989 20.1532 6.05761 19.4543 6.98955 18.7553C7.28078 18.5223 7.45552 18.1728 7.45552 17.7651C7.45552 17.4739 7.39728 17.2409 7.22254 17.0079C6.81481 16.4837 6.05761 16.3672 5.47515 16.7749C3.96075 17.9981 3.1453 19.396 3.1453 21.0269L3.1453 24.0557C3.20355 24.7547 3.72776 25.2789 4.42672 25.2789C5.12567 25.2789 5.64989 24.7547 5.64989 24.0557Z" fill="white"/>
       </svg>
-    </div>
+      Shuffle
+    </button>
   </div>
 </div>
 
@@ -801,13 +799,6 @@
             isShuffling = false;
           }, 500);
         }
-      });
-      
-      // Animate the shuffle icon - synced with gallery
-      gsap.to(cornerIcon, {
-        rotation: '+=720',
-        duration: 2.2,
-        ease: 'power3.out'
       });
     }
     
