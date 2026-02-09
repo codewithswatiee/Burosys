@@ -67,6 +67,8 @@
   #interactive-gallery {
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
+    position: relative;
+    z-index: 1;
   }
 
   #interactive-gallery * {
@@ -105,9 +107,32 @@
     width: 100%;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
     overflow: hidden;
+  }
+
+  #interactive-gallery .gallery-section.preview-active {
+    overflow: visible;
+  }
+
+  #interactive-gallery .gallery-left {
+    position: relative;
+    width: 55%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #interactive-gallery .gallery-right {
+    position: relative;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 5%;
   }
 
   #interactive-gallery .gallery-container {
@@ -178,7 +203,6 @@
 
   #interactive-gallery .title-container {
     position: fixed;
-    {% comment %} display: none; {% endcomment %}
     bottom: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -203,29 +227,46 @@
     will-change: transform;
   }
 
-  #interactive-gallery .reset-btn {
+  #interactive-gallery .discover-btn-container {
     position: fixed;
-    top: 2rem;
-    right: 2rem;
-    padding: 0.75rem 1.5rem;
-    background-color: {{ section.settings.text_color }};
-    color: {{ section.settings.bg_color }};
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 20;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
+    bottom: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
   }
 
-  #interactive-gallery .reset-btn.show {
-    opacity: 1;
-    pointer-events: auto;
+  #interactive-gallery .discover-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
   }
+
+  #interactive-gallery .discover-btn:hover {
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    #interactive-gallery .discover-btn-container {
+      bottom: 15%;
+    }
+
+    #interactive-gallery .discover-btn {
+      font-size: 11px;
+      padding: 10px 24px;
+    }
+  }
+
 
   #interactive-gallery .instructions {
     position: fixed;
@@ -244,117 +285,172 @@
     font-size: 12px;
   }
 
-  #interactive-gallery .left-text {
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: 280px;
+  #interactive-gallery .right-text {
+    position: relative;
+    max-width: 420px;
   }
 
-  #interactive-gallery .left-text h2 {
+  #interactive-gallery .right-text h2 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: clamp(24px, 4vw, 36px);
+    font-size: clamp(28px, 3.5vw, 48px);
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    line-height: 1.3;
+    line-height: 1.25;
     color: {{ section.settings.text_color }};
-    margin: 0;
+    margin: 0 0 2rem 0;
   }
 
-  #interactive-gallery .corner-icon {
-    position: absolute;
-    bottom: 50%;
-    right: 10%;
-    padding: 12px 20px;
-    background-color: {{ section.settings.icon_color }};
-    border-radius: 8px;
-    display: flex;
+  #interactive-gallery .cta-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    cursor: pointer;
-    z-index: 15;
+    gap: 12px;
+    padding: 16px 36px;
+    background-color: {{ section.settings.icon_color }};
+    color: #ffffff;
     border: none;
-    color: white;
+    border-radius: 0;
+    cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 5;
   }
 
-  #interactive-gallery .corner-icon svg {
-    width: 16px;
-    height: 16px;
+  #interactive-gallery .cta-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+  }
+
+  #interactive-gallery .cta-btn svg {
+    width: 20px;
+    height: 20px;
     fill: white;
   }
 
+  /* Mobile-only elements hidden on desktop */
+  #interactive-gallery .mobile-text-top,
+  #interactive-gallery .mobile-btn-bottom {
+    display: none;
+  }
+
   @media (max-width: 768px) {
+    #interactive-gallery .gallery-section {
+      flex-direction: column;
+    }
+
+    /* Hide desktop right panel on mobile */
+    #interactive-gallery .gallery-right {
+      display: none;
+    }
+
+    /* Show mobile text above gallery */
+    #interactive-gallery .mobile-text-top {
+      display: block;
+      order: 1;
+      width: 100%;
+      text-align: center;
+      padding: 8rem 1.5rem 1rem;
+    }
+
+    #interactive-gallery .mobile-text-top h2 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.25;
+      color: {{ section.settings.text_color }};
+      margin: 0;
+    }
+
+    /* Gallery in the middle */
+    #interactive-gallery .gallery-left {
+      width: 100%;
+      min-height: auto;
+      order: 2;
+      padding: 1rem 0;
+    }
+
+    /* Show mobile button below gallery */
+    #interactive-gallery .mobile-btn-bottom {
+      display: flex;
+      justify-content: center;
+      order: 3;
+      width: 100%;
+      padding: 3rem 1.5rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
     #interactive-gallery .gallery {
-      width: 400px;
-      height: 400px;
+      width: 350px;
+      height: 350px;
     }
 
     #interactive-gallery .card {
-      width: 45px;
-      height: 65px;
+      width: 50px;
+      height: 68px;
     }
 
     #interactive-gallery .title-container p {
       font-size: 24px;
     }
 
-    #interactive-gallery .left-text {
-      position: absolute;
-      left: 50%;
-      top: 10%;
-      transform: translateX(-50%);
-      text-align: center;
-      max-width: 100%;
+    #interactive-gallery .cta-btn {
+      font-size: 11px;
+      padding: 14px 28px;
     }
-
-    #interactive-gallery .left-text h2 {
-      font-size: 22px;
-    }
-
-    #interactive-gallery .corner-icon {
-      padding: 12px 18px;
-      bottom: 5rem;
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      font-size: 14px;
-    }
-    #interactive-gallery .corner-icon svg {
-      width: 14px;
-      height: 14px;
-    }  }
+  }
 </style>
 
 <div id="interactive-gallery">
   <div class="gallery-section">
-    <!-- Left Side Text -->
-    <div class="left-text">
+    <!-- Mobile: Text above gallery -->
+    <div class="mobile-text-top">
       <h2>{{ section.settings.left_text }}</h2>
     </div>
 
-    <div class="gallery-container">
-      <div class="gallery" id="gallery"></div>
+    <!-- Left: Circular Gallery -->
+    <div class="gallery-left">
+      <div class="gallery-container">
+        <div class="gallery" id="gallery"></div>
+      </div>
     </div>
+
+    <!-- Mobile: Button below gallery -->
+    <div class="mobile-btn-bottom">
+      <button class="cta-btn" id="mobile-corner-icon" title="Shuffle Products">
+        DISCOVER OUR PRODUCTS
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Right: Text + CTA Button (desktop only) -->
+    <div class="gallery-right">
+      <div class="right-text" id="right-text">
+        <h2>{{ section.settings.left_text }}</h2>
+        <button class="cta-btn" id="corner-icon" title="Shuffle Products">
+          DISCOVER OUR PRODUCTS
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <div class="title-container" id="title-container"></div>
-    <button class="reset-btn" id="reset-btn">Reset</button>
+    <div class="discover-btn-container" id="discover-btn-container"></div>
     <div class="instructions">
       <p>Click to preview • Double-click to visit product</p>
       <p>{{ section.settings.image_count }} random products from your store</p>
     </div>
-
-    <!-- Shuffle Button -->
-    <button class="corner-icon" id="corner-icon" title="Shuffle Products">
-      <svg width="16" height="16" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13.0472 3.55302C12.5812 4.01899 12.5812 4.83444 13.0472 5.30041C13.5131 5.76638 14.3286 5.76638 14.7946 5.30041L15.9012 4.19373L15.9012 9.66888C15.9012 10.5426 15.4353 11.2415 14.5033 11.9987C13.9791 12.4065 13.8626 13.1637 14.2703 13.7461C14.6781 14.2703 15.4353 14.3868 16.0177 13.9791C17.6486 12.7559 18.4058 11.358 18.4058 9.72713L18.4058 4.25198L19.5125 5.35866C19.9785 5.82463 20.7939 5.82463 21.2599 5.35866C21.4929 5.12567 21.6094 4.7762 21.6094 4.48496C21.6094 4.19373 21.4929 3.84426 21.2599 3.61127L18.0563 0.407726C17.5904 -0.0582441 16.7749 -0.058244 16.309 0.407726L13.0472 3.55302ZM5.64989 9.66888L5.64989 4.19374L6.75657 5.30041C7.22254 5.76638 8.03798 5.76638 8.50395 5.30041C8.73694 5.06743 8.85343 4.71795 8.85343 4.42672C8.85343 4.13549 8.73694 3.78601 8.50395 3.55302L5.30041 0.349478C4.83444 -0.116492 4.01899 -0.116492 3.55302 0.349478L0.349478 3.55302C-0.116492 4.01899 -0.116492 4.83444 0.349478 5.30041C0.815448 5.76638 1.6309 5.76638 2.09687 5.30041L3.20355 4.19374L3.20355 9.66888C3.20355 13.2802 6.93131 14.9693 10.2513 16.4837C13.1637 17.7651 15.843 19.0465 15.843 21.0269L15.843 24.0557C15.843 24.7547 16.3672 25.2789 17.0662 25.2789C17.7651 25.2789 18.3476 24.7547 18.3476 24.0557L18.3476 21.0269C18.3476 17.4156 14.6198 15.7265 11.2998 14.2121C8.38746 12.9307 5.64989 11.7075 5.64989 9.66888ZM5.64989 24.0557L5.64989 21.0269C5.64989 20.1532 6.05761 19.4543 6.98955 18.7553C7.28078 18.5223 7.45552 18.1728 7.45552 17.7651C7.45552 17.4739 7.39728 17.2409 7.22254 17.0079C6.81481 16.4837 6.05761 16.3672 5.47515 16.7749C3.96075 17.9981 3.1453 19.396 3.1453 21.0269L3.1453 24.0557C3.20355 24.7547 3.72776 25.2789 4.42672 25.2789C5.12567 25.2789 5.64989 24.7547 5.64989 24.0557Z" fill="white"/>
-      </svg>
-      Shuffle
-    </button>
   </div>
 </div>
 
@@ -364,9 +460,12 @@
     const gallery = document.getElementById('gallery');
     const galleryContainer = document.querySelector('#interactive-gallery .gallery-container');
     const titleContainer = document.getElementById('title-container');
-    const resetBtn = document.getElementById('reset-btn');
-    const leftText = document.querySelector('#interactive-gallery .left-text');
+    const discoverContainer = document.getElementById('discover-btn-container');
+    const rightText = document.querySelector('#interactive-gallery .right-text');
     const cornerIcon = document.getElementById('corner-icon');
+    const mobileCornerIcon = document.getElementById('mobile-corner-icon');
+    const mobileTextTop = document.querySelector('#interactive-gallery .mobile-text-top');
+    const mobileBtnBottom = document.querySelector('#interactive-gallery .mobile-btn-bottom');
 
     // Generate colored SVG data URLs for guaranteed image display
     function generateColoredImage(index) {
@@ -524,22 +623,48 @@
     function togglePreview(index) {
       isPreviewActive = true;
       isTransitioning = true;
-      resetBtn.classList.add('show');
 
-      // Animate left text out to the left
-      gsap.to(leftText, {
-        x: -200,
+      // Add preview-active class for overflow
+      document.querySelector('#interactive-gallery .gallery-section').classList.add('preview-active');
+
+      // Animate right text section out (desktop)
+      gsap.to(rightText, {
+        x: 200,
         opacity: 0,
         duration: 0.8,
         ease: 'power3.inOut'
       });
 
-      // Animate corner icon out
-      gsap.to(cornerIcon, {
-        y: 100,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.inOut'
+      // Animate mobile elements out
+      if (mobileTextTop) {
+        gsap.to(mobileTextTop, {
+          y: -50,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.inOut'
+        });
+      }
+      if (mobileBtnBottom) {
+        gsap.to(mobileBtnBottom, {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.inOut'
+        });
+      }
+
+      // Calculate offset to center the gallery-left on the full viewport
+      const galleryLeft = document.querySelector('#interactive-gallery .gallery-left');
+      const galleryLeftRect = galleryLeft.getBoundingClientRect();
+      const galleryCenterX = galleryLeftRect.left + galleryLeftRect.width / 2;
+      const viewportCenterX = window.innerWidth / 2;
+      const offsetX = viewportCenterX - galleryCenterX;
+
+      // Animate gallery-left to slide to viewport center
+      gsap.to(galleryLeft, {
+        x: offsetX,
+        duration: 2,
+        ease: 'power4.inOut'
       });
 
       const angle = transformState[index].angle;
@@ -614,13 +739,35 @@
         stagger: 0.1,
         ease: 'power4.out',
       });
+
+      // Add Discover button
+      const productUrl = cards[index].dataset.url;
+      discoverContainer.innerHTML = '';
+      const discoverLink = document.createElement('a');
+      discoverLink.className = 'discover-btn';
+      discoverLink.href = productUrl && productUrl !== '#' ? productUrl : '#';
+      discoverLink.textContent = 'DISCOVER';
+      discoverLink.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!productUrl || productUrl === '#') {
+          e.preventDefault();
+        }
+      });
+      discoverContainer.appendChild(discoverLink);
+      gsap.set(discoverLink, { opacity: 0, y: 15 });
+      gsap.to(discoverLink, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay: 1.8,
+        ease: 'power3.out',
+      });
     }
 
     function resetGallery() {
       if (isTransitioning) return;
 
       isTransitioning = true;
-      resetBtn.classList.remove('show');
 
       if (currentTitle) {
         const words = currentTitle.querySelectorAll('.word');
@@ -637,6 +784,21 @@
         });
       }
 
+      // Animate discover button out
+      const discoverBtn = discoverContainer.querySelector('.discover-btn');
+      if (discoverBtn) {
+        gsap.to(discoverBtn, {
+          opacity: 0,
+          y: 15,
+          duration: 0.4,
+          delay: 0.3,
+          ease: 'power3.in',
+          onComplete: () => {
+            discoverContainer.innerHTML = '';
+          },
+        });
+      }
+
       const viewportWidth = window.innerWidth;
       let galleryScale = 1;
 
@@ -645,6 +807,14 @@
       } else if (viewportWidth < 1200) {
         galleryScale = 0.8;
       }
+
+      // Animate gallery-left back to original position
+      const galleryLeft = document.querySelector('#interactive-gallery .gallery-left');
+      gsap.to(galleryLeft, {
+        x: 0,
+        duration: 2.5,
+        ease: 'power4.inOut'
+      });
 
       gsap.to(gallery, {
         scale: galleryScale,
@@ -655,6 +825,7 @@
         ease: 'power4.inOut',
         onComplete: () => {
           isPreviewActive = isTransitioning = false;
+          document.querySelector('#interactive-gallery .gallery-section').classList.remove('preview-active');
           Object.assign(parallaxState, {
             targetX: 0,
             targetY: 0,
@@ -666,8 +837,8 @@
         },
       });
 
-      // Animate left text back in from left
-      gsap.to(leftText, {
+      // Animate right text section back in (desktop)
+      gsap.to(rightText, {
         x: 0,
         opacity: 1,
         duration: 1,
@@ -675,14 +846,25 @@
         ease: 'power3.out'
       });
 
-      // Animate corner icon back in
-      gsap.to(cornerIcon, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        delay: 1.8,
-        ease: 'power3.out'
-      });
+      // Animate mobile elements back in
+      if (mobileTextTop) {
+        gsap.to(mobileTextTop, {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          delay: 1.5,
+          ease: 'power3.out'
+        });
+      }
+      if (mobileBtnBottom) {
+        gsap.to(mobileBtnBottom, {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          delay: 1.8,
+          ease: 'power3.out'
+        });
+      }
     }
 
     function handleResize() {
@@ -731,10 +913,6 @@
       }
     });
 
-    resetBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      resetGallery();
-    });
 
     // Shuffle functionality
     let isShuffling = false;
@@ -800,12 +978,29 @@
           }, 500);
         }
       });
+      
+      // Animate the CTA button icon - synced with gallery
+      const btnIcon = cornerIcon.querySelector('svg');
+      if (btnIcon) {
+        gsap.to(btnIcon, {
+          rotation: '+=720',
+          duration: 2.2,
+          ease: 'power3.out'
+        });
+      }
     }
     
     cornerIcon.addEventListener('click', (e) => {
       e.stopPropagation();
       shuffleGallery();
     });
+
+    if (mobileCornerIcon) {
+      mobileCornerIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shuffleGallery();
+      });
+    }
 
     // Interaction-heavy animation (parallax + hover flip + keyboard + mouse out)
     document.addEventListener('keydown', (e) => {

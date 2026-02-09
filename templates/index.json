@@ -27,9 +27,187 @@
         "heading": "Product Gallery",
         "left_text": "NOT JUST ABOUT FORM & FUNCTION.",
         "image_count": 25,
-        "bg_color": "#ffffff",
+        "bg_color": "rgba(0,0,0,0)",
         "text_color": "#1f1f1f",
-        "icon_color": "#FF5733"
+        "icon_color": "#ff5733"
+      }
+    },
+    "section_category_tabs_gahBen": {
+      "type": "section-category-tabs",
+      "blocks": {
+        "tab_tbPQwf": {
+          "type": "tab",
+          "settings": {
+            "title": "SEATING",
+            "image": "shopify://shop_images/FREEDOMVIDEO-ezgif.com-speed.gif",
+            "link": "shopify://collections"
+          }
+        },
+        "item_hgWD3y": {
+          "type": "item",
+          "settings": {
+            "title": "EXECUTIVE CHAIRS",
+            "content": "<p>Designed to offer superior comfort, refined ergonomics, and a commanding presence for modern leadership spaces.</p><p></p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_nxHxYR": {
+          "type": "item",
+          "settings": {
+            "title": "TASK CHAIRS",
+            "content": "<p>Designed to deliver everyday comfort, ergonomic support, and reliable performance for modern workspaces.</p><p></p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_cDPX3f": {
+          "type": "item",
+          "settings": {
+            "title": "LOUNGE CHAIRS",
+            "content": "<p>Designed to offer relaxed comfort and inviting support, creating a welcoming experience in lounge and collaborative spaces.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_KCbXPQ": {
+          "type": "item",
+          "settings": {
+            "title": "CAFE CHAIRS",
+            "content": "<p>Designed with a focus on comfort, proportions, and clean aesthetics, enhancing café environments with ease and character.</p><p></p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_98ig3x": {
+          "type": "item",
+          "settings": {
+            "title": "SOFAS",
+            "content": "<p>Designed with a focus on comfort, proportions, and clean aesthetics, enhancing café environments with ease and character.</p><p></p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "tab_Gc9x6y": {
+          "type": "tab",
+          "settings": {
+            "title": "DESKS",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": ""
+          }
+        },
+        "item_diJXJf": {
+          "type": "item",
+          "settings": {
+            "title": "WORKSTATIONS",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_TzYgcC": {
+          "type": "item",
+          "settings": {
+            "title": "CABIN DESKS",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_ierWR7": {
+          "type": "item",
+          "settings": {
+            "title": "MEETING TABLES",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_nLmD4B": {
+          "type": "item",
+          "settings": {
+            "title": "COFFEE TABLES",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_N47MrP": {
+          "type": "item",
+          "settings": {
+            "title": "TABLE BASES",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "",
+            "cta_label": "Explore Now"
+          }
+        },
+        "tab_BCz7LJ": {
+          "type": "tab",
+          "settings": {
+            "title": "PHONE BOOTHS",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": ""
+          }
+        },
+        "tab_NqgLX8": {
+          "type": "tab",
+          "settings": {
+            "title": "ELEVATED SPACES",
+            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "link": ""
+          }
+        },
+        "item_AynQGM": {
+          "type": "item",
+          "settings": {
+            "title": "SOFT PARTITIONS",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "shopify://collections/elevated-spaces",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_z8zWfN": {
+          "type": "item",
+          "settings": {
+            "title": "GAMING TABLES",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "shopify://collections/gaming-tables",
+            "cta_label": "Explore Now"
+          }
+        },
+        "item_HxYWBA": {
+          "type": "item",
+          "settings": {
+            "title": "PRISMATICA",
+            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
+            "cta_link": "shopify://collections/primatica",
+            "cta_label": "Explore Now"
+          }
+        }
+      },
+      "block_order": [
+        "tab_tbPQwf",
+        "item_hgWD3y",
+        "item_nxHxYR",
+        "item_cDPX3f",
+        "item_KCbXPQ",
+        "item_98ig3x",
+        "tab_Gc9x6y",
+        "item_diJXJf",
+        "item_TzYgcC",
+        "item_ierWR7",
+        "item_nLmD4B",
+        "item_N47MrP",
+        "tab_BCz7LJ",
+        "tab_NqgLX8",
+        "item_AynQGM",
+        "item_z8zWfN",
+        "item_HxYWBA"
+      ],
+      "name": "Category Tabs",
+      "settings": {
+        "heading": "CATEGORIES",
+        "subheading": ""
       }
     },
     "text_with_inline_images_JaMD7M": {
@@ -38,34 +216,34 @@
         "text_iiiJUX": {
           "type": "text",
           "settings": {
-            "text": "THOUGHTFULLY DESIGNED",
+            "text": "NO TWO WORKSPACES ARE THE SAME",
             "text_style": "text-normal"
           }
         },
         "image_rFr4pd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+            "image": "shopify://shop_images/allure_1.png"
           }
         },
         "text_BewCge": {
           "type": "text",
           "settings": {
-            "text": "FURNITURE",
+            "text": "WITH BUROSYS",
             "text_style": "text-normal"
           }
         },
         "text_XpRgKi": {
           "type": "text",
           "settings": {
-            "text": "MADE TO UPLIFT YOUR HOME AND",
+            "text": "",
             "text_style": "text-normal"
           }
         },
         "image_cVG9wK": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+            "image": "shopify://shop_images/2313-_1.png"
           }
         },
         "line_break_CaR6gi": {
@@ -74,14 +252,16 @@
         },
         "image_c4Cdam": {
           "type": "image",
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+            "image": "shopify://shop_images/california_4.png"
           }
         },
         "text_Kw44gr": {
           "type": "text",
+          "disabled": true,
           "settings": {
-            "text": "OFFICE EVERY SINGLE DAY",
+            "text": "BEST OF INHOUSE MANUFACTURING AND OVER 150 BRANDS GLOBALLY",
             "text_style": "text-normal"
           }
         }
@@ -99,258 +279,12 @@
       "name": "Text with Inline Images",
       "settings": {
         "heading": "WHY FROM US?",
-        "heading_size": "h3",
+        "heading_size": "h2",
         "text_alignment": "center",
         "section_width": "page-width",
-        "color_scheme": "",
+        "color_scheme": "scheme-3",
         "padding-block-start": 40,
         "padding-block-end": 40
-      }
-    },
-    "section_category_tabs_gahBen": {
-      "type": "section-category-tabs",
-      "blocks": {
-        "tab_tbPQwf": {
-          "type": "tab",
-          "settings": {
-            "title": "SEATING",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": "shopify://collections"
-          }
-        },
-        "item_hgWD3y": {
-          "type": "item",
-          "settings": {
-            "title": "EXECUTIVE CHAIRS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_nxHxYR": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_cDPX3f": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_KCbXPQ": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_Gc9x6y": {
-          "type": "tab",
-          "settings": {
-            "title": "DESKS",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": ""
-          }
-        },
-        "item_diJXJf": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_TzYgcC": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_ierWR7": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_w9Ue63": {
-          "type": "tab",
-          "settings": {
-            "title": "TABLES",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": ""
-          }
-        },
-        "item_nLmD4B": {
-          "type": "item",
-          "settings": {
-            "title": "EXECUTIVE CHAIRS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_N47MrP": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_WUqFfj": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_BCz7LJ": {
-          "type": "tab",
-          "settings": {
-            "title": "PHONE BOOTHS",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": ""
-          }
-        },
-        "item_4qXkeF": {
-          "type": "item",
-          "settings": {
-            "title": "EXECUTIVE CHAIRS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_HrNix3": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_xJQXew": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_MFgnHP": {
-          "type": "tab",
-          "settings": {
-            "title": "SOFAS",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": ""
-          }
-        },
-        "item_hQp9yL": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_eVc4Xq": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_NqgLX8": {
-          "type": "tab",
-          "settings": {
-            "title": "ELEVATED SPACES",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
-            "link": ""
-          }
-        },
-        "item_AynQGM": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_z8zWfN": {
-          "type": "item",
-          "settings": {
-            "title": "LOREM IPSUM",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_HxYWBA": {
-          "type": "item",
-          "settings": {
-            "title": "EXECUTIVE CHAIRS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        }
-      },
-      "block_order": [
-        "tab_tbPQwf",
-        "item_hgWD3y",
-        "item_nxHxYR",
-        "item_cDPX3f",
-        "item_KCbXPQ",
-        "tab_Gc9x6y",
-        "item_diJXJf",
-        "item_TzYgcC",
-        "item_ierWR7",
-        "tab_w9Ue63",
-        "item_nLmD4B",
-        "item_N47MrP",
-        "item_WUqFfj",
-        "tab_BCz7LJ",
-        "item_4qXkeF",
-        "item_HrNix3",
-        "item_xJQXew",
-        "tab_MFgnHP",
-        "item_hQp9yL",
-        "item_eVc4Xq",
-        "tab_NqgLX8",
-        "item_AynQGM",
-        "item_z8zWfN",
-        "item_HxYWBA"
-      ],
-      "name": "Category Tabs",
-      "settings": {
-        "heading": "DISCOVER THE WORLD OF CHAIRS",
-        "subheading": "Explore chairs tailored to your interests"
       }
     },
     "section_showroom_showcase_FkHwLy": {
@@ -359,35 +293,35 @@
         "image_cYK7WV": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/91fb6713bf4f0f6532553bc3dcdd9faf39b60964.png",
+            "image": "shopify://shop_images/showroom_2.jpg",
             "alt_text": ""
           }
         },
         "image_7k8mxh": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_nm3tbynm3tbynm3t_1.png",
+            "image": "shopify://shop_images/showroom_6_b93e9733-bb0a-4978-846f-13980a04470b.jpg",
             "alt_text": ""
           }
         },
         "image_ia7iDT": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Picture4.png",
+            "image": "shopify://shop_images/showroom_4.jpg",
             "alt_text": ""
           }
         },
         "image_6jQ6pY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Picture2.png",
+            "image": "shopify://shop_images/showroom_5.jpg",
             "alt_text": ""
           }
         },
         "image_9VAmzD": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Picture1.png",
+            "image": "shopify://shop_images/showroom_7.jpg",
             "alt_text": ""
           }
         }
@@ -401,7 +335,7 @@
       ],
       "name": "Showroom Showcase",
       "settings": {
-        "label": "SHOWROOM",
+        "label": "2,000 Sqft of display",
         "heading": "EXPLORE OUR SHOWROOM",
         "description": "<p>Sculpted to catch the light and the imagination, Prismatica redefines the luxury experience.</p>",
         "button_text": "BOOK AN APPOINTMENT",
@@ -414,25 +348,25 @@
         "story_zpchQV": {
           "type": "story",
           "settings": {
-            "title": "BANK OF AMERICA",
-            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
-            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+            "title": "IDAC 2025",
+            "description": "It was a milestone for us, with our participation earning recognition and an award for our unique desking designs.",
+            "image": "shopify://shop_images/b7bdc8af-ae30-4331-8917-80ac4aa0d9b9.jpg"
           }
         },
         "story_4WYkHt": {
           "type": "story",
           "settings": {
-            "title": "BANK OF AMERICA",
-            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
-            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+            "title": "AD DESIGN SHOW 2025",
+            "description": "Our presence at the AD Design Show highlighted the Deliberately Non-Corporate collection, with Prismatica as a key art piece and a soft partition Dooor from Italy, celebrating The Subtle Art of Separation.",
+            "image": "shopify://shop_images/IMG_5497.heic"
           }
         },
         "story_axFgci": {
           "type": "story",
           "settings": {
-            "title": "BANK OF AMERICA",
-            "description": "To craft professional workspaces with enduring design and integrated functionality, providing solutions that stand the test of time.",
-            "image": "shopify://shop_images/2b910729f4146804408f5ad5ef770feef67ecb8f.png"
+            "title": "DESIGN MUMBAI 2025",
+            "description": "Bringing creativity to life, Prismatica, the Italian soft partition Dooor, and other modern workspace solutions, including the world-class Upon Desk and phone pod, captivated visitors at Design Mumbai.",
+            "image": "shopify://shop_images/Copy_of_BAI15978.jpg"
           }
         }
       },
@@ -443,8 +377,8 @@
       ],
       "name": "Stories Carousel",
       "settings": {
-        "heading": "DISCOVER INSPIRING STORIES",
-        "subheading": "Explore chairs tailored to your interests",
+        "heading": "OUR EVENT HIGHLIGHTS",
+        "subheading": "Showcasing our designs across exhibitions and industry events.",
         "section_background": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#666666",
@@ -463,10 +397,10 @@
         "story_KNiEUe": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430103580.png",
-            "label": "THE DESIGN",
-            "title": "Lorem ipsum Lorem ipsum",
-            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "image": "shopify://shop_images/Untitled_design_2_8091dd77-6c2f-4b4d-a0e6-be2fc2762578.jpg",
+            "label": "GURGAON,DELHI",
+            "title": "EMAAR",
+            "description": "Emaar’s office features our thoughtfully crafted workstations, cabins, chairs, and collaborative furniture, combining modern aesthetics with comfort and functionality.",
             "link_text": "READ MORE",
             "link_url": ""
           }
@@ -474,10 +408,10 @@
         "story_qgh3jn": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430103677.png",
-            "label": "THE DESIGN",
-            "title": "Lorem ipsum Lorem ipsum",
-            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "image": "shopify://shop_images/Untitled_design_3.jpg",
+            "label": "BKC, MUMBAI",
+            "title": "TIRA BEAUTY",
+            "description": "For Tira Beauty, we curated and designed lounge furniture, café chairs, tables and a lot more that make spaces welcoming, comfortable, and stylish.",
             "link_text": "READ MORE",
             "link_url": ""
           }
@@ -485,10 +419,10 @@
         "story_GhFAjG": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430103580.png",
-            "label": "THE DESIGN",
-            "title": "Lorem ipsum Lorem ipsum",
-            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "image": "shopify://shop_images/Untitled_design_4.jpg",
+            "label": "BKC,MUMBAI",
+            "title": "ETONHURST",
+            "description": "Office furniture including workstations, cabins, chairs, and loose pieces for Etonhurst blends style, comfort, and functionality for efficient workspaces.",
             "link_text": "READ MORE",
             "link_url": ""
           }
@@ -496,10 +430,10 @@
         "story_b9CYHx": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430103677.png",
-            "label": "THE DESIGN",
-            "title": "Lorem ipsum Lorem ipsum",
-            "description": "At Burosys, we create our workspace furniture with you in mind.",
+            "image": "shopify://shop_images/Untitled_design_6.jpg",
+            "label": "Worli, Mumbai",
+            "title": "MuSo",
+            "description": "Office furniture for MuSo including workstations, cabins, chairs, and loose pieces transforms spaces into modern, welcoming, and productive environments.",
             "link_text": "READ MORE",
             "link_url": ""
           }
@@ -513,18 +447,59 @@
       ],
       "name": "Customer Stories",
       "settings": {
-        "heading": "CUSTOMER STORIES",
-        "subheading": "Explore chairs tailored to your interests",
-        "section_background": "#1a1a1a",
-        "heading_color": "#ffffff",
-        "subheading_color": "#cccccc",
+        "heading": "PROJECTS",
+        "subheading": "See the impact of our office furniture in real client environments.",
+        "section_background": "#f2eeee",
+        "heading_color": "#1f1f1f",
+        "subheading_color": "#1f1f1f",
         "label_color": "#999999",
-        "title_color": "#ffffff",
-        "description_color": "#ffffff",
-        "link_color": "#ffffff",
+        "title_color": "#1f1f1f",
+        "description_color": "#1f1f1f",
+        "link_color": "#ff5733",
         "link_hover_color": "#cccccc",
         "padding_top": 40,
         "padding_bottom": 32
+      }
+    },
+    "17702067888e456cb9": {
+      "type": "_blocks",
+      "blocks": {
+        "gsc_instagram_feed_instafeed_f9NBHX": {
+          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+          "settings": {
+            "widget_id": "GSC-hdXYluwFbSYQems"
+          }
+        }
+      },
+      "block_order": [
+        "gsc_instagram_feed_instafeed_f9NBHX"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "section_rXAheV": {
@@ -533,7 +508,7 @@
         "image_3pjEhY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/9b96af8d7fa384f276508fc9125d0db3d99821c2.png",
+            "image": "shopify://shop_images/Hersh_Pic.jpg",
             "link": "",
             "image_ratio": "square",
             "width": "fill",
@@ -621,7 +596,7 @@
             "text_4K49j6": {
               "type": "text",
               "settings": {
-                "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum<br/><br/></p>",
+                "text": "<p>“At Burosys, we believe true luxury lies in clarity of design in spaces where form, function, and emotion align. Each piece we create is an architectural expression of how work and beauty can coexist.”<br/><br/></p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -683,15 +658,52 @@
         "padding-block-start": 22,
         "padding-block-end": 40
       }
+    },
+    "image_with_side_buttons_AXAkj8": {
+      "type": "image-with-side-buttons",
+      "blocks": {
+        "side_button_nLkAL4": {
+          "type": "side_button",
+          "settings": {
+            "label": "Book an appointment",
+            "link": "#"
+          }
+        },
+        "side_button_ABQ7gU": {
+          "type": "side_button",
+          "settings": {
+            "label": "Request quote",
+            "link": "#"
+          }
+        },
+        "side_button_D7H4EY": {
+          "type": "side_button",
+          "settings": {
+            "label": "General/Support enquiry",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "side_button_nLkAL4",
+        "side_button_ABQ7gU",
+        "side_button_D7H4EY"
+      ],
+      "name": "Image with side buttons",
+      "settings": {
+        "image_alt": "Hero image"
+      }
     }
   },
   "order": [
     "hero_gallery_6kPyhq",
-    "text_with_inline_images_JaMD7M",
     "section_category_tabs_gahBen",
+    "text_with_inline_images_JaMD7M",
     "section_showroom_showcase_FkHwLy",
     "stories_carousel_gxaEbk",
     "customer_stories_gadfDp",
-    "section_rXAheV"
+    "17702067888e456cb9",
+    "section_rXAheV",
+    "image_with_side_buttons_AXAkj8"
   ]
 }

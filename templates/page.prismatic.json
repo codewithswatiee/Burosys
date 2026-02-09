@@ -279,18 +279,18 @@
         "item_aR9giH": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/a47d1396d7e199733b5bb0811177fa4e3f7bf9ed.png",
+            "image": "shopify://shop_images/4_3de88c73-582c-4bcd-9e9b-a9cf2aab7d2b.jpg",
             "sku": "IRD-02",
-            "title": "MIDNIGHT IRIS",
+            "title": "OCCEAN BRASS",
             "subtitle": ""
           }
         },
         "item_e3eE78": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/a47d1396d7e199733b5bb0811177fa4e3f7bf9ed.png",
+            "image": "shopify://shop_images/5_b3b3fbae-434a-46d9-a22d-74e62b85d75c.jpg",
             "sku": "IRD-03",
-            "title": "MIDNIGHT IRIS",
+            "title": "AUTUMN BLAZE",
             "subtitle": ""
           }
         }
