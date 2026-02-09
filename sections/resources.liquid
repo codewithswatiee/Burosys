@@ -8,11 +8,11 @@
 <section class="resources-section" id="section-{{ section.id }}">
   <div class="resources-container">
     <!-- Left Sidebar Filters -->
-    <aside class="resources-filters">
+    <aside class="resources-filters" data-active-tab="catalogs">
       <h2 class="filters-title">FILTERS</h2>
       
       <!-- Catalogs Filter Group -->
-      <div class="filter-group" data-filter-group="catalogs">
+      <div class="filter-group" data-filter-group="catalogs" data-for-tab="catalogs">
         <button class="filter-group-header" type="button" aria-expanded="true">
           <span>Catalogs</span>
           <span class="filter-toggle">−</span>
@@ -31,7 +31,7 @@
       </div>
 
       <!-- 2D/3D Files Filter Group -->
-      <div class="filter-group" data-filter-group="files">
+      <div class="filter-group hidden" data-filter-group="files" data-for-tab="files">
         <button class="filter-group-header" type="button" aria-expanded="true">
           <span>2D / 3D Files</span>
           <span class="filter-toggle">−</span>
@@ -50,7 +50,7 @@
       </div>
 
       <!-- Idea Starter Filter Group -->
-      <div class="filter-group" data-filter-group="ideas">
+      <div class="filter-group hidden" data-filter-group="ideas" data-for-tab="ideas">
         <button class="filter-group-header" type="button" aria-expanded="true">
           <span>Idea Starter</span>
           <span class="filter-toggle">−</span>
@@ -69,7 +69,7 @@
       </div>
 
       <!-- Sort By Filter Group -->
-      <div class="filter-group" data-filter-group="sort">
+      <div class="filter-group hidden" data-filter-group="sort" data-for-tab="catalogs,files,ideas">
         <button class="filter-group-header" type="button" aria-expanded="true">
           <span>SORT BY</span>
           <span class="filter-toggle">−</span>

@@ -16,6 +16,7 @@
   const searchInput = section.querySelector('#resources-search-input');
   const filterCheckboxes = section.querySelectorAll('.filter-option input');
   const filterGroupHeaders = section.querySelectorAll('.filter-group-header');
+  const filterGroups = section.querySelectorAll('.filter-group[data-for-tab]');
   const mobileFilterToggle = section.querySelector('.mobile-filter-toggle');
   const noResults = section.querySelector('.no-results');
 
@@ -38,6 +39,8 @@
     setupSearch();
     setupFilterGroupToggle();
     setupMobileFilter();
+    // Initialize filter visibility for default tab (catalogs)
+    updateFilterVisibility(currentTab);
     applyFilters();
   }
 
@@ -70,8 +73,34 @@
       content.classList.toggle('hidden', content.dataset.tabContent !== tabName);
     });
 
+    // Update filter group visibility based on active tab
+    updateFilterVisibility(tabName);
+
     // Re-apply filters for new tab
     applyFilters();
+  }
+
+  /**
+   * Show/hide filter groups based on active tab
+   * - Catalogs tab: show only catalogs filter and sort
+   * - Files tab: show only files filter and sort
+   * - Ideas tab: show only ideas filter and sort
+   * @param {string} tabName 
+   */
+  function updateFilterVisibility(tabName) {
+    // Update data attribute on filters sidebar
+    if (filters) {
+      filters.dataset.activeTab = tabName;
+    }
+
+    // Show/hide filter groups based on which tabs they belong to
+    filterGroups.forEach(group => {
+      const forTabs = (group.dataset.forTab || '').split(',').map(t => t.trim());
+      
+      // Show filter group if it's meant for this tab
+      const shouldShow = forTabs.includes(tabName);
+      group.classList.toggle('hidden', !shouldShow);
+    });
   }
 
   /**

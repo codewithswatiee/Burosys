@@ -22,9 +22,13 @@
   {% liquid
     assign default_sort_by = results.default_sort_by
     for option in results.sort_options
-      if option.value == sort_by
-        assign status = option.name
-      endif
+      assign opt_name_lc = option.name | downcase
+      assign opt_value_lc = option.value | downcase
+      unless opt_name_lc contains 'date' or opt_name_lc contains 'best' or opt_value_lc contains 'date' or opt_value_lc contains 'best'
+        if option.value == sort_by
+          assign status = option.name
+        endif
+      endunless
     endfor
   %}
 
@@ -45,14 +49,18 @@
         {% endif %}
       >
         {% for option in results.sort_options %}
-          <option
-            value="{{ option.value }}"
-            {% if option.value == sort_by %}
-              selected
-            {% endif %}
-          >
-            {{ option.name }}
-          </option>
+          {% assign opt_name_lc = option.name | downcase %}
+          {% assign opt_value_lc = option.value | downcase %}
+          {% unless opt_name_lc contains 'date' or opt_name_lc contains 'best' or opt_value_lc contains 'date' or opt_value_lc contains 'best' %}
+            <option
+              value="{{ option.value }}"
+              {% if option.value == sort_by %}
+                selected
+              {% endif %}
+            >
+              {{ option.name }}
+            </option>
+          {% endunless %}
         {% endfor %}
       </select>
       <svg
@@ -113,36 +121,40 @@
       >
         <div class="sorting-filter__options-inner">
           {% for option in results.sort_options %}
-            <label
-              for="sort-option-{{ option.value }}-{{ section_id }}"
-            >
-              <div
-                class="sorting-filter__option"
-                role="option"
-                aria-selected="{% if option.value == sort_by %}true{% else %}false{% endif %}"
-                tabindex="{% if option.value == sort_by %}0{% else %}-1{% endif %}"
+            {% assign opt_name_lc = option.name | downcase %}
+            {% assign opt_value_lc = option.value | downcase %}
+            {% unless opt_name_lc contains 'date' or opt_name_lc contains 'best' or opt_value_lc contains 'date' or opt_value_lc contains 'best' %}
+              <label
+                for="sort-option-{{ option.value }}-{{ section_id }}"
               >
-                <input
-                  type="radio"
-                  name="sort_by"
-                  id="sort-option-{{ option.value }}-{{ section_id }}"
-                  {% if suffix != blank %}
-                    form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
-                  {% endif %}
-                  value="{{ option.value }}"
-                  class="sorting-filter__input"
-                  data-option-name="{{ option.name }}"
-                  {% if option.value == sort_by %}
-                    checked
-                  {% endif %}
-                  aria-hidden="true"
+                <div
+                  class="sorting-filter__option"
+                  role="option"
+                  aria-selected="{% if option.value == sort_by %}true{% else %}false{% endif %}"
+                  tabindex="{% if option.value == sort_by %}0{% else %}-1{% endif %}"
                 >
-                <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
-                  {{- 'icon-checkmark.svg' | inline_asset_content -}}
-                </span>
-                <span class="sorting-filter__label">{{ option.name }}</span>
-              </div>
-            </label>
+                  <input
+                    type="radio"
+                    name="sort_by"
+                    id="sort-option-{{ option.value }}-{{ section_id }}"
+                    {% if suffix != blank %}
+                      form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
+                    {% endif %}
+                    value="{{ option.value }}"
+                    class="sorting-filter__input"
+                    data-option-name="{{ option.name }}"
+                    {% if option.value == sort_by %}
+                      checked
+                    {% endif %}
+                    aria-hidden="true"
+                  >
+                  <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
+                    {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="sorting-filter__label">{{ option.name }}</span>
+                </div>
+              </label>
+            {% endunless %}
           {% endfor %}
         </div>
       </floating-panel-component>

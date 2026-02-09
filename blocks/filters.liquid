@@ -619,26 +619,30 @@
           </div>
 
           <scroll-hint class="facets-drawer__filters sorting-drawer__options">
-            <div class="sorting-options-list">
+              <div class="sorting-options-list">
               {% for option in results.sort_options %}
-                <label class="sorting-option{% if option.value == sort_by %} sorting-option--active{% endif %}">
-                  <input
-                    type="radio"
-                    name="sort_by"
-                    value="{{ option.value }}"
-                    {% if option.value == sort_by %}checked{% endif %}
-                    class="visually-hidden"
-                    on:change="facets-form-component/updateFilterAndSorting"
-                  >
-                  <span class="sorting-option__label">{{ option.name }}</span>
-                  {% if option.value == sort_by %}
-                    <span class="sorting-option__check">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  {% endif %}
-                </label>
+                {% assign opt_name_lc = option.name | downcase %}
+                {% assign opt_value_lc = option.value | downcase %}
+                {% unless opt_name_lc contains 'date' or opt_name_lc contains 'best' or opt_value_lc contains 'date' or opt_value_lc contains 'best' %}
+                  <label class="sorting-option{% if option.value == sort_by %} sorting-option--active{% endif %}">
+                    <input
+                      type="radio"
+                      name="sort_by"
+                      value="{{ option.value }}"
+                      {% if option.value == sort_by %}checked{% endif %}
+                      class="visually-hidden"
+                      on:change="facets-form-component/updateFilterAndSorting"
+                    >
+                    <span class="sorting-option__label">{{ option.name }}</span>
+                    {% if option.value == sort_by %}
+                      <span class="sorting-option__check">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    {% endif %}
+                  </label>
+                {% endunless %}
               {% endfor %}
             </div>
           </scroll-hint>

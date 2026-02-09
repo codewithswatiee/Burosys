@@ -503,7 +503,7 @@
             "card_title": "Specifications",
             "icon": "shopify://shop_images/Vector.png",
             "content_source": "richtext",
-            "content": "{{ product.metafields.custom.specifications | metafield_tag }}"
+            "content": "<ul><li><strong>Mixed-Texture Upholstery:</strong> Combines light grey woven fabric cushions with a dark charcoal outer wrap for a stylish, multi-dimensional look.</li><li><strong>Curved Metallic Frame: </strong>Features a continuous, gold-finished metal base that provides elegant structural support and a touch of warmth.</li><li><strong>Wrap-Around Backrest:</strong> Designed with a slim, protective outer shell that curves seamlessly into the armrests for a cozy, enclosed feel.</li><li><strong>Plush Bolster Back: </strong>Equipped with two oversized, rounded back cushions that offer soft lumbar support and a relaxed aesthetic.</li></ul>"
           }
         },
         "warranty_ipVg8B": {
@@ -525,7 +525,7 @@
             "card_title": "Care & Maintenance",
             "icon": "shopify://shop_images/SVGRepo_iconCarrier_1.png",
             "content_source": "richtext",
-            "content": "{{ product.metafields.custom.care_maintainance | metafield_tag }}"
+            "content": "{{ product.metafields.custom.care_maintainance | metafield_tag }}<ul><li><strong>Sunlight Exposure:</strong> Avoid placing your sofa in direct sunlight or near windows to prevent the fabric from fading and the material from becoming brittle.</li><li><strong>Regular Maintenance</strong>: Vacuum weekly using a soft brush nozzle to remove dust and grit, and gently wipe leather or frames with a soft, lightly damp cloth.</li><li><strong>Moisture Protection: </strong>Maintain a small gap between the sofa and walls to prevent moisture buildup, and promptly wipe away any dampness with a dry cloth.</li><li><strong>Structural Integrity:</strong> Avoid sitting on the armrests or jumping on the cushions to protect the internal frame and maintain the shape of the foam.</li></ul>"
           }
         }
       },
