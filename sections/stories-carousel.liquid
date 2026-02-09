@@ -15,37 +15,41 @@
     <div class="stories-carousel__wrapper">
       <div class="stories-carousel__track" id="stories-track-{{ section.id }}">
         {%- for block in section.blocks -%}
-          <div class="story-card" {{ block.shopify_attributes }}>
-            <div class="story-card__content">
-              {%- if block.settings.title != blank -%}
-                <h3 class="story-card__title">{{ block.settings.title }}</h3>
-              {%- endif -%}
+            <div class="story-card" {{ block.shopify_attributes }}>
+              <div class="story-card__content">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="story-card__title">{{ block.settings.title }}</h3>
+                {%- endif -%}
               
-              {%- if block.settings.description != blank -%}
-                <p class="story-card__description">{{ block.settings.description }}</p>
-              {%- endif -%}
-            </div>
+                {%- if block.settings.description != blank -%}
+                  <p class="story-card__description">{{ block.settings.description }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.button_text != blank and block.settings.button_link != blank -%}
+                  <a class="story-card__cta" href="{{ block.settings.button_link }}">{{ block.settings.button_text }}</a>
+                {%- endif -%}
+              </div>
             
-            <div class="story-card__image-wrapper">
-              {%- if block.settings.image != blank -%}
-                <img
-                  srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
-                          {{ block.settings.image | image_url: width: 600 }} 600w,
-                          {{ block.settings.image | image_url: width: 800 }} 800w"
-                  src="{{ block.settings.image | image_url: width: 600 }}"
-                  alt="{{ block.settings.image.alt | escape }}"
-                  loading="lazy"
-                  width="{{ block.settings.image.width }}"
-                  height="{{ block.settings.image.height }}"
-                  class="story-card__image"
-                >
-              {%- else -%}
-                <div class="story-card__placeholder">
-                  {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-                </div>
-              {%- endif -%}
+              <div class="story-card__image-wrapper">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                            {{ block.settings.image | image_url: width: 600 }} 600w,
+                            {{ block.settings.image | image_url: width: 800 }} 800w"
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    class="story-card__image"
+                  >
+                {%- else -%}
+                  <div class="story-card__placeholder">
+                    {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
             </div>
-          </div>
         {%- endfor -%}
       </div>
 
@@ -89,6 +93,20 @@
 
   .story-card__description {
     color: {{ section.settings.card_text_color }};
+  }
+
+  .story-card__cta {
+    display: inline-block;
+    margin-top: 8px;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
   }
 
   .pagination-dot {
@@ -138,12 +156,21 @@
 
       // Scroll snap fallback
       this.track.addEventListener('scroll', this.handleScroll.bind(this));
+
+      // Autoplay
+      this.autoplayTimer = null;
+      this.startAutoplay();
+
+      // Pause on hover / resume on leave
+      this.track.addEventListener('mouseenter', this.stopAutoplay.bind(this));
+      this.track.addEventListener('mouseleave', this.startAutoplay.bind(this));
     }
 
     touchStart(e) {
       this.isDragging = true;
       this.startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
       this.track.style.cursor = 'grabbing';
+      this.stopAutoplay();
     }
 
     touchMove(e) {
@@ -174,6 +201,22 @@
       }
       
       this.goToSlide(this.currentIndex);
+      this.startAutoplay();
+    }
+
+    startAutoplay() {
+      if (this.autoplayTimer || this.cards.length <= 1) return;
+      this.autoplayTimer = setInterval(() => {
+        if (document.hidden) return;
+        const next = (this.currentIndex + 1) % this.cards.length;
+        this.goToSlide(next);
+      }, 2000);
+    }
+
+    stopAutoplay() {
+      if (!this.autoplayTimer) return;
+      clearInterval(this.autoplayTimer);
+      this.autoplayTimer = null;
     }
 
     handleScroll() {
@@ -339,7 +382,18 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
-        }
+            },
+            {
+              "type": "text",
+              "id": "button_text",
+              "label": "Button text",
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": "Button link",
+            }
+        
       ]
     }
   ],

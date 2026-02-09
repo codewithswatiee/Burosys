@@ -350,7 +350,9 @@
           "settings": {
             "title": "IDAC 2025",
             "description": "It was a milestone for us, with our participation earning recognition and an award for our unique desking designs.",
-            "image": "shopify://shop_images/b7bdc8af-ae30-4331-8917-80ac4aa0d9b9.jpg"
+            "image": "shopify://shop_images/b7bdc8af-ae30-4331-8917-80ac4aa0d9b9.jpg",
+            "button_text": "Read More",
+            "button_link": "shopify://blogs/news"
           }
         },
         "story_4WYkHt": {
@@ -358,7 +360,9 @@
           "settings": {
             "title": "AD DESIGN SHOW 2025",
             "description": "Our presence at the AD Design Show highlighted the Deliberately Non-Corporate collection, with Prismatica as a key art piece and a soft partition Dooor from Italy, celebrating The Subtle Art of Separation.",
-            "image": "shopify://shop_images/IMG_5497.heic"
+            "image": "shopify://shop_images/IMG_5497.heic",
+            "button_text": "Explore More",
+            "button_link": "shopify://blogs/news"
           }
         },
         "story_axFgci": {
@@ -366,7 +370,9 @@
           "settings": {
             "title": "DESIGN MUMBAI 2025",
             "description": "Bringing creativity to life, Prismatica, the Italian soft partition Dooor, and other modern workspace solutions, including the world-class Upon Desk and phone pod, captivated visitors at Design Mumbai.",
-            "image": "shopify://shop_images/Copy_of_BAI15978.jpg"
+            "image": "shopify://shop_images/Copy_of_BAI15978.jpg",
+            "button_text": "",
+            "button_link": ""
           }
         }
       },
@@ -397,6 +403,13 @@
         "story_KNiEUe": {
           "type": "story",
           "settings": {
+            "blog_post": "news/nyc-office",
+            "use_blog_image": true,
+            "use_blog_title": true,
+            "use_blog_excerpt": true,
+            "use_blog_date": true,
+            "use_blog_link": true,
+            "use_blog_link_text": false,
             "image": "shopify://shop_images/Untitled_design_2_8091dd77-6c2f-4b4d-a0e6-be2fc2762578.jpg",
             "label": "GURGAON,DELHI",
             "title": "EMAAR",
@@ -408,6 +421,13 @@
         "story_qgh3jn": {
           "type": "story",
           "settings": {
+            "blog_post": "news/tira-beauty-bkc",
+            "use_blog_image": true,
+            "use_blog_title": true,
+            "use_blog_excerpt": true,
+            "use_blog_date": true,
+            "use_blog_link": true,
+            "use_blog_link_text": false,
             "image": "shopify://shop_images/Untitled_design_3.jpg",
             "label": "BKC, MUMBAI",
             "title": "TIRA BEAUTY",
@@ -419,6 +439,13 @@
         "story_GhFAjG": {
           "type": "story",
           "settings": {
+            "blog_post": "news/etonhearst-bkc",
+            "use_blog_image": true,
+            "use_blog_title": true,
+            "use_blog_excerpt": true,
+            "use_blog_date": true,
+            "use_blog_link": true,
+            "use_blog_link_text": false,
             "image": "shopify://shop_images/Untitled_design_4.jpg",
             "label": "BKC,MUMBAI",
             "title": "ETONHURST",
@@ -430,6 +457,13 @@
         "story_b9CYHx": {
           "type": "story",
           "settings": {
+            "blog_post": "news/muso-museum-of-solutions-jsw-foundation",
+            "use_blog_image": true,
+            "use_blog_title": true,
+            "use_blog_excerpt": true,
+            "use_blog_date": true,
+            "use_blog_link": true,
+            "use_blog_link_text": false,
             "image": "shopify://shop_images/Untitled_design_6.jpg",
             "label": "Worli, Mumbai",
             "title": "MuSo",
@@ -449,14 +483,14 @@
       "settings": {
         "heading": "PROJECTS",
         "subheading": "See the impact of our office furniture in real client environments.",
-        "section_background": "#f2eeee",
+        "section_background": "#e6e6e6",
         "heading_color": "#1f1f1f",
         "subheading_color": "#1f1f1f",
-        "label_color": "#999999",
+        "label_color": "#000000",
         "title_color": "#1f1f1f",
         "description_color": "#1f1f1f",
         "link_color": "#ff5733",
-        "link_hover_color": "#cccccc",
+        "link_hover_color": "#000000",
         "padding_top": 40,
         "padding_bottom": 32
       }
@@ -500,6 +534,66 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "image_cards_grid_z6EMhR": {
+      "type": "image-cards-grid",
+      "blocks": {
+        "card_ztxgf3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Theartisianedit_2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Prismatica",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/prismatica",
+            "button_style": "primary"
+          }
+        },
+        "card_3GbnBW": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/phonepod2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Soft Partition",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/door",
+            "button_style": "primary"
+          }
+        },
+        "card_7qMz4k": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
+            "label": "ELEVATED SPACES",
+            "title": "Gaming Tables",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/gaming-table",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "card_ztxgf3",
+        "card_3GbnBW",
+        "card_7qMz4k"
+      ],
+      "name": "Image Cards Grid",
+      "settings": {
+        "heading": "EXPLORE ELEVATED SPACES",
+        "subheading": "Explore chairs tailored to your interests",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "card_border_radius": 5,
+        "header_alignment": "center",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "section_rXAheV": {
@@ -691,6 +785,7 @@
       ],
       "name": "Image with side buttons",
       "settings": {
+        "hero_image": "shopify://shop_images/amigo_5.png",
         "image_alt": "Hero image"
       }
     }
@@ -703,6 +798,7 @@
     "stories_carousel_gxaEbk",
     "customer_stories_gadfDp",
     "17702067888e456cb9",
+    "image_cards_grid_z6EMhR",
     "section_rXAheV",
     "image_with_side_buttons_AXAkj8"
   ]

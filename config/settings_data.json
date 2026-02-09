@@ -196,7 +196,7 @@
           "storefront_layout_enabled": false,
           "storefront_layout_primary_bg_color": "#000000",
           "storefront_layout_primary_text_color": "#ffffff",
-          "storefront_layout_secondary_bg_color": "#F4F8FE",
+          "storefront_layout_secondary_bg_color": "#f4f8fe",
           "storefront_layout_secondary_text_color": "#333333",
           "storefront_layout_ui_border_radius": 6,
           "storefront_layout_notification_position": "left",
@@ -205,20 +205,24 @@
           "storefront_layout_as_section_page": ""
         }
       },
+      "13305437469741356523": {
+        "type": "shopify://apps/gsc-instagram-feed/blocks/embed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+        "disabled": false,
+        "settings": {}
+      },
       "10274264662263595587": {
         "type": "shopify://apps/wishlist-plus/blocks/wishlist-collections-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "swym_collections_icon_type": "bookmark",
           "swym_collections_icon_thickness": 1.7,
-          "swym_collections_add_icon": "shopify://shop_images/sleek_blk.jpg",
-          "swym_collections_position": "top-right",
-          "swym_collections_vertical_offset": 3,
-          "swym_collections_horizontal_offset": 756,
-          "swym_collections_button_size": 25,
-          "swym_collections_icon_color": "#000000",
-          "swym_collections_product_link_selector": ".custom-product-card-wrapper a",
-          "swym_collections_product_tile_selector": ".product-title",
+          "swym_collections_position": "bottom-right",
+          "swym_collections_vertical_offset": 4,
+          "swym_collections_horizontal_offset": 7,
+          "swym_collections_button_size": 10,
+          "swym_collections_icon_color": "#a90e00",
+          "swym_collections_product_link_selector": "-",
+          "swym_collections_product_tile_selector": "-",
           "enable_variant_selector": false,
           "swym_add_to_wishlist_title_color": "#333333",
           "swym_variant_selector_font_size_1": 14,

@@ -6,7 +6,7 @@
 
 /* Scrollable tabs container */
 .ct-tabs-row { position: relative; margin: 0 0 40px; }
-.ct-top-tabs { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0; gap: 24px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+.ct-top-tabs { display: flex; color: black; justify-content: center; list-style: none; padding: 0; margin: 0; gap: 24px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
 .ct-top-tabs::-webkit-scrollbar { display: none; }
 .ct-top-tab-btn { background: transparent; border: none; padding: 8px 12px; cursor: pointer; font-size: 16px; letter-spacing: 1px; transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0; }
 .ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-decoration: underline; text-underline-offset: 10px;}
@@ -61,7 +61,7 @@
   .ct-heading { font-size: 28px; letter-spacing: 1px; }
   .ct-subheading { font-size: 14px; margin: 14px 0 20px; }
   .ct-tabs-row { margin: 0 0 28px; }
-  .ct-top-tabs { gap: 12px; justify-content: flex-start; }
+  .ct-top-tabs { gap: 12px; justify-content: flex-start; color:#000;}
   .ct-top-tab-btn { font-size: 15px; padding: 6px 10px; }
   
   /* Switch to mobile carousel layout */
@@ -94,7 +94,7 @@
   .ct-subheading { font-size: 13px; margin: 12px 0 16px; padding: 0 8px; }
   .ct-tabs-row { margin: 0 0 20px; }
   .ct-top-tabs { gap: 8px; }
-  .ct-top-tab-btn { font-size: 14px; padding: 6px 8px; letter-spacing: 0.5px; }
+  .ct-top-tab-btn { font-size: 14px; color:black; padding: 6px 8px; letter-spacing: 0.5px; }
   .ct-top-tab-btn:hover, .ct-top-tab-btn:focus { text-underline-offset: 6px; }
   .ct-top-tab.active .ct-top-tab-btn { text-underline-offset: 6px; color: #000 !important;}
   

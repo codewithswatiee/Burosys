@@ -14,18 +14,58 @@
   {%- if section.blocks.size > 0 -%}
     <div class="customer-stories__grid">
       {%- for block in section.blocks -%}
+        {%- liquid
+          assign use_blog_post = false
+          assign story_image = block.settings.image
+          assign story_label = block.settings.label
+          assign story_title = block.settings.title
+          assign story_description = block.settings.description
+          assign story_link_text = block.settings.link_text
+          assign story_link_url = block.settings.link_url
+          
+          if block.settings.blog_post != blank
+            assign use_blog_post = true
+            assign selected_article = articles[block.settings.blog_post]
+            
+            if selected_article
+              if block.settings.use_blog_image and selected_article.image
+                assign story_image = selected_article.image
+              endif
+              
+              if block.settings.use_blog_title and selected_article.title != blank
+                assign story_title = selected_article.title
+              endif
+              
+              if block.settings.use_blog_excerpt and selected_article.excerpt != blank
+                assign story_description = selected_article.excerpt | strip_html | truncate: 150
+              endif
+              
+              if block.settings.use_blog_link
+                assign story_link_url = selected_article.url
+                if story_link_text == blank or block.settings.use_blog_link_text
+                  assign story_link_text = 'Read Article'
+                endif
+              endif
+              
+              if block.settings.use_blog_date and selected_article.published_at
+                assign story_label = selected_article.published_at | date: '%B %d, %Y'
+              endif
+            endif
+          endif
+        -%}
+        
         <div class="story-item" {{ block.shopify_attributes }}>
           <div class="story-item__image-wrapper">
-            {%- if block.settings.image != blank -%}
+            {%- if story_image != blank -%}
               <img
-                srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
-                        {{ block.settings.image | image_url: width: 600 }} 600w,
-                        {{ block.settings.image | image_url: width: 800 }} 800w"
-                src="{{ block.settings.image | image_url: width: 600 }}"
-                alt="{{ block.settings.image.alt | escape }}"
+                srcset="{{ story_image | image_url: width: 400 }} 400w,
+                        {{ story_image | image_url: width: 600 }} 600w,
+                        {{ story_image | image_url: width: 800 }} 800w"
+                src="{{ story_image | image_url: width: 600 }}"
+                alt="{{ story_image.alt | escape }}"
                 loading="lazy"
-                width="{{ block.settings.image.width }}"
-                height="{{ block.settings.image.height }}"
+                width="{{ story_image.width }}"
+                height="{{ story_image.height }}"
                 class="story-item__image"
               >
             {%- else -%}
@@ -36,24 +76,25 @@
           </div>
 
           <div class="story-item__content">
-            {%- if block.settings.label != blank -%}
-              <p class="story-item__label">{{ block.settings.label }}</p>
+            {%- if story_label != blank -%}
+              <p class="story-item__label">{{ story_label }}</p>
             {%- endif -%}
 
-            {%- if block.settings.title != blank -%}
-              <h3 class="story-item__title">{{ block.settings.title }}</h3>
+            {%- if story_title != blank -%}
+              <h3 class="story-item__title">{{ story_title }}</h3>
             {%- endif -%}
 
-            {%- if block.settings.description != blank -%}
-              <p class="story-item__description">{{ block.settings.description }}</p>
+            {%- if story_description != blank -%}
+              <p class="story-item__description">{{ story_description }}</p>
             {%- endif -%}
 
-            {%- if block.settings.link_text != blank -%}
+            {%- if story_link_text != blank -%}
               <a 
-                href="{{ block.settings.link_url | default: '#' }}" 
+                href="{{ story_link_url | default: '#' }}" 
                 class="story-item__link"
+                {%- if use_blog_post %} target="_self"{%- endif -%}
               >
-                {{ block.settings.link_text }}
+                {{ story_link_text }}
               </a>
             {%- endif -%}
           </div>
@@ -208,6 +249,66 @@
       "type": "story",
       "name": "Story Card",
       "settings": [
+        {
+          "type": "header",
+          "content": "Blog Post Integration"
+        },
+        {
+          "type": "article",
+          "id": "blog_post",
+          "label": "Select Blog Post",
+          "info": "Choose a blog post to auto-populate content. Manual fields below will be used as fallback."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_image",
+          "label": "Use blog post featured image",
+          "default": true,
+          "info": "When enabled, uses the blog post's featured image instead of manual image"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_title",
+          "label": "Use blog post title",
+          "default": true,
+          "info": "When enabled, uses the blog post's title instead of manual title"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_excerpt",
+          "label": "Use blog post excerpt",
+          "default": true,
+          "info": "When enabled, uses the blog post's excerpt instead of manual description"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_date",
+          "label": "Use blog post date as label",
+          "default": false,
+          "info": "When enabled, uses the blog post's publish date instead of manual label"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_link",
+          "label": "Link to blog post",
+          "default": true,
+          "info": "When enabled, button links to the selected blog post"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_blog_link_text",
+          "label": "Use default link text for blog posts",
+          "default": false,
+          "info": "When enabled, uses 'Read Article' as button text for blog posts"
+        },
+        {
+          "type": "header",
+          "content": "Manual Content (Fallback)"
+        },
+        {
+          "type": "paragraph",
+          "content": "The fields below will be used when no blog post is selected, or when the corresponding 'Use blog post...' option is disabled above."
+        },
         {
           "type": "image_picker",
           "id": "image",
