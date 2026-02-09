@@ -51,7 +51,7 @@
     endif
   endfor
   assign color_values = color_csv | split: '||'
-  assign material = product.metafields.custom.material | default: 'Fabric'
+  assign material = product.metafields.custom.material | default: ''
   
   # (variant option detection removed - not used)
 -%}
@@ -328,6 +328,8 @@
 </style>
 
 <div class="custom-product-card-wrapper" {{ block.shopify_attributes }}>
+
+  <a></a>
   <!-- Product Title -->
   <div class="product-title">
     {{ product.title }}
@@ -407,7 +409,7 @@
     </div>
     
     <!-- Material -->
-    <div class="product-info-item">
+    <div class="product-info-item" {% if material == blank %}style="display:none;"{% endif %}>
       <div class="product-info-label">Material</div>
       <div class="product-info-value">{{ material }}</div>
     </div>

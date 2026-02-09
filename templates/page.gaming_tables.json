@@ -263,7 +263,7 @@
             "title": "Prismatica",
             "title_style": "title-italic",
             "button_label": "DISCOVER MORE",
-            "button_link": "",
+            "button_link": "shopify://pages/prismatica",
             "button_style": "primary"
           }
         },
@@ -275,7 +275,7 @@
             "title": "Soft Partition",
             "title_style": "title-italic",
             "button_label": "DISCOVER MORE",
-            "button_link": "",
+            "button_link": "shopify://pages/door",
             "button_style": "primary"
           }
         },
@@ -287,7 +287,7 @@
             "title": "Gaming Tables",
             "title_style": "title-italic",
             "button_label": "DISCOVER MORE",
-            "button_link": "",
+            "button_link": "shopify://pages/gaming-table",
             "button_style": "primary"
           }
         }

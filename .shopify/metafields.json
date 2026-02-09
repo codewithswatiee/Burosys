@@ -26,7 +26,28 @@
   "company": [],
   "company_location": [],
   "location": [],
-  "market": [],
+  "market": [
+    {
+      "key": "adjustment_type",
+      "namespace": "mczr",
+      "name": "Adjustment Type",
+      "description": "Value used by Kickflip to include market price adjustment in the final price",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "adjustment_value",
+      "namespace": "mczr",
+      "name": "Adjustment Value",
+      "description": "Value used by Kickflip to include market price adjustment in the final price",
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    }
+  ],
   "order": [],
   "page": [
     {
@@ -420,6 +441,56 @@
         "name": "single_line_text_field",
         "category": "TEXT"
       }
+    },
+    {
+      "key": "bundle_name",
+      "namespace": "mczr",
+      "name": "Bundle Name",
+      "description": "Bundles are used by Kickflip while checking out, this name will appear in your checkout page.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "combination_ref",
+      "namespace": "mczr",
+      "name": "Kickflip Question Combination",
+      "description": "Reference to the Kickflip question combination used to generate the product",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "management_product_ref",
+      "namespace": "mczr",
+      "name": "Management Product Reference",
+      "description": "Unique identifier for the Kickflip management product",
+      "type": {
+        "name": "id",
+        "category": "ID"
+      }
+    },
+    {
+      "key": "product_ref",
+      "namespace": "mczr",
+      "name": "Kickflip Product Reference",
+      "description": "Reference to the Kickflip product",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "variant_products",
+      "namespace": "mczr",
+      "name": "Variant Products List",
+      "description": "List of products generated to manage the Kickflip variants association",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [
@@ -431,6 +502,16 @@
       "type": {
         "name": "color",
         "category": "COLOR"
+      }
+    },
+    {
+      "key": "variant_ref",
+      "namespace": "mczr",
+      "name": "Kickflip Variant Reference",
+      "description": "Reference to the Kickflip variant",
+      "type": {
+        "name": "id",
+        "category": "ID"
       }
     }
   ],

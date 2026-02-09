@@ -13,10 +13,10 @@
       "type": "collection-banner",
       "name": "Collection banner",
       "settings": {
-        "collection": "{{ collection }}",
-        "image": "{{ collection.metafields.custom.collection_banner.value }}",
-        "sub_heading": "{{ section.settings.collection.metafields.custom.tagline.value }}",
-        "description": "",
+        "collection": "seating",
+        "image": "shopify://shop_images/Lexington-24009_b887e018-fa61-4c0a-be0f-da285e85890b.jpg",
+        "sub_heading": "",
+        "description": "Our desking collection is designed to promote efficiency, organization, and seamless workflow in modern workspaces. Combining clean aesthetics with practical functionality, each desk supports productivity while adapting to evolving office needs.",
         "fallback_heading": "",
         "fallback_description": ""
       }

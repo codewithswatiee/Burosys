@@ -1,8 +1,8 @@
-<script src="{{ 'slideshow.js' | asset_url }}" type="module" fetchpriority="low"></script>
+<script src="{{ 'slideshow.js' | asset_url }}" type="module" fetchpriority="low" defer></script>
 
 {% liquid
   assign autoplay = section.settings.autoplay
-  assign autoplay_speed = section.settings.autoplay_speed
+  assign autoplay_speed = 2
 %}
 
 <div class="luxury-hero-carousel-wrapper">
@@ -19,9 +19,12 @@
           <slideshow-slide
             class="luxury-hero-slide"
             role="group"
-              aria-roledescription="slide"
-              aria-label="Slide {{ forloop.index }} of {{ section.blocks.size }}"
-            {% if forloop.index > 1 %}
+            aria-roledescription="slide"
+            aria-label="Slide {{ forloop.index }} of {{ section.blocks.size }}"
+            {% if forloop.index == 1 %}
+              id="luxury-hero-slide-{{ forloop.index }}"
+            {% else %}
+              id="luxury-hero-slide-{{ forloop.index }}"
               aria-hidden="true"
             {% endif %}
             {{ block.shopify_attributes }}
@@ -151,15 +154,27 @@
 </div>
  
 <script>
-  (function () {
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add a small delay to ensure all elements are rendered
+    setTimeout(function() {
+      initLuxuryHeroCarousel();
+    }, 100);
+  });
+
+  function initLuxuryHeroCarousel() {
     const wrapper = document.querySelector('.luxury-hero-carousel-wrapper');
-    if (!wrapper) return;
+    if (!wrapper) {
+      console.warn('Luxury hero carousel wrapper not found');
+      return;
+    }
 
     const carousel = wrapper.querySelector('.luxury-hero-carousel');
     const slides = Array.from(wrapper.querySelectorAll('.luxury-hero-slide'));
     const dots = Array.from(wrapper.querySelectorAll('.luxury-hero-pagination__dot'));
     const prevBtn = wrapper.querySelector('.luxury-hero-arrow--prev');
     const nextBtn = wrapper.querySelector('.luxury-hero-arrow--next');
+
+    console.log('Carousel initialized with', slides.length, 'slides');
 
     let current = slides.findIndex((s) => s.getAttribute('aria-hidden') !== 'true');
     if (current === -1) current = 0;
@@ -188,25 +203,56 @@
 
     // Autoplay
     const autoplayAttr = carousel ? carousel.getAttribute('data-autoplay') : null;
-    const autoplay = autoplayAttr === 'true' || autoplayAttr === true;
+    const autoplay = autoplayAttr === 'true' || autoplayAttr === 'true';
     const speedSec = parseInt(carousel ? carousel.getAttribute('data-autoplay-speed') : null) || 5;
     const speed = speedSec * 1000;
 
+    console.log('Autoplay enabled:', autoplay, 'Speed:', speed + 'ms', 'Slides count:', slides.length);
+
     let timer = null;
+    let isHovered = false;
+    
     function startAutoplay() {
-      if (!autoplay || slides.length <= 1) return;
+      if (!autoplay || slides.length <= 1 || isHovered) {
+        console.log('Autoplay not started:', { autoplay, slidesCount: slides.length, isHovered });
+        return;
+      }
       stopAutoplay();
-      timer = setInterval(() => show(current + 1), speed);
+      console.log('Starting autoplay with interval:', speed);
+      timer = setInterval(() => {
+        console.log('Auto-advancing to slide:', (current + 1) % slides.length);
+        show(current + 1);
+      }, speed);
     }
-    function stopAutoplay() { if (timer) { clearInterval(timer); timer = null; } }
+    
+    function stopAutoplay() { 
+      if (timer) { 
+        console.log('Stopping autoplay');
+        clearInterval(timer); 
+        timer = null; 
+      } 
+    }
 
-    wrapper.addEventListener('pointerenter', stopAutoplay);
-    wrapper.addEventListener('pointerleave', startAutoplay);
+    // Improved mouse event handling
+    wrapper.addEventListener('mouseenter', function() {
+      isHovered = true;
+      stopAutoplay();
+    });
+    
+    wrapper.addEventListener('mouseleave', function() {
+      isHovered = false;
+      // Add a small delay before restarting autoplay
+      setTimeout(startAutoplay, 500);
+    });
 
-    // init
+    // Initialize
     show(current);
-    startAutoplay();
-  })();
+    
+    // Start autoplay after a brief delay
+    if (autoplay && slides.length > 1) {
+      setTimeout(startAutoplay, 1000);
+    }
+  }
 </script>
 
 {% stylesheet %}
@@ -533,16 +579,6 @@
       "id": "autoplay",
       "label": "Auto-rotate slides",
       "default": true
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "label": "Change slides every",
-      "min": 3,
-      "max": 10,
-      "step": 1,
-      "unit": "sec",
-      "default": 5
     },
     {
       "type": "checkbox",

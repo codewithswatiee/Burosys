@@ -141,98 +141,640 @@
         "catalog_item_V3M6Pk": {
           "type": "catalog_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "image": "shopify://shop_images/R2_GREY04.jpg",
-            "download_url": "",
+            "title": "SEATING",
+            "image": "shopify://shop_images/Burosys_Seating_Aug_2025-3.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_Desking_2025_Aug.pdf?v=1770097813",
             "filters": "brochures"
           }
         },
         "catalog_item_WTVztB": {
           "type": "catalog_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
+            "title": "DESKING",
+            "image": "shopify://shop_images/BUROSYS_Desking_2025_Aug.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_Desking_2025_Aug.pdf?v=1770097813",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_eUemWt": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "NEWSPAPER EDIT",
+            "image": "shopify://shop_images/Burosys_Newspaper_Edit.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Burosys_Newspaper_Edit.pdf?v=1770097816",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_jTa874": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "PHONE POD",
+            "image": "shopify://shop_images/Burosys-Silence_Pod.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Burosys-Silence_Pod.pdf?v=1770097812",
             "filters": "brochures"
           }
         },
         "catalog_item_4yQmnt": {
           "type": "catalog_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
-            "filters": "finishes"
-          }
-        },
-        "catalog_item_jTa874": {
-          "type": "catalog_item",
-          "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
+            "title": "UPON HEIGHT ADJUSTABLE  DESK",
+            "image": "shopify://shop_images/UFOU_UPON_Catalogue.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Burosys_UPON_Catalogue.pdf?v=1770097813",
             "filters": "brochures"
           }
         },
         "catalog_item_fMhRBN": {
           "type": "catalog_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
-            "filters": "finishes"
+            "title": "ELEVATED SPACES - DOOOR, ITALY",
+            "image": "shopify://shop_images/Dooor_Catalog.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Burosys_Dooor_Catalog.pdf?v=1770097814",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_3eGqKJ": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "ELEVATED SPACES - PRISMATICA",
+            "image": "shopify://shop_images/Deliberately_Non-Corporate.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Burosys_Prismatica_Catalogue.pdf?v=1770111203",
+            "filters": "brochures"
           }
         },
         "catalog_item_6VaUT7": {
           "type": "catalog_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
+            "title": "SCHOOL FURNITURE",
+            "image": "shopify://shop_images/GALLERY_OF_DESKS_AND_CHAIRS_2024.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_School-compressed.pdf?v=1770097816",
             "filters": "brochures"
+          }
+        },
+        "catalog_item_LYAKhq": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "ELEVATED SPACES - IMPATIA",
+            "image": "shopify://shop_images/2025-_Impatia_Full-Catalogue.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/2025-_Impatia_Full-Catalogue.pdf.jpg?v=1770205283",
+            "filters": "brochures"
+          }
+        },
+        "catalog_item_9wKtcn": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "LUVIH LAMINATES",
+            "image": "shopify://shop_images/Luvih-E-Catalogue-2025.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_School-compressed.pdf?v=1770097816",
+            "filters": "finishes"
+          }
+        },
+        "catalog_item_Piftt6": {
+          "type": "catalog_item",
+          "settings": {
+            "title": "PRISM LAMINATES",
+            "image": "shopify://shop_images/Luvih-E-Catalogue-2025.pdf.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_School-compressed.pdf?v=1770097816",
+            "filters": "finishes"
           }
         },
         "file_item_GG47Vh": {
           "type": "file_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
+            "title": "Startek Sharing-4 PAX",
+            "image": "shopify://shop_images/Untitled_design_9_b336f919-4042-421b-87d8-557308c954ad.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Startek_4_User_WST.skp?v=1770206062",
             "filters": "startek"
           }
         },
         "file_item_HpNjFV": {
           "type": "file_item",
           "settings": {
-            "title": "Lorem ipsum",
-            "download_url": "",
-            "filters": "crossover"
+            "title": "Startek Sharing-6 PAX",
+            "image": "shopify://shop_images/3_d38dc8ea-6984-45aa-8d0c-c40e0966fafb.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Startek_6_User_WST.skp?v=1770268918",
+            "filters": "startek"
           }
         },
         "file_item_pa7fQH": {
           "type": "file_item",
           "settings": {
-            "title": "Lorem ipsum",
+            "title": "Startek Sharing- 8 PAX",
+            "image": "shopify://shop_images/4_0fe33593-09a2-44d3-bc16-d579c282a7bf.jpg",
             "download_url": "",
-            "filters": "loop"
+            "filters": "startek"
+          }
+        },
+        "file_item_rrdtfJ": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Sharing- 10 PAX",
+            "image": "shopify://shop_images/4_0fe33593-09a2-44d3-bc16-d579c282a7bf.jpg",
+            "download_url": "",
+            "filters": "Startek"
+          }
+        },
+        "file_item_aXV4kA": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Non-Sharing- 2 PAX",
+            "image": "shopify://shop_images/3.png",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Crossover_Non_Sharing_2_User-1.skp?v=1770443900",
+            "filters": "Startek"
+          }
+        },
+        "file_item_mCzpmF": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Non-Sharing- 3 PAX",
+            "image": "shopify://shop_images/4.png",
+            "download_url": "",
+            "filters": "Startek"
+          }
+        },
+        "file_item_NMaBkW": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Non-Sharing- 4 PAX",
+            "image": "shopify://shop_images/5.png",
+            "download_url": "",
+            "filters": "Startek"
+          }
+        },
+        "file_item_ieRWPm": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Sharing- 4 PAX",
+            "image": "shopify://shop_images/Untitled_design_13.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_fmPt7B": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Sharing- 6 PAX",
+            "image": "shopify://shop_images/3_b6bf3ba3-3c90-4123-b61f-86b994c035a6.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_pWNmDP": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Sharing- 8 PAX",
+            "image": "shopify://shop_images/4_0745ef20-268a-463d-8ed3-62774d437c77.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_CmdjBX": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Sharing- 10 PAX",
+            "image": "shopify://shop_images/Untitled_design_23.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_G4YT9j": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Non-Sharing- 2 PAX",
+            "image": "shopify://shop_images/4_45db1bb3-2661-4bc2-93ce-61887144f25e.png",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_GMdBM6": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Non-Sharing- 3 PAX",
+            "image": "shopify://shop_images/5_05ebde7f-817b-4d95-ad84-f1df07bfad81.png",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_i6WpxR": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Non-Sharing- 4 PAX",
+            "image": "shopify://shop_images/6.png",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_3De36z": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Cabin Desk-Free Standing",
+            "image": "shopify://shop_images/Untitled_design_15.jpg",
+            "download_url": "",
+            "filters": "Startek"
+          }
+        },
+        "file_item_RNykVf": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Cabin Desk + Side storage",
+            "image": "shopify://shop_images/Untitled_design_16.jpg",
+            "download_url": "",
+            "filters": "Startek"
+          }
+        },
+        "file_item_6ERTQc": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Cabin Desk- Free Standing",
+            "image": "shopify://shop_images/Untitled_design_17.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Crossover_Cabin_1500_x_600-_free_standing.skp?v=1770444071",
+            "filters": "crossover"
+          }
+        },
+        "file_item_dAbFHJ": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Cabin Desk+ Side Storage",
+            "image": "shopify://shop_images/Untitled_design_18.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_A3ycci": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Cabin Desk- Free Standing",
+            "image": "shopify://shop_images/Untitled_design_18.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_q66b7r": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Cabin Desk+ Side Storage",
+            "image": "shopify://shop_images/Untitled_design_20.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_pCfcqE": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Cabin Desk- Free Standing",
+            "image": "shopify://shop_images/Untitled_design_21.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_TxMjbB": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Cabin Desk+ Side Storage",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_9WYLbn": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Meeting Table- 4PAX",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Startek_Meeting_4_Pax.skp?v=1770441403",
+            "filters": "startek"
+          }
+        },
+        "file_item_TcLCPq": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Meeting Table- 6PAX",
+            "image": "shopify://shop_images/Untitled_design_27.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Startek_Meeting_6_pax.skp?v=1770441417",
+            "filters": "startek"
+          }
+        },
+        "file_item_jphd3m": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Meeting Table- 8PAX",
+            "image": "shopify://shop_images/Untitled_design_24.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Startek_Meeting_8_pax.skp?v=1770441436",
+            "filters": "startek"
+          }
+        },
+        "file_item_wJXXwB": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Meeting Table- 10PAX",
+            "image": "shopify://shop_images/Untitled_design_25.jpg",
+            "download_url": "",
+            "filters": "startek"
+          }
+        },
+        "file_item_AJjaVL": {
+          "type": "file_item",
+          "settings": {
+            "title": "Startek Meeting Table- 12PAX",
+            "image": "shopify://shop_images/Untitled_design_26.jpg",
+            "download_url": "",
+            "filters": "startek"
+          }
+        },
+        "file_item_4b6GP6": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Meeting Table- 4PAX",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_LkPDEx": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Meeting Table- 6PAX",
+            "image": "shopify://shop_images/Untitled_design_28.jpg",
+            "download_url": "",
+            "filters": "crossover"
+          }
+        },
+        "file_item_nnRLw4": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Meeting Table- 8PAX",
+            "image": "shopify://shop_images/Untitled_design_29.jpg",
+            "download_url": "",
+            "filters": "Crossover"
+          }
+        },
+        "file_item_nGQ7hA": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Meeting Table- 10PAX",
+            "image": "shopify://shop_images/Untitled_design_31.jpg",
+            "download_url": "",
+            "filters": "Crossover"
+          }
+        },
+        "file_item_g9pCBY": {
+          "type": "file_item",
+          "settings": {
+            "title": "Crossover Meeting Table- 12PAX",
+            "image": "shopify://shop_images/Untitled_design_32.jpg",
+            "download_url": "",
+            "filters": "Crossover"
+          }
+        },
+        "file_item_9pczGQ": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Meeting Table- 4PAX",
+            "image": "shopify://shop_images/Untitled_design_33.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_dpkrFP": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Meeting Table- 6PAX",
+            "image": "shopify://shop_images/Untitled_design_34.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_yhMytG": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Meeting Table- 8PAX",
+            "image": "shopify://shop_images/Untitled_design_35.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_fqj9zH": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Meeting Table- 10PAX",
+            "image": "shopify://shop_images/Untitled_design_36.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_6pzHFF": {
+          "type": "file_item",
+          "settings": {
+            "title": "Loop Meeting Table- 12PAX",
+            "image": "shopify://shop_images/Untitled_design_37.jpg",
+            "download_url": "",
+            "filters": "Loop"
+          }
+        },
+        "file_item_QdkKzi": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Meeting Table- 4PAX",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_NQkjaD": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Meeting Table- 6PAX",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_qDReUy": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Meeting Table- 8PAX",
+            "image": "shopify://shop_images/Untitled_design_22.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_3GyeKe": {
+          "type": "file_item",
+          "settings": {
+            "title": "Lexington Meeting Table- 10PAX",
+            "image": "shopify://shop_images/Untitled_design_38.jpg",
+            "download_url": "",
+            "filters": "Lexington"
+          }
+        },
+        "file_item_MaYgMB": {
+          "type": "file_item",
+          "settings": {
+            "title": "Side Credenza- Small",
+            "image": "shopify://shop_images/Untitled_design_41.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_FM3FKK": {
+          "type": "file_item",
+          "settings": {
+            "title": "Side Credenza- Medium",
+            "image": "shopify://shop_images/Untitled_design_43.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_pHhfwq": {
+          "type": "file_item",
+          "settings": {
+            "title": "Side Credenza- Large",
+            "image": "shopify://shop_images/Untitled_design_44.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_m9FyKi": {
+          "type": "file_item",
+          "settings": {
+            "title": "Drawer Pedestal",
+            "image": "shopify://shop_images/Untitled_design_45.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_GbwAgd": {
+          "type": "file_item",
+          "settings": {
+            "title": "Wooden Filing Unit- Small",
+            "image": "shopify://shop_images/Untitled_design_46.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_NQYbJm": {
+          "type": "file_item",
+          "settings": {
+            "title": "Wooden Filing Unit- Medium",
+            "image": "shopify://shop_images/6_bf73bdf9-d291-4633-ab24-59bc8fd29218.jpg",
+            "download_url": "",
+            "filters": "Storage"
+          }
+        },
+        "file_item_FKNXxm": {
+          "type": "file_item",
+          "settings": {
+            "title": "Wooden Filing Unit- Large",
+            "image": "shopify://shop_images/7.jpg",
+            "download_url": "",
+            "filters": "Storage"
           }
         },
         "idea_item_rkKVjL": {
           "type": "idea_item",
           "settings": {
-            "title": "Lorem ipsum",
+            "title": "ASOS PROCESS ENGINEERING OFFICES – ISTANBUL",
+            "image": "shopify://shop_images/asos-process-engineering-offices-istanbul-2-1200x797.jpg",
             "download_url": "",
-            "filters": "open-spaces"
+            "filters": "open spaces"
           }
         },
         "idea_item_GHQJna": {
           "type": "idea_item",
           "settings": {
-            "title": "Lorem ipsum",
+            "title": "MICHELIN OFFICES - WARSAW",
+            "image": "shopify://shop_images/michelin-offices-warsaw-2-1200x800-compact.jpg",
             "download_url": "",
-            "filters": "closed-spaces"
+            "filters": "open spaces"
           }
         },
         "idea_item_q9QYtG": {
           "type": "idea_item",
           "settings": {
-            "title": "Lorem ipsum",
+            "title": "AQUATIC CAPITAL OFFICES – CHICAGO",
+            "image": "shopify://shop_images/aquatic-capital-offices-chicago-8-700x489-compact.jpg",
             "download_url": "",
-            "filters": "collab-spaces"
+            "filters": "open spaces"
+          }
+        },
+        "idea_item_dw4JRd": {
+          "type": "idea_item",
+          "settings": {
+            "title": "PROCTER & GAMBLE OFFICES – MANILA",
+            "image": "shopify://shop_images/procter-gamble-offices-manila-13-1200x800.jpg",
+            "download_url": "",
+            "filters": "collab spaces"
+          }
+        },
+        "idea_item_WMczNH": {
+          "type": "idea_item",
+          "settings": {
+            "title": "COLLIERS OFFICES - WARSAW",
+            "image": "shopify://shop_images/colliers-offices-warsaw-1200x800.jpg",
+            "download_url": "",
+            "filters": "collab spaces"
+          }
+        },
+        "idea_item_g3htRn": {
+          "type": "idea_item",
+          "settings": {
+            "title": "ARVEST AT LEDGER OFFICES - BENTONVILLE",
+            "image": "shopify://shop_images/arvest-at-ledger-offices-new-york-city-13-1200x900-compact.jpg",
+            "download_url": "",
+            "filters": "collab spaces"
+          }
+        },
+        "idea_item_GHFV8t": {
+          "type": "idea_item",
+          "settings": {
+            "title": "AB PRIME REALTY OFFICES - DUBAI",
+            "image": "shopify://shop_images/ab-prime-realty-offices-dubai-4-1200x680-compact.jpg",
+            "download_url": "",
+            "filters": "closed spaces"
+          }
+        },
+        "idea_item_LhAAjH": {
+          "type": "idea_item",
+          "settings": {
+            "title": "BNP PARIBAS CARDIF OFFICES - SAO PAULO",
+            "image": "shopify://shop_images/bnp-paribas-cardif-offices-sao-paulo-2-1200x800-compact.jpg",
+            "download_url": "",
+            "filters": "closed spaces"
+          }
+        },
+        "idea_item_YnnjeC": {
+          "type": "idea_item",
+          "settings": {
+            "title": "KNS SECURITIES OFFICES- AHEMDABAD",
+            "image": "shopify://shop_images/kns-securities-offices-ahmedabad-11-1200x800-compact.jpg",
+            "download_url": "",
+            "filters": "closed spaces"
+          }
+        },
+        "idea_item_MXBken": {
+          "type": "idea_item",
+          "settings": {
+            "title": "ESTETYCZNA GRUPA OFFICES- WARSAW",
+            "image": "shopify://shop_images/estetyczna-grupa-offices-warsaw-2-1200x801-compact.jpg",
+            "download_url": "",
+            "filters": "closed spaces"
+          }
+        },
+        "idea_item_7z76hT": {
+          "type": "idea_item",
+          "settings": {
+            "title": "GYAN DAIRY OFFICES- LUCKNOW",
+            "image": "shopify://shop_images/gyan-dairy-offices-lucknow-1-700x467-compact.jpg",
+            "download_url": "",
+            "filters": "open spaces"
+          }
+        },
+        "idea_item_nCF8ja": {
+          "type": "idea_item",
+          "settings": {
+            "title": "IPG OFFICES - CHICAGO",
+            "image": "shopify://shop_images/ipg-offices-chicago-4-1200x900-compact.jpg",
+            "download_url": "",
+            "filters": "collab spaces"
           }
         }
       },
@@ -250,16 +792,75 @@
         "idea_filter_i9mUig",
         "catalog_item_V3M6Pk",
         "catalog_item_WTVztB",
-        "catalog_item_4yQmnt",
+        "catalog_item_eUemWt",
         "catalog_item_jTa874",
+        "catalog_item_4yQmnt",
         "catalog_item_fMhRBN",
+        "catalog_item_3eGqKJ",
         "catalog_item_6VaUT7",
+        "catalog_item_LYAKhq",
+        "catalog_item_9wKtcn",
+        "catalog_item_Piftt6",
         "file_item_GG47Vh",
         "file_item_HpNjFV",
         "file_item_pa7fQH",
+        "file_item_rrdtfJ",
+        "file_item_aXV4kA",
+        "file_item_mCzpmF",
+        "file_item_NMaBkW",
+        "file_item_ieRWPm",
+        "file_item_fmPt7B",
+        "file_item_pWNmDP",
+        "file_item_CmdjBX",
+        "file_item_G4YT9j",
+        "file_item_GMdBM6",
+        "file_item_i6WpxR",
+        "file_item_3De36z",
+        "file_item_RNykVf",
+        "file_item_6ERTQc",
+        "file_item_dAbFHJ",
+        "file_item_A3ycci",
+        "file_item_q66b7r",
+        "file_item_pCfcqE",
+        "file_item_TxMjbB",
+        "file_item_9WYLbn",
+        "file_item_TcLCPq",
+        "file_item_jphd3m",
+        "file_item_wJXXwB",
+        "file_item_AJjaVL",
+        "file_item_4b6GP6",
+        "file_item_LkPDEx",
+        "file_item_nnRLw4",
+        "file_item_nGQ7hA",
+        "file_item_g9pCBY",
+        "file_item_9pczGQ",
+        "file_item_dpkrFP",
+        "file_item_yhMytG",
+        "file_item_fqj9zH",
+        "file_item_6pzHFF",
+        "file_item_QdkKzi",
+        "file_item_NQkjaD",
+        "file_item_qDReUy",
+        "file_item_3GyeKe",
+        "file_item_MaYgMB",
+        "file_item_FM3FKK",
+        "file_item_pHhfwq",
+        "file_item_m9FyKi",
+        "file_item_GbwAgd",
+        "file_item_NQYbJm",
+        "file_item_FKNXxm",
         "idea_item_rkKVjL",
         "idea_item_GHQJna",
-        "idea_item_q9QYtG"
+        "idea_item_q9QYtG",
+        "idea_item_dw4JRd",
+        "idea_item_WMczNH",
+        "idea_item_g3htRn",
+        "idea_item_GHFV8t",
+        "idea_item_LhAAjH",
+        "idea_item_YnnjeC",
+        "idea_item_MXBken",
+        "idea_item_7z76hT",
+        "idea_item_nCF8ja"
       ],
       "name": "Resources Library",
       "settings": {
