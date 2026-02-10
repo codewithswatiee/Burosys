@@ -78,7 +78,6 @@
       "name": "Hero Carousel",
       "settings": {
         "autoplay": true,
-        "autoplay_speed": 3,
         "show_arrows": false
       }
     },

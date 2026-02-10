@@ -157,13 +157,30 @@
       // Scroll snap fallback
       this.track.addEventListener('scroll', this.handleScroll.bind(this));
 
-      // Autoplay
+      // Autoplay (only while this section is visible in the viewport)
       this.autoplayTimer = null;
-      this.startAutoplay();
+      this.sectionElement = this.track.closest('.stories-carousel-section');
 
-      // Pause on hover / resume on leave
+      // IntersectionObserver to run autoplay only when the section is in view
+      if (this.sectionElement && 'IntersectionObserver' in window) {
+        this.visibilityObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+              this.startAutoplay();
+            } else {
+              this.stopAutoplay();
+            }
+          });
+        }, { threshold: [0, 0.5, 1] });
+        this.visibilityObserver.observe(this.sectionElement);
+      } else {
+        // Fallback: start autoplay immediately
+        this.startAutoplay();
+      }
+
+      // Pause on hover / resume on leave (still respects visibility observer)
       this.track.addEventListener('mouseenter', this.stopAutoplay.bind(this));
-      this.track.addEventListener('mouseleave', this.startAutoplay.bind(this));
+      this.track.addEventListener('mouseleave', () => { if (!this.sectionElement || this.isSectionVisible()) this.startAutoplay(); });
     }
 
     touchStart(e) {
@@ -217,6 +234,16 @@
       if (!this.autoplayTimer) return;
       clearInterval(this.autoplayTimer);
       this.autoplayTimer = null;
+    }
+
+    isSectionVisible() {
+      if (!this.sectionElement) return true;
+      var rect = this.sectionElement.getBoundingClientRect();
+      var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      var visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+      if (rect.height <= 0) return false;
+      var ratio = visibleHeight > 0 ? (visibleHeight / rect.height) : 0;
+      return ratio > 0.5;
     }
 
     handleScroll() {

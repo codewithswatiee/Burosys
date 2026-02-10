@@ -216,21 +216,30 @@
         "text_iiiJUX": {
           "type": "text",
           "settings": {
-            "text": "NO TWO WORKSPACES ARE THE SAME",
+            "text": "Transforming offices,                                    one workspace at a time.",
             "text_style": "text-normal"
           }
         },
         "image_rFr4pd": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/allure_1.png"
           }
         },
         "text_BewCge": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "WITH BUROSYS",
             "text_style": "text-normal"
+          }
+        },
+        "image_cVG9wK": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/2313-_1.png"
           }
         },
         "text_XpRgKi": {
@@ -240,14 +249,9 @@
             "text_style": "text-normal"
           }
         },
-        "image_cVG9wK": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/2313-_1.png"
-          }
-        },
         "line_break_CaR6gi": {
           "type": "line_break",
+          "disabled": true,
           "settings": {}
         },
         "image_c4Cdam": {
@@ -270,8 +274,8 @@
         "text_iiiJUX",
         "image_rFr4pd",
         "text_BewCge",
-        "text_XpRgKi",
         "image_cVG9wK",
+        "text_XpRgKi",
         "line_break_CaR6gi",
         "image_c4Cdam",
         "text_Kw44gr"
