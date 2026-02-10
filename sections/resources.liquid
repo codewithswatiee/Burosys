@@ -5,7 +5,11 @@
 
 <link href="{{ 'section-resources.css' | asset_url }}" rel="stylesheet" />
 
-<section class="resources-section" id="section-{{ section.id }}">
+<section class="resources-section" id="section-{{ section.id }}" 
+         data-customer-logged-in="{% if customer %}true{% else %}false{% endif %}"
+         data-login-url="{{ routes.account_login_url }}"
+         data-return-url="{{ request.path }}"
+         data-full-return-url="{{ request.origin }}{{ request.path }}">
   <div class="resources-container">
     <!-- Left Sidebar Filters -->
     <aside class="resources-filters" data-active-tab="catalogs">

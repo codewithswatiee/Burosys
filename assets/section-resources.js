@@ -1,6 +1,6 @@
 /**
  * Resources Section JavaScript
- * Handles filtering, tab switching, search, and mobile interactions
+ * Handles filtering, tab switching, search, mobile interactions, and login checks
  */
 
 (function() {
@@ -8,6 +8,12 @@
 
   const section = document.querySelector('.resources-section');
   if (!section) return;
+
+  // Login Status - Check if customer is logged in
+  const isCustomerLoggedIn = section.dataset.customerLoggedIn === 'true';
+  const loginUrl = section.dataset.loginUrl || '/account/login';
+  const returnUrl = section.dataset.returnUrl || window.location.pathname;
+  const fullReturnUrl = section.dataset.fullReturnUrl || window.location.href;
 
   // DOM Elements
   const filters = section.querySelector('.resources-filters');
@@ -39,9 +45,60 @@
     setupSearch();
     setupFilterGroupToggle();
     setupMobileFilter();
+    setupLoginCheck();
     // Initialize filter visibility for default tab (catalogs)
     updateFilterVisibility(currentTab);
     applyFilters();
+  }
+
+  /**
+   * Setup login check for resource downloads
+   * Intercepts clicks on resource links and requires login before downloading
+   */
+  function setupLoginCheck() {
+    const resourceLinks = section.querySelectorAll('.resource-card-link');
+    
+    resourceLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (!isCustomerLoggedIn) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Store the intended download URL for after login
+          const downloadUrl = link.getAttribute('href');
+          if (downloadUrl) {
+            sessionStorage.setItem('pendingResourceDownload', downloadUrl);
+          }
+          
+          // Store the resources page URL to redirect back after login
+          sessionStorage.setItem('resourcesPageReturnUrl', fullReturnUrl);
+          
+          // Redirect to login page with return URL
+          const redirectUrl = `${loginUrl}?return_url=${encodeURIComponent(returnUrl)}`;
+          window.location.href = redirectUrl;
+        }
+        // If logged in, allow normal link behavior (opens in new tab)
+      });
+    });
+    
+    // Check if there's a pending download after login
+    checkPendingDownload();
+  }
+  
+  /**
+   * Check and handle pending resource download after login
+   */
+  function checkPendingDownload() {
+    if (isCustomerLoggedIn) {
+      const pendingDownload = sessionStorage.getItem('pendingResourceDownload');
+      if (pendingDownload) {
+        sessionStorage.removeItem('pendingResourceDownload');
+        // Open the download in a new tab after a brief delay
+        setTimeout(() => {
+          window.open(pendingDownload, '_blank', 'noopener');
+        }, 500);
+      }
+    }
   }
 
   /**

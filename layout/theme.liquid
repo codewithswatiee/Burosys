@@ -153,5 +153,18 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    {%- comment -%} Handle redirect to resources page after login {%- endcomment -%}
+    {% if customer %}
+    <script>
+      (function() {
+        const storedReturnUrl = sessionStorage.getItem('resourcesPageReturnUrl');
+        if (storedReturnUrl && window.location.href !== storedReturnUrl) {
+          sessionStorage.removeItem('resourcesPageReturnUrl');
+          window.location.href = storedReturnUrl;
+        }
+      })();
+    </script>
+    {% endif %}
   </body>
 </html>
