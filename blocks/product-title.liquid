@@ -1,5 +1,17 @@
 
+<style>
+  .product__title .text-block p{
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
 
+  @media screen and (max-width: 750px) {
+    .product__title .text-block p{
+      font-size: 14px;
+    }
+  }
+</style>
 {% if closest.product == blank %}
   {% assign text = 'placeholders.product_title' | t %}
   {% assign product_title = '<p>' | append: text | append: '</p>' %}
@@ -7,7 +19,7 @@
 {% else %}
   {% assign product_title = '<p>' | append: closest.product.title | append: '</p>' %}
   <a
-    class="contents user-select-text"
+    class="contents user-select-text product__title"
     ref="productTitleLink"
     href="{{ closest.product.selected_or_first_available_variant.url }}"
   >

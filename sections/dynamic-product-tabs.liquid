@@ -210,6 +210,7 @@
       flex: 1;
       display: flex;
       align-items: end;
+      justify-content: end;
     }
 
     /* =================================
@@ -316,17 +317,26 @@
     .dynamic-product-card--warranty .dynamic-product-card__bottom-row {
       display: flex;
       gap: 40px;
-      align-items: flex-end;
+      align-items: flex-start;
       flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .dynamic-product-card--warranty .dynamic-product-card__content{
+      margin-left: 0;
+      flex: 1 1 60%;
+      min-width: 240px;
     }
 
     .dynamic-product-card--warranty .dynamic-product-card__content--columns ul{
-        display: flex;
-        gap: 40px;
-        list-style: none;
-        margin-left: auto;
-        width: 85%;
-        align-items: end;
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      width: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
     }
 
     .dynamic-product-card--warranty .dynamic-product-card__note {
@@ -340,10 +350,6 @@
 
     .dynamic-product-card--warranty .dynamic-product-card__note p {
       margin: 0;
-    }
-
-    .dynamic-product-card--warranty .dynamic-product-card__content {
-      flex: 1;
     }
 
     .dynamic-product-card__content--columns ul {
@@ -360,7 +366,6 @@
       flex: 1;
       position: relative;
       min-width: 160px;
-      padding-right: 20px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -469,7 +474,7 @@
       }
 
       .dynamic-product-card__content--columns li strong {
-        font-size: 16px !important;
+        font-size: 14px !important;
       }
 
       .dynamic-product-card__content--columns li span,
@@ -507,13 +512,13 @@
       }
 
       .dynamic-product-card__content--grid li{
-        font-size: 12px !important;
+        font-size: 9px !important;
         padding-right: 0;
       }
       
       .dynamic-product-card__content--grid li strong,
         .dynamic-product-card__content--grid > * > * strong {
-        font-size: 14px !important;
+        font-size: 11px !important;
     }
 
         .dynamic-product-card__content--grid li:not(:first-child):before{
@@ -521,6 +526,10 @@
         }
       .dynamic-product-card--specifications .dynamic-product-card__title{
         font-size: 26px !important;
+      }
+
+      .dynamic-product-card--warranty .dynamic-product-card__content{
+        flex: 1;
       }
 
       .dynamic-product-card--warranty .dynamic-product-card__content--columns ul{
@@ -549,7 +558,7 @@
       }
 
       .dynamic-product-card__content--columns li strong{
-        font-size: 14px !important;
+        font-size: 11px !important;
       }
 
       .dynamic-product-card__title{
@@ -574,7 +583,7 @@
 
       .dynamic-product-card__content--columns li {
         padding-right: 0;
-        font-size: 12px !important;
+        font-size: 9px !important;
       }
 
       .dynamic-product-card--care .dynamic-product-card__title{

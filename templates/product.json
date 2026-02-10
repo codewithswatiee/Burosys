@@ -410,18 +410,18 @@
                 "swym_atw_button_vertical_offset": 0,
                 "swym_atw_full_width": true,
                 "swym_atw_button_alignment": "center",
-                "swym_add_to_wishlist_color": "#ffffff",
-                "swym_added_to_wishlist_color": "#ffffff",
-                "swym_button_text_color": "#000000",
-                "swym_atw_border_color": "#000",
+                "swym_add_to_wishlist_color": "#000000",
+                "swym_added_to_wishlist_color": "#000000",
+                "swym_button_text_color": "#ffffff",
+                "swym_atw_border_color": "#000000",
                 "swym_atw_border_thickness": 1,
                 "swym_atw_button_border_radius": 0,
                 "swym_enable_hover_customization": true,
-                "swym_hover_add_to_wishlist_color": "#000000",
-                "swym_hover_added_to_wishlist_color": "#222222",
-                "swym_hover_button_text_color": "#fff",
-                "swym_hover_atw_border_color": "#000",
-                "swym_hover_atw_border_thickness": 0,
+                "swym_hover_add_to_wishlist_color": "#ffffff",
+                "swym_hover_added_to_wishlist_color": "#ffffff",
+                "swym_hover_button_text_color": "#000000",
+                "swym_hover_atw_border_color": "#000000",
+                "swym_hover_atw_border_thickness": 1,
                 "swym_hover_atw_button_border_radius": 0,
                 "swym_custom_css": ""
               }
@@ -450,7 +450,7 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button"
+                    "style_class": "button-secondary"
                   },
                   "blocks": {}
                 },
@@ -515,7 +515,7 @@
             "icon": "shopify://shop_images/SVGRepo_iconCarrier.png",
             "note": "<p>{{ product.metafields.custom.warranty_note | metafield_tag }}</p>",
             "content_source": "richtext",
-            "content": "<p>{{ product.metafields.custom.warranty | metafield_tag }}</p>"
+            "content": "{{ product.metafields.custom.warranty | metafield_tag }}"
           }
         },
         "care_87HTmp": {
@@ -525,7 +525,7 @@
             "card_title": "Care & Maintenance",
             "icon": "shopify://shop_images/SVGRepo_iconCarrier_1.png",
             "content_source": "richtext",
-            "content": "{{ product.metafields.custom.care_maintainance | metafield_tag }}<ul><li><strong>Sunlight Exposure:</strong> Avoid placing your sofa in direct sunlight or near windows to prevent the fabric from fading and the material from becoming brittle.</li><li><strong>Regular Maintenance</strong>: Vacuum weekly using a soft brush nozzle to remove dust and grit, and gently wipe leather or frames with a soft, lightly damp cloth.</li><li><strong>Moisture Protection: </strong>Maintain a small gap between the sofa and walls to prevent moisture buildup, and promptly wipe away any dampness with a dry cloth.</li><li><strong>Structural Integrity:</strong> Avoid sitting on the armrests or jumping on the cushions to protect the internal frame and maintain the shape of the foam.</li></ul>"
+            "content": "{{ product.metafields.custom.care_maintainance | metafield_tag }}"
           }
         }
       },
@@ -605,32 +605,16 @@
             "product_card_gap": 2,
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "border": "none",
+            "border": "solid",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
+            "border_radius": 22,
+            "padding-block-start": 2,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "card-gallery": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "portrait",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "group": {
               "type": "_product-card-group",
               "settings": {
@@ -639,7 +623,7 @@
                 "horizontal_alignment": "space-between",
                 "vertical_alignment": "flex-start",
                 "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
+                "horizontal_alignment_flex_direction_column": "center",
                 "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 4,
                 "width": "fill",
@@ -678,7 +662,7 @@
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "horizontal_alignment_flex_direction_column": "center",
                     "vertical_alignment_flex_direction_column": "flex-start",
                     "gap": 4,
                     "width": "fill",
@@ -713,7 +697,7 @@
                       "name": "t:names.product_title",
                       "settings": {
                         "width": "fit-content",
-                        "max_width": "normal",
+                        "max_width": "none",
                         "alignment": "left",
                         "type_preset": "h5",
                         "font": "var(--font-body--family)",
@@ -740,7 +724,7 @@
                         "show_installments": false,
                         "show_tax_info": false,
                         "type_preset": "h6",
-                        "width": "100%",
+                        "width": "fit-content",
                         "alignment": "left",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
@@ -748,8 +732,8 @@
                         "letter_spacing": "normal",
                         "case": "none",
                         "color": "var(--color-foreground)",
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
+                        "padding-block-start": 6,
+                        "padding-block-end": 12,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
                       },
@@ -760,30 +744,39 @@
                     "product_title_d368TL",
                     "price_jKmnBC"
                   ]
-                },
-                "swatches": {
-                  "type": "swatches",
-                  "settings": {
-                    "product_swatches_alignment": "flex-start",
-                    "product_swatches_alignment_mobile": "flex-start",
-                    "hide_padding": false,
-                    "product_swatches_padding_top": 4,
-                    "product_swatches_padding_bottom": 10,
-                    "product_swatches_padding_left": 0,
-                    "product_swatches_padding_right": 0
-                  },
-                  "blocks": {}
                 }
               },
               "block_order": [
-                "group_jUd9Ly",
-                "swatches"
+                "group_jUd9Ly"
               ]
+            },
+            "card-gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_card_meta_p7VGEh": {
+              "type": "product-card-meta",
+              "name": "Product card meta",
+              "settings": {},
+              "blocks": {}
             }
           },
           "block_order": [
+            "group",
             "card-gallery",
-            "group"
+            "product_card_meta_p7VGEh"
           ]
         }
       },

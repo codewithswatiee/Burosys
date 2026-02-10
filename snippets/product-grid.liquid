@@ -21,7 +21,6 @@
     {% when 'grid' %}
       .product-grid--{{ section.id }}.product-grid--grid {
         --product-grid-columns-desktop: repeat(2, 1fr) !important;
-        margin: 0 8px;
       }
   {% endcase %}
 }
@@ -30,8 +29,7 @@
   {% case section.settings.layout_type %}
     {% when 'grid' %}
       .product-grid--{{ section.id }}.product-grid--grid {
-        --product-grid-columns-desktop: repeat(2, 1fr) !important;
-        margin: 0 12px;
+        --product-grid-columns-desktop: repeat(3, 1fr) !important;
       }
   {% endcase %}
 }
@@ -40,7 +38,6 @@
       {% when 'grid' %}
         .product-grid--{{ section.id }}:is(.product-grid--grid) {
           --product-grid-columns-desktop: repeat(4, 1fr);
-            margin: 0 16px;
         }
 
 

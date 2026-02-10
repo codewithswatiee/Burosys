@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "cart-section": {
       "type": "main-cart",
@@ -104,7 +105,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>You may also like...</h3>",
+                "text": "<h4>You may also like...</h4>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -154,43 +155,26 @@
             "product_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "border": "none",
+            "border": "solid",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
+            "border_radius": 22,
+            "padding-block-start": 10,
+            "padding-block-end": 12,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_LxikbU": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "portrait",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "group_YDRaEw": {
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
+                "horizontal_alignment_flex_direction_column": "center",
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 4,
                 "width": "fill",
@@ -212,6 +196,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -224,7 +210,7 @@
                   "settings": {
                     "width": "100%",
                     "max_width": "normal",
-                    "alignment": "left",
+                    "alignment": "center",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -252,45 +238,46 @@
                     "show_tax_info": false,
                     "type_preset": "",
                     "width": "100%",
-                    "alignment": "left",
+                    "alignment": "center",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
                     "color": "var(--color-foreground)",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
+                    "padding-block-start": 6,
+                    "padding-block-end": 12,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "swatches_TfAq6M": {
-                  "type": "swatches",
-                  "name": "t:names.swatches",
-                  "settings": {
-                    "product_swatches_alignment": "flex-start",
-                    "product_swatches_alignment_mobile": "flex-start",
-                    "hide_padding": false,
-                    "product_swatches_padding_top": 4,
-                    "product_swatches_padding_bottom": 0,
-                    "product_swatches_padding_left": 0,
-                    "product_swatches_padding_right": 0
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
                 "product_title_Ygnnee",
-                "price_tpntT4",
-                "swatches_TfAq6M"
+                "price_tpntT4"
               ]
+            },
+            "product_card_gallery_LxikbU": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "product_card_gallery_LxikbU",
-            "group_YDRaEw"
+            "group_YDRaEw",
+            "product_card_gallery_LxikbU"
           ]
         }
       },
@@ -302,7 +289,7 @@
         "max_products": 8,
         "columns": 4,
         "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
+        "mobile_card_size": "44cqw",
         "columns_gap": 8,
         "rows_gap": 36,
         "icons_style": "arrow",

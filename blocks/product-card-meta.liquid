@@ -1,0 +1,192 @@
+{% comment %} Product card meta block: shows lead time, color swatches, and material. {% endcomment %}
+
+{% if product == blank %}
+  {% assign product = closest.product %}
+{% endif %}
+
+{% assign lead_time = '' %}
+{% if product.metafields.custom and product.metafields.custom.lead_time != blank %}
+  {% if product.metafields.custom.lead_time.value != blank %}
+    {% assign lead_time = product.metafields.custom.lead_time.value %}
+  {% else %}
+    {% assign lead_time = product.metafields.custom.lead_time %}
+  {% endif %}
+{% endif %}
+
+{% assign material = '' %}
+{% if product.metafields.custom and product.metafields.custom.material != blank %}
+  {% if product.metafields.custom.material.value != blank %}
+    {% assign material = product.metafields.custom.material.value %}
+  {% else %}
+    {% assign material = product.metafields.custom.material %}
+  {% endif %}
+{% endif %}
+
+{%- assign color_values = nil -%}
+{%- if product.options_with_values -%}
+  {%- for option in product.options_with_values -%}
+    {%- assign name_down = option.name | downcase -%}
+    {%- if name_down contains 'color' or name_down contains 'colour' -%}
+      {%- assign color_values = option.values -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if color_values == nil -%}
+  {%- assign color_values = '' -%}
+{%- endif -%}
+
+{%- comment -%} Determine which pieces of data are present {% endcomment -%}
+{% assign has_lead_time = false %}
+{% if lead_time != '' %}{% assign has_lead_time = true %}{% endif %}
+{% assign has_material = false %}
+{% if material != '' %}{% assign has_material = true %}{% endif %}
+{% assign has_colors = false %}
+{% if color_values != '' and color_values != nil %}
+  {% if color_values.size > 0 %}
+    {% assign has_colors = true %}
+  {% endif %}
+{% endif %}
+
+{%- if has_lead_time or has_material or has_colors -%}
+
+<style>
+.product-card-meta{
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    padding: 10px;
+    background: white;
+    justify-content: center;
+}
+
+.product-card-meta .meta-item{
+  min-width:fit-content;
+}
+
+.product-card-meta .meta-label{
+  font-size:12px;
+  color:#00000099;
+  margin-bottom:8px
+}
+
+.product-card-meta .meta-value{
+  font-size:14px;
+  font-weight:600;
+  color:#000
+}
+
+.product-card-meta .meta-divider{
+  padding-left:28px;
+  border-left:1px solid #e6e6e6
+}
+
+.product-card-meta .colors{
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+
+.product-card-meta .swatch{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  display:inline-block;
+  border:1px solid rgba(0,0,0,0.08)
+}
+
+.product-card-meta .more{
+  font-size:12px;
+  color:#111;
+  font-weight:600;
+}
+
+.product-card-meta .sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0
+}
+@media (max-width:1024px){
+    .product-card-meta{
+      gap:16px;
+      overflow: auto;
+      scrollbar-width: none;
+    }
+      .product-card-meta .meta-label{
+      font-size:7px;
+    }
+
+    .product-card-meta .meta-value{
+      font-size:8px;
+      font-weight:600;
+      color:#000
+    }
+    .product-card-meta .meta-divider{
+      padding-left:8px;
+    }
+    .product-card-meta .more{
+      font-size:8px;
+      margin-left:1px;
+    }
+    .product-card-meta .colors{
+      gap:4px
+    }
+    .product-card-meta .swatch{
+      width:8px;
+      height:8px;
+    }
+}
+</style>
+
+<div class="product-card-meta" role="group" aria-label="Product details">
+  {% if has_lead_time %}
+    <div class="meta-item">
+      <div class="meta-label">Lead Time</div>
+      <div class="meta-value">{{ lead_time }}</div>
+    </div>
+  {% endif %}
+
+  {% if has_colors %}
+    <div class="meta-item meta-divider">
+      <div class="meta-label">Color</div>
+      <div class="meta-value colors" aria-hidden="false">
+        {% assign max_shown = 2 %}
+        {% for color in color_values %}
+          {% if forloop.index0 < max_shown %}
+            <span class="swatch" style="background-color: {{ color | escape }};" title="{{ color }}"></span>
+          {% endif %}
+        {% endfor %}
+        {% if color_values.size > max_shown %}
+          <span class="more">+{{ color_values.size | minus: max_shown }}</span>
+        {% endif %}
+        <span class="sr-only">Available colors: {{ color_values | join: ', ' }}</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if has_material %}
+    <div class="meta-item meta-divider">
+      <div class="meta-label">Material</div>
+      <div class="meta-value">{{ material }}</div>
+    </div>
+  {% endif %}
+
+</div>
+
+{%- endif -%}
+
+
+{% schema %}
+{
+  "name": "Product card meta",
+  "settings": []
+}
+{% endschema %}
+

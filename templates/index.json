@@ -346,6 +346,66 @@
         "button_link": ""
       }
     },
+    "image_cards_grid_z6EMhR": {
+      "type": "image-cards-grid",
+      "blocks": {
+        "card_ztxgf3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Theartisianedit_2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Prismatica",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/prismatica",
+            "button_style": "primary"
+          }
+        },
+        "card_3GbnBW": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/phonepod2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Soft Partition",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/door",
+            "button_style": "primary"
+          }
+        },
+        "card_7qMz4k": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
+            "label": "ELEVATED SPACES",
+            "title": "Gaming Tables",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/gaming-table",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "card_ztxgf3",
+        "card_3GbnBW",
+        "card_7qMz4k"
+      ],
+      "name": "Image Cards Grid",
+      "settings": {
+        "heading": "EXPLORE ELEVATED SPACES",
+        "subheading": "Explore chairs tailored to your interests",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "card_border_radius": 22,
+        "header_alignment": "center",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "stories_carousel_gxaEbk": {
       "type": "stories-carousel",
       "blocks": {
@@ -538,66 +598,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "image_cards_grid_z6EMhR": {
-      "type": "image-cards-grid",
-      "blocks": {
-        "card_ztxgf3": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Theartisianedit_2.png",
-            "label": "ELEVATED SPACES",
-            "title": "Prismatica",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/prismatica",
-            "button_style": "primary"
-          }
-        },
-        "card_3GbnBW": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/phonepod2.png",
-            "label": "ELEVATED SPACES",
-            "title": "Soft Partition",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/door",
-            "button_style": "primary"
-          }
-        },
-        "card_7qMz4k": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
-            "label": "ELEVATED SPACES",
-            "title": "Gaming Tables",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/gaming-table",
-            "button_style": "primary"
-          }
-        }
-      },
-      "block_order": [
-        "card_ztxgf3",
-        "card_3GbnBW",
-        "card_7qMz4k"
-      ],
-      "name": "Image Cards Grid",
-      "settings": {
-        "heading": "EXPLORE ELEVATED SPACES",
-        "subheading": "Explore chairs tailored to your interests",
-        "heading_size": "h2",
-        "columns_desktop": 3,
-        "columns_mobile": "1",
-        "section_width": "page-width",
-        "color_scheme": "",
-        "card_border_radius": 5,
-        "header_alignment": "center",
-        "padding-block-start": 80,
-        "padding-block-end": 80
       }
     },
     "section_rXAheV": {
@@ -799,10 +799,10 @@
     "section_category_tabs_gahBen",
     "text_with_inline_images_JaMD7M",
     "section_showroom_showcase_FkHwLy",
+    "image_cards_grid_z6EMhR",
     "stories_carousel_gxaEbk",
     "customer_stories_gadfDp",
     "17702067888e456cb9",
-    "image_cards_grid_z6EMhR",
     "section_rXAheV",
     "image_with_side_buttons_AXAkj8"
   ]
