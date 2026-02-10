@@ -313,7 +313,7 @@
     cursor: pointer;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     text-decoration: none;
@@ -577,6 +577,25 @@
       currentZ: 0,
     };
 
+    // Scroll lock helpers: preserve scroll position when previewing
+    let __interactiveGalleryScrollY = 0;
+    function lockScroll() {
+      __interactiveGalleryScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${__interactiveGalleryScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function unlockScroll() {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, __interactiveGalleryScrollY || 0);
+    }
     // Create cards
     for (let i = 0; i < config.imageCount; i++) {
       const angle = (i / config.imageCount) * Math.PI * 2;
@@ -644,6 +663,9 @@
     function togglePreview(index) {
       isPreviewActive = true;
       isTransitioning = true;
+
+      // Lock page scroll while preview is active
+      lockScroll();
 
       // Add preview-active class for overflow
       document.querySelector('#interactive-gallery .gallery-section').classList.add('preview-active');
@@ -847,6 +869,8 @@
         onComplete: () => {
           isPreviewActive = isTransitioning = false;
           document.querySelector('#interactive-gallery .gallery-section').classList.remove('preview-active');
+          // Restore page scroll after preview closes
+          unlockScroll();
           Object.assign(parallaxState, {
             targetX: 0,
             targetY: 0,

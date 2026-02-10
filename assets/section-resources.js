@@ -19,6 +19,8 @@
   const filters = section.querySelector('.resources-filters');
   const tabs = section.querySelectorAll('.resources-tab');
   const tabContents = section.querySelectorAll('.resources-grid-wrapper');
+  // Container for unified search results (created on init)
+  let searchResultsWrapper = null;
   const searchInput = section.querySelector('#resources-search-input');
   const filterCheckboxes = section.querySelectorAll('.filter-option input');
   const filterGroupHeaders = section.querySelectorAll('.filter-group-header');
@@ -203,9 +205,37 @@
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         searchQuery = e.target.value.toLowerCase().trim();
+        // Ensure the unified search results container exists
+        ensureSearchResultsContainer();
         applyFilters();
       }, 300);
     });
+  }
+
+  /**
+   * Ensure a container exists for displaying combined search results
+   */
+  function ensureSearchResultsContainer() {
+    const contentArea = section.querySelector('.resources-content');
+    if (!contentArea) return;
+    if (!searchResultsWrapper) {
+      searchResultsWrapper = document.createElement('div');
+      searchResultsWrapper.className = 'search-results-wrapper hidden';
+      searchResultsWrapper.innerHTML = '<div class="resources-grid"></div>';
+      // Insert search results before the first tab content
+      const firstTabContent = contentArea.querySelector('[data-tab-content]');
+      if (firstTabContent) contentArea.insertBefore(searchResultsWrapper, firstTabContent);
+      else contentArea.appendChild(searchResultsWrapper);
+    }
+  }
+
+  /**
+   * Clear search results content
+   */
+  function clearSearchResults() {
+    if (!searchResultsWrapper) return;
+    const grid = searchResultsWrapper.querySelector('.resources-grid');
+    if (grid) grid.innerHTML = '';
   }
 
   /**
@@ -266,6 +296,82 @@
    * Apply all active filters, search, and sort
    */
   function applyFilters() {
+    // If there's a search query, search across all tabs and show combined results
+    if (searchQuery) {
+      ensureSearchResultsContainer();
+      clearSearchResults();
+      const resultsGrid = searchResultsWrapper.querySelector('.resources-grid');
+      let totalVisible = 0;
+
+      // Iterate all cards in all tabContents
+      tabContents.forEach(content => {
+        const tabName = content.dataset.tabContent;
+        const cards = content.querySelectorAll('.resource-card');
+
+        // Determine filters relevant for this tab
+        let filterType;
+        switch (tabName) {
+          case 'catalogs': filterType = 'catalogs'; break;
+          case 'files': filterType = 'files'; break;
+          case 'ideas': filterType = 'ideas'; break;
+          default: filterType = null; break;
+        }
+
+        const currentFilters = filterType ? (activeFilters[filterType] || []) : [];
+
+        cards.forEach(card => {
+          const cardFilters = (card.dataset.filters || '').toLowerCase().split(',').map(f => f.trim());
+          const cardName = (card.dataset.name || '').toLowerCase();
+
+          // Filter match per card using its tab's filters
+          let filterMatch = true;
+          if (currentFilters.length > 0) {
+            filterMatch = currentFilters.some(filter => {
+              return cardFilters.some(cardFilter => cardFilter.includes(filter));
+            });
+          }
+
+          // Search match
+          let searchMatch = cardName.includes(searchQuery) || cardFilters.some(f => f.includes(searchQuery));
+
+          if (filterMatch && searchMatch) {
+            totalVisible++;
+            // Clone the card so original layout stays intact
+            const clone = card.cloneNode(true);
+            resultsGrid.appendChild(clone);
+          }
+        });
+      });
+
+      // Show search results wrapper and hide the normal tab contents
+      searchResultsWrapper.classList.toggle('hidden', totalVisible === 0);
+      tabContents.forEach(c => c.classList.add('hidden'));
+
+      // Show/hide no results message
+      if (noResults) {
+        noResults.classList.toggle('hidden', totalVisible > 0);
+      }
+
+      // If sorting by name, sort the combined results
+      if (sortBy === 'name' && resultsGrid) {
+        const cards = Array.from(resultsGrid.querySelectorAll('.resource-card'));
+        cards.sort((a, b) => {
+          const nameA = (a.dataset.name || '').toLowerCase();
+          const nameB = (b.dataset.name || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        cards.forEach(card => resultsGrid.appendChild(card));
+      }
+
+      return;
+    }
+
+    // No search query: revert to normal single-tab behavior
+    if (searchResultsWrapper) {
+      searchResultsWrapper.classList.add('hidden');
+      clearSearchResults();
+    }
+
     const activeContent = section.querySelector(`[data-tab-content="${currentTab}"]`);
     if (!activeContent) return;
 
