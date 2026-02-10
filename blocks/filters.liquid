@@ -625,13 +625,13 @@
                 {% assign opt_value_lc = option.value | downcase %}
                 {% unless opt_name_lc contains 'date' or opt_name_lc contains 'best' or opt_value_lc contains 'date' or opt_value_lc contains 'best' %}
                   <label class="sorting-option{% if option.value == sort_by %} sorting-option--active{% endif %}">
-                    <input
+                      <input
                       type="radio"
                       name="sort_by"
                       value="{{ option.value }}"
                       {% if option.value == sort_by %}checked{% endif %}
                       class="visually-hidden"
-                      on:change="facets-form-component/updateFilterAndSorting"
+                      on:change="facets-form-component/updateFilters"
                     >
                     <span class="sorting-option__label">{{ option.name }}</span>
                     {% if option.value == sort_by %}

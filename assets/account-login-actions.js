@@ -19,11 +19,25 @@ class AccountLoginActions extends HTMLElement {
       // Do this only if New Customer Account is ALWAYS the sign in option (and never Classic Customer Account)
       this.shopLoginButton.setAttribute('analytics-context', 'loginWithShopSelfServe');
       this.shopLoginButton.setAttribute('flow-version', 'account-actions-popover');
-      this.shopLoginButton.setAttribute('return-uri', window.location.href);
+      
+      // Check if there's a resources page return URL stored
+      const resourcesReturnUrl = sessionStorage.getItem('resourcesPageReturnUrl');
+      if (resourcesReturnUrl) {
+        this.shopLoginButton.setAttribute('return-uri', resourcesReturnUrl);
+      } else {
+        this.shopLoginButton.setAttribute('return-uri', window.location.href);
+      }
 
       // Reload the page after the login is completed, otherwise the page state is incorrect
       this.shopLoginButton.addEventListener('completed', () => {
-        window.location.reload();
+        // Check if we need to redirect to resources page
+        const storedReturnUrl = sessionStorage.getItem('resourcesPageReturnUrl');
+        if (storedReturnUrl) {
+          sessionStorage.removeItem('resourcesPageReturnUrl');
+          window.location.href = storedReturnUrl;
+        } else {
+          window.location.reload();
+        }
       });
     }
   }
