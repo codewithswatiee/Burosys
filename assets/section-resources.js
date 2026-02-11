@@ -72,11 +72,12 @@
             sessionStorage.setItem('pendingResourceDownload', downloadUrl);
           }
           
-          // Store the resources page URL to redirect back after login
-          sessionStorage.setItem('resourcesPageReturnUrl', fullReturnUrl);
+          // Store the resources page PATH to redirect back after login (avoid full origin)
+          // Using a relative path prevents OAuth redirect_uri mismatches in preview domains
+          sessionStorage.setItem('resourcesPageReturnUrl', returnUrl);
           
           // Redirect to login page with return URL
-          const redirectUrl = `${loginUrl}?return_url=${encodeURIComponent(returnUrl)}`;
+          const redirectUrl = `${loginUrl}`;
           window.location.href = redirectUrl;
         }
         // If logged in, allow normal link behavior (opens in new tab)
@@ -371,6 +372,11 @@
       searchResultsWrapper.classList.add('hidden');
       clearSearchResults();
     }
+
+    // Ensure the active tab content is visible again (search previously hid all tabs)
+    tabContents.forEach(content => {
+      content.classList.toggle('hidden', content.dataset.tabContent !== currentTab);
+    });
 
     const activeContent = section.querySelector(`[data-tab-content="${currentTab}"]`);
     if (!activeContent) return;

@@ -1,0 +1,89 @@
+<section class="founder-note-section" id="section-{{ section.id }}" data-section-id="{{ section.id }}" style="background: {{ section.settings.background_color }};">
+  <div class="founder-note-container {% if section.settings.image_position == 'right' %}image-right{% endif %} {% if section.settings.mobile_horizontal %}mobile-horizontal{% else %}stack-mobile{% endif %}" style="--founder-image-size: {{ section.settings.image_size }}px; --founder-mobile-image-size: {{ section.settings.mobile_image_size }}px;">
+    <div class="founder-note-image-wrapper {% unless section.settings.mobile_horizontal %}mobile-margin-bottom{% endunless %} {% if section.settings.image_shape == 'circle' %}shape-circle{% elsif section.settings.image_shape == 'rounded' %}shape-rounded{% else %}shape-square{% endif %}" aria-hidden="true">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: section.settings.image_size }}"
+          alt="{{ section.settings.image_alt | escape }}"
+          loading="lazy"
+        />
+      {% endif %}
+    </div>
+
+    <div class="founder-note-content">
+      {% if section.settings.kicker != blank %}
+        <p class="founder-note-kicker" style="color: {{ section.settings.kicker_color }}">{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="founder-note-heading {% if section.settings.mobile_horizontal %}{% else %}mobile{% endif %}" style="color: {{ section.settings.heading_color }}">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <div class="founder-note-text rte" style="color: {{ section.settings.text_color }}">{{ section.settings.text }}</div>
+    </div>
+  </div>
+
+  <style>
+  .founder-note-section { width: 100%; }
+
+  .founder-note-container {
+    padding: 60px 32px;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: space-between;
+  }
+
+  .founder-note-image img {
+    display: block;
+    object-fit: cover;
+  }
+
+  .founder-note-content { flex: 1 1 0; }
+
+  .founder-note-kicker { margin: 0 0 8px 0; font-weight: 400; letter-spacing: 0.02em; }
+
+  .founder-note-heading { margin: 0 0 38px 0; font-size: 36px; line-height: 1.1; letter-spacing: .1em; font-weight: 400;}
+
+  .founder-note-text { font-size: 16px; max-width: 720px; color: #00000099 !important;}
+
+  .founder-note-container.image-right { flex-direction: row-reverse; }
+
+  /* Mobile behavior */
+  @media screen and (max-width: 749px) {
+    .founder-note-container { gap: 20px; align-items: center; padding: 30px 16px; max-width: none;}
+    .founder-note-container.stack-mobile { flex-direction: column; text-align: center; }
+    .founder-note-image.mobile-margin-bottom { margin-bottom: 16px; }
+    .founder-note-heading.mobile { font-size: 22px; }
+    .founder-note-text{ font-size: 14px;}
+  }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Founder Note",
+    "settings": [
+      { "type": "text", "id": "kicker", "label": "Kicker (small above heading)"},
+      { "type": "text", "id": "heading", "label": "Heading", "default": "THE FOUNDER'S NOTE" },
+      { "type": "textarea", "id": "text", "label": "Content", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Founder portrait" },
+      { "type": "select", "id": "image_shape", "label": "Image shape", "options": [ { "value": "circle", "label": "Circle" }, { "value": "rounded", "label": "Rounded" }, { "value": "square", "label": "Square" } ], "default": "circle" },
+      { "type": "select", "id": "image_position", "label": "Image position (desktop)", "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ], "default": "left" },
+      { "type": "checkbox", "id": "mobile_horizontal", "label": "Keep horizontal layout on mobile", "default": true },
+      { "type": "range", "id": "image_size", "label": "Image size (desktop, px)", "min": 300, "max": 700, "step": 4, "default": 480 },
+      { "type": "range", "id": "mobile_image_size", "label": "Image size (mobile, px)", "min": 40, "max": 300, "step": 4, "default": 120 },
+      { "type": "color", "id": "background_color", "label": "Background color", "default": "#ffffff" },
+      { "type": "color", "id": "kicker_color", "label": "Kicker color", "default": "#838383" },
+      { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#000000" },
+      { "type": "color", "id": "text_color", "label": "Text color", "default": "#6b6b6b" },
+      
+    ],
+    "presets": [
+      { "name": "Founder Note", "category": "Text" }
+    ]
+  }
+  {% endschema %}
+</section>
