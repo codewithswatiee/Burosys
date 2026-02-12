@@ -25,7 +25,7 @@
       "name": "Interactive Gallery",
       "settings": {
         "heading": "Product Gallery",
-        "left_text": "NOT JUST ABOUT FORM & FUNCTION.",
+        "left_text": "READY TO BUILD YOUR DREAM OFFICE?",
         "image_count": 25,
         "bg_color": "rgba(0,0,0,0)",
         "text_color": "#1f1f1f",
@@ -216,7 +216,7 @@
         "text_iiiJUX": {
           "type": "text",
           "settings": {
-            "text": "Transforming offices,                                    one workspace at a time.",
+            "text": "REDEFINE INTERACTION AT WORKSPACES THROUGH FURNITURE",
             "text_style": "text-normal"
           }
         },
@@ -282,8 +282,8 @@
       ],
       "name": "Text with Inline Images",
       "settings": {
-        "heading": "WHY FROM US?",
-        "heading_size": "h2",
+        "heading": "WHAT WE DO",
+        "heading_size": "h3",
         "text_alignment": "center",
         "section_width": "page-width",
         "color_scheme": "scheme-3",
@@ -344,6 +344,66 @@
         "description": "<p>Sculpted to catch the light and the imagination, Prismatica redefines the luxury experience.</p>",
         "button_text": "BOOK AN APPOINTMENT",
         "button_link": ""
+      }
+    },
+    "image_cards_grid_z6EMhR": {
+      "type": "image-cards-grid",
+      "blocks": {
+        "card_ztxgf3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Theartisianedit_2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Prismatica",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/prismatica",
+            "button_style": "primary"
+          }
+        },
+        "card_3GbnBW": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/phonepod2.png",
+            "label": "ELEVATED SPACES",
+            "title": "Soft Partition",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/door",
+            "button_style": "primary"
+          }
+        },
+        "card_7qMz4k": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
+            "label": "ELEVATED SPACES",
+            "title": "Gaming Tables",
+            "title_style": "title-italic",
+            "button_label": "DISCOVER MORE",
+            "button_link": "shopify://pages/gaming-table",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "card_ztxgf3",
+        "card_3GbnBW",
+        "card_7qMz4k"
+      ],
+      "name": "Image Cards Grid",
+      "settings": {
+        "heading": "EXPLORE ELEVATED SPACES",
+        "subheading": "Explore chairs tailored to your interests",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "card_border_radius": 22,
+        "header_alignment": "center",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "stories_carousel_gxaEbk": {
@@ -540,221 +600,24 @@
         "padding-block-end": 0
       }
     },
-    "image_cards_grid_z6EMhR": {
-      "type": "image-cards-grid",
-      "blocks": {
-        "card_ztxgf3": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Theartisianedit_2.png",
-            "label": "ELEVATED SPACES",
-            "title": "Prismatica",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/prismatica",
-            "button_style": "primary"
-          }
-        },
-        "card_3GbnBW": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/phonepod2.png",
-            "label": "ELEVATED SPACES",
-            "title": "Soft Partition",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/door",
-            "button_style": "primary"
-          }
-        },
-        "card_7qMz4k": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/58918bcad5be124dbc4be378e31ae2061c873f62.jpg",
-            "label": "ELEVATED SPACES",
-            "title": "Gaming Tables",
-            "title_style": "title-italic",
-            "button_label": "DISCOVER MORE",
-            "button_link": "shopify://pages/gaming-table",
-            "button_style": "primary"
-          }
-        }
-      },
-      "block_order": [
-        "card_ztxgf3",
-        "card_3GbnBW",
-        "card_7qMz4k"
-      ],
-      "name": "Image Cards Grid",
+    "founder_note_7qETbk": {
+      "type": "founder-note",
+      "name": "Founder Note",
       "settings": {
-        "heading": "EXPLORE ELEVATED SPACES",
-        "subheading": "Explore chairs tailored to your interests",
-        "heading_size": "h2",
-        "columns_desktop": 3,
-        "columns_mobile": "1",
-        "section_width": "page-width",
-        "color_scheme": "",
-        "card_border_radius": 5,
-        "header_alignment": "center",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      }
-    },
-    "section_rXAheV": {
-      "type": "section",
-      "blocks": {
-        "image_3pjEhY": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Hersh_Pic.jpg",
-            "link": "",
-            "image_ratio": "square",
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 20,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "group_cz38mX": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "custom",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "custom",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_RKjnUd": {
-              "type": "text",
-              "name": "t:names.heading",
-              "settings": {
-                "text": "<p>THE FOUNDER’S NOTE</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "custom",
-                "font": "var(--font-body--family)",
-                "font_size": "2rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "text_color_custom": "#000000",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "text_4K49j6": {
-              "type": "text",
-              "settings": {
-                "text": "<p>“At Burosys, we believe true luxury lies in clarity of design in spaces where form, function, and emotion align. Each piece we create is an architectural expression of how work and beauty can coexist.”<br/><br/></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "text_color_custom": "#000000",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_RKjnUd",
-            "text_4K49j6"
-          ]
-        }
-      },
-      "block_order": [
-        "image_3pjEhY",
-        "group_cz38mX"
-      ],
-      "name": "t:names.image_with_text",
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 22,
-        "padding-block-end": 40
+        "kicker": "",
+        "heading": "THE FOUNDER'S NOTE",
+        "text": "“At Burosys, we believe true luxury lies in clarity of design in spaces where form, function, and emotion align. Each piece we create is an architectural expression of how work and beauty can coexist.”",
+        "image": "shopify://shop_images/Hersh_Pic.jpg",
+        "image_alt": "Founder portrait",
+        "image_shape": "circle",
+        "image_position": "left",
+        "mobile_horizontal": false,
+        "image_size": 480,
+        "mobile_image_size": 220,
+        "background_color": "#f7f7f7",
+        "kicker_color": "#838383",
+        "heading_color": "#000000",
+        "text_color": "#dedede"
       }
     },
     "image_with_side_buttons_AXAkj8": {
@@ -799,11 +662,11 @@
     "section_category_tabs_gahBen",
     "text_with_inline_images_JaMD7M",
     "section_showroom_showcase_FkHwLy",
+    "image_cards_grid_z6EMhR",
     "stories_carousel_gxaEbk",
     "customer_stories_gadfDp",
     "17702067888e456cb9",
-    "image_cards_grid_z6EMhR",
-    "section_rXAheV",
+    "founder_note_7qETbk",
     "image_with_side_buttons_AXAkj8"
   ]
 }

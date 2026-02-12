@@ -41,8 +41,9 @@
     "type_letter_spacing_h6": "heading-loose",
     "type_case_h6": "none",
     "page_width": "wide",
+    "add_to_cart_animation": true,
     "card_hover_effect": "subtle-zoom",
-    "badge_position": "top-right",
+    "badge_position": "bottom-left",
     "badge_corner_radius": 2,
     "badge_sale_color_scheme": "scheme-5",
     "badge_sold_out_color_scheme": "scheme-3",
@@ -214,7 +215,7 @@
         "type": "shopify://apps/wishlist-plus/blocks/wishlist-collections-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
         "disabled": true,
         "settings": {
-          "swym_collections_icon_type": "bookmark",
+          "swym_collections_icon_type": "star",
           "swym_collections_icon_thickness": 1.7,
           "swym_collections_position": "bottom-right",
           "swym_collections_vertical_offset": 4,
@@ -280,7 +281,7 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#e1e1e1",
+          "background": "#f7f7f7",
           "foreground_heading": "#000000",
           "foreground": "#000000",
           "primary": "#000000",
