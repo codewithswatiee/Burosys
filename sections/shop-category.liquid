@@ -1,0 +1,177 @@
+{% comment %} Shop by Category section - clickable colored circles with customizable blocks {% endcomment %}
+<link rel="stylesheet" href="{{ 'shop-category.css' | asset_url }}" />
+
+<section id="shop-category-{{ section.id }}" class="shop-category-section" style="--circle-size: {{ section.settings.circle_size }}px; --circle-size-tablet: {{ section.settings.circle_size_tablet }}px; --circle-size-mobile: {{ section.settings.circle_size_mobile }}px; --circle-row-gap: {{ section.settings.circle_gap }}px; --circle-col-gap: {{ section.settings.circle_h_gap }}px; --circle-row-gap-tablet: {{ section.settings.circle_gap_tablet }}px; --circle-col-gap-tablet: {{ section.settings.circle_h_gap_tablet }}px; --circle-row-gap-mobile: {{ section.settings.circle_gap_mobile }}px; --circle-col-gap-mobile: {{ section.settings.circle_h_gap_mobile }}px; --section-padding: {{ section.settings.section_padding }}px; --section-side-padding: {{ section.settings.section_side_padding }}px;">
+	<div class="page-width" style="padding-left: {{ section.settings.section_side_padding }}px; padding-right: {{ section.settings.section_side_padding }}px;">
+		<header class="shop-category-header">
+			<h2>{{ section.settings.title }}</h2>
+			{% if section.settings.subtitle != blank %}
+				<p class="subtitle">{{ section.settings.subtitle }}</p>
+			{% endif %}
+		</header>
+
+		<div class="shop-category-grid">
+			{% for block in section.blocks %}
+				{% assign href = block.settings.link %}
+				<div class="shop-category-item">
+					<a href="{{ href }}" class="shop-category-link" aria-label="{{ block.settings.label }}">
+						<span class="shop-category-circle" style="background-color: {{ block.settings.color }};"></span>
+						<span class="shop-category-label">{{ block.settings.label }}</span>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Shop by Category",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "SHOP BY CATEGORY"
+		},
+		{
+			"type": "text",
+			"id": "subtitle",
+			"label": "Subtitle",
+			"default": "Explore chairs tailored to your interests"
+		},
+		{
+			"type": "range",
+			"id": "circle_size",
+			"label": "Circle size (px)",
+			"min": 80,
+			"max": 300,
+			"step": 5,
+			"default": 200
+		},
+		{
+			"type": "range",
+			"id": "circle_size_tablet",
+			"label": "Circle size (tablet, px)",
+			"min": 60,
+			"max": 260,
+			"step": 5,
+			"default": 160
+		},
+		{
+			"type": "range",
+			"id": "circle_size_mobile",
+			"label": "Circle size (mobile, px)",
+			"min": 50,
+			"max": 220,
+			"step": 5,
+			"default": 120
+		},
+		{
+			"type": "range",
+			"id": "circle_gap",
+			"label": "Vertical space between rows (px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 48
+		},
+		{
+			"type": "range",
+			"id": "circle_gap_tablet",
+			"label": "Vertical space between rows (tablet, px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 36
+		},
+		{
+			"type": "range",
+			"id": "circle_gap_mobile",
+			"label": "Vertical space between rows (mobile, px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 28
+		},
+		{
+			"type": "range",
+			"id": "circle_h_gap",
+			"label": "Horizontal space between circles (px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 48
+		},
+		{
+			"type": "range",
+			"id": "circle_h_gap_tablet",
+			"label": "Horizontal space between circles (tablet, px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 36
+		},
+		{
+			"type": "range",
+			"id": "circle_h_gap_mobile",
+			"label": "Horizontal space between circles (mobile, px)",
+			"min": 8,
+			"max": 120,
+			"step": 4,
+			"default": 28
+		},
+		{
+			"type": "range",
+			"id": "section_padding",
+			"label": "Section vertical padding (px)",
+			"min": 0,
+			"max": 240,
+			"step": 5,
+			"default": 80
+		},
+		{
+			"type": "range",
+			"id": "section_side_padding",
+			"label": "Section side padding (px)",
+			"min": 0,
+			"max": 200,
+			"step": 5,
+			"default": 40
+		}
+	],
+	"blocks": [
+		{
+			"type": "category",
+			"name": "Category",
+			"settings": [
+				{
+					"type": "text",
+					"id": "label",
+					"label": "Label",
+					"default": "Category"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "Color",
+					"default": "#f6c9c9"
+				},
+								{
+									"type": "url",
+									"id": "link",
+									"label": "Link (URL)"
+								}
+			]
+		}
+	],
+	"max_blocks": 12,
+	"presets": [
+		{
+			"name": "Shop by Category",
+			"category": "Collection"
+		}
+	]
+}
+{% endschema %}
+

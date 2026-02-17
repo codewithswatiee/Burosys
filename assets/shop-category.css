@@ -1,0 +1,24 @@
+/* Styles for Shop By Category section */
+/* Uses CSS variables set on the section element for easy customization via the customizer */
+.shop-category-section { padding: var(--section-padding, 80px) 0; text-align: center; }
+.shop-category-header { margin-bottom: 10px; }
+.shop-category-header h2 { font-size: 36px; letter-spacing: 2px; margin: 0 0 8px; font-weight:400; }
+.shop-category-header .subtitle { color: #8b8b8b; margin-bottom: 36px; }
+.shop-category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--circle-row-gap, 46px) var(--circle-col-gap, 46px); align-items: center; justify-items:center; width: calc(100% - (var(--section-side-padding, 40px) * 2)); max-width: 1400px; margin: 0 auto; }
+.shop-category-item { max-width: 240px; display:flex; flex-direction:column; align-items:center; }
+.shop-category-link { text-decoration: none; color: inherit; display:flex; flex-direction:column; align-items:center; }
+.shop-category-circle { width: var(--circle-size, 200px); height: var(--circle-size, 200px); border-radius: 50%; display:block; margin-bottom: 18px; box-shadow: 0 0 0 4px rgba(0,0,0,0.03) inset; border: 3px solid rgba(0,0,0,0.02); }
+.shop-category-label { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #000; }
+
+/* Responsive fallbacks - these scale the grid layout; circle size remains controlled by customizer variable */
+@media (max-width: 1200px) {
+  .shop-category-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+  .shop-category-grid { grid-template-columns: repeat(3, 1fr); gap: calc(var(--circle-row-gap, 46px) * 0.7) calc(var(--circle-col-gap, 46px) * 0.7); }
+}
+@media (max-width: 540px) {
+  .shop-category-grid { grid-template-columns: repeat(2, 1fr); gap: calc(var(--circle-row-gap, 46px) * 0.6) calc(var(--circle-col-gap, 46px) * 0.6); }
+  .shop-category-circle { width: calc(var(--circle-size, 200px) * 0.75); height: calc(var(--circle-size, 200px) * 0.75); }
+}
+
