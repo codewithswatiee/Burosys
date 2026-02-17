@@ -520,9 +520,7 @@ border-right: 1px solid #e5e5e5;
   .resource-card-image img {
     object-fit: cover;
   }
-
-
-
+}
 
 @media (max-width: 480px) {
   .resources-grid {
@@ -557,4 +555,226 @@ border-right: 1px solid #e5e5e5;
 .filter-overlay.active {
   opacity: 1;
   visibility: visible;
+}
+
+/* ===== Idea Starter Gallery Modal ===== */
+.idea-gallery-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background: rgba(50, 50, 50, 0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.idea-gallery-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.idea-gallery-modal-inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- Image Viewer (left side) --- */
+.idea-gallery-viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 10px 30px;
+  position: relative;
+  min-width: 0;
+}
+
+.idea-gallery-image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.idea-gallery-main-img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 0;
+  display: block;
+  transition: opacity 0.25s ease;
+}
+
+/* Navigation arrows */
+.idea-gallery-nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.idea-gallery-prev,
+.idea-gallery-next {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  padding: 0;
+}
+
+.idea-gallery-prev:hover,
+.idea-gallery-next:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.idea-gallery-prev svg,
+.idea-gallery-next svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Sidebar (right side) --- */
+.idea-gallery-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: #fff;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+}
+
+.idea-gallery-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  padding: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.idea-gallery-close:hover {
+  opacity: 0.6;
+}
+
+.idea-gallery-close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.idea-gallery-info {
+  margin-bottom: 32px;
+}
+
+.idea-gallery-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.idea-gallery-project-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Credits */
+.idea-gallery-credit-block {
+  margin-bottom: 20px;
+}
+
+.idea-gallery-credit-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.idea-gallery-credit-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Gallery card trigger button reset */
+.idea-gallery-trigger {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* ===== Gallery Modal Mobile ===== */
+@media (max-width: 768px) {
+  .idea-gallery-modal-inner {
+    flex-direction: column;
+  }
+
+  .idea-gallery-viewer {
+    flex: 1;
+    padding: 20px 1px 16px;
+  }
+
+  .idea-gallery-main-img {
+    max-height: 50vh;
+  }
+
+  .idea-gallery-sidebar {
+    width: 100%;
+    max-height: 40vh;
+    padding: 24px 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .idea-gallery-nav {
+    margin-top: 14px;
+  }
+
+  .idea-gallery-prev,
+  .idea-gallery-next {
+    width: 38px;
+    height: 38px;
+  }
 }

@@ -503,7 +503,7 @@
             "card_title": "Specifications",
             "icon": "shopify://shop_images/Vector.png",
             "content_source": "richtext",
-            "content": "<ul><li><strong>Mixed-Texture Upholstery:</strong> Combines light grey woven fabric cushions with a dark charcoal outer wrap for a stylish, multi-dimensional look.</li><li><strong>Curved Metallic Frame: </strong>Features a continuous, gold-finished metal base that provides elegant structural support and a touch of warmth.</li><li><strong>Wrap-Around Backrest:</strong> Designed with a slim, protective outer shell that curves seamlessly into the armrests for a cozy, enclosed feel.</li><li><strong>Plush Bolster Back: </strong>Equipped with two oversized, rounded back cushions that offer soft lumbar support and a relaxed aesthetic.</li></ul>"
+            "content": "{{ product.metafields.custom.specifications | metafield_tag }}"
           }
         },
         "warranty_ipVg8B": {
