@@ -32,182 +32,136 @@
         "icon_color": "#ff5733"
       }
     },
-    "section_category_tabs_gahBen": {
-      "type": "section-category-tabs",
+    "shop_category_a76kMm": {
+      "type": "shop-category",
       "blocks": {
-        "tab_tbPQwf": {
-          "type": "tab",
+        "category_nDeAk3": {
+          "type": "category",
           "settings": {
-            "title": "SEATING",
-            "image": "shopify://shop_images/FREEDOMVIDEO-ezgif.com-speed.gif",
+            "label": "executive chairs",
+            "image": "shopify://shop_images/V13_1.png",
+            "color": "#f6c9c9",
             "link": "shopify://collections"
           }
         },
-        "item_hgWD3y": {
-          "type": "item",
+        "category_WXx8aD": {
+          "type": "category",
           "settings": {
-            "title": "EXECUTIVE CHAIRS",
-            "content": "<p>Designed to offer superior comfort, refined ergonomics, and a commanding presence for modern leadership spaces.</p><p></p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
+            "label": "task chairs",
+            "color": "#bcdaff",
+            "link": "shopify://collections/cafe"
           }
         },
-        "item_nxHxYR": {
-          "type": "item",
+        "category_qMW7qg": {
+          "type": "category",
           "settings": {
-            "title": "TASK CHAIRS",
-            "content": "<p>Designed to deliver everyday comfort, ergonomic support, and reliable performance for modern workspaces.</p><p></p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
+            "label": "cafe chairs",
+            "color": "#8a9982",
+            "link": "shopify://collections/cafe"
           }
         },
-        "item_cDPX3f": {
-          "type": "item",
+        "category_CpMBwj": {
+          "type": "category",
           "settings": {
-            "title": "LOUNGE CHAIRS",
-            "content": "<p>Designed to offer relaxed comfort and inviting support, creating a welcoming experience in lounge and collaborative spaces.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
+            "label": "sofas",
+            "color": "#f5a68f",
+            "link": "shopify://collections/sofas"
           }
         },
-        "item_KCbXPQ": {
-          "type": "item",
+        "category_Lk4Vp9": {
+          "type": "category",
           "settings": {
-            "title": "CAFE CHAIRS",
-            "content": "<p>Designed with a focus on comfort, proportions, and clean aesthetics, enhancing café environments with ease and character.</p><p></p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
+            "label": "coffee tables",
+            "color": "#ff999a",
+            "link": "shopify://collections/coffee-tables"
           }
         },
-        "item_98ig3x": {
-          "type": "item",
+        "category_knGkzW": {
+          "type": "category",
           "settings": {
-            "title": "SOFAS",
-            "content": "<p>Designed with a focus on comfort, proportions, and clean aesthetics, enhancing café environments with ease and character.</p><p></p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
+            "label": "table stands",
+            "color": "#e8dffc",
+            "link": "shopify://collections/desks-copy"
           }
         },
-        "tab_Gc9x6y": {
-          "type": "tab",
+        "category_aiJNna": {
+          "type": "category",
           "settings": {
-            "title": "DESKS",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "label": "workstations",
+            "color": "#d7f3c9",
             "link": ""
           }
         },
-        "item_diJXJf": {
-          "type": "item",
+        "category_kTxQQm": {
+          "type": "category",
           "settings": {
-            "title": "WORKSTATIONS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_TzYgcC": {
-          "type": "item",
-          "settings": {
-            "title": "CABIN DESKS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_ierWR7": {
-          "type": "item",
-          "settings": {
-            "title": "MEETING TABLES",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_nLmD4B": {
-          "type": "item",
-          "settings": {
-            "title": "COFFEE TABLES",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "item_N47MrP": {
-          "type": "item",
-          "settings": {
-            "title": "TABLE BASES",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "",
-            "cta_label": "Explore Now"
-          }
-        },
-        "tab_BCz7LJ": {
-          "type": "tab",
-          "settings": {
-            "title": "PHONE BOOTHS",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "label": "meeting tables",
+            "color": "#ff924d",
             "link": ""
           }
         },
-        "tab_NqgLX8": {
-          "type": "tab",
+        "category_fYXRqT": {
+          "type": "category",
           "settings": {
-            "title": "ELEVATED SPACES",
-            "image": "shopify://shop_images/dfad22ec447ee6a650c34771597a1a453215ff09.gif",
+            "label": "cabin desks",
+            "color": "#b5eff2",
             "link": ""
           }
         },
-        "item_AynQGM": {
-          "type": "item",
+        "category_TcNKfQ": {
+          "type": "category",
           "settings": {
-            "title": "SOFT PARTITIONS",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "shopify://collections/elevated-spaces",
-            "cta_label": "Explore Now"
+            "label": "prismatica",
+            "color": "#ccea9d",
+            "link": "shopify://pages/prismatica"
           }
         },
-        "item_z8zWfN": {
-          "type": "item",
+        "category_Fkp33z": {
+          "type": "category",
           "settings": {
-            "title": "GAMING TABLES",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "shopify://collections/gaming-tables",
-            "cta_label": "Explore Now"
+            "label": "gaming tables",
+            "color": "#ff92d3",
+            "link": "shopify://pages/gaming-table"
           }
         },
-        "item_HxYWBA": {
-          "type": "item",
+        "category_kNCCAF": {
+          "type": "category",
           "settings": {
-            "title": "PRISMATICA",
-            "content": "<p>Armor-Grade Ergonomics. Featuring our proprietary Ceramic-Infused Fabric, these chairs provide a 3x higher resistance to pilling and stains.</p>",
-            "cta_link": "shopify://collections/primatica",
-            "cta_label": "Explore Now"
+            "label": "soft partitions",
+            "color": "#ffba92",
+            "link": "shopify://pages/door"
           }
         }
       },
       "block_order": [
-        "tab_tbPQwf",
-        "item_hgWD3y",
-        "item_nxHxYR",
-        "item_cDPX3f",
-        "item_KCbXPQ",
-        "item_98ig3x",
-        "tab_Gc9x6y",
-        "item_diJXJf",
-        "item_TzYgcC",
-        "item_ierWR7",
-        "item_nLmD4B",
-        "item_N47MrP",
-        "tab_BCz7LJ",
-        "tab_NqgLX8",
-        "item_AynQGM",
-        "item_z8zWfN",
-        "item_HxYWBA"
+        "category_nDeAk3",
+        "category_WXx8aD",
+        "category_qMW7qg",
+        "category_CpMBwj",
+        "category_Lk4Vp9",
+        "category_knGkzW",
+        "category_aiJNna",
+        "category_kTxQQm",
+        "category_fYXRqT",
+        "category_TcNKfQ",
+        "category_Fkp33z",
+        "category_kNCCAF"
       ],
-      "name": "Category Tabs",
+      "name": "Shop by Category",
       "settings": {
-        "heading": "CATEGORIES",
-        "subheading": ""
+        "title": "SHOP BY CATEGORY",
+        "subtitle": "Explore chairs tailored to your interests",
+        "circle_size": 155,
+        "circle_size_tablet": 160,
+        "circle_size_mobile": 100,
+        "circle_gap": 48,
+        "circle_gap_tablet": 36,
+        "circle_gap_mobile": 8,
+        "circle_h_gap": 48,
+        "circle_h_gap_tablet": 36,
+        "circle_h_gap_mobile": 12,
+        "section_padding": 0,
+        "section_side_padding": 0
       }
     },
     "text_with_inline_images_JaMD7M": {
@@ -655,11 +609,23 @@
         "hero_image": "shopify://shop_images/amigo_5.png",
         "image_alt": "Hero image"
       }
+    },
+    "consultation_form_WTXxTR": {
+      "type": "consultation-form",
+      "name": "Consultation Form",
+      "settings": {
+        "label": "EXCLUSIVE CONSULTATION",
+        "heading": "SPEAK WITH OUR EXPERT",
+        "description": "<p>Share your contact details and one of our product specialists will personally reach out to discuss your bespoke partition requirements.</p>",
+        "content_alignment": "top",
+        "form_embed_code": "<script src=\"https://desk.zoho.in/portal/api/feedbackwidget/221202000000776001?orgId=60063053469&amp;displayType=embeded\"></script>\n<div id=\"zsfeedbackwidgetdiv\"></div>",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
     "hero_gallery_6kPyhq",
-    "section_category_tabs_gahBen",
+    "shop_category_a76kMm",
     "text_with_inline_images_JaMD7M",
     "section_showroom_showcase_FkHwLy",
     "image_cards_grid_z6EMhR",
@@ -667,6 +633,7 @@
     "customer_stories_gadfDp",
     "17702067888e456cb9",
     "founder_note_7qETbk",
-    "image_with_side_buttons_AXAkj8"
+    "image_with_side_buttons_AXAkj8",
+    "consultation_form_WTXxTR"
   ]
 }

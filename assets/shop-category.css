@@ -1,0 +1,41 @@
+/* Styles for Shop By Category section */
+/* Uses CSS variables set on the section element for easy customization via the customizer */
+.shop-category-section { padding: var(--section-padding, 80px) 0; text-align: center; }
+.shop-category-header { margin-bottom: 10px; }
+.shop-category-header h2 { font-size: 36px; letter-spacing: 2px; margin: 0 0 8px; font-weight:400; }
+.shop-category-header .subtitle { color: #8b8b8b; margin-bottom: 36px; }
+.shop-category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--circle-row-gap, 46px) var(--circle-col-gap, 46px); align-items: center; justify-items:center; width: calc(100% - (var(--section-side-padding, 40px) * 2)); max-width: 1400px; margin: 0 auto; }
+.shop-category-item { max-width: 240px; display:flex; flex-direction:column; align-items:center; }
+.shop-category-link { text-decoration: none; color: inherit; display:flex; flex-direction:column; align-items:center; }
+.shop-category-circle { width: var(--circle-size, 200px); height: var(--circle-size, 200px); border-radius: 50%; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom: 18px; position:relative; transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease; border: 1px solid transparent; }
+.shop-category-image { width: 75%; height: 75%; object-fit: contain; display:block; transition: transform 0.3s ease; }
+.shop-category-link:hover .shop-category-image { transform: scale(1.08); }
+.shop-category-link:hover .shop-category-circle { border: 1px solid #FF4000; }
+.shop-category-label { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #000; }
+
+/* Responsive fallbacks - these scale the grid layout; circle size remains controlled by customizer variable */
+@media (max-width: 1200px) {
+  .shop-category-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+  .shop-category-grid { grid-template-columns: repeat(3, 1fr); gap: calc(var(--circle-row-gap, 46px) * 0.7) calc(var(--circle-col-gap, 46px) * 0.7); }
+}
+@media (max-width: 540px) {
+  .shop-category-grid { grid-template-columns: repeat(2, 1fr); gap: calc(var(--circle-row-gap, 46px) * 0.6) calc(var(--circle-col-gap, 46px) * 0.6); }
+  .shop-category-circle { width: calc(var(--circle-size, 200px) * 0.75); height: calc(var(--circle-size, 200px) * 0.75); }
+  /* hide extra items on small screens, reveal when grid has .expanded */
+  .shop-category-item.extra-item { display: none; }
+  .shop-category-grid.expanded .shop-category-item.extra-item { display: flex; }
+
+  /* show Load more button only on mobile */
+  .shop-category-actions { margin-top: 18px; text-align:center; }
+  .shop-category-load-more { display: inline-block; background: #000; color: #fff; border: none; padding: 12px 28px; border-radius: 2px; cursor: pointer; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; box-shadow: none; }
+  .shop-category-load-more:focus { outline: 2px solid rgba(255,255,255,0.12); outline-offset: 2px; }
+  .shop-category-load-more[aria-expanded="true"] { background: #111; }
+}
+
+/* hide load-more on larger viewports */
+@media (min-width: 541px) {
+  .shop-category-load-more { display: none; }
+}
+

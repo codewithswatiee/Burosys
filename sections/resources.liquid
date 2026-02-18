@@ -189,14 +189,93 @@
         <div class="resources-grid">
           {% for block in section.blocks %}
             {% if block.type == 'idea_item' %}
-              <div class="resource-card" 
+              {% comment %} Collect all gallery images into a ||| separated list {% endcomment %}
+              {% assign gallery_images = '' %}
+              {% if block.settings.image_1 != blank %}
+                {% assign img_url_1 = block.settings.image_1 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_1 %}
+              {% endif %}
+              {% if block.settings.image_2 != blank %}
+                {% assign img_url_2 = block.settings.image_2 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_2 %}
+              {% endif %}
+              {% if block.settings.image_3 != blank %}
+                {% assign img_url_3 = block.settings.image_3 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_3 %}
+              {% endif %}
+              {% if block.settings.image_4 != blank %}
+                {% assign img_url_4 = block.settings.image_4 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_4 %}
+              {% endif %}
+              {% if block.settings.image_5 != blank %}
+                {% assign img_url_5 = block.settings.image_5 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_5 %}
+              {% endif %}
+              {% if block.settings.image_6 != blank %}
+                {% assign img_url_6 = block.settings.image_6 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_6 %}
+              {% endif %}
+              {% if block.settings.image_7 != blank %}
+                {% assign img_url_7 = block.settings.image_7 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_7 %}
+              {% endif %}
+              {% if block.settings.image_8 != blank %}
+                {% assign img_url_8 = block.settings.image_8 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_8 %}
+              {% endif %}
+              {% if block.settings.image_9 != blank %}
+                {% assign img_url_9 = block.settings.image_9 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_9 %}
+              {% endif %}
+              {% if block.settings.image_10 != blank %}
+                {% assign img_url_10 = block.settings.image_10 | image_url: width: 1400 %}
+                {% if gallery_images != '' %}{% assign gallery_images = gallery_images | append: '|||' %}{% endif %}
+                {% assign gallery_images = gallery_images | append: img_url_10 %}
+              {% endif %}
+
+              {% comment %} Collect credits {% endcomment %}
+              {% assign credits_data = '' %}
+              {% if block.settings.credit_label_1 != blank %}
+                {% if credits_data != '' %}{% assign credits_data = credits_data | append: '|||' %}{% endif %}
+                {% assign credits_data = credits_data | append: block.settings.credit_label_1 | append: ':::' | append: block.settings.credit_text_1 %}
+              {% endif %}
+              {% if block.settings.credit_label_2 != blank %}
+                {% if credits_data != '' %}{% assign credits_data = credits_data | append: '|||' %}{% endif %}
+                {% assign credits_data = credits_data | append: block.settings.credit_label_2 | append: ':::' | append: block.settings.credit_text_2 %}
+              {% endif %}
+              {% if block.settings.credit_label_3 != blank %}
+                {% if credits_data != '' %}{% assign credits_data = credits_data | append: '|||' %}{% endif %}
+                {% assign credits_data = credits_data | append: block.settings.credit_label_3 | append: ':::' | append: block.settings.credit_text_3 %}
+              {% endif %}
+              {% if block.settings.credit_label_4 != blank %}
+                {% if credits_data != '' %}{% assign credits_data = credits_data | append: '|||' %}{% endif %}
+                {% assign credits_data = credits_data | append: block.settings.credit_label_4 | append: ':::' | append: block.settings.credit_text_4 %}
+              {% endif %}
+              {% if block.settings.credit_label_5 != blank %}
+                {% if credits_data != '' %}{% assign credits_data = credits_data | append: '|||' %}{% endif %}
+                {% assign credits_data = credits_data | append: block.settings.credit_label_5 | append: ':::' | append: block.settings.credit_text_5 %}
+              {% endif %}
+
+              <div class="resource-card idea-gallery-card" 
                    data-filters="{{ block.settings.filters | handle }}"
                    data-name="{{ block.settings.title | downcase }}"
+                   data-gallery-images="{{ gallery_images }}"
+                   data-project-name="{{ block.settings.project_name | escape }}"
+                   data-credits="{{ credits_data | escape }}"
                    {{ block.shopify_attributes }}>
-                <a href="{{ block.settings.download_url }}" class="resource-card-link" target="_blank" rel="noopener">
+                <button type="button" class="idea-gallery-trigger" aria-label="Open {{ block.settings.title }} gallery">
                   <div class="resource-card-image">
-                    {% if block.settings.image != blank %}
-                      <img src="{{ block.settings.image | image_url: width: 400 }}" 
+                    {% if block.settings.image_1 != blank %}
+                      <img src="{{ block.settings.image_1 | image_url: width: 400 }}" 
                            alt="{{ block.settings.title | escape }}"
                            loading="lazy"
                            width="300"
@@ -207,7 +286,7 @@
                       </div>
                     {% endif %}
                   </div>
-                </a>
+                </button>
                 <p class="resource-card-title">{{ block.settings.title }}</p>
               </div>
             {% endif %}
@@ -220,6 +299,37 @@
         <p>No resources found matching your criteria.</p>
       </div>
     </main>
+  </div>
+
+  <!-- Idea Starter Gallery Modal -->
+  <div class="idea-gallery-modal" id="idea-gallery-modal" aria-hidden="true">
+    <div class="idea-gallery-modal-inner">
+      <!-- Image Viewer -->
+      <div class="idea-gallery-viewer">
+        <div class="idea-gallery-image-wrap">
+          <img class="idea-gallery-main-img" src="" alt="Gallery image" />
+        </div>
+        <div class="idea-gallery-nav">
+          <button type="button" class="idea-gallery-prev" aria-label="Previous image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button type="button" class="idea-gallery-next" aria-label="Next image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="idea-gallery-sidebar">
+        <button type="button" class="idea-gallery-close" aria-label="Close gallery">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="idea-gallery-info">
+          <span class="idea-gallery-label">PROJECT</span>
+          <h3 class="idea-gallery-project-name"></h3>
+        </div>
+        <div class="idea-gallery-credits"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Mobile Filter Toggle -->
@@ -366,18 +476,14 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "Card Title",
           "default": "Lorem ipsum"
         },
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Cover Image"
-        },
-        {
-          "type": "url",
-          "id": "download_url",
-          "label": "Download/View URL"
+          "type": "text",
+          "id": "project_name",
+          "label": "Project Name",
+          "default": "Name of the Project"
         },
         {
           "type": "text",
@@ -385,6 +491,116 @@
           "label": "Assigned Filters (comma separated)",
           "info": "Enter filter values separated by commas (e.g., open-spaces, closed-spaces)",
           "default": "open-spaces"
+        },
+        {
+          "type": "header",
+          "content": "Gallery Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1 (also used as card thumbnail)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7",
+          "label": "Image 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_8",
+          "label": "Image 8"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_9",
+          "label": "Image 9"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_10",
+          "label": "Image 10"
+        },
+        {
+          "type": "header",
+          "content": "Credits"
+        },
+        {
+          "type": "text",
+          "id": "credit_label_1",
+          "label": "Credit Label 1",
+          "default": "CREDITS"
+        },
+        {
+          "type": "text",
+          "id": "credit_text_1",
+          "label": "Credit Text 1",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "text",
+          "id": "credit_label_2",
+          "label": "Credit Label 2"
+        },
+        {
+          "type": "text",
+          "id": "credit_text_2",
+          "label": "Credit Text 2"
+        },
+        {
+          "type": "text",
+          "id": "credit_label_3",
+          "label": "Credit Label 3"
+        },
+        {
+          "type": "text",
+          "id": "credit_text_3",
+          "label": "Credit Text 3"
+        },
+        {
+          "type": "text",
+          "id": "credit_label_4",
+          "label": "Credit Label 4"
+        },
+        {
+          "type": "text",
+          "id": "credit_text_4",
+          "label": "Credit Text 4"
+        },
+        {
+          "type": "text",
+          "id": "credit_label_5",
+          "label": "Credit Label 5"
+        },
+        {
+          "type": "text",
+          "id": "credit_text_5",
+          "label": "Credit Text 5"
         }
       ]
     }

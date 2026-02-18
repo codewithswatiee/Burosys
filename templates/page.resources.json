@@ -673,108 +673,220 @@
           "type": "idea_item",
           "settings": {
             "title": "ASOS PROCESS ENGINEERING OFFICES – ISTANBUL",
-            "image": "shopify://shop_images/asos-process-engineering-offices-istanbul-2-1200x797.jpg",
-            "download_url": "",
-            "filters": "open spaces"
+            "project_name": "Name of the Project",
+            "filters": "open spaces",
+            "image_1": "shopify://shop_images/gemini_2.jpg",
+            "image_2": "shopify://shop_images/SC024.png",
+            "image_3": "shopify://shop_images/gemini_2.jpg",
+            "image_4": "shopify://shop_images/SC036-2_edf13acc-a5cf-4d75-aa1d-667c0946cc09.png",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_GHQJna": {
           "type": "idea_item",
           "settings": {
             "title": "MICHELIN OFFICES - WARSAW",
-            "image": "shopify://shop_images/michelin-offices-warsaw-2-1200x800-compact.jpg",
-            "download_url": "",
-            "filters": "open spaces"
+            "project_name": "Name of the Project",
+            "filters": "open spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_q9QYtG": {
           "type": "idea_item",
           "settings": {
             "title": "AQUATIC CAPITAL OFFICES – CHICAGO",
-            "image": "shopify://shop_images/aquatic-capital-offices-chicago-8-700x489-compact.jpg",
-            "download_url": "",
-            "filters": "open spaces"
+            "project_name": "Name of the Project",
+            "filters": "open spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_dw4JRd": {
           "type": "idea_item",
           "settings": {
             "title": "PROCTER & GAMBLE OFFICES – MANILA",
-            "image": "shopify://shop_images/procter-gamble-offices-manila-13-1200x800.jpg",
-            "download_url": "",
-            "filters": "collab spaces"
+            "project_name": "Name of the Project",
+            "filters": "collab spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_WMczNH": {
           "type": "idea_item",
           "settings": {
             "title": "COLLIERS OFFICES - WARSAW",
-            "image": "shopify://shop_images/colliers-offices-warsaw-1200x800.jpg",
-            "download_url": "",
-            "filters": "collab spaces"
+            "project_name": "Name of the Project",
+            "filters": "collab spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_g3htRn": {
           "type": "idea_item",
           "settings": {
             "title": "ARVEST AT LEDGER OFFICES - BENTONVILLE",
-            "image": "shopify://shop_images/arvest-at-ledger-offices-new-york-city-13-1200x900-compact.jpg",
-            "download_url": "",
-            "filters": "collab spaces"
+            "project_name": "Name of the Project",
+            "filters": "collab spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_GHFV8t": {
           "type": "idea_item",
           "settings": {
             "title": "AB PRIME REALTY OFFICES - DUBAI",
-            "image": "shopify://shop_images/ab-prime-realty-offices-dubai-4-1200x680-compact.jpg",
-            "download_url": "",
-            "filters": "closed spaces"
+            "project_name": "Name of the Project",
+            "filters": "closed spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_LhAAjH": {
           "type": "idea_item",
           "settings": {
             "title": "BNP PARIBAS CARDIF OFFICES - SAO PAULO",
-            "image": "shopify://shop_images/bnp-paribas-cardif-offices-sao-paulo-2-1200x800-compact.jpg",
-            "download_url": "",
-            "filters": "closed spaces"
+            "project_name": "Name of the Project",
+            "filters": "closed spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_YnnjeC": {
           "type": "idea_item",
           "settings": {
             "title": "KNS SECURITIES OFFICES- AHEMDABAD",
-            "image": "shopify://shop_images/kns-securities-offices-ahmedabad-11-1200x800-compact.jpg",
-            "download_url": "",
-            "filters": "closed spaces"
+            "project_name": "Name of the Project",
+            "filters": "closed spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_MXBken": {
           "type": "idea_item",
           "settings": {
             "title": "ESTETYCZNA GRUPA OFFICES- WARSAW",
-            "image": "shopify://shop_images/estetyczna-grupa-offices-warsaw-2-1200x801-compact.jpg",
-            "download_url": "",
-            "filters": "closed spaces"
+            "project_name": "Name of the Project",
+            "filters": "closed spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_7z76hT": {
           "type": "idea_item",
           "settings": {
             "title": "GYAN DAIRY OFFICES- LUCKNOW",
-            "image": "shopify://shop_images/gyan-dairy-offices-lucknow-1-700x467-compact.jpg",
-            "download_url": "",
-            "filters": "open spaces"
+            "project_name": "Name of the Project",
+            "filters": "open spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         },
         "idea_item_nCF8ja": {
           "type": "idea_item",
           "settings": {
             "title": "IPG OFFICES - CHICAGO",
-            "image": "shopify://shop_images/ipg-offices-chicago-4-1200x900-compact.jpg",
-            "download_url": "",
-            "filters": "collab spaces"
+            "project_name": "Name of the Project",
+            "filters": "collab spaces",
+            "credit_label_1": "CREDITS",
+            "credit_text_1": "Lorem ipsum",
+            "credit_label_2": "",
+            "credit_text_2": "",
+            "credit_label_3": "",
+            "credit_text_3": "",
+            "credit_label_4": "",
+            "credit_text_4": "",
+            "credit_label_5": "",
+            "credit_text_5": ""
           }
         }
       },

@@ -122,6 +122,7 @@
   product-custom-property-component .__heading {
     margin-inline: 0;
     margin-block: 0 var(--padding-sm);
+    color: #6F6F6F;
   }
 
   product-custom-property-component .__heading:has(+ .__description) {
@@ -156,8 +157,9 @@
   }
 
   product-custom-property-component .__input-wrapper textarea {
-    padding-bottom: calc(var(--padding-sm) * 3);
+    /* padding-bottom: calc(var(--padding-sm) * 3); */
     scroll-padding-bottom: calc(var(--padding-sm) * 3);
+    scrollbar-width: none;
   }
 
   product-custom-property-component textarea {
@@ -182,7 +184,8 @@
   product-custom-property-component .__character-count {
     font-style: italic;
     /* stylelint-disable-next-line declaration-no-important */
-    color: var(--color-input-text) !important;
+    color: #6F6F6F;
+    font-size: 9px;
   }
 
   /* We should consolidate input styles that share the same behavior */

@@ -491,6 +491,66 @@
         "name": "list.product_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "seat-upholstery-color",
+      "namespace": "shopify",
+      "name": "Seat upholstery color",
+      "description": "Identifies the color of a furniture item's seat upholstery, such as beige or blue",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "tabletop-shape",
+      "namespace": "shopify",
+      "name": "Tabletop shape",
+      "description": "Describes the geometric shape of a table's top, e.g. square, kidney-shaped",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "large_table",
+      "namespace": "custom",
+      "name": "Large table",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "small_table",
+      "namespace": "custom",
+      "name": "Small Table",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "subtitle",
+      "namespace": "custom",
+      "name": "subTitle",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "chair-features",
+      "namespace": "shopify",
+      "name": "Chair features",
+      "description": "Highlights special functions of a chair, such as massage function or power reclining",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [
@@ -512,6 +572,16 @@
       "type": {
         "name": "id",
         "category": "ID"
+      }
+    },
+    {
+      "key": "fabric_colors",
+      "namespace": "custom",
+      "name": "Fabric_colors",
+      "description": "",
+      "type": {
+        "name": "variant_reference",
+        "category": "REFERENCE"
       }
     }
   ],

@@ -13,6 +13,9 @@
   "sections": {
     "footer_QAE7jb": {
       "type": "footer",
+      "custom_css": [
+        ".wrap{margin-top: 20px;}"
+      ],
       "name": "t:names.footer",
       "settings": {
         "logo": "shopify://shop_images/Group_287.svg",

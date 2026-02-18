@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "consultation_form_kFBG38": {
+      "type": "consultation-form",
+      "name": "Consultation Form",
+      "settings": {
+        "label": "EXCLUSIVE CONSULTATION",
+        "heading": "SPEAK WITH OUR EXPERT",
+        "description": "<p>Share your contact details and one of our product specialists will personally reach out to discuss your bespoke partition requirements.</p>",
+        "content_alignment": "top",
+        "form_embed_code": "<script src=\"https://desk.zoho.in/portal/api/feedbackwidget/221202000000776001?orgId=60063053469&amp;displayType=embeded\"></script>\n<div id=\"zsfeedbackwidgetdiv\"></div>",
+        "color_scheme": ""
+      }
+    },
     "main": {
       "type": "main-page",
       "blocks": {
@@ -71,6 +83,7 @@
         "title",
         "content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -117,6 +130,7 @@
       "block_order": [
         "contact_form_UwiCkQ"
       ],
+      "disabled": true,
       "name": "t:names.contact_form",
       "settings": {
         "content_direction": "column",
@@ -157,6 +171,7 @@
       "block_order": [
         "s_store_locator_storeify_storelocator_UxrmnX"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -187,6 +202,7 @@
     }
   },
   "order": [
+    "consultation_form_kFBG38",
     "main",
     "form",
     "1769497607c7179bc8"
