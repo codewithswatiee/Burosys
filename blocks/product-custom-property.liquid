@@ -122,7 +122,6 @@
   product-custom-property-component .__heading {
     margin-inline: 0;
     margin-block: 0 var(--padding-sm);
-    color: #6F6F6F;
   }
 
   product-custom-property-component .__heading:has(+ .__description) {
@@ -154,6 +153,8 @@
   /* Add padding for inputs with counter inside */
   product-custom-property-component .__input-wrapper input {
     padding-bottom: calc(var(--padding-sm) * 3);
+    border: 2px solid black;
+    max-height: 30px;
   }
 
   product-custom-property-component .__input-wrapper textarea {
@@ -176,7 +177,7 @@
 
   product-custom-property-component .__character-label {
     position: absolute;
-    left: var(--input-padding-x);
+    right: var(--input-padding-x);
     bottom: var(--padding-sm);
     pointer-events: none;
   }

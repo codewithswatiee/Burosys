@@ -551,6 +551,26 @@
         "name": "list.metaobject_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "more_color_option_available",
+      "namespace": "custom",
+      "name": "More Color Option Available",
+      "description": "",
+      "type": {
+        "name": "link",
+        "category": "LINK"
+      }
+    },
+    {
+      "key": "thumbnail",
+      "namespace": "custom",
+      "name": "thumbnail",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [

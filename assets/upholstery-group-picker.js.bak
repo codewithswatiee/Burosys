@@ -1,0 +1,447 @@
+/**
+ * Upholstery Group Picker Component
+ * Handles the custom upholstery group selection with side drawer and tabs
+ */
+
+class UpholsteryGroupPicker {
+  constructor() {
+    this.drawers = document.querySelectorAll('[data-upholstery-drawer]');
+
+    this.overflowTimeout = null;
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.initializeDefaults();
+  }
+
+  initializeDefaults() {
+    // Initialize default selections for each picker
+    this.drawers.forEach(drawer => {
+      const picker = drawer.closest('.upholstery-group-picker');
+      
+      // Get the currently active tab (should be first by default)
+      const activeTab = drawer.querySelector('.upholstery-tab--active');
+      if (activeTab) {
+        const tabId = activeTab.dataset.upholsteryTab;
+        const groupName = activeTab.dataset.groupName;
+        
+        // Find the active panel and select first available color if none selected
+        const activePanel = drawer.querySelector(`[data-upholstery-panel="${tabId}"]`);
+        if (activePanel) {
+          const checkedColor = activePanel.querySelector('input[name^="upholstery-color-"]:checked');
+          const firstColor = activePanel.querySelector('input[name^="upholstery-color-"]:not(:disabled)');
+          
+          if (!checkedColor && firstColor) {
+            firstColor.checked = true;
+            const group = firstColor.dataset.group;
+            const color = firstColor.dataset.color;
+            const variantId = firstColor.dataset.variantId;
+            this.selectColor(firstColor, group, color, variantId);
+          }
+        }
+      }
+    });
+  }
+
+  bindEvents() {
+    // Bind all event handlers with proper context
+    this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
+    this.handleCloseDrawer = this.handleCloseDrawer.bind(this);
+    this.handleTabSwitch = this.handleTabSwitch.bind(this);
+    this.handleColorSelection = this.handleColorSelection.bind(this);
+    this.handleDrawerContentClick = this.handleDrawerContentClick.bind(this);
+
+    // Open drawer buttons
+    document.addEventListener('click', this.handleOpenDrawer);
+
+    // Close drawer only via explicit close button
+    document.addEventListener('click', this.handleCloseDrawer);
+
+    // Tab switching
+    document.addEventListener('click', this.handleTabSwitch);
+
+    // Color selection
+    document.addEventListener('change', this.handleColorSelection);
+
+    // Prevent drawer content clicks from bubbling
+    document.addEventListener('click', this.handleDrawerContentClick);
+
+    // NOTE: Drawer will not close on overlay click or Escape key —
+    // only the explicit close button will close it. This avoids
+    // accidental closes and ensures body overflow is only toggled
+    // by open/closeDrawer methods.
+  }
+
+  handleOpenDrawer(e) {
+    if (e.target.closest('[data-action="open-upholstery-drawer"]')) {
+      const button = e.target.closest('[data-action="open-upholstery-drawer"]');
+      const picker = button.closest('.upholstery-group-picker');
+      const drawer = picker.querySelector('[data-upholstery-drawer]');
+      e.preventDefault();
+      e.stopPropagation();
+      this.openDrawer(drawer);
+    }
+  }
+
+  handleCloseDrawer(e) {
+    if (e.target.closest('[data-action="close-upholstery-drawer"]')) {
+      const drawer = e.target.closest('[data-upholstery-drawer]');
+      e.preventDefault();
+      e.stopPropagation();
+      this.closeDrawer(drawer);
+    }
+  }
+
+  handleTabSwitch(e) {
+    if (e.target.matches('[data-upholstery-tab]')) {
+      const tab = e.target;
+      const drawer = tab.closest('[data-upholstery-drawer]');
+      const tabId = tab.dataset.upholsteryTab;
+      const groupName = tab.dataset.groupName;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Only switch tab, don't close drawer
+      this.switchTab(drawer, tabId, groupName);
+      
+      // Prevent any parent event handlers
+      return false;
+    }
+  }
+
+  handleColorSelection(e) {
+    if (e.target.matches('input[name^="upholstery-color-"]')) {
+      const input = e.target;
+      const group = input.dataset.group;
+      const color = input.dataset.color;
+      const variantId = input.dataset.variantId;
+      
+      e.stopPropagation();
+      this.selectColor(input, group, color, variantId);
+    }
+  }
+
+  handleDrawerContentClick(e) {
+    if (e.target.closest('.upholstery-drawer-content')) {
+      e.stopPropagation();
+    }
+  }
+
+  openDrawer(drawer) {
+    if (!drawer) return;
+    
+    const picker = drawer.closest('.upholstery-group-picker');
+    
+    // Cancel any pending scroll-restore timeout from a previous close
+    if (this.overflowTimeout) {
+      clearTimeout(this.overflowTimeout);
+      this.overflowTimeout = null;
+    }
+
+    // Restore the current selection before opening
+    this.restoreCurrentSelection(drawer);
+
+    drawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus management
+    const firstFocusable = drawer.querySelector('button, input, [tabindex="0"]');
+    if (firstFocusable) {
+      firstFocusable.focus();
+    }
+  }
+
+  restoreCurrentSelection(drawer) {
+    const picker = drawer.closest('.upholstery-group-picker');
+    const groupInput = picker.querySelector('[data-upholstery-group-input]');
+    const colorInput = picker.querySelector('[data-upholstery-color-input]');
+    
+    if (!groupInput || !groupInput.value) return;
+    
+    const selectedGroup = groupInput.value;
+    const selectedColor = colorInput ? colorInput.value : '';
+    
+    // Find and activate the correct tab
+    const targetTab = drawer.querySelector(`[data-group-name="${selectedGroup}"]`);
+    if (targetTab) {
+      const tabId = targetTab.dataset.upholsteryTab;
+      
+      // Update tab states
+      const tabs = drawer.querySelectorAll('[data-upholstery-tab]');
+      tabs.forEach(tab => {
+        tab.classList.toggle('upholstery-tab--active', tab === targetTab);
+      });
+      
+      // Update panel states
+      const panels = drawer.querySelectorAll('[data-upholstery-panel]');
+      panels.forEach(panel => {
+        panel.classList.toggle('upholstery-panel--active', panel.dataset.upholsteryPanel === tabId);
+      });
+      
+      // Restore color selection if available
+      if (selectedColor) {
+        const targetPanel = drawer.querySelector(`[data-upholstery-panel="${tabId}"]`);
+        if (targetPanel) {
+          // Clear any existing selections in this panel
+          const colorInputs = targetPanel.querySelectorAll('input[name^="upholstery-color-"]');
+          colorInputs.forEach(input => input.checked = false);
+          
+          // Select the correct color
+          const targetColorInput = targetPanel.querySelector(`input[data-group="${selectedGroup}"][data-color="${selectedColor}"]`);
+          if (targetColorInput) {
+            targetColorInput.checked = true;
+          }
+        }
+      }
+    }
+  }
+
+  closeDrawer(drawer) {
+    if (!drawer) return;
+
+    drawer.classList.remove('active');
+    document.body.style.overflow = 'auto';
+
+    // Cancel any in-flight restore from a previous close
+    if (this.overflowTimeout) {
+      clearTimeout(this.overflowTimeout);
+      this.overflowTimeout = null;
+    }
+
+    // Restore scroll after the CSS transition (0.3s) completes
+    
+
+    // Return focus to trigger button
+    const picker = drawer.closest('.upholstery-group-picker');
+    const triggerButton = picker.querySelector('[data-action="open-upholstery-drawer"]');
+    if (triggerButton) {
+      triggerButton.focus();
+    }
+  }
+
+  switchTab(drawer, tabId, groupName) {
+    if (!drawer) return;
+
+    // Update tab states
+    const tabs = drawer.querySelectorAll('[data-upholstery-tab]');
+    tabs.forEach(tab => {
+      tab.classList.toggle('upholstery-tab--active', tab.dataset.upholsteryTab === tabId);
+    });
+
+    // Update panel states
+    const panels = drawer.querySelectorAll('[data-upholstery-panel]');
+    panels.forEach(panel => {
+      panel.classList.toggle('upholstery-panel--active', panel.dataset.upholsteryPanel === tabId);
+    });
+
+    // Update hidden input with new group selection
+    const picker = drawer.closest('.upholstery-group-picker');
+    const groupInput = picker.querySelector('[data-upholstery-group-input]');
+    if (groupInput) {
+      groupInput.value = groupName;
+      
+      // Trigger a namespaced event so global 'change' handlers don't
+      // mistakenly react and close UI elsewhere.
+      const groupChangedEvent = new CustomEvent('upholstery-group-changed', {
+        bubbles: true,
+        detail: {
+          optionName: 'Upholstery Group',
+          optionValue: groupName
+        }
+      });
+      groupInput.dispatchEvent(groupChangedEvent);
+    }
+
+    // Auto-select first available color for this group if none selected
+    const currentPanel = drawer.querySelector(`[data-upholstery-panel="${tabId}"]`);
+    if (currentPanel) {
+      const checkedColor = currentPanel.querySelector('input[name^="upholstery-color-"]:checked');
+      
+      if (!checkedColor) {
+        // No color selected for this group, select first available
+        const firstColorInput = currentPanel.querySelector('input[name^="upholstery-color-"]:not(:disabled)');
+        if (firstColorInput) {
+          firstColorInput.checked = true;
+          const group = firstColorInput.dataset.group;
+          const color = firstColorInput.dataset.color;
+          const variantId = firstColorInput.dataset.variantId;
+          this.selectColor(firstColorInput, group, color, variantId);
+        }
+      } else {
+        // Update display with current selection
+        const group = checkedColor.dataset.group;
+        const color = checkedColor.dataset.color;
+        this.updateSelectionDisplay(picker, group, color);
+      }
+    }
+
+    // Update display text
+    this.updateSelectionDisplay(picker, groupName);
+  }
+
+  selectColor(input, group, color, variantId) {
+    const picker = input.closest('.upholstery-group-picker');
+    
+    // Update display
+    this.updateSelectionDisplay(picker, group, color);
+    
+    // Update hidden color input
+    const colorInput = picker.querySelector('[data-upholstery-color-input]');
+    if (colorInput) {
+      colorInput.value = color;
+      colorInput.dispatchEvent(new CustomEvent('upholstery-color-changed', { bubbles: true }));
+    }
+
+    // Sync with the theme's variant-picker using option value IDs (preferred path).
+    // Falls back to directly writing the variant ID if no variant-picker is found.
+    const colorOptionValueId = input.dataset.optionValueId;
+    const activeTab = picker.querySelector('.upholstery-tab--active');
+    const groupOptionValueId = activeTab?.dataset.optionValueId;
+
+    if (colorOptionValueId || groupOptionValueId) {
+      this.syncWithVariantPicker(picker, groupOptionValueId, colorOptionValueId);
+    } else {
+      this.applyVariantDirectly(picker, variantId);
+    }
+  }
+
+  /**
+   * Syncs the current group + color selection into the theme's variant-picker element.
+   * Silently updates the group radio (no fetch) then dispatches a real `change` event
+   * on the color radio so the variant-picker runs its full update flow once.
+   */
+  syncWithVariantPicker(picker, groupOptionValueId, colorOptionValueId) {
+    const section =
+      picker.closest('.shopify-section, featured-product-information, dialog') ||
+      document.body;
+    const variantPicker = section.querySelector('variant-picker');
+
+    if (!variantPicker) return;
+
+    // Update the group radio silently (checked state only, no change event)
+    // so the variant-picker does a single fetch when the color changes.
+    if (groupOptionValueId) {
+      const groupRadio = variantPicker.querySelector(
+        `[data-option-value-id="${groupOptionValueId}"]`
+      );
+      if (groupRadio instanceof HTMLInputElement && !groupRadio.checked) {
+        groupRadio.checked = true;
+      }
+    }
+
+    // Dispatch `change` on the color radio — this triggers variant-picker's
+    // variantChanged() → fetchUpdatedSection() → VariantUpdateEvent flow.
+    if (colorOptionValueId) {
+      const colorRadio = variantPicker.querySelector(
+        `[data-option-value-id="${colorOptionValueId}"]`
+      );
+      if (colorRadio instanceof HTMLInputElement) {
+        colorRadio.checked = true;
+        colorRadio.dispatchEvent(new Event('change', { bubbles: true }));
+        return;
+      }
+    }
+  }
+
+  /**
+   * Fallback: directly writes the variant ID into the product form and updates the URL.
+   * Used when no variant-picker element or option-value-id is available.
+   */
+  applyVariantDirectly(picker, variantId) {
+    if (!variantId) return;
+
+    const section =
+      picker.closest('.shopify-section, featured-product-information, dialog') ||
+      document.body;
+    const variantInput = section.querySelector(
+      '[data-ref="variantId"], product-form [name="id"], form [name="id"]'
+    );
+    if (variantInput) {
+      variantInput.value = variantId;
+    }
+
+    if (window.location.pathname.includes('/products/')) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('variant', variantId);
+      history.replaceState({}, '', url.toString());
+    }
+  }
+
+  updateSelectionDisplay(picker, group, color = '') {
+    const selectionText = picker.querySelector('[data-selection-text]');
+    if (selectionText) {
+      let displayText = group;
+      if (color) {
+        displayText += ` | ${color}`;
+      } else {
+        // Try to get currently selected color from hidden input
+        const colorInput = picker.querySelector('[data-upholstery-color-input]');
+        if (colorInput && colorInput.value) {
+          displayText += ` | ${colorInput.value}`;
+        }
+      }
+      selectionText.textContent = displayText;
+    }
+    
+    // Also update the hidden inputs to maintain state
+    const groupInput = picker.querySelector('[data-upholstery-group-input]');
+    if (groupInput) {
+      groupInput.value = group;
+    }
+    
+    if (color) {
+      const colorHiddenInput = picker.querySelector('[data-upholstery-color-input]');
+      if (colorHiddenInput) {
+        colorHiddenInput.value = color;
+      }
+    }
+  }
+
+  // Public method to get current selection
+  getCurrentSelection(picker) {
+    const groupInput = picker.querySelector('[data-upholstery-group-input]');
+    const colorInput = picker.querySelector('input[name^="upholstery-color-"]:checked');
+    
+    return {
+      group: groupInput ? groupInput.value : null,
+      color: colorInput ? colorInput.dataset.color : null,
+      variantId: colorInput ? colorInput.dataset.variantId : null
+    };
+  }
+
+  // Public method to set selection programmatically
+  setSelection(picker, group, color) {
+    // Switch to correct tab
+    const tab = picker.querySelector(`[data-group-name="${group}"]`);
+    if (tab) {
+      const drawer = picker.querySelector('[data-upholstery-drawer]');
+      this.switchTab(drawer, tab.dataset.upholsteryTab, group);
+    }
+
+    // Select color
+    if (color) {
+      const colorInput = picker.querySelector(`input[data-group="${group}"][data-color="${color}"]`);
+      if (colorInput) {
+        colorInput.checked = true;
+        this.selectColor(colorInput, group, color, colorInput.dataset.variantId);
+      }
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new UpholsteryGroupPicker();
+  });
+} else {
+  new UpholsteryGroupPicker();
+}
+
+// Export for use in other scripts
+if (typeof window !== 'undefined') {
+  window.UpholsteryGroupPicker = UpholsteryGroupPicker;
+}

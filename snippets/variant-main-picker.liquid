@@ -8,20 +8,12 @@
 {% assign block_settings = block.settings %}
 
 {% unless product_resource.has_only_default_variant %}
-  {% liquid
-    assign button_background_brightness = section.settings.color_scheme.settings.foreground | color_brightness
-    if button_background_brightness < 105
-      assign strikethrough_color_mix = '#000'
-    else
-      assign strikethrough_color_mix = '#fff'
-    endif
-  %}
+  {%- assign strikethrough_color_mix = '#fff' -%}
   <variant-picker
-    class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}"
-    style="--color-strikethrough-mix: {{ strikethrough_color_mix }}; {% render 'spacing-style', settings: block_settings %}"
-    data-section-id="{{ section.id }}"
+    class="variant-picker spacing-style variant-picker--{{ block_settings.alignment | default: 'left' }}"
+    style="--color-strikethrough-mix: {{ strikethrough_color_mix }};"
     data-product-id="{{ product_resource.id }}"
-    data-block-id="{{ block.id }}"
+    {% if block %}data-block-id="{{ block.id }}"{% endif %}
     data-product-url="{{ product_resource.url }}"
     ref="mainVariantPicker"
     {% if product.id == product_resource.id %}
@@ -47,13 +39,66 @@
           endif
 
           if variant_style == 'buttons' and settings.variant_button_width == 'equal-width-buttons'
-            assign fieldset_id = section.id | append: '-' | append: product_resource.id | append: '-' | append: product_option.name | handleize
+            assign fieldset_id = 'fieldset-' | append: product_resource.id | append: '-' | append: forloop.index0
             assign option_id_attribute = 'data-option-id="' | append: fieldset_id | append: '"'
             assign longest_value = 0
           endif
         -%}
 
-        {%- if variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
+        {%- if product_option.name == 'Upholstery Group' -%}
+          {%- comment -%} Custom styling for Upholstery Group with side drawer {%- endcomment -%}
+          {%- assign fieldset_index = forloop.index0 -%}
+          {% render 'upholstery-group-picker', 
+            product_resource: product_resource,
+            product_option: product_option,
+            fieldset_index: fieldset_index,
+            block: block
+          %}
+        {%- elsif product_option.name == 'Upholstery Color' -%}
+          {%- comment -%} Skip Upholstery Color if Upholstery Group exists (it's handled inside the group picker) {%- endcomment -%}
+          {%- assign has_upholstery_group = false -%}
+          {%- for option_check in product_resource.options_with_values -%}
+            {%- if option_check.name == 'Upholstery Group' -%}
+              {%- assign has_upholstery_group = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- unless has_upholstery_group -%}
+            {%- assign fieldset_index = forloop.index0 -%}
+            <fieldset
+              class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"
+              data-fieldset-index="{{ fieldset_index }}"
+              ref="fieldsets[]"
+              {{ option_id_attribute }}
+            >
+              <legend>
+                {{ product_option.name | escape -}}
+                {%- if variant_style == 'swatch' -%}
+                  <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
+                {%- endif %}
+              </legend>
+              {%- for product_option_value in product_option.values -%}
+                {% if product_option_value.size > longest_value and option_id_attribute %}
+                  {% assign longest_value = product_option_value.size %}
+                {% endif %}
+              {%- endfor -%}
+              {% if option_id_attribute %}
+                {% style %}
+                  #{{ fieldset_id }} .variant-option__button-label__text {
+                    --variant-ch: {{ longest_value }}ch;
+                  }
+                {% endstyle %}
+              {% endif %}
+              {% render 'variant-swatches',
+                product_resource: product_resource,
+                product_option: product_option,
+                product_option_index: forloop.index0,
+                fieldset_index: fieldset_index,
+                variant_style: variant_style
+              %}
+            </fieldset>
+          {%- endunless -%}
+        {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
           {%- assign fieldset_index = forloop.index0 -%}
           <fieldset
             class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"

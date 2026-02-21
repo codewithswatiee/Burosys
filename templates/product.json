@@ -433,7 +433,7 @@
               "name": "Product Metafields",
               "disabled": true,
               "settings": {
-                "metafield_1": "{{ closest.product.metafields.custom.more_color_options_available | metafield_tag }}",
+                "metafield_1": "{{ closest.product.metafields.custom.more_color_option_available | metafield_tag }}",
                 "metafield_2": "",
                 "metafield_3": "",
                 "metafield_4": "",

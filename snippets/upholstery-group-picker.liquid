@@ -1,0 +1,494 @@
+{%- doc -%}
+  Renders a custom upholstery group picker with side drawer and tabs
+  @param {object} product_resource - The product object
+  @param {object} product_option - The upholstery group option
+  @param {number} fieldset_index - The fieldset index
+  @param {object} block - The block object
+{%- enddoc -%}
+
+{% comment %}
+  Group variants by upholstery type and collect available colors for each type
+{% endcomment %}
+
+{%- liquid
+  assign selected_group = product_option.selected_value | default: product_option.values.first.name
+  assign selected_color = ''
+  
+  comment
+    Find the current selected color option from other product options and get first color for selected group
+  endcomment
+  assign group_option_index = -1
+  assign color_option_index = -1
+  
+  for option in product_resource.options_with_values
+    if option.name == 'Upholstery Group'
+      assign group_option_index = forloop.index0
+    elsif option.name == 'Upholstery Color'
+      assign color_option_index = forloop.index0
+      assign selected_color = option.selected_value
+    endif
+  endfor
+  
+  comment
+    If no color selected, get first available color for selected group
+  endcomment
+  if selected_color == blank and group_option_index >= 0 and color_option_index >= 0
+    for variant in product_resource.variants
+      assign variant_group = variant.options[group_option_index]
+      assign variant_color = variant.options[color_option_index]
+      
+      if variant_group == selected_group
+        assign selected_color = variant_color
+        break
+      endif
+    endfor
+  endif
+  
+  comment
+    Get unique upholstery group names
+  endcomment
+  assign upholstery_group_names = product_option.values | map: 'name' | uniq
+-%}
+
+<upholstery-group-picker class="upholstery-group-picker" data-fieldset-index="{{ fieldset_index }}">
+  {%- comment -%} Main display card {%- endcomment -%}
+  <div class="upholstery-group-card">
+    <div class="upholstery-group-content">
+      <div class="upholstery-group-icon">
+        <div class="upholstery-placeholder-circle"></div>
+      </div>
+      <div class="upholstery-group-info">
+        <h3 class="upholstery-group-title">{{ product_option.name }}</h3>
+        <p class="upholstery-group-selection" data-selection-text>
+          {{ selected_group }}{% if selected_color != blank %} | {{ selected_color }}{% endif %}
+        </p>
+      </div>
+    </div>
+    <button 
+      type="button" 
+      class="upholstery-configure-btn"
+      data-action="open-upholstery-drawer"
+      aria-label="Configure upholstery options"
+      onclick="document.querySelector('.upholstery-drawer').classList.add('active');"
+    >
+      Configure
+      <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+        <path d="M7 9L11 5M11 5L7 1M11 5H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  {%- comment -%} Hidden inputs for form submission {%- endcomment -%}
+  <input 
+    type="hidden" 
+    name="{{ product_option.name | escape }}-{{ block.id }}-{{ product_resource.id }}"
+    value="{{ selected_group | escape }}"
+    data-upholstery-group-input
+    data-fieldset-index="{{ fieldset_index }}"
+    data-option-value-id="{{ product_option.values.first.id }}"
+  >
+  
+  {%- comment -%} Hidden input for color selection {%- endcomment -%}
+  <input 
+    type="hidden" 
+    name="Upholstery Color-{{ block.id }}-{{ product_resource.id }}"
+    value="{{ selected_color | escape }}"
+    data-upholstery-color-input
+    data-fieldset-index="{{ fieldset_index }}"
+  >
+
+  {%- comment -%} Side drawer modal {%- endcomment -%}
+  <div class="upholstery-drawer" data-upholstery-drawer>
+    <div class="upholstery-drawer-overlay"></div>
+    <div class="upholstery-drawer-content">
+      <div class="upholstery-drawer-header">
+        <h2 class="upholstery-drawer-title">{{ product_option.name }}</h2>
+        <button 
+          type="button" 
+          class="upholstery-drawer-close"
+          data-action="close-upholstery-drawer"
+          aria-label="Close upholstery options"
+          onclick="document.querySelector('.upholstery-drawer').classList.remove('active');"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {%- comment -%} Tab navigation {%- endcomment -%}
+      <div class="upholstery-tabs">
+        {%- for group_name in upholstery_group_names -%}
+          {%- assign group_value_id = '' -%}
+          {%- for opt_val in product_option.values -%}
+            {%- if opt_val.name == group_name -%}
+              {%- assign group_value_id = opt_val.id -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <button 
+            type="button"
+            class="upholstery-tab{% if group_name == selected_group or forloop.first %} upholstery-tab--active{% endif %}"
+            data-upholstery-tab="{{ group_name | handleize }}"
+            data-group-name="{{ group_name | escape }}"
+            data-option-value-id="{{ group_value_id }}"
+          >
+            {{ group_name }}
+          </button>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Tab content panels {%- endcomment -%}
+      <div class="upholstery-panels">
+        {%- for group_name in upholstery_group_names -%}
+          <div 
+            class="upholstery-panel{% if group_name == selected_group or forloop.first %} upholstery-panel--active{% endif %}"
+            data-upholstery-panel="{{ group_name | handleize }}"
+          >
+            <div class="upholstery-panel-header">
+              <h3 class="upholstery-panel-title">{{ group_name }}</h3>
+              <p class="upholstery-panel-description">Choose from available colors</p>
+            </div>
+
+            {%- comment -%} Color swatches for this upholstery group {%- endcomment -%}
+            <div class="upholstery-color-grid">
+              {%- comment -%} Find option index for Upholstery Group and Upholstery Color {%- endcomment -%}
+              {%- assign group_option_index = -1 -%}
+              {%- assign color_option_index = -1 -%}
+              
+              {%- for option in product_resource.options_with_values -%}
+                {%- if option.name == 'Upholstery Group' -%}
+                  {%- assign group_option_index = forloop.index0 -%}
+                {%- elsif option.name == 'Upholstery Color' -%}
+                  {%- assign color_option_index = forloop.index0 -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- comment -%} Get only available colors for this specific group from variants {%- endcomment -%}
+              {%- comment -%} Use a plain string (not array) so the boundary-delimited contains check works correctly {%- endcomment -%}
+              {%- assign available_colors = '' -%}
+              
+              {%- for variant in product_resource.variants -%}
+                {%- if variant.available and group_option_index >= 0 and color_option_index >= 0 -%}
+                  {%- assign variant_group = variant.options[group_option_index] -%}
+                  {%- assign variant_color = variant.options[color_option_index] -%}
+                  
+                  {%- if variant_group == group_name -%}
+                    {%- comment -%} Wrap with commas to avoid substring false-positives (e.g. "Red" inside "Dark Red") {%- endcomment -%}
+                    {%- assign colors_check = ',' | append: available_colors | append: ',' -%}
+                    {%- assign color_check  = ',' | append: variant_color   | append: ',' -%}
+                    {%- unless colors_check contains color_check -%}
+                      {%- assign available_colors = available_colors | append: variant_color | append: ',' -%}
+                    {%- endunless -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              
+              {%- assign available_colors_array = available_colors | split: ',' -%}
+              
+              {%- for color_name in available_colors_array -%}
+                {%- unless color_name == blank -%}
+                  {%- comment -%} Find the first available matching variant {%- endcomment -%}
+                  {%- assign matching_variant = null -%}
+                  
+                  {%- for variant in product_resource.variants -%}
+                    {%- if variant.available and group_option_index >= 0 and color_option_index >= 0 -%}
+                      {%- assign variant_group = variant.options[group_option_index] -%}
+                      {%- assign variant_color = variant.options[color_option_index] -%}
+                      
+                      {%- if variant_group == group_name and variant_color == color_name -%}
+                        {%- assign matching_variant = variant -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- if matching_variant -%}
+                    {%- comment -%} Get color swatch and option value ID from color option values {%- endcomment -%}
+                    {%- assign color_swatch = null -%}
+                    {%- assign color_option_value_id = '' -%}
+                    {%- for color_option in product_resource.options_with_values -%}
+                      {%- if color_option.name == 'Upholstery Color' -%}
+                        {%- for color_value in color_option.values -%}
+                          {%- if color_value.name == color_name -%}
+                            {%- assign color_swatch = color_value.swatch -%}
+                            {%- assign color_option_value_id = color_value.id -%}
+                            {%- break -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    <div class="upholstery-color-item">
+                      <input 
+                        type="radio"
+                        name="upholstery-color-{{ group_name | handleize }}"
+                        id="color-{{ group_name | handleize }}-{{ color_name | handleize }}"
+                        value="{{ color_name | escape }}"
+                        data-group="{{ group_name | escape }}"
+                        data-color="{{ color_name | escape }}"
+                        data-variant-id="{{ matching_variant.id }}"
+                        data-option-value-id="{{ color_option_value_id }}"
+                        {% if group_name == selected_group and color_name == selected_color %}checked{% elsif group_name == selected_group and selected_color == blank and forloop.first %}checked{% endif %}
+                      >
+                      <label 
+                        for="color-{{ group_name | handleize }}-{{ color_name | handleize }}"
+                        class="upholstery-color-swatch"
+                      >
+                        {% if color_swatch %}
+                          {% render 'swatch', swatch: color_swatch %}
+                        {% else %}
+                          <span class="upholstery-color-fallback" style="background: #{{ color_name | handle | remove: '-' }}"></span>
+                        {% endif %}
+                      </label>
+                      <span class="upholstery-color-name">{{ color_name }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</upholstery-group-picker>
+
+<script src="{{ 'upholstery-group-picker.js' | asset_url }}" defer></script>
+
+{% style %}
+  .upholstery-group-picker {
+    margin-top: 1rem;
+  }
+
+  .upholstery-group-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: white;
+  }
+
+  .upholstery-group-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .upholstery-placeholder-circle {
+    width: 40px;
+    height: 40px;
+    background: #d1d5db;
+    border-radius: 50%;
+  }
+
+  .upholstery-group-info h3 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #676767;
+  }
+
+  .upholstery-group-selection {
+    margin: 0;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .upholstery-configure-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #ea580c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .upholstery-panel-header{
+    padding-bottom: 20px;
+  }
+
+  .upholstery-configure-btn:hover {
+    background: #dc2626;
+  }
+
+  .upholstery-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+  }
+
+  .upholstery-drawer.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .upholstery-drawer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .upholstery-drawer-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    scrollbar-width: none;
+    max-width: 40vw;
+    background: white;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 10001;
+  }
+
+  .upholstery-drawer.active .upholstery-drawer-content {
+    transform: translateX(0);
+  }
+
+  .upholstery-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10002;
+  }
+
+  .upholstery-drawer-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .upholstery-drawer-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .upholstery-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .upholstery-tab {
+    flex: 1;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .upholstery-tab--active {
+    color: #ea580c;
+    border-bottom-color: #ea580c;
+  }
+
+  .upholstery-panel {
+    display: none;
+    padding: 20px;
+  }
+
+  .upholstery-panel--active {
+    display: block;
+  }
+
+  .upholstery-panel-title {
+    margin: 0 0 4px 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .upholstery-panel-description {
+    margin: 0 0 24px 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  .upholstery-color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .upholstery-color-item {
+    text-align: center;
+  }
+
+  .upholstery-color-item input {
+    display: none;
+  }
+
+  .upholstery-color-swatch {
+    display: block;
+    width: 100px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .upholstery-color-swatch .swatch{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .upholstery-color-item input:checked + .upholstery-color-swatch {
+    border-color: #ea580c;
+  }
+
+  .upholstery-color-name {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .upholstery-color-fallback {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #e5e5e5;
+  }
+
+  @media (max-width: 768px) {
+    .upholstery-drawer-content {
+      max-width: 100vw;
+    }
+  }
+{% endstyle %}
