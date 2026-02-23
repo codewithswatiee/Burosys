@@ -305,20 +305,6 @@
               },
               "blocks": {}
             },
-            "variant_picker_VXBwia": {
-              "type": "variant-picker",
-              "name": "t:names.product_variant_picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": true,
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 8,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "text_t7ttq3": {
               "type": "text",
               "name": "t:names.text",
@@ -341,6 +327,20 @@
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_VXBwia": {
+              "type": "variant-picker",
+              "name": "t:names.product_variant_picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 8,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
@@ -400,17 +400,6 @@
               },
               "block_order": []
             },
-            "button_cta_Wecn6n": {
-              "type": "button-cta",
-              "name": "Button CTA",
-              "disabled": true,
-              "settings": {
-                "section_width": "page-width",
-                "button_text": "Configure",
-                "button_link": "shopify://collections"
-              },
-              "blocks": {}
-            },
             "product_metafields_HERcH6": {
               "type": "product-metafields",
               "name": "Product Metafields",
@@ -431,7 +420,6 @@
             "product_metafields_WhFyQD": {
               "type": "product-metafields",
               "name": "Product Metafields",
-              "disabled": true,
               "settings": {
                 "metafield_1": "{{ closest.product.metafields.custom.more_color_option_available | metafield_tag }}",
                 "metafield_2": "",
@@ -443,48 +431,6 @@
                 "metafield_8": "",
                 "metafield_9": "",
                 "metafield_10": ""
-              },
-              "blocks": {}
-            },
-            "product_custom_property_kRAXHn": {
-              "type": "product-custom-property",
-              "name": "t:names.product_custom_property",
-              "disabled": true,
-              "settings": {
-                "property_heading": "Name your Cluster:",
-                "property_description": "",
-                "property_key": "Cluster Name",
-                "input_type": "text",
-                "max_length": 50,
-                "checkbox_label": "Include gift wrapping",
-                "required": false,
-                "placeholder": "Enter your Cluster Name",
-                "placeholder_textarea": "Enter your special instructions",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_custom_property_eBeq7H": {
-              "type": "product-custom-property",
-              "name": "t:names.product_custom_property",
-              "disabled": true,
-              "settings": {
-                "property_heading": "Special instructions:",
-                "property_description": "",
-                "property_key": "Special instructions",
-                "input_type": "text",
-                "max_length": 250,
-                "checkbox_label": "Include gift wrapping",
-                "required": false,
-                "placeholder": "Enter your special instructions",
-                "placeholder_textarea": "Enter your special instructions",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -514,43 +460,14 @@
                 "swym_custom_css": ""
               }
             },
-            "buy_buttons_XNLaXU": {
-              "type": "buy-buttons",
-              "name": "t:names.product_buy_buttons",
+            "button_cta_YdfVHM": {
+              "type": "button-cta",
+              "name": "Button CTA",
               "settings": {
-                "stacking": false,
-                "show_pickup_availability": false,
-                "gift_card_form": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "section_width": "page-width",
+                "button_text": "Request a call back"
               },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button-secondary"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
+              "blocks": {}
             }
           },
           "block_order": [
@@ -558,17 +475,14 @@
             "text_M4Vryx",
             "group",
             "divider",
-            "variant_picker_VXBwia",
             "text_t7ttq3",
+            "variant_picker_VXBwia",
             "product_metafields_z3NKpF",
             "buy_buttons",
-            "button_cta_Wecn6n",
             "product_metafields_HERcH6",
             "product_metafields_WhFyQD",
-            "product_custom_property_kRAXHn",
-            "product_custom_property_eBeq7H",
             "wishlist_plus_wishlist_pdp_button_fcb3dm",
-            "buy_buttons_XNLaXU"
+            "button_cta_YdfVHM"
           ]
         }
       },

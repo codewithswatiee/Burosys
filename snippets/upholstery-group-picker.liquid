@@ -45,6 +45,22 @@
   endif
   
   comment
+    Get the swatch for the selected color
+  endcomment
+  assign selected_color_swatch = null
+  for option in product_resource.options_with_values
+    if option.name == 'Upholstery Color'
+      for color_value in option.values
+        if color_value.name == selected_color
+          assign selected_color_swatch = color_value.swatch
+          break
+        endif
+      endfor
+      break
+    endif
+  endfor
+  
+  comment
     Get unique upholstery group names
   endcomment
   assign upholstery_group_names = product_option.values | map: 'name' | uniq
@@ -55,7 +71,11 @@
   <div class="upholstery-group-card">
     <div class="upholstery-group-content">
       <div class="upholstery-group-icon">
-        <div class="upholstery-placeholder-circle"></div>
+        <div class="upholstery-placeholder-circle">
+          {% if selected_color_swatch %}
+            {% render 'swatch', swatch: selected_color_swatch %}
+          {% endif %}
+        </div>
       </div>
       <div class="upholstery-group-info">
         <h3 class="upholstery-group-title">{{ product_option.name }}</h3>
@@ -267,7 +287,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #FFC5B1;
     border-radius: 8px;
     background: white;
   }
@@ -282,6 +302,14 @@
     width: 40px;
     height: 40px;
     background: #d1d5db;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .upholstery-placeholder-circle .swatch {
+    width: 100%;
+    height: 100%;
+    display: block;
     border-radius: 50%;
   }
 
@@ -306,7 +334,7 @@
     background: #ea580c;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 50px;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
@@ -355,8 +383,8 @@
     bottom: 0;
     width: 100%;
     scrollbar-width: none;
-    max-width: 40vw;
-    background: white;
+    max-width: 35vw;
+    background: #F9F9F9;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     overflow-y: auto;
@@ -371,7 +399,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid #e5e5e5;
     background: white;
     position: sticky;
@@ -382,7 +410,8 @@
   .upholstery-drawer-title {
     margin: 0;
     font-size: 18px;
-    font-weight: 600;
+    color: #676767;
+    font-weight: 400;
   }
 
   .upholstery-drawer-close {
@@ -394,26 +423,28 @@
 
   .upholstery-tabs {
     display: flex;
-    overflow-x: auto;
-    border-bottom: 1px solid #e5e5e5;
+    gap: 10px 25px;
+    margin: 20px;
+    flex-wrap: wrap;
   }
 
   .upholstery-tab {
     flex: 1;
-    padding: 12px 16px;
+    max-width: fit-content;
+    padding: 10px;
     background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
+    border: 1px solid black;
     font-size: 14px;
     font-weight: 500;
-    color: #6b7280;
+    color: black;
     cursor: pointer;
+    border-radius: 50px;
     transition: color 0.2s, border-color 0.2s;
   }
 
   .upholstery-tab--active {
-    color: #ea580c;
-    border-bottom-color: #ea580c;
+    background: #ea580c;
+    color: white;
   }
 
   .upholstery-panel {
@@ -440,7 +471,8 @@
   .upholstery-color-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
+    gap: 16px 0;
+    justify-items: self-start;
   }
 
   .upholstery-color-item {
@@ -453,7 +485,7 @@
 
   .upholstery-color-swatch {
     display: block;
-    width: 100px;
+    width: 75px;
     height: 60px;
     border-radius: 8px;
     border: 2px solid transparent;
@@ -487,6 +519,44 @@
   }
 
   @media (max-width: 768px) {
+
+    .upholstery-panel--active{
+      padding: 10px;
+    }
+    .upholstery-color-grid{
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .upholstery-tabs{
+      gap: 10px;
+      margin: 10px;
+    }
+    .upholstery-tab{
+      padding: 8px;
+      font-size: 12px;
+    }
+    .upholstery-drawer-close{
+      color: black !important;
+    }
+    .upholstery-color-name{
+      font-size: 10px;
+    }
+    .upholstery-placeholder-circle{
+      width: 25px;
+      height: 25px;
+    }
+    .upholstery-placeholder-circle{
+      font-size: 13px;
+    }
+    .upholstery-group-selection{
+      font-size: 10px;
+    }
+
+    .upholstery-configure-btn{
+      padding: 8px;
+      font-size: 11px;
+    }
+
     .upholstery-drawer-content {
       max-width: 100vw;
     }

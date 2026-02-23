@@ -40,11 +40,11 @@
 {% endcapture %}
 
 <div
-  class="spacing-style"
+  class="spacing-style {% if block_settings.layout_alignment == 'horizontal' %}__horizontal-layout{% else %}__vertical-layout{% endif %}"
   style="{% render 'spacing-style', settings: block_settings %}"
   {{ block.shopify_attributes }}
 >
-  {% if block_settings.property_heading != blank %}
+  {% if block_settings.property_heading != blank and block_settings.layout_alignment != 'horizontal' %}
     <p
       class="__heading"
     >
@@ -60,7 +60,10 @@
     </p>
   {% endif %}
 
-  <div class="__field">
+  <div class="__field {% if block_settings.layout_alignment == 'horizontal' %}__horizontal{% else %}__vertical{% endif %}">
+    {% if block_settings.property_heading != blank and block_settings.layout_alignment == 'horizontal' %}
+      <p class="__heading">{{ block_settings.property_heading | escape }}</p>
+    {% endif %}
     {% if actual_input_type == 'textarea' %}
       <div class="__input-wrapper">
         <textarea
@@ -68,7 +71,7 @@
           on:input="/handleInput"
           id="{{ element_id }}"
           name="{{ property_name }}"
-          class="field__input custom-property__input"
+          class="field__input custom-property__input {% if block_settings.layout_alignment == 'horizontal' %}__horizontal-textarea{% else %}__vertical-textarea{% endif %}"
           placeholder="{{ block_settings.placeholder_textarea | escape }}"
           form="{{ product_form_id }}"
           maxlength="{{ block_settings.max_length }}"
@@ -99,7 +102,7 @@
           type="text"
           id="{{ element_id }}"
           name="{{ property_name }}"
-          class="field__input"
+          class="field__input {% if block_settings.layout_alignment == 'horizontal' %}__horizontal-input{% else %}__vertical-input{% endif %}"
           placeholder="{{ block_settings.placeholder | escape }}"
           form="{{ product_form_id }}"
           maxlength="{{ block_settings.max_length }}"
@@ -119,9 +122,36 @@
     width: 100%;
   }
 
+  /* Horizontal Layout */
+  product-custom-property-component.__horizontal-layout .__field.__horizontal {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  product-custom-property-component.__horizontal-layout .__heading {
+    flex-shrink: 0;
+    min-width: 150px;
+    margin: 0;
+    padding-top: 8px;
+    line-height: 1.4;
+  }
+
+  product-custom-property-component.__horizontal-layout .__input-wrapper {
+    flex: 1;
+  }
+
+  /* Vertical Layout */
+  product-custom-property-component.__vertical-layout .__field.__vertical {
+    display: flex;
+    flex-direction: column;
+  }
+
   product-custom-property-component .__heading {
     margin-inline: 0;
     margin-block: 0 var(--padding-sm);
+    color: #6F6F6F;
+    white-space: nowrap;
   }
 
   product-custom-property-component .__heading:has(+ .__description) {
@@ -141,6 +171,7 @@
 
   product-custom-property-component .__input-wrapper {
     position: relative;
+    width: 100%;
   }
 
   product-custom-property-component input,
@@ -157,14 +188,25 @@
     max-height: 30px;
   }
 
-  product-custom-property-component .__input-wrapper textarea {
-    /* padding-bottom: calc(var(--padding-sm) * 3); */
-    scroll-padding-bottom: calc(var(--padding-sm) * 3);
-    scrollbar-width: none;
+  .__horizontal{
+    display: flex;
+    align-items: start;
+    gap: 12px;
   }
 
-  product-custom-property-component textarea {
-    min-height: 80px;
+  product-custom-property-component .__input-wrapper textarea.__horizontal-textarea {
+    height: 30px !important;
+    scroll-padding-bottom: calc(var(--padding-sm) * 3);
+    scrollbar-width: none;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  product-custom-property-component .__input-wrapper textarea.__vertical-textarea {
+    height: 80px !important;
+    scroll-padding-bottom: calc(var(--padding-sm) * 3);
+    scrollbar-width: none;
+    font-size: 14px;
   }
 
   @supports (resize: vertical) {
@@ -176,6 +218,7 @@
   }
 
   product-custom-property-component .__character-label {
+    display: none;
     position: absolute;
     right: var(--input-padding-x);
     bottom: var(--padding-sm);
@@ -189,15 +232,34 @@
     font-size: 9px;
   }
 
-  /* We should consolidate input styles that share the same behavior */
+  /* The Mandatory check script can modified as to suit your business needs. - It is important that you test the modified form before going live. - Do not remove captcha and other form elements that are necessary for the form to work. */ function addAriaSelected91309000006979007(){ var optionElem = event.target; var previousSelectedOption = optionElem.querySelector('[aria-selected=true]'); if (previousSelectedOption) { previousSelectedOption.removeAttribute('aria-selected'); } optionElem.querySelectorAll('option') [optionElem.selectedIndex] .ariaSelected = 'true'; } function privacyAlert91309000006979007(){ var privacyTool = document.getElementById('privacyTool91309000006979007'); var privacyErr = document.getElementById('privacyErr91309000006979007'); if (privacyTool != undefined && !privacyTool.checked) { privacyErr.style.visibility = 'visible'; privacyTool.ariaInvalid = 'true'; privacyTool.focus(); return false; } return true; } function disableErr91309000006979007(){ var privacyTool = document.getElementById('privacyTool91309000006979007'); var privacyErr = document.getElementById('privacyErr91309000006979007'); if (privacyTool != undefined && privacyTool.checked && privacyErr != undefined) { privacyErr.style.visibility = 'hidden'; privacyTool.ariaInvalid = 'false'; } } /* Do not remove this code. */ function reloadImg91309000006979007(){ var captcha = document.getElementById('imgid91309000006979007'); if (captcha.src.indexOf ('&d') !== -1) { captcha.src = captcha.src.substring(0, captcha.src.indexOf('&d')) + '&d' + new Date().getTime(); } else { captcha.src = captcha.src + '&d' + new Date().getTime(); } } function historyBack91309000006979007(){ document.querySelector('.crmWebToEntityForm .formsubmit').removeAttribute('disabled'); reloadImg91309000006979007(); window.removeEventListener('focus', historyBack91309000006979007); } function validateEmail91309000006979007(){ var form = document.forms['WebToContacts91309000006979007']; var emailFld = form.querySelectorAll('[ftype=email]'); var i; for(i = 0; i < emailFld.length; i++ ) { var emailVal = emailFld[i].value; if ((emailVal.replace (/^\s+|\s+$/g,'') ) .length != 0) { var atpos = emailVal.indexOf('@'); var dotpos = emailVal.lastIndexOf('.'); if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length) { alert('Please enter a valid email address. '); emailFld[i].focus(); return false; } } } return true; } function checkMandatory91309000006979007(){ var mndFileds = new Array('Last Name'); var fldLangVal = new Array('Last\x20Name'); for (i = 0; i < mndFileds.length; i++ ) { var fieldObj = document.forms['WebToContacts91309000006979007'] [mndFileds[i]]; if (fieldObj) { if(((fieldObj.value) .replace (/^\s+|\s+$/g,'') ) .length == 0) { if (fieldObj.type == 'file') { alert('Please select a file to upload.'); fieldObj.focus(); return false; } alert(fldLangVal[i] + ' cannot be empty.'); fieldObj.focus(); return false; } else if (fieldObj.nodeName == 'SELECT') { if (fieldObj.options[fieldObj.selectedIndex].value == '-None-') { alert(fldLangVal[i] + ' cannot be none.'); fieldObj.focus(); return false; } } else if (fieldObj.type == 'checkbox') { if (fieldObj.checked == false) { alert('Please accept ' + fldLangVal[i]); fieldObj.focus(); return false; } } try{ if (fieldObj.name == 'Last Name') { name = fieldObj.value; } } catch (e){} } } if ( !validateFileUpload91309000006979007 () ) { return false; } if ( !validateEmail91309000006979007 () ) { return false; } if ( !privacyAlert91309000006979007 () ) { return false; } var urlparams = new URLSearchParams(window.location.search); if (urlparams.has ('service') && (urlparams.get ('service') === 'smarturl') ) { var webform = document.getElementById('webform91309000006979007'); var service = urlparams.get('service'); var smarturlfield = document.createElement('input'); smarturlfield.setAttribute('type', 'hidden'); smarturlfield.setAttribute('value', service); smarturlfield.setAttribute('name', 'service'); webform.appendChild(smarturlfield); } document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true); return true; } $( document).ready(function(){ $( '#webform91309000006979007').submit(function(e){ var ismandatory = checkMandatory91309000006979007(); e.preventDefault(); if (ismandatory) { if (typeof _wfa_track != 'undefined' && _wfa_track.wfa_submit) { _wfa_track.wfa_submit(e); } var formData = new FormData(this ); $.ajax({ url: 'https://crm.zoho.in/crm/WebToContactForm', type: 'POST', data: formData, cache: false, contentType: false, processData: false, success: function(data){ if (data.invalidCaptcha && data.invalidCaptcha == 'true') { var capErr = document.getElementById('captchaErr91309000006979007'); capErr.innerHTML = data.actionvalue; capErr.style.visibility = 'visible'; var capFld = document.getElementById('captchaField91309000006979007'); capFld.focus(); setTimeout(function(){ capErr.style.visibility = 'hidden'; }, 5000); } else { var splashinfodom = document.getElementById('wf_splash_info'); splashinfodom.innerText = data.actionvalue; var splashdom = document.getElementById('wf_splash'); document.getElementById('webform91309000006979007').reset.click(); reloadImg91309000006979007(); splashdom.style.display = ''; setTimeout(function(){ splashdom.style.display = 'none'; }, 5000); } document.querySelector('.crmWebToEntityForm .formsubmit').removeAttribute('disabled'); }, error: function(data){ alert('an error occurred'); } }); } }); }); function validateFileUpload91309000006979007(){ var uploadedFiles = document.getElementById('theFile91309000006979007'); var totalFileSize = 0; if (uploadedFiles.files.length > 3) { alert('You can upload a maximum of three files at a time.'); return false; } if('files'in uploadedFiles) { if(uploadedFiles.files.length != 0) { for(var i = 0; i < uploadedFiles.files.length; i++ ) { var file = uploadedFiles.files[i]; if('size'in file) { totalFileSize = totalFileSize + file.size; } } if (totalFileSize > 20971520) { alert('Total file(s) size should not exceed 20MB.'); return false; } } } return true; } function tooltipShow91309000006979007(el){ var tooltip = el.nextElementSibling; var tooltipDisplay = tooltip.style.display; if (tooltipDisplay == 'none') { var allTooltip = document.getElementsByClassName('zcwf_tooltip_over'); for (i = 0; i < allTooltip.length; i++ ) { allTooltip[i].style.display = 'none'; } tooltip.style.display = 'block'; } else { tooltip.style.display = 'none'; } }
+
+  /* Responsive behavior for horizontal layout */
+  @media (max-width: 768px) {
+    product-custom-property-component.__horizontal-layout .__field.__horizontal {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    product-custom-property-component.__horizontal-layout .__heading {
+      min-width: unset;
+      padding-top: 0;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+  }
+
+  /* Custom property input styling improvements */
   .custom-property__input {
-    border: var(--style-border-width-inputs) solid var(--color-input-border);
-    border-radius: var(--style-border-radius-inputs);
+    border: 1px solid #6F6F6F;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
 
     /* this is needed to override the styles from field__input */
     box-shadow: none;
 
     &:is(:hover, :focus) {
+      border-color: #333;
       /* this is needed to override the styles from field__input */
       box-shadow: none;
     }
@@ -237,6 +299,22 @@
       "label": "t:settings.product_custom_property.key",
       "default": "t:settings.product_custom_property.default_property_key",
       "info": "t:settings.product_custom_property.key_info"
+    },
+    {
+      "type": "select",
+      "id": "layout_alignment",
+      "label": "Layout Alignment",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical (Label above input)"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal (Label beside input)"
+        }
+      ],
+      "default": "vertical"
     },
     {
       "type": "header",

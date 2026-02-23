@@ -363,75 +363,6 @@
               },
               "blocks": {}
             },
-            "text_AQjBif": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>More Color Options Available: <a href=\"/pages/resources\" target=\"_blank\" title=\"Resources\">Link</a></p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-body--family)",
-                "font_size": "0.875rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "text_color_custom": "#6f6f6f",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_custom_property_kRAXHn": {
-              "type": "product-custom-property",
-              "name": "t:names.product_custom_property",
-              "settings": {
-                "property_heading": "Name your Cluster",
-                "property_description": "",
-                "property_key": "Cluster Name",
-                "layout_alignment": "horizontal",
-                "input_type": "text",
-                "max_length": 50,
-                "checkbox_label": "Include gift wrapping",
-                "required": false,
-                "placeholder": "",
-                "placeholder_textarea": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_custom_property_eBeq7H": {
-              "type": "product-custom-property",
-              "name": "t:names.product_custom_property",
-              "settings": {
-                "property_heading": "Special instructions",
-                "property_description": "",
-                "property_key": "Special instructions",
-                "layout_alignment": "vertical",
-                "input_type": "text",
-                "max_length": 100,
-                "checkbox_label": "Include gift wrapping",
-                "required": false,
-                "placeholder": "Enter your special instructions",
-                "placeholder_textarea": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "buy_buttons": {
               "type": "buy-buttons",
               "settings": {
@@ -469,6 +400,16 @@
               },
               "block_order": []
             },
+            "button_cta_Wecn6n": {
+              "type": "button-cta",
+              "name": "Button CTA",
+              "disabled": true,
+              "settings": {
+                "section_width": "page-width",
+                "button_text": "Configure"
+              },
+              "blocks": {}
+            },
             "product_metafields_HERcH6": {
               "type": "product-metafields",
               "name": "Product Metafields",
@@ -483,6 +424,66 @@
                 "metafield_8": "",
                 "metafield_9": "",
                 "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_WhFyQD": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "disabled": true,
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.more_color_option_available | metafield_tag }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_custom_property_kRAXHn": {
+              "type": "product-custom-property",
+              "name": "t:names.product_custom_property",
+              "disabled": true,
+              "settings": {
+                "property_heading": "Name your Cluster:",
+                "property_description": "",
+                "property_key": "Cluster Name",
+                "input_type": "text",
+                "max_length": 50,
+                "checkbox_label": "Include gift wrapping",
+                "required": false,
+                "placeholder": "Enter your Cluster Name",
+                "placeholder_textarea": "Enter your special instructions",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_custom_property_eBeq7H": {
+              "type": "product-custom-property",
+              "name": "t:names.product_custom_property",
+              "disabled": true,
+              "settings": {
+                "property_heading": "Special instructions:",
+                "property_description": "",
+                "property_key": "Special instructions",
+                "input_type": "text",
+                "max_length": 250,
+                "checkbox_label": "Include gift wrapping",
+                "required": false,
+                "placeholder": "Enter your special instructions",
+                "placeholder_textarea": "Enter your special instructions",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -512,7 +513,7 @@
                 "swym_custom_css": ""
               }
             },
-            "button_cta_8xKGmz": {
+            "button_cta_AheCb9": {
               "type": "button-cta",
               "name": "Button CTA",
               "settings": {
@@ -530,13 +531,14 @@
             "variant_picker_VXBwia",
             "text_t7ttq3",
             "product_metafields_z3NKpF",
-            "text_AQjBif",
+            "buy_buttons",
+            "button_cta_Wecn6n",
+            "product_metafields_HERcH6",
+            "product_metafields_WhFyQD",
             "product_custom_property_kRAXHn",
             "product_custom_property_eBeq7H",
-            "buy_buttons",
-            "product_metafields_HERcH6",
             "wishlist_plus_wishlist_pdp_button_fcb3dm",
-            "button_cta_8xKGmz"
+            "button_cta_AheCb9"
           ]
         }
       },

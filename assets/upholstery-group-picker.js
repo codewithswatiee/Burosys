@@ -91,7 +91,8 @@ class UpholsteryGroupPicker extends HTMLElement {
 
     // Bind events to the drawer itself since it might be moved to body
     if (this.drawer) {
-      this.drawer.addEventListener('click', this.handleTabSwitch);
+      this.bindTabEvents();
+      
       this.drawer.addEventListener('change', this.handleColorSelection);
       
       const closeBtn = this.drawer.querySelector('[data-action="close-upholstery-drawer"]');
@@ -100,6 +101,18 @@ class UpholsteryGroupPicker extends HTMLElement {
       const content = this.drawer.querySelector('.upholstery-drawer-content');
       if (content) content.addEventListener('click', this.handleDrawerContentClick);
     }
+  }
+
+  bindTabEvents() {
+    if (!this.drawer) return;
+    
+    // Bind tab clicks directly to avoid stopPropagation conflicts
+    const tabs = this.drawer.querySelectorAll('[data-upholstery-tab]');
+    tabs.forEach(tab => {
+      // Remove existing listener if any to avoid duplicates
+      tab.removeEventListener('click', this.handleTabSwitch);
+      tab.addEventListener('click', this.handleTabSwitch);
+    });
   }
 
   handleOpenDrawer(e) {
@@ -119,16 +132,14 @@ class UpholsteryGroupPicker extends HTMLElement {
   }
 
   handleTabSwitch(e) {
-    if (e.target.matches('[data-upholstery-tab]')) {
-      const tab = e.target;
-      const tabId = tab.dataset.upholsteryTab;
-      const groupName = tab.dataset.groupName;
-      
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('Tab Switched:', { tabId, groupName });
-      this.switchTab(tabId, groupName);
-    }
+    const tab = e.currentTarget; // Use currentTarget since event is bound directly to tab
+    const tabId = tab.dataset.upholsteryTab;
+    const groupName = tab.dataset.groupName;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Tab Switched:', { tabId, groupName });
+    this.switchTab(tabId, groupName);
   }
 
   handleColorSelection(e) {
@@ -145,7 +156,11 @@ class UpholsteryGroupPicker extends HTMLElement {
   }
 
   handleDrawerContentClick(e) {
-    e.stopPropagation();
+    // Only stop propagation for non-interactive elements to prevent drawer from closing
+    // Let interactive elements (buttons, inputs) handle their own events
+    if (!e.target.matches('button, input, label, [role="button"]')) {
+      e.stopPropagation();
+    }
   }
 
   openDrawer() {
@@ -164,6 +179,9 @@ class UpholsteryGroupPicker extends HTMLElement {
       this.drawer.parentElement.insertBefore(this.placeholder, this.drawer);
       document.body.appendChild(this.drawer);
     }
+
+    // Ensure tab events are bound after potential DOM move
+    this.bindTabEvents();
 
     this.drawer.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -377,6 +395,32 @@ class UpholsteryGroupPicker extends HTMLElement {
     if (color) {
       const colorHiddenInput = picker.querySelector('[data-upholstery-color-input]');
       if (colorHiddenInput) colorHiddenInput.value = color;
+      
+      // Update the placeholder circle with the selected color swatch
+      this.updatePlaceholderSwatch(picker, group, color);
+    }
+  }
+
+  updatePlaceholderSwatch(picker, group, color) {
+    const placeholderCircle = picker.querySelector('.upholstery-placeholder-circle');
+    if (!placeholderCircle) return;
+
+    // Find the swatch from the selected color input's label in the drawer
+    const drawer = this.drawer || picker.querySelector('[data-upholstery-drawer]');
+    if (!drawer) return;
+
+    const colorInput = drawer.querySelector(`input[data-group="${group}"][data-color="${color}"]`);
+    if (!colorInput) return;
+
+    const label = drawer.querySelector(`label[for="${colorInput.id}"]`);
+    if (!label) return;
+
+    const swatch = label.querySelector('.swatch');
+    if (swatch) {
+      // Clone the swatch and replace content in placeholder
+      const clonedSwatch = swatch.cloneNode(true);
+      placeholderCircle.innerHTML = '';
+      placeholderCircle.appendChild(clonedSwatch);
     }
   }
 }
