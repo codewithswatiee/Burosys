@@ -90,7 +90,7 @@ Two-column layout with left content area and right embedded form (Zoho CRM or cu
   .consultation-form__form-wrapper {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     min-height: 400px;
   }
 
@@ -143,13 +143,13 @@ Two-column layout with left content area and right embedded form (Zoho CRM or cu
 
   .consultation-form__embed button[type="submit"],
   .consultation-form__embed input[type="submit"] {
-    background: var(--color-button);
-    color: var(--color-button-text);
+    background: black;
+    color: white;
     border: none;
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: 10px;
     border-radius: var(--border-radius);
     font-size: var(--font-size--md);
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
@@ -188,6 +188,7 @@ Two-column layout with left content area and right embedded form (Zoho CRM or cu
 
     .consultation-form__form-wrapper {
       order: 2;
+      justify-content: start;
     }
 
     .consultation-form__heading {
@@ -196,6 +197,8 @@ Two-column layout with left content area and right embedded form (Zoho CRM or cu
 
     .consultation-form__description {
       max-width: 100%;
+      font-size: 14px;
+      padding-bottom: 10px;
     }
   }
 
@@ -219,7 +222,7 @@ Two-column layout with left content area and right embedded form (Zoho CRM or cu
     }
 
     .consultation-form__heading {
-      font-size: 1.75rem;
+      font-size: 20px;
       margin-bottom: var(--spacing-md);
     }
   }

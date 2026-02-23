@@ -12,11 +12,42 @@ class UpholsteryGroupPicker extends HTMLElement {
   connectedCallback() {
     this.drawer = this.querySelector('[data-upholstery-drawer]');
     this.init();
+    this.bindGlobalEvents();
   }
 
   init() {
     this.bindEvents();
     this.initializeDefaults();
+  }
+
+  bindGlobalEvents() {
+    // Bind methods for proper cleanup
+    this.handleVariantChange = this.handleVariantChange.bind(this);
+    this.handleVariantPickerChange = this.handleVariantPickerChange.bind(this);
+    
+    // Listen for variant changes from other sources
+    document.addEventListener('variant:change', this.handleVariantChange);
+    document.addEventListener('variant-picker:change', this.handleVariantPickerChange);
+  }
+
+  handleVariantChange(e) {
+    if (e.detail.source !== 'upholstery-picker') {
+      this.syncWithExternalVariantChange(e.detail.variantId);
+    }
+  }
+
+  handleVariantPickerChange(e) {
+    this.syncWithExternalVariantChange(e.detail?.variant?.id);
+  }
+
+  syncWithExternalVariantChange(variantId) {
+    if (!variantId || !this.drawer) return;
+    
+    const drawerMediaGallery = this.drawer.querySelector('media-gallery');
+    if (drawerMediaGallery) {
+      const section = this.closest('.shopify-section, featured-product-information, dialog') || document.body;
+      this.updateMediaGallery(variantId, section);
+    }
   }
 
   initializeDefaults() {
@@ -186,9 +217,29 @@ class UpholsteryGroupPicker extends HTMLElement {
     this.drawer.classList.add('active');
     document.body.style.overflow = 'hidden';
     
+    // Initialize media gallery in drawer if present
+    this.initializeDrawerMediaGallery();
+    
     const firstFocusable = this.drawer.querySelector('button, input, [tabindex="0"]');
     if (firstFocusable) {
       firstFocusable.focus();
+    }
+  }
+
+  initializeDrawerMediaGallery() {
+    const mediaGallery = this.drawer ? this.drawer.querySelector('media-gallery') : null;
+    if (mediaGallery) {
+      // Trigger initialization if the gallery has an init method
+      if (typeof mediaGallery.connectedCallback === 'function') {
+        mediaGallery.connectedCallback();
+      }
+      
+      // Sync with current variant selection
+      const section = this.closest('.shopify-section, featured-product-information, dialog') || document.body;
+      const variantInput = section.querySelector('[data-ref="variantId"], product-form [name="id"], form [name="id"]');
+      if (variantInput && variantInput.value) {
+        this.updateMediaGallery(variantInput.value, section);
+      }
     }
   }
 
@@ -270,6 +321,15 @@ class UpholsteryGroupPicker extends HTMLElement {
           // Just remove from body if placeholder is gone
           document.body.removeChild(this.drawer);
       }
+      
+      // Clean up global listeners
+      this.cleanupGlobalEvents();
+  }
+
+  cleanupGlobalEvents() {
+    // Remove event listeners to prevent memory leaks
+    document.removeEventListener('variant:change', this.handleVariantChange);
+    document.removeEventListener('variant-picker:change', this.handleVariantPickerChange);
   }
 
   switchTab(tabId, groupName) {
@@ -379,6 +439,41 @@ class UpholsteryGroupPicker extends HTMLElement {
       url.searchParams.set('variant', variantId);
       history.replaceState({}, '', url.toString());
     }
+
+    // Update media gallery to show variant-specific images
+    this.updateMediaGallery(variantId, section);
+  }
+
+  updateMediaGallery(variantId, section) {
+    // Update both main media gallery and drawer media gallery
+    const mediaGalleries = [
+      section.querySelector('media-gallery'),
+      this.drawer ? this.drawer.querySelector('media-gallery') : null
+    ].filter(Boolean);
+
+    mediaGalleries.forEach(gallery => {
+      if (gallery && typeof gallery.setActiveMedia === 'function') {
+        // Find the first media item for this variant
+        const variantMedia = gallery.querySelector(`[data-media-variant-id*="${variantId}"]`);
+        if (variantMedia) {
+          const mediaId = variantMedia.dataset.mediaId;
+          if (mediaId) {
+            gallery.setActiveMedia(mediaId);
+          }
+        }
+      }
+    });
+
+    // Also trigger variant picker change event to update other components
+    const variantPicker = section.querySelector('variant-picker');
+    if (variantPicker && variantPicker.updateVariant) {
+      variantPicker.updateVariant();
+    }
+
+    // Dispatch custom event for other components to listen to
+    document.dispatchEvent(new CustomEvent('variant:change', {
+      detail: { variantId, source: 'upholstery-picker' }
+    }));
   }
 
   updateSelectionDisplay(picker, group, color = '') {

@@ -83,15 +83,9 @@ Styling is kept inline so this section is self-contained and matches the provide
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           <div id="block-{{ block.id }}" class="isb-button">
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}">
-                <span class="label">{{ block.settings.label }}</span>
-              </a>
-            {% else %}
-              <a href="#">
-                <span class="label">{{ block.settings.label }}</span>
-              </a>
-            {% endif %}
+            <a href="#" class="isb-button-link" data-block-id="{{ block.id }}" {% if block.settings.book_appointment %}data-booking="true"{% endif %}>
+              <span class="label">{{ block.settings.label }}</span>
+            </a>
           </div>
         {% endfor %}
       {% else %}
@@ -102,6 +96,128 @@ Styling is kept inline so this section is self-contained and matches the provide
       {% endif %}
     </div>
   </div>
+
+  <!-- Hidden form containers (one per block) -->
+  {% for block in section.blocks %}
+    {% if block.settings.form_embed_code != blank %}
+      <div class="isb-hidden-embed" data-block-id="{{ block.id }}" style="display:none;">{{ block.settings.form_embed_code }}</div>
+    {% endif %}
+  {% endfor %}
+
+  <!-- Modal for embedded forms -->
+  <div class="isb-modal" id="isb-form-modal" aria-hidden="true">
+    <div class="isb-modal-overlay" data-action="close-modal"></div>
+    <div class="isb-modal-panel">
+      <div class="isb-modal-content" id="isb-modal-content"></div>
+    </div>
+  </div>
+
+  <style>
+    .isb-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:12000}
+    .isb-modal.is-open{display:flex}
+    .isb-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6)}
+    .isb-modal-panel{position:relative;scrollbar-width:none;border-radius:10px;max-width:980px;width:95%;max-height:90vh;overflow:auto;padding:20px;z-index:2}
+    .isb-modal-close{position:absolute;top:8px;right:8px;background:transparent;border:none;font-size:20px;cursor:pointer}
+    .isb-modal-content{margin-top:20px}
+  </style>
+
+  <script>
+    (function(){
+      function openModalWithContent(html){
+        var modal = document.getElementById('isb-form-modal');
+        var content = document.getElementById('isb-modal-content');
+        if(!modal||!content) return;
+        // inject content
+        content.innerHTML = html;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        // run any inline scripts inside injected HTML
+        var scripts = content.querySelectorAll('script');
+        scripts.forEach(function(oldScript){
+          var newScript = document.createElement('script');
+          if(oldScript.src){ newScript.src = oldScript.src; }
+          else { newScript.textContent = oldScript.textContent; }
+          document.body.appendChild(newScript);
+          document.body.removeChild(newScript);
+        });
+      }
+
+      function closeModal(){
+        var modal = document.getElementById('isb-form-modal');
+        var content = document.getElementById('isb-modal-content');
+        if(!modal||!content) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        content.innerHTML = '';
+      }
+
+      function openBooking(blockId){
+        var existing = document.getElementById('isb-booking-'+blockId);
+        if(existing) return;
+        var overlay = document.createElement('div');
+        overlay.id = 'isb-booking-'+blockId;
+        overlay.className = 'isb-booking-embed';
+        // basic styles inline to ensure they apply in editor
+        overlay.setAttribute('style', 'display:block;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.4);z-index:10000;');
+
+        var closeImgUrl = 'https://static.zohocdn.com/crm/images/closeicon_59a5a09c5d664c355dbfcedb083c86a4_.png';
+        var closeBtn = document.createElement('img');
+        closeBtn.src = closeImgUrl;
+        closeBtn.className = 'calBookingCloseIcn';
+        closeBtn.setAttribute('style', 'display:none;position: absolute;left: calc(50% + 510px);top: 120px;z-index: 10002;cursor: pointer;');
+        closeBtn.addEventListener('click', function(){ closeBooking(blockId); });
+
+        var iframeContainer = document.createElement('div');
+        iframeContainer.setAttribute('style','position: fixed; top:100px; left:0; right:0; margin:0 auto; z-index:10001; width:100%; display:flex; justify-content:center;');
+
+        var iframe = document.createElement('iframe');
+        var url = 'https://crm.zoho.in/bookings/StudioVisitforOverview?rid=72e3a15e9c87cecd97f03ddd8b86848ce334689cf697299b8bc6581bc872b07509c69ab24b88fa6bd7b03242a6476ac2gidcf699035a521f6386f45bd9b81b50d017cd061ae8b83c9c1169764fce5845870&option=embed';
+        iframe.src = url;
+        var width = (window.innerWidth <= 1024) ? '90%' : '1100px';
+        iframe.setAttribute('style', 'width:'+width+';height:400px; background:#fff; border:1px solid #ddd; border-radius:5px;');
+
+        iframeContainer.appendChild(iframe);
+        overlay.appendChild(iframeContainer);
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeBooking(blockId){
+        var el = document.getElementById('isb-booking-'+blockId);
+        if(el){ el.parentNode.removeChild(el); }
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', function(e){
+        var btn = e.target.closest('.isb-button a[data-block-id]');
+        if(btn){
+          var blockId = btn.getAttribute('data-block-id');
+          // booking toggle takes precedence
+          if(btn.getAttribute('data-booking') === 'true'){
+            e.preventDefault();
+            openBooking(blockId);
+            return;
+          }
+
+          // if button has an embed, open modal
+          var embed = document.querySelector('.isb-hidden-embed[data-block-id="'+blockId+'"]');
+          if(embed){
+            e.preventDefault();
+            openModalWithContent(embed.innerHTML);
+            return;
+          }
+        }
+
+        if(e.target.matches('[data-action="close-modal"]') || e.target.closest('[data-action="close-modal"]')){
+          closeModal();
+        }
+      }, false);
+
+      // close on Escape
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); } });
+    })();
+  </script>
 
   {% schema %}
   {
@@ -125,7 +241,8 @@ Styling is kept inline so this section is self-contained and matches the provide
         "name": "Side button",
         "settings": [
           { "type": "text", "id": "label", "label": "Label", "default": "Button" },
-          { "type": "url", "id": "link", "label": "Link (URL)" }
+          { "type": "checkbox", "id": "book_appointment", "label": "Book an appointment button", "default": false },
+          { "type": "html", "id": "form_embed_code", "label": "Embed HTML (form)", "info": "Paste your form embed HTML here. If the editor blocks Liquid-like sequences, use a snippet file and reference it instead." }
         ]
       }
     ],
@@ -135,9 +252,9 @@ Styling is kept inline so this section is self-contained and matches the provide
         "name": "Image with side buttons",
         "category": "Hero",
         "blocks": [
-          { "type": "side_button", "settings": { "label": "Book an appointment", "link": "#" } },
-          { "type": "side_button", "settings": { "label": "Contact us", "link": "#" } },
-          { "type": "side_button", "settings": { "label": "Request quote", "link": "#" } }
+          { "type": "side_button", "settings": { "label": "Book an appointment", "book_appointment": true } },
+          { "type": "side_button", "settings": { "label": "Contact us" } },
+          { "type": "side_button", "settings": { "label": "Request quote" } }
         ]
       }
     ]

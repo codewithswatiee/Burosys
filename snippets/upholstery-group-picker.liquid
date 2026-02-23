@@ -136,6 +136,24 @@
         </button>
       </div>
 
+      {%- comment -%} Product Media Gallery (Mobile Only) {%- endcomment -%}
+      <div class="upholstery-drawer-media-gallery mobile-only">
+        {% render 'product-media-gallery-content',
+          media_presentation: 'carousel',
+          block_settings: { 
+            media_presentation: 'carousel',
+            slideshow_mobile_controls_style: 'dots',
+            aspect_ratio: 'adapt',
+            media_radius: 4,
+            zoom: true,
+            video_loop: false,
+            hide_variants: false
+          },
+          block_id: 'upholstery-drawer-media',
+          block_shopify_attributes: ''
+        %}
+      </div>
+
       {%- comment -%} Tab navigation {%- endcomment -%}
       <div class="upholstery-tabs">
         {%- for group_name in upholstery_group_names -%}
@@ -516,6 +534,27 @@
     width: 100%;
     height: 100%;
     background: #e5e5e5;
+  }
+
+  .upholstery-drawer-media-gallery {
+    padding: 0 20px 20px 20px;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-only {
+      display: block;
+    }
+
+    .upholstery-drawer-media-gallery {
+      padding: 0;
+    }
+    .upholstery-drawer-header{
+      padding: 10px;
+    }
   }
 
   @media (max-width: 768px) {

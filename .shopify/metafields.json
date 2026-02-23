@@ -603,6 +603,16 @@
         "name": "variant_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "variant_icons",
+      "namespace": "custom",
+      "name": "Variant icons",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "shop": []
