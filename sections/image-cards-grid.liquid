@@ -38,64 +38,63 @@
     >
       {% for block in section.blocks %}
         <div class="image-card" {{ block.shopify_attributes }}>
-          <div class="image-card__inner">
-            {% if block.settings.image != blank %}
-                <div class="image-card__image-wrapper">
-                  {{
-                    block.settings.image
-                    | image_url: width: 1200
-                    | image_tag: loading: 'lazy', class: 'image-card__image', widths: '400, 600, 800, 1000, 1200'
-                  }}
+          <a href="{{ block.settings.button_link | default: '#' }}" class="image-card__link">
+            <div class="image-card__inner">
+              {% if block.settings.image != blank %}
+                  <div class="image-card__image-wrapper">
+                    {{
+                      block.settings.image
+                      | image_url: width: 1200
+                      | image_tag: loading: 'lazy', class: 'image-card__image', widths: '400, 600, 800, 1000, 1200'
+                    }}
 
-                    {% comment %}Always render a black overlay so light/white images get darkened{% endcomment %}
-                    {% if block.settings.overlay_enabled %}
-                      <div
-                        class="image-card__overlay"
-                        style="--overlay-opacity: {{ block.settings.overlay_opacity | default: 40 }};"
-                      ></div>
-                    {% endif %}
+                      {% comment %}Always render a black overlay so light/white images get darkened{% endcomment %}
+                      {% if block.settings.overlay_enabled %}
+                        <div
+                          class="image-card__overlay"
+                          style="--overlay-opacity: {{ block.settings.overlay_opacity | default: 40 }};"
+                        ></div>
+                      {% endif %}
+                  </div>
+              {% else %}
+                <div class="image-card__image-wrapper image-card__image-wrapper--placeholder">
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 </div>
-            {% else %}
-              <div class="image-card__image-wrapper image-card__image-wrapper--placeholder">
-                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+
+              <div class="image-card__content">
+                {% if block.settings.label != blank %}
+                  <p class="image-card__label">{{ block.settings.label }}</p>
+                {% endif %}
+
+                {% if block.settings.title != blank %}
+                  <h3 class="image-card__title {{ block.settings.title_style }}">
+                    {{ block.settings.title }}
+                  </h3>
+                {% endif %}
+
+                {% if block.settings.button_label != blank %}
+                  <div class="image-card__button-wrapper">
+                    <span class="image-card__button button button--{{ block.settings.button_style }}">{{ block.settings.button_label }}</span>
+                  </div>
+                {% endif %}
               </div>
-            {% endif %}
-
-            <div class="image-card__content">
-              {% if block.settings.label != blank %}
-                <p class="image-card__label">{{ block.settings.label }}</p>
-              {% endif %}
-
-              {% if block.settings.title != blank %}
-                <h3 class="image-card__title {{ block.settings.title_style }}">
-                  {{ block.settings.title }}
-                </h3>
-              {% endif %}
-
-              {% if block.settings.button_label != blank %}
-                <div class="image-card__button-wrapper">
-                  <a
-                    href="{{ block.settings.button_link | default: '#' }}"
-                    class="image-card__button button button--{{ block.settings.button_style }}"
-                  >
-                    {{ block.settings.button_label }}
-                  </a>
-                </div>
-              {% endif %}
             </div>
-          </div>
+          </a>
         </div>
       {% endfor %}
     </div>
   </div>
 </div>
 
-{% stylesheet %}
-
+<style>
   /* Ensure this section's background element picks up the color scheme variables */
   .section-background.color-{{ section.settings.color_scheme }} {
     background-color: var(--color-background);
   }
+</style>
+
+{% stylesheet %}
 
   .image-cards-grid__header {
     text-align: var(--header-align, center);
@@ -196,6 +195,12 @@
     width: 100%;
     height: 100%;
     opacity: 0.3;
+  }
+
+  .image-card__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
   }
 
   .image-card__content {

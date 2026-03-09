@@ -131,7 +131,7 @@
           {% assign angle = i | minus: 1 | times: 22.5 %}
           <div class="orbit-item" style="width: 180px; height: 180px; --angle: {{ angle }}deg; --radius: 700px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--radius) * -1)) rotate(180deg);">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.title }}" loading="lazy">
+              <img src="{{ product.featured_image | img_url: '1200x1300' }}" alt="{{ product.title }}" loading="lazy">
             {% endif %}
           </div>
         {% endif %}

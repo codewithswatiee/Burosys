@@ -11,8 +11,10 @@ class UpholsteryGroupPicker extends HTMLElement {
 
   connectedCallback() {
     this.drawer = this.querySelector('[data-upholstery-drawer]');
+    this._keepDrawerOpen = false;
     this.init();
     this.bindGlobalEvents();
+    this._setupMorphDetection();
   }
 
   init() {
@@ -112,41 +114,17 @@ class UpholsteryGroupPicker extends HTMLElement {
 
   bindEvents() {
     this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
-    this.handleCloseDrawer = this.handleCloseDrawer.bind(this);
-    this.handleTabSwitch = this.handleTabSwitch.bind(this);
+    this.handleDrawerClick = this.handleDrawerClick.bind(this);
     this.handleColorSelection = this.handleColorSelection.bind(this);
-    this.handleDrawerContentClick = this.handleDrawerContentClick.bind(this);
 
     const openBtn = this.querySelector('[data-action="open-upholstery-drawer"]');
     if (openBtn) openBtn.addEventListener('click', this.handleOpenDrawer);
 
-    // Bind events to the drawer itself since it might be moved to body
+    // Use event delegation on drawer for all click interactions (morph-safe)
     if (this.drawer) {
-      this.bindTabEvents();
-      
+      this.drawer.addEventListener('click', this.handleDrawerClick);
       this.drawer.addEventListener('change', this.handleColorSelection);
-      
-      const closeBtn = this.drawer.querySelector('[data-action="close-upholstery-drawer"]');
-      if (closeBtn) closeBtn.addEventListener('click', this.handleCloseDrawer);
-
-      const content = this.drawer.querySelector('.upholstery-drawer-content');
-      if (content) content.addEventListener('click', this.handleDrawerContentClick);
-      // Allow closing the drawer by clicking the overlay (clicking outside the content)
-      const overlay = this.drawer.querySelector('.upholstery-drawer-overlay');
-      if (overlay) overlay.addEventListener('click', this.handleCloseDrawer);
     }
-  }
-
-  bindTabEvents() {
-    if (!this.drawer) return;
-    
-    // Bind tab clicks directly to avoid stopPropagation conflicts
-    const tabs = this.drawer.querySelectorAll('[data-upholstery-tab]');
-    tabs.forEach(tab => {
-      // Remove existing listener if any to avoid duplicates
-      tab.removeEventListener('click', this.handleTabSwitch);
-      tab.addEventListener('click', this.handleTabSwitch);
-    });
   }
 
   handleOpenDrawer(e) {
@@ -157,23 +135,36 @@ class UpholsteryGroupPicker extends HTMLElement {
     this.openDrawer();
   }
 
-  handleCloseDrawer(e) {
-    if (e) {
+  handleDrawerClick(e) {
+    // Close button
+    if (e.target.closest('[data-action="close-upholstery-drawer"]')) {
       e.preventDefault();
       e.stopPropagation();
+      this.closeDrawer();
+      return;
     }
-    this.closeDrawer();
-  }
 
-  handleTabSwitch(e) {
-    const tab = e.currentTarget; // Use currentTarget since event is bound directly to tab
-    const tabId = tab.dataset.upholsteryTab;
-    const groupName = tab.dataset.groupName;
-    
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Tab Switched:', { tabId, groupName });
-    this.switchTab(tabId, groupName);
+    // Overlay click (close drawer)
+    if (e.target.closest('.upholstery-drawer-overlay') && !e.target.closest('.upholstery-drawer-content')) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.closeDrawer();
+      return;
+    }
+
+    // Tab switch
+    const tab = e.target.closest('[data-upholstery-tab]');
+    if (tab) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.switchTab(tab.dataset.upholsteryTab, tab.dataset.groupName);
+      return;
+    }
+
+    // Prevent drawer content clicks from bubbling (for non-interactive elements)
+    if (e.target.closest('.upholstery-drawer-content') && !e.target.matches('button, input, label, [role="button"]')) {
+      e.stopPropagation();
+    }
   }
 
   handleColorSelection(e) {
@@ -184,16 +175,7 @@ class UpholsteryGroupPicker extends HTMLElement {
       const variantId = input.dataset.variantId;
       
       e.stopPropagation();
-      console.log('Color Selected:', { group, color, variantId });
       this.selectColor(input, group, color, variantId);
-    }
-  }
-
-  handleDrawerContentClick(e) {
-    // Only stop propagation for non-interactive elements to prevent drawer from closing
-    // Let interactive elements (buttons, inputs) handle their own events
-    if (!e.target.matches('button, input, label, [role="button"]')) {
-      e.stopPropagation();
     }
   }
 
@@ -206,16 +188,17 @@ class UpholsteryGroupPicker extends HTMLElement {
     }
 
     this.restoreCurrentSelection();
-    
-    // Portal behavior: Move to body to avoid z-index/stacking context issues
-    if (this.drawer.parentElement !== document.body) {
-      this.placeholder = document.createComment('upholstery-drawer-placeholder');
-      this.drawer.parentElement.insertBefore(this.placeholder, this.drawer);
-      document.body.appendChild(this.drawer);
-    }
 
-    // Ensure tab events are bound after potential DOM move
-    this.bindTabEvents();
+    // Portal to body to escape ancestor stacking contexts (transform/filter/opacity create new contexts)
+    // This ensures the drawer appears above the site header regardless of z-index
+    if (this.drawer.parentElement !== document.body) {
+      this._drawerPlaceholder = document.createComment('upholstery-drawer-placeholder');
+      this.drawer.parentElement.insertBefore(this._drawerPlaceholder, this.drawer);
+      document.body.appendChild(this.drawer);
+      // Re-bind event listeners after DOM move
+      this.drawer.addEventListener('click', this.handleDrawerClick);
+      this.drawer.addEventListener('change', this.handleColorSelection);
+    }
 
     this.drawer.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -247,10 +230,6 @@ class UpholsteryGroupPicker extends HTMLElement {
   }
 
   restoreCurrentSelection() {
-    // Since drawer might be moved to body, we need to query from component root for method, but drawer for elements
-    // Actually, updateSelectionDisplay updates inputs inside THIS component.
-    // The visual state in drawer needs to be restored.
-    
     const groupInput = this.querySelector('[data-upholstery-group-input]');
     const colorInput = this.querySelector('[data-upholstery-color-input]');
     
@@ -293,20 +272,15 @@ class UpholsteryGroupPicker extends HTMLElement {
   closeDrawer() {
     if (!this.drawer) return;
 
+    this._keepDrawerOpen = false;
     this.drawer.classList.remove('active');
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
 
-    // Move back to placeholder if moved
-    if (this.placeholder && this.placeholder.parentNode) {
-       // Wait for transition end? Or move immediately?
-       // Moving immediately removes transition effect potentially if elements are re-inserted.
-       // Let's rely on CSS transition and just leave it in body until next open or destruction?
-       // But if section is destroyed, we have a dangling element in body!
-       // Ideally we move it back.
-       
-       this.placeholder.parentNode.insertBefore(this.drawer, this.placeholder);
-       this.placeholder.parentNode.removeChild(this.placeholder);
-       this.placeholder = null;
+    // Move drawer back to its original position in the component
+    if (this._drawerPlaceholder && this._drawerPlaceholder.parentNode) {
+      this._drawerPlaceholder.parentNode.insertBefore(this.drawer, this._drawerPlaceholder);
+      this._drawerPlaceholder.parentNode.removeChild(this._drawerPlaceholder);
+      this._drawerPlaceholder = null;
     }
     
     const triggerButton = this.querySelector('[data-action="open-upholstery-drawer"]');
@@ -316,13 +290,18 @@ class UpholsteryGroupPicker extends HTMLElement {
   }
   
   disconnectedCallback() {
-      // Cleanup if removed from DOM
-      if (this.placeholder && this.placeholder.parentNode && this.drawer && this.drawer.parentNode === document.body) {
-          this.placeholder.parentNode.insertBefore(this.drawer, this.placeholder);
-          this.placeholder.parentNode.removeChild(this.placeholder);
-      } else if (this.drawer && this.drawer.parentNode === document.body) {
-          // Just remove from body if placeholder is gone
+      // Clean up morph observer
+      if (this._morphObserver) {
+          this._morphObserver.disconnect();
+          this._morphObserver = null;
+      }
+
+      // Clean up drawer from body if it was portaled
+      if (this.drawer && this.drawer.parentNode === document.body) {
           document.body.removeChild(this.drawer);
+      }
+      if (this._drawerPlaceholder && this._drawerPlaceholder.parentNode) {
+          this._drawerPlaceholder.parentNode.removeChild(this._drawerPlaceholder);
       }
       
       // Clean up global listeners
@@ -333,6 +312,59 @@ class UpholsteryGroupPicker extends HTMLElement {
     // Remove event listeners to prevent memory leaks
     document.removeEventListener('variant:change', this.handleVariantChange);
     document.removeEventListener('variant-picker:change', this.handleVariantPickerChange);
+  }
+
+  _setupMorphDetection() {
+    // Observe DOM mutations to detect variant-picker morph updates.
+    // When morph inserts a fresh drawer element, we swap it for the stale one in body.
+    let rafId = null;
+
+    this._morphObserver = new MutationObserver(() => {
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+
+        // Check if morph inserted a new drawer in the component (while old one is in body)
+        const freshDrawer = this.querySelector('[data-upholstery-drawer]');
+        const oldDrawerInBody = this.drawer && this.drawer.parentNode === document.body;
+
+        if (freshDrawer && oldDrawerInBody && freshDrawer !== this.drawer) {
+          // Morph inserted a fresh drawer - swap it out
+          // Remove the stale drawer from body
+          document.body.removeChild(this.drawer);
+          // Use the fresh drawer (has updated variant IDs)
+          this.drawer = freshDrawer;
+
+          if (this._keepDrawerOpen) {
+            // Portal fresh drawer to body and re-open
+            this._drawerPlaceholder = document.createComment('upholstery-drawer-placeholder');
+            freshDrawer.parentElement.insertBefore(this._drawerPlaceholder, freshDrawer);
+            document.body.appendChild(freshDrawer);
+            freshDrawer.addEventListener('click', this.handleDrawerClick);
+            freshDrawer.addEventListener('change', this.handleColorSelection);
+            
+            this.restoreCurrentSelection();
+            freshDrawer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            this._keepDrawerOpen = false;
+          }
+        } else if (!oldDrawerInBody && this._keepDrawerOpen && this.drawer && !this.drawer.classList.contains('active')) {
+          // Drawer wasn't in body (edge case), just re-open it
+          this._keepDrawerOpen = false;
+          this.restoreCurrentSelection();
+          this.drawer.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    this._morphObserver.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
   }
 
   switchTab(tabId, groupName) {
@@ -401,13 +433,62 @@ class UpholsteryGroupPicker extends HTMLElement {
     const activeTab = this.drawer ? this.drawer.querySelector('.upholstery-tab--active') : null;
     const groupOptionValueId = activeTab?.dataset.optionValueId;
 
-    // Try to sync with variant picker first, but always apply variant directly as fallback
-    if (colorOptionValueId || groupOptionValueId) {
-      this.syncWithVariantPicker(groupOptionValueId, colorOptionValueId);
-    }
+    // Trigger variant-picker update for price, form, and availability integration
+    const triggered = this.triggerVariantPickerUpdate(groupOptionValueId, colorOptionValueId, variantId);
     
-    // Always ensure the variant is applied directly to guarantee URL and form updates
-    this.applyVariantDirectly(variantId);
+    // Fallback: directly apply variant ID to form if variant-picker integration is unavailable
+    if (!triggered) {
+      this.applyVariantDirectly(variantId);
+    }
+  }
+
+  triggerVariantPickerUpdate(groupOptionValueId, colorOptionValueId, variantId) {
+    // Update hidden group fieldset radio
+    const groupFieldset = this.querySelector('[data-upholstery-sync="group"]');
+    if (groupFieldset && groupOptionValueId) {
+      const allGroupRadios = groupFieldset.querySelectorAll('input[type="radio"]');
+      allGroupRadios.forEach(r => {
+        r.checked = false;
+        r.dataset.currentChecked = 'false';
+      });
+      const targetGroupRadio = groupFieldset.querySelector(`input[data-option-value-id="${groupOptionValueId}"]`);
+      if (targetGroupRadio) {
+        targetGroupRadio.checked = true;
+        targetGroupRadio.dataset.currentChecked = 'true';
+      }
+    }
+
+    // Update hidden color fieldset radio
+    let lastChangedRadio = null;
+    const colorFieldset = this.querySelector('[data-upholstery-sync="color"]');
+    if (colorFieldset && colorOptionValueId) {
+      const allColorRadios = colorFieldset.querySelectorAll('input[type="radio"]');
+      allColorRadios.forEach(r => {
+        r.checked = false;
+        r.dataset.currentChecked = 'false';
+      });
+      const targetColorRadio = colorFieldset.querySelector(`input[data-option-value-id="${colorOptionValueId}"]`);
+      if (targetColorRadio) {
+        targetColorRadio.checked = true;
+        targetColorRadio.dataset.currentChecked = 'true';
+        if (variantId) {
+          targetColorRadio.dataset.variantId = variantId;
+        }
+        lastChangedRadio = targetColorRadio;
+      }
+    }
+
+    // Dispatch change event from the radio (bubbles to variant-picker to trigger fetch + price update)
+    const triggerRadio = lastChangedRadio || (groupFieldset ? groupFieldset.querySelector('input:checked') : null);
+    if (triggerRadio) {
+      // Save drawer state so morph detection can re-open after variant-picker morphs the section
+      if (this.drawer && this.drawer.classList.contains('active')) {
+        this._keepDrawerOpen = true;
+      }
+      triggerRadio.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+    return false;
   }
 
   syncWithVariantPicker(groupOptionValueId, colorOptionValueId) {

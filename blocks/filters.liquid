@@ -97,8 +97,14 @@
       {% endif %}
       
       {%- comment -%} Left side: Category tabs as pills {%- endcomment -%}
-      <div class="category-tabs-wrapper">
+      <div class="category-tabs-wrapper" id="categoryTabsWrapper">
         {% if category_filter != nil %}
+          <button type="button" class="category-nav-btn category-nav-btn--left" id="navBtnLeft">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
           <facets-form-component
             class="category-tabs-form"
             section-id="{{ section.id }}"
@@ -110,13 +116,13 @@
               ref="facetsForm"
             >
                   <facet-inputs-component on:change="/updateFilters">
-                    <div class="category-tabs">
+                    <div class="category-tabs" id="categoryTabs">
                       {% for value in category_filter.values %}
                         {% if value.count > 0 or value.active %}
                           <label class="category-tab{% if value.active %} category-tab--active{% endif %}">
                             <input
                               type="checkbox"
-                              name="{{ value.param_name }}"
+                              name="{{ category_filter.param_name }}"
                               value="{{ value.value }}"
                               {% if value.active %}checked{% endif %}
                               class="visually-hidden"
@@ -129,6 +135,12 @@
                   </facet-inputs-component>
             </form>
           </facets-form-component>
+          
+          <button type="button" class="category-nav-btn category-nav-btn--right" id="navBtnRight">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         {% endif %}
       </div>
 
@@ -1447,12 +1459,62 @@
     flex: 1;
     min-width: 0;
     max-width: 100%;
+    position: relative;
+    transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* Navigation buttons */
+  .category-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    color: #666;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  
+  .category-nav-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #333;
+    border-color: #bbb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .category-nav-btn--left {
+    right: 98%;
+  }
+  
+  .category-nav-btn--right {
+    left: 98%;
+  }
+  
+  /* Show buttons on hover when scrollable */
+  .category-tabs-wrapper:hover .category-nav-btn.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .category-tabs-wrapper .category-tabs {
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    scroll-behavior: smooth;
+    padding: 0; /* Add space for nav buttons */
   }
 
   /* Desktop-specific behavior */
@@ -1475,7 +1537,7 @@
     }
   }
 
-  .category-tabs-wrapper::-webkit-scrollbar {
+  .category-tabs::-webkit-scrollbar {
     display: none;
   }
 
@@ -1492,10 +1554,6 @@
     align-items: center;
     gap: var(--gap-sm);
     flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-touch-scrolling: touch;
   }
 
   /* Individual category tab - pill style with professional-level smoothness */
@@ -1681,6 +1739,9 @@
       margin-bottom: var(--gap-xs);
     }
 
+    .category-tabs-wrapper .category-tabs{
+      padding: 0;
+    }
     .category-filter-bar__right .products-count-wrapper{
       width: 70%;
     }
@@ -1694,13 +1755,22 @@
       gap: var(--gap-md);
     }
     .category-tabs{
-      justify-content: center;
-      flex-wrap: wrap;
+      justify-content: start;
+      flex-wrap: nowrap;
     }
 
     .category-tabs-wrapper {
       order: 1;
       margin-left: 0; /* Reset margin on mobile */
+    }
+    
+    /* Hide nav buttons on mobile as tabs wrap */
+    .category-nav-btn {
+      display: none;
+    }
+    
+    .category-tabs {
+      padding: 0; /* Remove padding on mobile */
     }
 
     .category-filter-bar__right {
@@ -2037,6 +2107,56 @@
     window.addEventListener('resize', handleScroll, { passive: true });
   });
 
+  // Category tabs navigation functionality
+  function initCategoryTabsNavigation() {
+    const wrapper = document.getElementById('categoryTabsWrapper');
+    const tabsContainer = document.getElementById('categoryTabs');
+    const leftBtn = document.getElementById('navBtnLeft');
+    const rightBtn = document.getElementById('navBtnRight');
+    
+    if (!wrapper || !tabsContainer || !leftBtn || !rightBtn) return;
+    
+    function updateButtonVisibility() {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsContainer;
+      const canScrollLeft = scrollLeft > 0;
+      const canScrollRight = scrollLeft < scrollWidth - clientWidth - 1;
+      
+      leftBtn.classList.toggle('show', canScrollLeft);
+      rightBtn.classList.toggle('show', canScrollRight);
+    }
+    
+    function scrollTabs(direction) {
+      const scrollAmount = 200;
+      const currentScroll = tabsContainer.scrollLeft;
+      const newScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+      
+      tabsContainer.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Event listeners
+    leftBtn.addEventListener('click', () => scrollTabs('left'));
+    rightBtn.addEventListener('click', () => scrollTabs('right'));
+    tabsContainer.addEventListener('scroll', updateButtonVisibility);
+    
+    // Initial check and on resize
+    updateButtonVisibility();
+    window.addEventListener('resize', updateButtonVisibility);
+    
+    // Re-check after any dynamic content updates
+    const observer = new ResizeObserver(() => {
+      setTimeout(updateButtonVisibility, 100);
+    });
+    observer.observe(tabsContainer);
+  }
+  
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initCategoryTabsNavigation);
+  
   // Also handle page updates/refreshes from AJAX filter changes
   document.addEventListener('facets:updated', function() {
     const categoryFilterBar = document.querySelector('.category-filter-bar');
@@ -2058,6 +2178,9 @@
         categoryFilterBar.classList.remove('is-sticky');
         collectionNameDisplay.classList.remove('show-on-sticky');
       }
+      
+      // Re-initialize tab navigation after AJAX update
+      initCategoryTabsNavigation();
     }, 50);
   });
 </script>

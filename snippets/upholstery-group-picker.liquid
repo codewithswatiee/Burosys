@@ -89,7 +89,6 @@
       class="upholstery-configure-btn"
       data-action="open-upholstery-drawer"
       aria-label="Configure upholstery options"
-      onclick="document.querySelector('.upholstery-drawer').classList.add('active');"
     >
       Configure
       <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
@@ -117,6 +116,58 @@
     data-fieldset-index="{{ fieldset_index }}"
   >
 
+  {%- comment -%} Hidden fieldsets for variant-picker integration (price updates & form submission) {%- endcomment -%}
+  <fieldset data-upholstery-sync="group" ref="fieldsets[]" data-fieldset-index="{{ fieldset_index }}" style="display:none;" aria-hidden="true">
+    {%- for group_value in product_option.values -%}
+      <input
+        type="radio"
+        name="upholstery-group-sync-{{ block.id }}-{{ product_resource.id }}"
+        value="{{ group_value | escape }}"
+        data-option-value-id="{{ group_value.id }}"
+        data-fieldset-index="{{ fieldset_index }}"
+        data-input-index="{{ forloop.index0 }}"
+        data-current-checked="{% if group_value.name == selected_group %}true{% else %}false{% endif %}"
+        data-previous-checked="false"
+        data-option-available="true"
+        data-connected-product-url=""
+        {% if group_value.name == selected_group %}checked{% endif %}
+      >
+    {%- endfor -%}
+  </fieldset>
+
+  {%- for option in product_resource.options_with_values -%}
+    {%- if option.name == 'Upholstery Color' -%}
+      {%- assign color_fs_index = forloop.index0 -%}
+      <fieldset data-upholstery-sync="color" ref="fieldsets[]" data-fieldset-index="{{ color_fs_index }}" style="display:none;" aria-hidden="true">
+        {%- for color_value in option.values -%}
+          {%- assign sync_variant_id = '' -%}
+          {%- for variant in product_resource.variants -%}
+            {%- assign v_group = variant.options[group_option_index] -%}
+            {%- assign v_color = variant.options[color_option_index] -%}
+            {%- if v_group == selected_group and v_color == color_value.name -%}
+              {%- assign sync_variant_id = variant.id -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <input
+            type="radio"
+            name="upholstery-color-sync-{{ block.id }}-{{ product_resource.id }}"
+            value="{{ color_value | escape }}"
+            data-option-value-id="{{ color_value.id }}"
+            data-fieldset-index="{{ color_fs_index }}"
+            data-input-index="{{ forloop.index0 }}"
+            data-current-checked="{% if color_value.name == selected_color %}true{% else %}false{% endif %}"
+            data-previous-checked="false"
+            data-option-available="true"
+            data-connected-product-url=""
+            data-variant-id="{{ sync_variant_id }}"
+            {% if color_value.name == selected_color %}checked{% endif %}
+          >
+        {%- endfor -%}
+      </fieldset>
+    {%- endif -%}
+  {%- endfor -%}
+
   {%- comment -%} Side drawer modal {%- endcomment -%}
   <div class="upholstery-drawer" data-upholstery-drawer>
     <div class="upholstery-drawer-overlay"></div>
@@ -128,7 +179,6 @@
           class="upholstery-drawer-close"
           data-action="close-upholstery-drawer"
           aria-label="Close upholstery options"
-          onclick="document.querySelector('.upholstery-drawer').classList.remove('active');"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

@@ -95,9 +95,8 @@
 
   #interactive-gallery img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
-    backface-visibility: hidden;
     display: block;
     border-radius: 4px;
   }
@@ -161,12 +160,11 @@
   #interactive-gallery .card {
     position: absolute;
     width: 50px;
-    height: 67px;
+    height: auto;
     border-radius: 4px;
     transform-origin: center;
-    will-change: transform;
-    transform-style: preserve-3d;
-    backface-visibility: visible;
+    {% comment %} will-change: transform;
+    transform-style: preserve-3d; {% endcomment %}
     overflow: hidden;
     cursor: pointer;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -203,7 +201,7 @@
 
   #interactive-gallery .title-container {
     position: fixed;
-    bottom: 25%;
+    bottom: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -393,7 +391,7 @@
 
     #interactive-gallery .card {
       width: 50px;
-      height: 68px;
+      height: auto;
     }
 
     #interactive-gallery .title-container p {
@@ -498,14 +496,21 @@
     // Load ALL Shopify products for shuffling (larger pool)
     const allShopifyProducts = [];
     {% for product in collections.all.products limit: 100 %}
-      {% if product.featured_image %}
+      {% comment %} Prefer metafield `custom.thumbnail` then fallback to featured_image. Provide small and large URLs. {% endcomment %}
+      {% if product.featured_image or product.metafields.custom.thumbnail %}
       allShopifyProducts.push({
         title: "{{ product.title | escape }}",
-        image: "{{ product.featured_image | image_url: width: 300 }}",
         id: "{{ product.id }}",
         url: "{{ product.url }}",
         price: "{{ product.price | money }}",
-        vendor: "{{ product.vendor | escape }}"
+        vendor: "{{ product.vendor | escape }}",
+        {% if product.metafields.custom.thumbnail %}
+          image_small: "{{ product.metafields.custom.thumbnail | image_url: width: 300 }}",
+          image_large: "{{ product.metafields.custom.thumbnail | image_url: width: 1400 }}"
+        {% else %}
+          image_small: "{{ product.featured_image | image_url: width: 300 }}",
+          image_large: "{{ product.featured_image | image_url: width: 1400 }}"
+        {% endif %}
       });
       {% endif %}
     {% endfor %}
@@ -556,6 +561,7 @@
     let currentTitle = null;
     let isPreviewActive = false;
     let isTransitioning = false;
+    let selectedIndex = null;
 
     const config = {
       imageCount: finalProducts.length,
@@ -609,9 +615,13 @@
       card.dataset.title = productData.title || `Product ${i + 1}`;
       card.dataset.price = productData.price || '$0.00';
       card.dataset.url = productData.url || '#';
+      // store small/large image urls on dataset for swapping when previewing
+      card.dataset.smallImage = productData.image_small || productData.image || '';
+      card.dataset.largeImage = productData.image_large || productData.image || '';
 
       const img = document.createElement('img');
-      img.src = productData.image || generateColoredImage(i);
+      // load a small image for the card to keep initial load light
+      img.src = productData.image_small || productData.image || generateColoredImage(i);
       img.alt = productData.title || `Product ${i + 1}`;
       img.onerror = function() {
         this.src = generateColoredImage(i);
@@ -643,17 +653,30 @@
       });
 
       card.addEventListener('click', (e) => {
-        if (!isPreviewActive && !isTransitioning) {
-          const now = Date.now();
-          const timeDiff = now - (card.lastClickTime || 0);
-          
-          if (timeDiff < 300 && productData.url && productData.url !== '#') {
-            window.location.href = productData.url;
+        if (isTransitioning) return;
+
+        const now = Date.now();
+        const timeDiff = now - (card.lastClickTime || 0);
+        const cardUrl = card.dataset.url || '#';
+
+        if (!isPreviewActive) {
+          // double-click navigates to product; single click opens preview
+          if (timeDiff < 300 && cardUrl && cardUrl !== '#') {
+            window.location.href = cardUrl;
           } else {
             togglePreview(parseInt(card.dataset.index));
           }
-          
           card.lastClickTime = now;
+          e.stopPropagation();
+        } else {
+          // When preview is active: selected card goes to product, others act as back button
+          if (card.classList.contains('card--selected')) {
+            if (cardUrl && cardUrl !== '#') {
+              window.location.href = cardUrl;
+            }
+          } else {
+            if (!isTransitioning) resetGallery();
+          }
           e.stopPropagation();
         }
       });
@@ -694,7 +717,13 @@
           ease: 'power3.inOut'
         });
       }
-
+      // Mark selected card and add preview-active class for overflow
+      cards.forEach((c) => c.classList.remove('card--selected'));
+      const selCard = cards[index];
+      if (selCard) {
+        selCard.classList.add('card--selected');
+        selectedIndex = index;
+      }
       // Calculate offset to center the gallery-left on the full viewport
       const galleryLeft = document.querySelector('#interactive-gallery .gallery-left');
       const galleryLeftRect = galleryLeft.getBoundingClientRect();
@@ -804,6 +833,16 @@
         delay: 1.8,
         ease: 'power3.out',
       });
+      // swap selected card image to large version to avoid blur when zoomed
+      const selectedImg = cards[index].querySelector('img');
+      if (selectedImg) {
+        const largeSrc = cards[index].dataset.largeImage || cards[index].dataset.smallImage || selectedImg.src;
+        // only swap if we have a larger image URL
+        if (largeSrc && largeSrc !== selectedImg.src) {
+          selectedImg.dataset.origSrc = selectedImg.src;
+          selectedImg.src = largeSrc;
+        }
+      }
     }
 
     function resetGallery() {
@@ -878,6 +917,17 @@
             currentY: 0,
             currentZ: 0,
           });
+          // remove selected marker
+          cards.forEach((c) => c.classList.remove('card--selected'));
+          // revert selected card images back to original small versions if swapped
+          cards.forEach((c) => {
+            const img = c.querySelector('img');
+            if (img && img.dataset.origSrc) {
+              img.src = img.dataset.origSrc;
+              delete img.dataset.origSrc;
+            }
+          });
+          selectedIndex = null;
         },
       });
 
@@ -1022,8 +1072,16 @@
                 onComplete: () => {
                   // Update card with new product data
                   if (img) {
-                    img.src = newProduct.image || generateColoredImage(index);
+                    // Update small and large image dataset values
+                    const small = newProduct.image_small || newProduct.image || generateColoredImage(index);
+                    const large = newProduct.image_large || newProduct.image || generateColoredImage(index);
+                    img.src = small;
                     img.alt = newProduct.title || `Product ${index + 1}`;
+                    const cardEl = cards[index];
+                    if (cardEl) {
+                      cardEl.dataset.smallImage = small;
+                      cardEl.dataset.largeImage = large;
+                    }
                     img.onerror = function() {
                       this.src = generateColoredImage(index);
                       this.onerror = null;
