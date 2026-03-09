@@ -363,6 +363,125 @@
               },
               "blocks": {}
             },
+            "product_metafields_WhFyQD": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.tier_1.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_zzgNtH": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.tier_2.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_6kVwEU": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.tier_3.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_QhxJKc": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.chair.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_Qa8EXb": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.footrest.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_aHFfWf": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.large_table.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
+            "product_metafields_EADpGF": {
+              "type": "product-metafields",
+              "name": "Product Metafields",
+              "settings": {
+                "metafield_1": "{{ closest.product.metafields.custom.small_table.value }}",
+                "metafield_2": "",
+                "metafield_3": "",
+                "metafield_4": "",
+                "metafield_5": "",
+                "metafield_6": "",
+                "metafield_7": "",
+                "metafield_8": "",
+                "metafield_9": "",
+                "metafield_10": ""
+              },
+              "blocks": {}
+            },
             "buy_buttons": {
               "type": "buy-buttons",
               "settings": {
@@ -417,25 +536,13 @@
               },
               "blocks": {}
             },
-            "product_metafields_WhFyQD": {
-              "type": "product-metafields",
-              "name": "Product Metafields",
-              "settings": {
-                "metafield_1": "{{ closest.product.metafields.custom.more_color_option_available | metafield_tag }}",
-                "metafield_2": "",
-                "metafield_3": "",
-                "metafield_4": "",
-                "metafield_5": "",
-                "metafield_6": "",
-                "metafield_7": "",
-                "metafield_8": "",
-                "metafield_9": "",
-                "metafield_10": ""
-              },
-              "blocks": {}
+            "wishlist_plus_advanced_pdp_button_pEAQen": {
+              "type": "shopify://apps/wishlist-plus/blocks/advanced-pdp-button/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+              "settings": {}
             },
             "wishlist_plus_wishlist_pdp_button_fcb3dm": {
               "type": "shopify://apps/wishlist-plus/blocks/wishlist-pdp-button/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+              "disabled": true,
               "settings": {
                 "swym_atw_button_icon": "bookmark",
                 "swym_atw_icon_thickness": 1.7,
@@ -478,9 +585,16 @@
             "text_t7ttq3",
             "variant_picker_VXBwia",
             "product_metafields_z3NKpF",
+            "product_metafields_WhFyQD",
+            "product_metafields_zzgNtH",
+            "product_metafields_6kVwEU",
+            "product_metafields_QhxJKc",
+            "product_metafields_Qa8EXb",
+            "product_metafields_aHFfWf",
+            "product_metafields_EADpGF",
             "buy_buttons",
             "product_metafields_HERcH6",
-            "product_metafields_WhFyQD",
+            "wishlist_plus_advanced_pdp_button_pEAQen",
             "wishlist_plus_wishlist_pdp_button_fcb3dm",
             "button_cta_YdfVHM"
           ]
@@ -494,7 +608,7 @@
         "gap": 24,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-3",
-        "padding-block-start": 10,
+        "padding-block-start": 31,
         "padding-block-end": 20
       }
     },
@@ -579,7 +693,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Explore chairs tailored to your interests<br/><br/></p>",
+            "text": "<p>Explore products tailored to your interests<br/><br/></p>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -843,7 +957,7 @@
       ],
       "name": "Image with side buttons",
       "settings": {
-        "hero_image": "shopify://shop_images/f9651ae729da0ebe73892d0d947662d02eee0828.jpg",
+        "hero_image": "shopify://shop_images/Lexington_Front_H.jpg",
         "image_alt": "Hero image"
       }
     }

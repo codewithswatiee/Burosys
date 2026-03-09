@@ -108,6 +108,11 @@ Styling is kept inline so this section is self-contained and matches the provide
   <div class="isb-modal" id="isb-form-modal" aria-hidden="true">
     <div class="isb-modal-overlay" data-action="close-modal"></div>
     <div class="isb-modal-panel">
+      <button class="isb-modal-close" data-action="close-modal" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <div class="isb-modal-content" id="isb-modal-content"></div>
     </div>
   </div>
@@ -116,9 +121,12 @@ Styling is kept inline so this section is self-contained and matches the provide
     .isb-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:12000}
     .isb-modal.is-open{display:flex}
     .isb-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6)}
-    .isb-modal-panel{position:relative;scrollbar-width:none;border-radius:10px;max-width:980px;width:95%;max-height:90vh;overflow:auto;padding:20px;z-index:2}
-    .isb-modal-close{position:absolute;top:8px;right:8px;background:transparent;border:none;font-size:20px;cursor:pointer}
+    .isb-modal-panel{position:relative;scrollbar-width:none;border-radius:10px;max-width:980px;width:fit-content;max-height:90vh;overflow:auto;padding:20px;z-index:2;}
+    .isb-modal-close{position:absolute;top:25px;right:12px;background:rgba(255,255,255,0.9);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#333;transition:all 0.2s ease;z-index:3}
+    .isb-modal-close:hover{background:#fff;transform:scale(1.1)}
     .isb-modal-content{margin-top:20px}
+    .isb-booking-close{position:absolute;top:-12%;left:90%;background:rgba(255,255,255,0.9);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#333;transition:all 0.2s ease;z-index:10003}
+    .isb-booking-close:hover{background:#fff;transform:scale(1.1)}
   </style>
 
   <script>
@@ -160,11 +168,11 @@ Styling is kept inline so this section is self-contained and matches the provide
         // basic styles inline to ensure they apply in editor
         overlay.setAttribute('style', 'display:block;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.4);z-index:10000;');
 
-        var closeImgUrl = 'https://static.zohocdn.com/crm/images/closeicon_59a5a09c5d664c355dbfcedb083c86a4_.png';
-        var closeBtn = document.createElement('img');
-        closeBtn.src = closeImgUrl;
-        closeBtn.className = 'calBookingCloseIcn';
-        closeBtn.setAttribute('style', 'display:none;position: absolute;left: calc(50% + 510px);top: 120px;z-index: 10002;cursor: pointer;');
+        // Custom close button
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'isb-booking-close';
+        closeBtn.setAttribute('aria-label', 'Close booking');
+        closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         closeBtn.addEventListener('click', function(){ closeBooking(blockId); });
 
         var iframeContainer = document.createElement('div');
@@ -174,11 +182,11 @@ Styling is kept inline so this section is self-contained and matches the provide
         var url = 'https://crm.zoho.in/bookings/StudioVisitforOverview?rid=72e3a15e9c87cecd97f03ddd8b86848ce334689cf697299b8bc6581bc872b07509c69ab24b88fa6bd7b03242a6476ac2gidcf699035a521f6386f45bd9b81b50d017cd061ae8b83c9c1169764fce5845870&option=embed';
         iframe.src = url;
         var width = (window.innerWidth <= 1024) ? '90%' : '1100px';
-        iframe.setAttribute('style', 'width:'+width+';height:400px; background:#fff; border:1px solid #ddd; border-radius:5px;');
+        iframe.setAttribute('style', 'width:'+width+';height:400px; background:#fff; border:1px solid #ddd; border-radius:5px; position:relative;');
 
         iframeContainer.appendChild(iframe);
+        iframeContainer.appendChild(closeBtn);
         overlay.appendChild(iframeContainer);
-        overlay.appendChild(closeBtn);
         document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden';
       }

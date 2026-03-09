@@ -28,6 +28,7 @@
             "case": "uppercase",
             "wrap": "pretty",
             "color": "var(--color-foreground)",
+            "text_color_custom": "#000000",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -42,7 +43,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Explore chairs tailored to your interests</p>",
+            "text": "<p>Explore our projects and discover our workspace designs.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -54,6 +55,7 @@
             "case": "none",
             "wrap": "pretty",
             "color": "var(--color-foreground)",
+            "text_color_custom": "#000000",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -178,12 +180,90 @@
             }
           },
           "block_order": []
+        },
+        "static-blog-post-card-articles": {
+          "type": "_blog-post-card",
+          "static": true,
+          "settings": {
+            "alignment": "left"
+          },
+          "blocks": {
+            "heading": {
+              "type": "_heading",
+              "static": true,
+              "settings": {
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "text": "",
+                "read_only": false,
+                "alignment": "left",
+                "show_alignment": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "blog-post-details": {
+              "type": "_blog-post-info-text",
+              "static": true,
+              "settings": {
+                "show_date": true,
+                "show_author": true,
+                "type_preset": "",
+                "alignment": "left",
+                "show_alignment": true,
+                "padding-block-start": 24,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "content": {
+              "type": "_blog-post-description",
+              "static": true,
+              "settings": {
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 16,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "image": {
+              "type": "_blog-post-image",
+              "static": true,
+              "settings": {
+                "height": "large",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
         }
       },
       "settings": {
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
-        "padding-block-end": 60
+        "padding-block-end": 60,
+        "news_subtitle": "Explore blogs tailored to your interests",
+        "articles_subtitle": "Explore blogs tailored to your interests"
       }
     },
     "text_with_inline_images_QAc9Pj": {
@@ -216,7 +296,7 @@
         "image_GYaBTT": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+            "image": "shopify://shop_images/2343-1.png"
           }
         },
         "text_PtbhVY": {
@@ -247,7 +327,7 @@
         "image_U74qrn": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/5138b4a50bfdc712b8fe292c3925b84e75cfacb3.png"
+            "image": "shopify://shop_images/fanny1.png"
           }
         }
       },

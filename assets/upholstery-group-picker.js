@@ -131,6 +131,9 @@ class UpholsteryGroupPicker extends HTMLElement {
 
       const content = this.drawer.querySelector('.upholstery-drawer-content');
       if (content) content.addEventListener('click', this.handleDrawerContentClick);
+      // Allow closing the drawer by clicking the overlay (clicking outside the content)
+      const overlay = this.drawer.querySelector('.upholstery-drawer-overlay');
+      if (overlay) overlay.addEventListener('click', this.handleCloseDrawer);
     }
   }
 

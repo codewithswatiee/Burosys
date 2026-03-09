@@ -221,11 +221,11 @@
                     
                     <ul class="header-drawer__account-links list-unstyled" role="list">
                       <li>
-                        <a href="{{ routes.account_url }}" class="header-drawer__account-link">
+                        <a href={{routes.account_url}} class="header-drawer__account-link">
                           <span class="svg-wrapper" aria-hidden="true">
                             {{ 'icon-account.svg' | inline_asset_content }}
                           </span>
-                          My Account
+                          Profile
                         </a>
                       </li>
                       <li>
@@ -250,7 +250,7 @@
                       <li>
                         <a href="{{ routes.account_logout_url }}" class="header-drawer__account-link">
                           <span class="svg-wrapper" aria-hidden="true">
-                            {{ 'icon-account.svg' | inline_asset_content }}
+                            {{ 'icon-logout.svg' | inline_asset_content }}
                           </span>
                           Logout
                         </a>

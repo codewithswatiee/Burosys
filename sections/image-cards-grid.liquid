@@ -40,13 +40,21 @@
         <div class="image-card" {{ block.shopify_attributes }}>
           <div class="image-card__inner">
             {% if block.settings.image != blank %}
-              <div class="image-card__image-wrapper">
-                {{
-                  block.settings.image
-                  | image_url: width: 1200
-                  | image_tag: loading: 'lazy', class: 'image-card__image', widths: '400, 600, 800, 1000, 1200'
-                }}
-              </div>
+                <div class="image-card__image-wrapper">
+                  {{
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag: loading: 'lazy', class: 'image-card__image', widths: '400, 600, 800, 1000, 1200'
+                  }}
+
+                    {% comment %}Always render a black overlay so light/white images get darkened{% endcomment %}
+                    {% if block.settings.overlay_enabled %}
+                      <div
+                        class="image-card__overlay"
+                        style="--overlay-opacity: {{ block.settings.overlay_opacity | default: 40 }};"
+                      ></div>
+                    {% endif %}
+                </div>
             {% else %}
               <div class="image-card__image-wrapper image-card__image-wrapper--placeholder">
                 {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -162,6 +170,18 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    position: relative;
+    z-index: 0;
+  }
+
+  .image-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: black;
+    opacity: calc(var(--overlay-opacity, 40) / 100);
+    transition: background-color 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
   }
 
   .image-card:hover .image-card__image {
@@ -180,7 +200,7 @@
 
   .image-card__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -541,6 +561,23 @@
             }
           ],
           "default": "primary"
+        }
+        ,
+        {
+          "type": "checkbox",
+          "id": "overlay_enabled",
+          "label": "Enable overlay",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 40
         }
       ]
     }

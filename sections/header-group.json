@@ -11,6 +11,36 @@
   "type": "header",
   "name": "t:names.header",
   "sections": {
+    "header_announcements_UEchr8": {
+      "type": "header-announcements",
+      "blocks": {
+        "announcement_nQdpit": {
+          "type": "_announcement",
+          "settings": {
+            "text": "REGISTER FOR iDAC JWC BKC  MAR 12-14",
+            "link": "https://futureofspaces.short.gy/vJ1rgO",
+            "font": "var(--font-body--family)",
+            "font_size": "1.125rem",
+            "weight": "600",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_nQdpit"
+      ],
+      "name": "t:names.announcement_bar",
+      "settings": {
+        "speed": 5,
+        "section_width": "page-width",
+        "color_scheme": "scheme-4",
+        "divider_width": 2,
+        "padding-block-start": 20,
+        "padding-block-end": 20
+      }
+    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -86,6 +116,7 @@
     }
   },
   "order": [
+    "header_announcements_UEchr8",
     "header_section"
   ]
 }

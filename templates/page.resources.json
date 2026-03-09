@@ -224,7 +224,7 @@
           "settings": {
             "title": "LUVIH LAMINATES",
             "image": "shopify://shop_images/Luvih-E-Catalogue-2025.pdf.jpg",
-            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_School-compressed.pdf?v=1770097816",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Luvih-E-Catalogue-2025.pdf?v=1772186869",
             "filters": "finishes"
           }
         },
@@ -232,8 +232,8 @@
           "type": "catalog_item",
           "settings": {
             "title": "PRISM LAMINATES",
-            "image": "shopify://shop_images/Luvih-E-Catalogue-2025.pdf.jpg",
-            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/BUROSYS_School-compressed.pdf?v=1770097816",
+            "image": "shopify://shop_images/prism.jpg",
+            "download_url": "https://cdn.shopify.com/s/files/1/0775/0677/3217/files/Prism_Shade_card_2023.pdf?v=1772187000",
             "filters": "finishes"
           }
         },
@@ -673,14 +673,13 @@
           "type": "idea_item",
           "settings": {
             "title": "ASOS PROCESS ENGINEERING OFFICES – ISTANBUL",
-            "project_name": "Name of the Project",
+            "project_name": "ASOS PROCESS ENGINEERING OFFICES – ISTANBUL",
             "filters": "open spaces",
-            "image_1": "shopify://shop_images/gemini_2.jpg",
-            "image_2": "shopify://shop_images/SC024.png",
-            "image_3": "shopify://shop_images/gemini_2.jpg",
-            "image_4": "shopify://shop_images/SC036-2_edf13acc-a5cf-4d75-aa1d-667c0946cc09.png",
-            "credit_label_1": "CREDITS",
-            "credit_text_1": "Lorem ipsum",
+            "image_1": "shopify://shop_images/asos_1.jpg",
+            "image_2": "shopify://shop_images/asos_3.jpg",
+            "image_3": "shopify://shop_images/asos_2.jpg",
+            "credit_label_1": "DAM DESIGN STUDIO",
+            "credit_text_1": "",
             "credit_label_2": "",
             "credit_text_2": "",
             "credit_label_3": "",
@@ -695,10 +694,14 @@
           "type": "idea_item",
           "settings": {
             "title": "MICHELIN OFFICES - WARSAW",
-            "project_name": "Name of the Project",
+            "project_name": "MICHELIN OFFICES - WARSAW",
             "filters": "open spaces",
-            "credit_label_1": "CREDITS",
-            "credit_text_1": "Lorem ipsum",
+            "image_1": "shopify://shop_images/MICHELIN-1.jpg",
+            "image_2": "shopify://shop_images/MICHELIN4.jpg",
+            "image_3": "shopify://shop_images/MICHELIN3.jpg",
+            "image_4": "shopify://shop_images/MICHELIN2.jpg",
+            "credit_label_1": "COLLIERS DEFINE",
+            "credit_text_1": "",
             "credit_label_2": "",
             "credit_text_2": "",
             "credit_label_3": "",
@@ -713,10 +716,14 @@
           "type": "idea_item",
           "settings": {
             "title": "AQUATIC CAPITAL OFFICES – CHICAGO",
-            "project_name": "Name of the Project",
+            "project_name": "AQUATIC CAPITAL OFFICES – CHICAGO",
             "filters": "open spaces",
-            "credit_label_1": "CREDITS",
-            "credit_text_1": "Lorem ipsum",
+            "image_1": "shopify://shop_images/AQUATIC1.jpg",
+            "image_2": "shopify://shop_images/AQUATIC_CAPITAL_OFFICES_CHICAGO3.jpg",
+            "image_3": "shopify://shop_images/AQUATIC_CAPITAL_OFFICES_CHICAGO4.jpg",
+            "image_4": "shopify://shop_images/AQUATIC_CAPITAL_OFFICES_CHICAGO_2.jpg",
+            "credit_label_1": "OTJ ARCHITECTS",
+            "credit_text_1": "",
             "credit_label_2": "",
             "credit_text_2": "",
             "credit_label_3": "",
@@ -729,6 +736,7 @@
         },
         "idea_item_dw4JRd": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "PROCTER & GAMBLE OFFICES – MANILA",
             "project_name": "Name of the Project",
@@ -747,6 +755,7 @@
         },
         "idea_item_WMczNH": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "COLLIERS OFFICES - WARSAW",
             "project_name": "Name of the Project",
@@ -765,6 +774,7 @@
         },
         "idea_item_g3htRn": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "ARVEST AT LEDGER OFFICES - BENTONVILLE",
             "project_name": "Name of the Project",
@@ -783,6 +793,7 @@
         },
         "idea_item_GHFV8t": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "AB PRIME REALTY OFFICES - DUBAI",
             "project_name": "Name of the Project",
@@ -801,6 +812,7 @@
         },
         "idea_item_LhAAjH": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "BNP PARIBAS CARDIF OFFICES - SAO PAULO",
             "project_name": "Name of the Project",
@@ -819,6 +831,7 @@
         },
         "idea_item_YnnjeC": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "KNS SECURITIES OFFICES- AHEMDABAD",
             "project_name": "Name of the Project",
@@ -837,6 +850,7 @@
         },
         "idea_item_MXBken": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "ESTETYCZNA GRUPA OFFICES- WARSAW",
             "project_name": "Name of the Project",
@@ -855,6 +869,7 @@
         },
         "idea_item_7z76hT": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "GYAN DAIRY OFFICES- LUCKNOW",
             "project_name": "Name of the Project",
@@ -873,6 +888,7 @@
         },
         "idea_item_nCF8ja": {
           "type": "idea_item",
+          "disabled": true,
           "settings": {
             "title": "IPG OFFICES - CHICAGO",
             "project_name": "Name of the Project",
