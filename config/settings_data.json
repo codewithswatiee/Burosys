@@ -69,6 +69,7 @@
     "currency_code_enabled_product_pages": false,
     "currency_code_enabled_product_cards": false,
     "currency_code_enabled_cart_items": false,
+    "quick_add": false,
     "mobile_quick_add": true,
     "show_variant_image": false,
     "variant_swatch_width": 75,
@@ -227,6 +228,17 @@
           "storefront_layout_action_popup_position": "left",
           "storefront_layout_drawer_position": "left",
           "storefront_layout_as_section_page": ""
+        }
+      },
+      "12104266310658676657": {
+        "type": "shopify://apps/gst-pro/blocks/app-block/dc0bf9c4-5319-4158-acba-097d71ee1adc",
+        "disabled": true,
+        "settings": {
+          "title": "Enter Details for GST Invoice:",
+          "gstin_number": "GST Number:",
+          "collect_company": true,
+          "company_name": "Company Name:",
+          "disable_styles": true
         }
       }
     },

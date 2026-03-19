@@ -286,7 +286,7 @@
       "name": "Side Image + Tabs",
       "settings": {
         "section_width": "full-width",
-        "reversed": false,
+        "reversed": true,
         "enable_overlay": false,
         "overlay_color": "#000000",
         "overlay_opacity": 30,

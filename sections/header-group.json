@@ -13,24 +13,7 @@
   "sections": {
     "header_announcements_UEchr8": {
       "type": "header-announcements",
-      "blocks": {
-        "announcement_nQdpit": {
-          "type": "_announcement",
-          "settings": {
-            "text": "REGISTER FOR iDAC JWC BKC  MAR 12-14",
-            "link": "https://futureofspaces.short.gy/vJ1rgO",
-            "font": "var(--font-body--family)",
-            "font_size": "1.125rem",
-            "weight": "600",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "announcement_nQdpit"
-      ],
+      "disabled": true,
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
@@ -88,8 +71,12 @@
         "search_row": "top",
         "stories_label": "Stories",
         "stories_link": "shopify://blogs/news",
-        "resources_label": "Resources",
-        "resources_link": "shopify://pages/resources",
+        "resources_label": "",
+        "resources_link": "",
+        "enable_wishlist": true,
+        "wishlist_label": "Wishlist",
+        "wishlist_link": "shopify://pages/swym-wishlist",
+        "enable_cart_icon": true,
         "show_country": true,
         "country_selector_style": false,
         "show_language": true,

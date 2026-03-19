@@ -12,6 +12,8 @@
     "
     data-testid="cart-icon"
   >
+    <a
+      href="{{ routes.cart_url }}">
     <span
       class="svg-wrapper"
       aria-hidden="true"
@@ -19,7 +21,8 @@
       {{ 'icon-cart.svg' | inline_asset_content }}
     </span>
 
-    {% render 'cart-bubble', limit: 100, live_region: true, test_id: test_id %}
+    {% render 'cart-bubble', limit: 100, live_region: true, %}
+  </a>
   </cart-icon>
 {% endcapture %}
 
@@ -141,6 +144,11 @@
     }
   });
 </script>
+
+  {%- comment -%}
+    Post-search actions (wishlist & cart) — placed visually after the search icon using flex ordering.
+  {%- endcomment -%}
+
 
 {% stylesheet %}
   .header-actions__stories-link {
@@ -552,6 +560,64 @@
     }
   }
 
+  .header-actions__post-search-inline {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .header-actions__post-search-inline .header-actions__wishlist {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: var(--button-size);
+  }
+
+
+  .header-actions__post-search-inline svg,
+  .header-actions__post-search-inline img {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    display: block;
+  }
+
+  .header-actions__wishlist-fallback {
+    font-size: var(--font-size--md);
+    line-height: 1;
+    display: inline-block;
+  }
+
+  /* Tint wishlist icon on hover. For inline SVGs use stroke/fill; for uploaded images use a filter fallback */
+  .header-actions__wishlist:hover .svg-wrapper svg path,
+  .header-actions__wishlist:hover svg {
+    stroke: #FF4000 !important;
+    fill: #FF4000 !important;
+    color: #FF4000 !important;
+  }
+
+  .header-actions__wishlist img {
+    transition: filter 160ms ease;
+    display: block;
+  }
+
+  /* Approximate #FF4000 for raster images (best-effort). If you upload an SVG that uses currentColor, it will tint perfectly. */
+  .header-actions__wishlist:hover img {
+    filter: invert(31%) sepia(85%) saturate(520%) hue-rotate(6deg) brightness(95%) contrast(92%);
+  }
+
+  .header-actions__cart-icon--static {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-actions__post-search-inline {
+      display: none !important;
+    }
+  }
+
   .header__column--right header-actions {
     margin-inline-start: calc(var(--gap-md) * -1);
   }
@@ -621,12 +687,18 @@
     );
   }
 
+  .search-modal__button{
+    transform: translateX(10px);
+  }
+
   /* Mobile: simplify header to only show hamburger, logo and search button */
   @media screen and (max-width: 749px) {
     /* Hide all action items except the search button */
     .header-actions__action {
       display: none !important;
     }
+
+    
 
     /* Keep the search button visible */
     .search-modal__button.header-actions__action,

@@ -41,7 +41,7 @@
             "label": "executive chairs",
             "image": "shopify://shop_images/CANYON_GRAPHITE.png",
             "color": "#ffffff",
-            "link": "https://burosys.com/collections/all?filter.p.product_type=Executive+Chair"
+            "link": "https://burosys.com/collections/seating?filter.p.product_type=Executive+Chair"
           }
         },
         "category_WXx8aD": {
@@ -50,7 +50,7 @@
             "label": "Lounge chairs",
             "image": "shopify://shop_images/carnival_1.png",
             "color": "#ffffff",
-            "link": "https://burosys.com/collections/all?filter.p.product_type=Lounge+Chair"
+            "link": "https://burosys.com/collections/seating?filter.p.product_type=Lounge+Chair"
           }
         },
         "category_qMW7qg": {
@@ -59,7 +59,7 @@
             "label": "Staff Chairs",
             "image": "shopify://shop_images/Q88_8.jpg",
             "color": "#ffffff",
-            "link": "shopify://collections/seating"
+            "link": "https://burosys.com/collections/seating?filter.p.product_type=Staff+Chair"
           }
         },
         "category_CpMBwj": {
@@ -68,7 +68,7 @@
             "label": "sofas",
             "image": "shopify://shop_images/CRYSTAL.jpg",
             "color": "#ffffff",
-            "link": "https://burosys.com/collections/all?filter.p.product_type=Sofas"
+            "link": "https://burosys.com/collections/seating?filter.p.product_type=Sofas"
           }
         },
         "category_Lk4Vp9": {
@@ -77,7 +77,7 @@
             "label": "coffee tables",
             "image": "shopify://shop_images/T07-3.jpg",
             "color": "#ffffff",
-            "link": "https://burosys.com/collections/all?filter.p.product_type=Coffee+Tables"
+            "link": "https://burosys.com/collections/desks-copy?filter.p.product_type=Coffee+Tables"
           }
         },
         "category_knGkzW": {
@@ -86,7 +86,7 @@
             "label": "Phone Pods",
             "image": "shopify://shop_images/N2.4-Mint.jpg",
             "color": "#ffffff",
-            "link": "shopify://collections/tables-copy"
+            "link": "https://burosys.com/collections/tables-copy?filter.p.product_type=PHONE+POD"
           }
         },
         "category_aiJNna": {
@@ -104,7 +104,7 @@
             "label": "meeting tables",
             "image": "shopify://shop_images/meeting_table_2_-Photoroom.png",
             "color": "#ffffff",
-            "link": ""
+            "link": "https://burosys.com/collections/seating-copy?filter.p.product_type=Meeting+Tables"
           }
         },
         "category_fYXRqT": {

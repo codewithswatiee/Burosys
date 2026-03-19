@@ -1517,6 +1517,7 @@ button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
 
 .button-unstyled:hover {
   background-color: inherit;
+  /* color: #FF4000 */
 }
 
 .button-unstyled--with-icon {

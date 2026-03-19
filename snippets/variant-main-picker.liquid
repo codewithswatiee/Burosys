@@ -545,11 +545,12 @@
 
   .variant-option__button-label:has(:checked) {
     color: var(--color-selected-variant-text);
-    border-color: var(--color-selected-variant-border);
+    border: 1px solid #FF5733;
+    padding: 1px;
   }
 
   .variant-option__button-label:has(:checked):hover {
-    border-color: var(--color-selected-variant-hover-border);
+    border-color:rgba(255, 88, 51, 0.8);
     color: var(--color-selected-variant-hover-text);
 
     .variant-option__button-label__pill {

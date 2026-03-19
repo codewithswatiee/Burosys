@@ -609,6 +609,43 @@
               "type": "shopify://apps/wishlist-plus/blocks/advanced-pdp-button/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
               "settings": {}
             },
+            "buy_buttons_X7D4JC": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": false,
+                "show_pickup_availability": false,
+                "gift_card_form": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
             "button_cta_8xKGmz": {
               "type": "button-cta",
               "name": "Button CTA",
@@ -640,6 +677,7 @@
             "buy_buttons",
             "product_metafields_HERcH6",
             "wishlist_plus_advanced_pdp_button_JmpDQQ",
+            "buy_buttons_X7D4JC",
             "button_cta_8xKGmz"
           ]
         }

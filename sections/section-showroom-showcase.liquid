@@ -13,7 +13,7 @@
         <div class="ss-description">{{ section.settings.description }}</div>
       {% endif %}
       {% if section.settings.button_text != blank %}
-        <button type="button" class="ss-button" onclick="openBookingPopup()">
+        <button type="button" class="ss-button" data-cal-link="burosys/meeting" data-cal-namespace="meeting" data-cal-config='{"layout":""}'>
           {{ section.settings.button_text }}
         </button>
       {% endif %}
@@ -76,65 +76,19 @@
     thumbnailsPerPage: 4
   };
 
-  // Booking popup functionality
-  function openBookingPopup(){
-    var existing = document.getElementById('ss-booking-popup');
-    if(existing) return;
-    
-    var overlay = document.createElement('div');
-    overlay.id = 'ss-booking-popup';
-    overlay.style.cssText = 'display:block;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.4);z-index:10000;';
-
-    // Custom close button
-    var closeBtn = document.createElement('button');
-    closeBtn.style.cssText = 'position:absolute;top:-12%;left:90%;background:rgba(255,255,255,0.9);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#333;transition:all 0.2s ease;z-index:10003;';
-    closeBtn.setAttribute('aria-label', 'Close booking');
-    closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    closeBtn.addEventListener('click', closeBookingPopup);
-    
-    // Hover effect
-    closeBtn.addEventListener('mouseenter', function(){
-      this.style.background = '#fff';
-      this.style.transform = 'scale(1.1)';
-    });
-    closeBtn.addEventListener('mouseleave', function(){
-      this.style.background = 'rgba(255,255,255,0.9)';
-      this.style.transform = 'scale(1)';
-    });
-
-    var iframeContainer = document.createElement('div');
-    iframeContainer.style.cssText = 'position: fixed; top:100px; left:0; right:0; margin:0 auto; z-index:10001; width:100%; display:flex; justify-content:center;';
-
-    var iframe = document.createElement('iframe');
-    var url = 'https://crm.zoho.in/bookings/StudioVisitforOverview?rid=72e3a15e9c87cecd97f03ddd8b86848ce334689cf697299b8bc6581bc872b07509c69ab24b88fa6bd7b03242a6476ac2gidcf699035a521f6386f45bd9b81b50d017cd061ae8b83c9c1169764fce5845870&option=embed';
-    iframe.src = url;
-    var width = (window.innerWidth <= 1024) ? '90%' : '1100px';
-    iframe.style.cssText = 'width:'+width+';height:400px; background:#fff; border:1px solid #ddd; border-radius:5px; position:relative;';
-
-    iframeContainer.appendChild(iframe);
-    iframeContainer.appendChild(closeBtn);
-    overlay.appendChild(iframeContainer);
-    document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
-
-    // Close on overlay click
-    overlay.addEventListener('click', function(e){
-      if(e.target === overlay) closeBookingPopup();
-    });
-  }
-
-  function closeBookingPopup(){
-    var el = document.getElementById('ss-booking-popup');
-    if(el) {
-      el.parentNode.removeChild(el);
-      document.body.style.overflow = '';
-    }
-  }
-
-  // Close on Escape key
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeBookingPopup();
-  });
+  // Lunacal element-click embed code begins
+  (function(L,U,N){let p=(a,ar)=>a.q.push(ar),d=L.document;L.Lunacal=L.Lunacal||function(){let lun=L.Lunacal,ar=arguments;if(!lun.loaded){lun.ns={};lun.q=lun.q||[];d.head.appendChild(d.createElement("script")).src=U;lun.loaded=!0}if(ar[0]===N){const api=function(){p(api,arguments)};const ns=ar[1];api.q=api.q||[];if(typeof ns==="string"){lun.ns[ns]=lun.ns[ns]||api;p(lun.ns[ns],ar);p(lun,["initNamespace",ns])}else p(lun,ar);return}p(lun,ar)};if(!L.Cal)L.Cal=L.Lunacal})(window,"https://app.lunacal.ai/embed/embed.js","init");
+  Lunacal("init","meeting",{origin:"https://app.lunacal.ai"});
+  // Enable auto-forwarding of query parameters
+  Lunacal.config = Lunacal.config || {};
+  Lunacal.config.forwardQueryParams = true;
+  Lunacal.ns.meeting("preload", { calLink: "burosys/meeting", type: "modal", options: { prerenderIframe: true } });
+  // Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
+  // `data-cal-link="burosys/meeting"`
+  // `data-cal-namespace="meeting"`
+  // `data-cal-config='{"layout":""}'`
+  Lunacal.ns.meeting("ui", {"theme":"dark","styles":{"branding":{}},"hideEventTypeDetails":false,"layout":"","cssVarsPerTheme":{"light":{"theme-border":"#1F1F1F","theme-background-primary":"#018CFF","theme-background-secondary":"#33353A","theme-background-card":"#090909","theme-background-base":"#090909","theme-text-primary":"#ffffff","theme-text-secondary":"#ffffff","theme-text-card":"#ffffff","theme-text-base":"#ffffff","theme-rounded-base":"12px","theme-rounded-calendar":"14px","theme-rounded-timeslot":"999px","theme-rounded-day":"999px","theme-rounded-button":"999px","theme-shadow-calendar":"1.5px 8.5px 4px 0px #0000001A","theme-shadow-button":"0px 0px 0px 0px #D1519A88","theme-shadow-timeslot":"0px 0px 0px 0px #000000","theme-font-family":"Outfit"},"dark":{"theme-border":"#1F1F1F","theme-background-primary":"#018CFF","theme-background-secondary":"#33353A","theme-background-card":"#090909","theme-background-base":"#090909","theme-text-primary":"#ffffff","theme-text-secondary":"#ffffff","theme-text-card":"#ffffff","theme-text-base":"#ffffff","theme-rounded-base":"12px","theme-rounded-calendar":"14px","theme-rounded-timeslot":"999px","theme-rounded-day":"999px","theme-rounded-button":"999px","theme-shadow-calendar":"1.5px 8.5px 4px 0px #0000001A","theme-shadow-button":"0px 0px 0px 0px #D1519A88","theme-shadow-timeslot":"0px 0px 0px 0px #000000","theme-font-family":"Outfit"}},"displayedContent":{"image":true,"name":true,"designation":true,"description":true,"eventName":true,"highlightBar":false},"background":{"type":"animated","presetId":"retro-grid"},"stylePreset":"blueshine"});
+  // Lunacal element-click embed code ends
 </script>
 
 <script src="{{ 'section-showroom-showcase.js' | asset_url }}" defer></script>

@@ -83,7 +83,8 @@ Styling is kept inline so this section is self-contained and matches the provide
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           <div id="block-{{ block.id }}" class="isb-button">
-            <a href="#" class="isb-button-link" data-block-id="{{ block.id }}" {% if block.settings.book_appointment %}data-booking="true"{% endif %}>
+            <a href="#" class="isb-button-link" data-block-id="{{ block.id }}"
+              {% if block.settings.book_appointment %}data-booking="true" data-cal-link="burosys/meeting" data-cal-namespace="meeting" data-cal-config='{"layout":""}'{% endif %}>
               <span class="label">{{ block.settings.label }}</span>
             </a>
           </div>
@@ -159,52 +160,17 @@ Styling is kept inline so this section is self-contained and matches the provide
         content.innerHTML = '';
       }
 
-      function openBooking(blockId){
-        var existing = document.getElementById('isb-booking-'+blockId);
-        if(existing) return;
-        var overlay = document.createElement('div');
-        overlay.id = 'isb-booking-'+blockId;
-        overlay.className = 'isb-booking-embed';
-        // basic styles inline to ensure they apply in editor
-        overlay.setAttribute('style', 'display:block;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.4);z-index:10000;');
-
-        // Custom close button
-        var closeBtn = document.createElement('button');
-        closeBtn.className = 'isb-booking-close';
-        closeBtn.setAttribute('aria-label', 'Close booking');
-        closeBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        closeBtn.addEventListener('click', function(){ closeBooking(blockId); });
-
-        var iframeContainer = document.createElement('div');
-        iframeContainer.setAttribute('style','position: fixed; top:100px; left:0; right:0; margin:0 auto; z-index:10001; width:100%; display:flex; justify-content:center;');
-
-        var iframe = document.createElement('iframe');
-        var url = 'https://crm.zoho.in/bookings/StudioVisitforOverview?rid=72e3a15e9c87cecd97f03ddd8b86848ce334689cf697299b8bc6581bc872b07509c69ab24b88fa6bd7b03242a6476ac2gidcf699035a521f6386f45bd9b81b50d017cd061ae8b83c9c1169764fce5845870&option=embed';
-        iframe.src = url;
-        var width = (window.innerWidth <= 1024) ? '90%' : '1100px';
-        iframe.setAttribute('style', 'width:'+width+';height:400px; background:#fff; border:1px solid #ddd; border-radius:5px; position:relative;');
-
-        iframeContainer.appendChild(iframe);
-        iframeContainer.appendChild(closeBtn);
-        overlay.appendChild(iframeContainer);
-        document.body.appendChild(overlay);
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeBooking(blockId){
-        var el = document.getElementById('isb-booking-'+blockId);
-        if(el){ el.parentNode.removeChild(el); }
-        document.body.style.overflow = '';
-      }
+      // Booking handled via Lunacal embed when `data-booking` is present on the trigger element.
+      // The legacy Zoho iframe overlay functions were removed in favor of Lunacal element-click behavior.
 
       document.addEventListener('click', function(e){
         var btn = e.target.closest('.isb-button a[data-block-id]');
         if(btn){
           var blockId = btn.getAttribute('data-block-id');
-          // booking toggle takes precedence
+          // booking toggle takes precedence — allow Lunacal to handle clicks on booking triggers
           if(btn.getAttribute('data-booking') === 'true'){
-            e.preventDefault();
-            openBooking(blockId);
+            // Lunacal will open the modal via its element-click API when the trigger has the
+            // required data-cal-* attributes. Do not preventDefault so Lunacal receives the click.
             return;
           }
 
@@ -225,6 +191,17 @@ Styling is kept inline so this section is self-contained and matches the provide
       // close on Escape
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); } });
     })();
+  </script>
+
+  <script>
+    // Lunacal element-click embed code begins
+    (function(L,U,N){let p=(a,ar)=>a.q.push(ar),d=L.document;L.Lunacal=L.Lunacal||function(){let lun=L.Lunacal,ar=arguments;if(!lun.loaded){lun.ns={};lun.q=lun.q||[];d.head.appendChild(d.createElement("script")).src=U;lun.loaded=!0}if(ar[0]===N){const api=function(){p(api,arguments)};const ns=ar[1];api.q=api.q||[];if(typeof ns==="string"){lun.ns[ns]=lun.ns[ns]||api;p(lun.ns[ns],ar);p(lun,["initNamespace",ns])}else p(lun,ar);return}p(lun,ar)};if(!L.Cal)L.Cal=L.Lunacal})(window,"https://app.lunacal.ai/embed/embed.js","init");
+    Lunacal("init","meeting",{origin:"https://app.lunacal.ai"});
+    Lunacal.config = Lunacal.config || {};
+    Lunacal.config.forwardQueryParams = true;
+    Lunacal.ns.meeting("preload", { calLink: "burosys/meeting", type: "modal", options: { prerenderIframe: true } });
+    Lunacal.ns.meeting("ui", {"theme":"dark","styles":{"branding":{}},"hideEventTypeDetails":false,"layout":"","cssVarsPerTheme":{"light":{"theme-border":"#1F1F1F","theme-background-primary":"#018CFF","theme-background-secondary":"#33353A","theme-background-card":"#090909","theme-background-base":"#090909","theme-text-primary":"#ffffff","theme-text-secondary":"#ffffff","theme-text-card":"#ffffff","theme-text-base":"#ffffff","theme-rounded-base":"12px","theme-rounded-calendar":"14px","theme-rounded-timeslot":"999px","theme-rounded-day":"999px","theme-rounded-button":"999px","theme-shadow-calendar":"1.5px 8.5px 4px 0px #0000001A","theme-shadow-button":"0px 0px 0px 0px #D1519A88","theme-shadow-timeslot":"0px 0px 0px 0px #000000","theme-font-family":"Outfit"},"dark":{"theme-border":"#1F1F1F","theme-background-primary":"#018CFF","theme-background-secondary":"#33353A","theme-background-card":"#090909","theme-background-base":"#090909","theme-text-primary":"#ffffff","theme-text-secondary":"#ffffff","theme-text-card":"#ffffff","theme-text-base":"#ffffff","theme-rounded-base":"12px","theme-rounded-calendar":"14px","theme-rounded-timeslot":"999px","theme-rounded-day":"999px","theme-rounded-button":"999px","theme-shadow-calendar":"1.5px 8.5px 4px 0px #0000001A","theme-shadow-button":"0px 0px 0px 0px #D1519A88","theme-shadow-timeslot":"0px 0px 0px 0px #000000","theme-font-family":"Outfit"}},"displayedContent":{"image":true,"name":true,"designation":true,"description":true,"eventName":true,"highlightBar":false},"background":{"type":"animated","presetId":"retro-grid"},"stylePreset":"blueshine"});
+    // Lunacal element-click embed code ends
   </script>
 
   {% schema %}

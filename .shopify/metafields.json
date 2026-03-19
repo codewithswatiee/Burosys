@@ -621,6 +621,26 @@
         "name": "single_line_text_field",
         "category": "TEXT"
       }
+    },
+    {
+      "key": "backrest-upholstery-color",
+      "namespace": "shopify",
+      "name": "Backrest upholstery color",
+      "description": "Identifies the color of the backrest upholstery on furniture, such as beige or blue",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "backrest-upholstery-material",
+      "namespace": "shopify",
+      "name": "Backrest upholstery material",
+      "description": "Identifies the fabric type on the backrest of furniture, such as velvet or wicker",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "variant": [

@@ -296,6 +296,7 @@
   .ss-button {
     padding: 12px 24px;
     font-size: 12px;
+    cursor: pointer;
   }
 
   .ss-main-image-wrap {

@@ -109,15 +109,15 @@
         "category_rxnetH": {
           "type": "category",
           "settings": {
-            "category_name": "Education",
-            "category_id": "education"
+            "category_name": "Residential",
+            "category_id": "residential"
           }
         },
-        "category_6nJNm4": {
+        "category_wwdDT7": {
           "type": "category",
           "settings": {
-            "category_name": "Healthcare",
-            "category_id": "healthcare"
+            "category_name": "Education",
+            "category_id": "education"
           }
         },
         "category_bLaRpe": {
@@ -130,36 +130,117 @@
         "image_item_97ytp8": {
           "type": "image_item",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
-            "caption": "Showroom in Sicily",
-            "link": "https://dooor.it/en/projects/showroom-in-sicily/",
+            "image": "shopify://shop_images/dooor_deloitte-bari-2-1024x731.jpg",
+            "caption": "Conference Room in Bari",
+            "link": "https://dooor.it/progetti/sala-conferenze-a-bari/",
             "categories": "workspace"
+          }
+        },
+        "image_item_Wbbq3V": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Dooor_BDCschool04-683x1024.jpg",
+            "caption": "BdC school",
+            "link": "https://dooor.it/en/projects/bdc-school/",
+            "categories": "education"
+          }
+        },
+        "image_item_ib467c": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/dooor_civic-centre-belforte-1-1024x683.jpg",
+            "caption": "Multipurpose Centre in Belforte",
+            "link": "https://dooor.it/en/projects/multipurpose-centre-in-belforte/",
+            "categories": "education"
+          }
+        },
+        "image_item_887Xza": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/quadratum-5-1024x683.jpg",
+            "caption": "Labirint School&Church in Bucharest",
+            "link": "https://dooor.it/en/projects/labirint-schoolchurch-a-bucharest/",
+            "categories": "education"
+          }
+        },
+        "image_item_T8gU6W": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/quadratum-5-1024x683.jpg",
+            "caption": "Labirint School&Church in Bucharest",
+            "link": "https://dooor.it/en/projects/labirint-schoolchurch-a-bucharest/",
+            "categories": "education"
+          }
+        },
+        "image_item_MxYnpn": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Dooor_Politecnico-Milan-5-1024x768.jpg",
+            "caption": "CRAFT – Politecnico di Milano",
+            "link": "https://dooor.it/en/projects/craft-politecnico-di-milano/",
+            "categories": "education"
           }
         },
         "image_item_UAznbJ": {
           "type": "image_item",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430104138_7f1543b5-969c-4e37-b282-1ae654a0edff.png",
-            "caption": "Apartment in New York - SYA",
+            "image": "shopify://shop_images/dooor_sicilcima-1-1024x878.jpg",
+            "caption": "Showroom in Sicily",
             "link": "https://dooor.it/en/projects/showroom-in-sicily/",
-            "categories": "retail"
+            "categories": "exhibition"
           }
         },
         "image_item_RrktBc": {
           "type": "image_item",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430104138_fbfd32a6-b2a9-4cca-9df3-fc34efdfb44d.png",
+            "image": "shopify://shop_images/dooor_brooklyn-flat-8-1024x682.jpg",
             "caption": "Apartment in New York - SYA",
-            "link": "",
-            "categories": "education"
+            "link": "https://dooor.it/progetti/appartamento-a-new-york-sya/",
+            "categories": "residential"
           }
         },
         "image_item_QLqBfV": {
           "type": "image_item",
           "settings": {
-            "image": "shopify://shop_images/Frame_1430104138_c6637ec8-4f58-4f88-b5c9-368c50a56495.png",
-            "caption": "Scattered  Hotel in Termoli",
-            "link": "",
+            "image": "shopify://shop_images/dooor_apartment-London_cover_1.jpg",
+            "caption": "Apartment in London",
+            "link": "https://dooor.it/progetti/appartamento-a-londra/",
+            "categories": "residential"
+          }
+        },
+        "image_item_KTL88f": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/dooor-milan-offices-7-1024x683.jpg",
+            "caption": "Offices in Milan",
+            "link": "https://dooor.it/en/projects/offices-in-milan/",
+            "categories": "workspace"
+          }
+        },
+        "image_item_WaFztT": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Dooor_Hotel_Speer-2-1024x576.jpg",
+            "caption": "Hotel in Switzerland",
+            "link": "https://dooor.it/en/projects/hotel-in-switzerland/",
+            "categories": "hospitality"
+          }
+        },
+        "image_item_4Xz6FF": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Dooor_MDW-2025-6-1024x682.jpg",
+            "caption": "Log in(to) Dooor – Salone del Mobile 2025",
+            "link": "https://dooor.it/en/projects/log-into-dooor-salone-del-mobile-2025/",
+            "categories": "exhibition"
+          }
+        },
+        "image_item_TUdecF": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/dooor_offices-new-york1-8-1.jpg",
+            "caption": "Playscape – Salone del Mobile 2024",
+            "link": "https://dooor.it/en/projects/playscape-salone-del-mobile-2024/",
             "categories": "exhibition"
           }
         }
@@ -169,12 +250,21 @@
         "category_t9h7xJ",
         "category_yJCidn",
         "category_rxnetH",
-        "category_6nJNm4",
+        "category_wwdDT7",
         "category_bLaRpe",
         "image_item_97ytp8",
+        "image_item_Wbbq3V",
+        "image_item_ib467c",
+        "image_item_887Xza",
+        "image_item_T8gU6W",
+        "image_item_MxYnpn",
         "image_item_UAznbJ",
         "image_item_RrktBc",
-        "image_item_QLqBfV"
+        "image_item_QLqBfV",
+        "image_item_KTL88f",
+        "image_item_WaFztT",
+        "image_item_4Xz6FF",
+        "image_item_TUdecF"
       ],
       "name": "Dooor Gallery",
       "settings": {

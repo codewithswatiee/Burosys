@@ -345,6 +345,54 @@ class ProductFormComponent extends Component {
 
     const formData = new FormData(form);
 
+    // Collect custom property inputs from product-custom-property-component blocks.
+    // These inputs live outside the <form> element and use the 'form' HTML attribute
+    // to associate with the product form. We explicitly collect them to ensure they're included.
+    const section = this.closest('.shopify-section');
+    const customPropertyInputs = section
+      ? section.querySelectorAll('product-custom-property-component input, product-custom-property-component textarea, product-custom-property-component select')
+      : document.querySelectorAll('product-custom-property-component input, product-custom-property-component textarea, product-custom-property-component select');
+
+    // console.log('[DEBUG] Found custom property inputs:', customPropertyInputs.length);
+
+    customPropertyInputs.forEach((input) => {
+      const inputEl = /** @type {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} */ (input);
+      // console.log('[DEBUG] Custom property input:', inputEl.name, '=', inputEl.value, 'type:', inputEl.type, 'form attr:', inputEl.getAttribute('form'));
+
+      if (inputEl.disabled || !inputEl.name) return;
+
+      // For checkboxes, only include if checked
+      if (inputEl instanceof HTMLInputElement && inputEl.type === 'checkbox') {
+        if (inputEl.checked) {
+          formData.set(inputEl.name, inputEl.value);
+        }
+        return;
+      }
+
+      // For text/textarea inputs, always set the value (overwrite any existing empty value)
+      formData.set(inputEl.name, inputEl.value);
+    });
+
+    // Also check for external inputs via the form attribute as a fallback
+    if (form.id) {
+      const externalInputs = document.querySelectorAll(
+        `input[form="${form.id}"][name*="properties"], textarea[form="${form.id}"][name*="properties"], select[form="${form.id}"][name*="properties"]`
+      );
+      externalInputs.forEach((input) => {
+        const inputEl = /** @type {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} */ (input);
+        if (inputEl.disabled || !inputEl.name) return;
+
+        if (inputEl instanceof HTMLInputElement && inputEl.type === 'checkbox') {
+          if (inputEl.checked) {
+            formData.set(inputEl.name, inputEl.value);
+          }
+          return;
+        }
+
+        formData.set(inputEl.name, inputEl.value);
+      });
+    }
+
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let cartItemComponentsSectionIds = [];
     cartItemsComponents.forEach((item) => {

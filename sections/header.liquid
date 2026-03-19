@@ -683,6 +683,10 @@
     }
   }
 
+  .header-actions__action:hover{
+    color: #FF4000
+  }
+
   /* Ensure smooth transitions for all interactive elements */
   header-menu,
   .header-actions__action,
@@ -934,6 +938,42 @@
       "type": "url",
       "id": "resources_link",
       "label": "Resources Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Wishlist & Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_wishlist",
+      "label": "Enable wishlist",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "wishlist_label",
+      "label": "Wishlist label",
+      "default": "Wishlist",
+      "visible_if": "{{ section.settings.enable_wishlist }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "wishlist_icon",
+      "label": "Wishlist icon",
+      "info": "Upload a custom icon for the wishlist (32x32 suggested)",
+      "visible_if": "{{ section.settings.enable_wishlist }}"
+    },
+    {
+      "type": "url",
+      "id": "wishlist_link",
+      "label": "Wishlist URL",
+      "visible_if": "{{ section.settings.enable_wishlist }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_icon",
+      "label": "Enable cart icon",
+      "default": true
     },
     {
       "type": "header",

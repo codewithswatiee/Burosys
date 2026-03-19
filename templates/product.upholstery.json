@@ -870,22 +870,19 @@
         "side_button_g9Xhm8": {
           "type": "side_button",
           "settings": {
-            "label": "Book an appointment",
-            "link": "#"
+            "label": "Book an appointment"
           }
         },
         "side_button_Lk4Wxx": {
           "type": "side_button",
           "settings": {
-            "label": "Contact us",
-            "link": "shopify://pages/contact"
+            "label": "Contact us"
           }
         },
         "side_button_6jX9Uz": {
           "type": "side_button",
           "settings": {
-            "label": "Request quote",
-            "link": "#"
+            "label": "Request quote"
           }
         }
       },
