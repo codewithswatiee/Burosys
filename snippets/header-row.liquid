@@ -67,7 +67,7 @@
             {% when 'search' %}
                     {{ search }}
                     {% if settings.enable_wishlist or settings.enable_cart_icon %}
-                      <span class="header-actions__post-search-inline">
+                      <span class="header-actions__post-search-inline header-actions__post-search-inline--search">
                         {% if settings.enable_wishlist %}
                           <a
                             href="{{ settings.wishlist_link | default: '#' }}"
@@ -110,46 +110,43 @@
               {{ mobile_search }}
             {% when 'actions' %}
               {{ actions }}
-              {% if rendered_search_icons == false %}
-                <span class="header-actions__post-search-inline">
-                  {% if settings.enable_wishlist %}
-                    <a
-                      href="{{ settings.wishlist_link | default: '#' }}"
-                      class="header-actions__action header-actions__wishlist"
-                      aria-label="{{ settings.wishlist_label | default: 'Wishlist' }}"
-                    >
-                      {% if settings.wishlist_icon != blank %}
-                        <img src="{{ settings.wishlist_icon | image_url: width: 32 }}" alt="{{ settings.wishlist_label | default: 'Wishlist' }}" class="header-actions__wishlist-img"/>
+              <span class="header-actions__post-search-inline header-actions__post-search-inline--actions">
+                {% if settings.enable_wishlist %}
+                  <a
+                    href="{{ settings.wishlist_link | default: '#' }}"
+                    class="header-actions__action header-actions__wishlist"
+                    aria-label="{{ settings.wishlist_label | default: 'Wishlist' }}"
+                  >
+                    {% if settings.wishlist_icon != blank %}
+                      <img src="{{ settings.wishlist_icon | image_url: width: 32 }}" alt="{{ settings.wishlist_label | default: 'Wishlist' }}" class="header-actions__wishlist-img"/>
+                    {% else %}
+                      {% capture heart_svg %}{{ 'icon-heart.svg' | inline_asset_content }}{% endcapture %}
+                      {% if heart_svg != blank %}
+                        <span class="svg-wrapper" aria-hidden="true">{{ heart_svg }}</span>
                       {% else %}
-                        {% capture heart_svg %}{{ 'icon-heart.svg' | inline_asset_content }}{% endcapture %}
-                        {% if heart_svg != blank %}
-                          <span class="svg-wrapper" aria-hidden="true">{{ heart_svg }}</span>
-                        {% else %}
-                          <span class="header-actions__wishlist-fallback">
-                            {{ 'icon-heart.svg' | inline_asset_content }}
-                          </span>
-                        {% endif %}
-                      {% endif %}
-                    </a>
-                  {% endif %}
-
-                  {% if settings.enable_cart_icon %}
-                    <a
-                      href="{{ routes.cart_url }}"
-                      class="header-actions__action header-actions__cart-icon-link"
-                      aria-label="Cart"
-                    >
-                      <span class="header-actions__cart-icon header-actions__cart-icon--static" aria-hidden="true">
-                        <span class="svg-wrapper" aria-hidden="true">
-                          {{ 'icon-cart.svg' | inline_asset_content }}
+                        <span class="header-actions__wishlist-fallback">
+                          {{ 'icon-heart.svg' | inline_asset_content }}
                         </span>
-                        {% render 'cart-bubble', limit: 100, live_region: true, test_id: test_id %}
+                      {% endif %}
+                    {% endif %}
+                  </a>
+                {% endif %}
+
+                {% if settings.enable_cart_icon %}
+                  <a
+                    href="{{ routes.cart_url }}"
+                    class="header-actions__action header-actions__cart-icon-link"
+                    aria-label="Cart"
+                  >
+                    <span class="header-actions__cart-icon header-actions__cart-icon--static" aria-hidden="true">
+                      <span class="svg-wrapper" aria-hidden="true">
+                        {{ 'icon-cart.svg' | inline_asset_content }}
                       </span>
-                    </a>
-                  {% endif %}
-                </span>
-                {% assign rendered_search_icons = true %}
-              {% endif %}
+                      {% render 'cart-bubble', limit: 100, live_region: true, test_id: test_id %}
+                    </span>
+                  </a>
+                {% endif %}
+              </span>
             {% when 'app_blocks' %}
               {{ app_blocks }}
           {% endcase %}

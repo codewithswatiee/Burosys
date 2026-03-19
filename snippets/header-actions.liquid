@@ -566,6 +566,10 @@
     align-items: center;
   }
 
+  .header-actions__post-search-inline--actions {
+    display: none;
+  }
+
   .header-actions__post-search-inline .header-actions__wishlist {
     display: inline-flex;
     align-items: center;
@@ -614,7 +618,20 @@
 
   @media screen and (max-width: 749px) {
     .header-actions__post-search-inline {
+      display: inline-flex !important;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .header-actions__post-search-inline--search {
       display: none !important;
+    }
+
+    .header-actions__post-search-inline--actions {
+      display: inline-flex !important;
+      justify-content: flex-end;
+      margin-left: auto;
+      transform: translateX(20px);
     }
   }
 
@@ -693,24 +710,26 @@
 
   /* Mobile: simplify header to only show hamburger, logo and search button */
   @media screen and (max-width: 749px) {
-    /* Hide all action items except the search button */
-    .header-actions__action {
+    /* Hide desktop-style links and account controls on mobile */
+    header-actions .header-actions__action,
+    header-actions .account-popover,
+    header-actions .account-drawer,
+    header-actions .account-button {
       display: none !important;
     }
 
-    
-
-    /* Keep the search button visible */
+    /* Keep the search trigger visible on the left side */
     .search-modal__button.header-actions__action,
     .search-modal__button {
       display: inline-flex !important;
       align-items: center;
       justify-content: center;
+      transform: translateX(-10px);
     }
 
-    /* Ensure stories link and cart icon stay hidden on mobile */
+    /* Ensure stories/resource/account controls stay hidden on mobile */
     .header-actions__stories-link,
-    .header-actions__cart-icon,
+    .header-actions__resources-link,
     .account-button {
       display: none !important;
     }
